@@ -103,3 +103,9 @@ export const siteConfig = {
     }
   }
 }
+
+export const APP_CONFIG = {
+  ENV: {
+    IS_PRODUCTION: process.env?.IS_PRODUCTION?.toLowerCase?.() === 'true' || false
+  }
+}
