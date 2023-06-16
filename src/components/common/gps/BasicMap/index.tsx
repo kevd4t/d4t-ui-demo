@@ -2,6 +2,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import 'leaflet-defaulticon-compatibility'
+import { Badge } from '@/components/ui'
 
 const BasicMap = () => {
   const initialPosition = { lat: 10.4985458, lng: -66.8510023 }
@@ -15,12 +16,21 @@ const BasicMap = () => {
       />
 
       <Marker position={markerPosition}>
-        <Popup className='w-32'>
+        <Popup className='relative'>
           <img
             src='/images/estacion-origen.png'
             alt='estacion origen'
-            className='rounded-t-md  object-cover'
+            className='rounded-sm  object-cover'
           />
+
+          <div className='absolute top-3 right-3.5'>
+            <Badge>Almacenamiento</Badge>
+          </div>
+
+          <div className='absolute bottom-3 left-4'>
+            <span className='font-semibold text-white text-lg'>Estacion Palito</span> <br />
+            <span className='font-semibold text-white text-sm'>Las Mercedes, Caracas</span>
+          </div>
         </Popup>
       </Marker>
     </MapContainer>
