@@ -7,12 +7,12 @@ import { Badge } from '@/components/ui'
 const BasicMap = () => {
   const initialPosition = { lat: 10.2951745, lng: -67.2647287 }
 
-  const originMarkerPosition = { lat: 10.474600249467448, lng: -68.11135802862464 }
+  const originMarkerPosition = { lat: 10.481458862889902, lng: -68.12522428434946 }
 
   const destionationPostionMarker = { lat: 10.4844962, lng: -66.8650018 }
 
   const polylinePositions = [
-    { lat: 10.474600249467448, lng: -68.11135802862464 },
+    { lat: 10.481458862889902, lng: -68.12522428434946 },
     { lat: 10.4844962, lng: -66.8650018 }
   ]
 
@@ -32,13 +32,13 @@ const BasicMap = () => {
           />
 
           <div className='absolute top-3.5 right-3.5'>
-            <Badge>Almacenamiento</Badge>
+            <Badge>Surtido</Badge>
           </div>
 
           <div className='absolute bottom-2 left-2.5 px-2 pb-2 bg-gradient-to-t from-black w-[184px] rounded-sm'>
             <div className=' leading-[8px] text-white text-sm'>
-              <span className='font-semibold text-lg'>Estacion Palito</span> <br />
-              <span className='text-xs leading-[8px]'>El Palito, Carabobo</span>
+              <span className='font-semibold text-lg'>Estacion El Palito</span> <br />
+              <span className='text-xs leading-[8px]'>El Palito, Yaracuy</span>
             </div>
           </div>
         </Popup>

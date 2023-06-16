@@ -167,7 +167,7 @@ export const DetailInfo = () => {
               id='originStationName'
               label='Nombre'
               readOnly
-              value='Estacion Palito'
+              value='Estacion El Palito'
               classNameContainer='w-full'
             />
 
@@ -185,9 +185,9 @@ export const DetailInfo = () => {
           <div className='flex justify-between items-start gap-x-4 mt-2'>
             <Input
               id='originStationCity'
-              label='Ciudad'
+              label='Estado'
               readOnly
-              value='El Palito'
+              value='Yaracuy'
               classNameContainer='w-full'
             />
 

@@ -51,7 +51,7 @@ export const CardDetailStation = () => {
             />
           </div>
 
-          <div className='flex justify-between items-start mt-2'>
+          <div className='w-full flex justify-between items-start mt-2'>
             <TextArea
               id='reference'
               className='w-full'
