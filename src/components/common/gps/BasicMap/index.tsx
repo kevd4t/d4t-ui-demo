@@ -16,20 +16,22 @@ const BasicMap = () => {
       />
 
       <Marker position={markerPosition}>
-        <Popup className='relative'>
+        <Popup className='relative '>
           <img
             src='/images/estacion-origen.png'
             alt='estacion origen'
             className='rounded-sm  object-cover'
           />
 
-          <div className='absolute top-3 right-3.5'>
+          <div className='absolute top-3.5 right-3.5'>
             <Badge>Almacenamiento</Badge>
           </div>
 
-          <div className='absolute bottom-3 left-4'>
-            <span className='font-semibold text-white text-lg'>Estacion Palito</span> <br />
-            <span className='font-semibold text-white text-sm'>Las Mercedes, Caracas</span>
+          <div className='absolute bottom-2 left-2.5 px-2 pb-2 bg-gradient-to-t from-black w-[184px] rounded-sm'>
+            <div className=' leading-[8px] text-white text-sm'>
+              <span className='font-semibold text-lg'>Estacion Palito</span> <br />
+              <span className='text-xs leading-[8px]'>Las Mercedes, Caracas</span>
+            </div>
           </div>
         </Popup>
       </Marker>
