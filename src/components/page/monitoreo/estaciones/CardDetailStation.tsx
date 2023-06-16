@@ -29,7 +29,7 @@ export const CardDetailStation = () => {
 
             <Input
               id='status'
-              label='Estado'
+              label='Estatus'
               readOnly
               value='Lorem ipsum dolor'
             />
@@ -38,9 +38,9 @@ export const CardDetailStation = () => {
           <div className='flex justify-between items-start gap-x-4'>
             <Input
               id='city'
-              label='Ciudad'
+              label='Estado'
               readOnly
-              value='Lorem ipsum dolor'
+              value='Distrito Federal'
             />
 
             <Input

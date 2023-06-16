@@ -240,9 +240,9 @@ export const DetailInfo = () => {
           <div className='flex justify-between items-start gap-x-4 mt-2'>
             <Input
               id='destinyStationCity'
-              label='Ciudad'
+              label='Estado'
               readOnly
-              value='Caracas'
+              value='Distrito Federal'
               classNameContainer='w-full'
             />
 
