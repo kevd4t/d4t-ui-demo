@@ -83,6 +83,9 @@ dependencies:
   date-fns:
     specifier: 2.30.0
     version: 2.30.0
+  dotenv:
+    specifier: ^16.2.0
+    version: 16.2.0
   leaflet:
     specifier: ^1.9.4
     version: 1.9.4
@@ -2435,6 +2438,11 @@ packages:
     dependencies:
       esutils: 2.0.3
     dev: true
+
+  /dotenv@16.2.0:
+    resolution: {integrity: sha512-jcq2vR1DY1+QA+vH58RIrWLDZOifTGmyQJWzP9arDUbgZcySdzuBb1WvhWZzZtiXgfm+GW2pjBqStqlfpzq7wQ==}
+    engines: {node: '>=12'}
+    dev: false
 
   /electron-to-chromium@1.4.413:
     resolution: {integrity: sha512-Gd+/OAhRca06dkVxIQo/W7dr6Nmk9cx6lQdZ19GvFp51k5B/lUAokm6SJfNkdV8kFLsC3Z4sLTyEHWCnB1Efbw==}

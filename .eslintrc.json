@@ -30,6 +30,7 @@
     "keyword-spacing": "warn",
     "comma-dangle": "warn",
     "object-curly-spacing": "warn",
-    "no-trailing-spaces": "warn"
+    "no-trailing-spaces": "warn",
+    "space-before-function-paren": "warn"
   }
 }

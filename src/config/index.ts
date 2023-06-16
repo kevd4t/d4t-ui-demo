@@ -1,3 +1,5 @@
+import 'dotenv/config'
+
 export const siteConfig = {
   TITLE: 'D4T Platform',
   ROUTES: {
@@ -106,6 +108,6 @@ export const siteConfig = {
 
 export const APP_CONFIG = {
   ENV: {
-    IS_PRODUCTION: process.env?.IS_PRODUCTION?.toLowerCase?.() === 'true' || false
+    IS_PRODUCTION: process?.env?.IS_PRODUCTION?.toLowerCase?.() === 'true' || false
   }
 }
