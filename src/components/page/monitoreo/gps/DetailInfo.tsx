@@ -1,4 +1,6 @@
 import { Input } from '@/components/common/inputs/Input'
+import { TextArea } from '@/components/common/textarea'
+import { Badge, Button, Label } from '@/components/ui'
 
 export const DetailInfo = () => {
   return (
@@ -6,14 +8,14 @@ export const DetailInfo = () => {
       <article className='max-h-[calc(100vh-100px)] overflow-y-scroll bg-white dark:bg-dark rounded-md shadow-lg pb-4'>
         <section className='w-full'>
           <img
-            src='/images/estacion-origen.png'
+            src='/images/unidad-cisterna.png'
             alt='estacion origen'
             className='w-full rounded-t-md h-40 object-cover'
           />
 
           <div className='w-full'>
             <img
-              src='/images/user-rounded.png'
+              src='/images/driver.png'
               alt='estacion origen'
               className='object-cover w-20 -mt-10 mx-auto'
             />
@@ -30,14 +32,14 @@ export const DetailInfo = () => {
               id='driverInfoName'
               label='Nombre'
               readOnly
-              value='Lorem ipsum dolor'
+              value='Brayan'
             />
 
             <Input
               id='driverInfoLastName'
               label='Apellido'
               readOnly
-              value='Lorem ipsum dolor'
+              value='Lorenzo'
             />
           </div>
 
@@ -62,41 +64,35 @@ export const DetailInfo = () => {
               id='truckInfoName'
               label='Nombre'
               readOnly
-              value='Lorem ipsum dolor'
+              value='Unidad 34'
             />
 
             <Input
               id='truckInfoNumberRegistration'
               label='Matricula'
               readOnly
-              value='Lorem ipsum dolor'
+              value='A8BN4X'
             />
           </div>
 
           <div className='flex justify-between items-start gap-x-4'>
-            <Input
-              id='truckInfoType'
-              label='Tipo'
-              readOnly
-              value='Lorem ipsum dolor'
-            />
+            <div className='w-full flex flex-col justify-between items-start mt-2'>
+              <Label>Tipo</Label>
 
-            <Input
-              id='truckInfoFleet'
-              label='Flota'
-              readOnly
-              value='Lorem ipsum dolor'
-            />
-          </div>
+              <Badge className='w-full text-sm py-2 mt-2'>
+                Almacenamiento
+              </Badge>
+            </div>
 
-          <div className='flex justify-between items-start mt-2'>
-            <Input
-              id='truckInfoStatus'
-              classNameContainer='w-full'
-              label='Estatus'
-              readOnly
-              value='Operativo'
-            />
+            <div className='w-full flex flex-col justify-between items-start mt-2'>
+              <Label>
+              Estatus
+              </Label>
+
+              <Badge className='w-full text-sm py-2 mt-2 bg-green-100 border-green-500 text-green-500'>
+              Operativo
+              </Badge>
+            </div>
           </div>
         </section>
 
@@ -110,15 +106,19 @@ export const DetailInfo = () => {
               id='fleetInfoName'
               label='Nombre'
               readOnly
-              value='Lorem ipsum dolor'
+              value='Flota 99'
+              classNameContainer='w-full'
             />
 
-            <Input
-              id='fleetInfoStatus'
-              label='Estatus'
-              readOnly
-              value='Operativo'
-            />
+            <div className='w-full flex flex-col justify-between items-start mt-2'>
+              <Label>
+              Estatus
+              </Label>
+
+              <Badge className='w-full text-sm py-2 mt-2 bg-green-100 border-green-500 text-green-500'>
+              Operativo
+              </Badge>
+            </div>
           </div>
 
         </section>
@@ -145,13 +145,15 @@ export const DetailInfo = () => {
           </div>
 
           <div className='flex justify-between items-start mt-2'>
-            <Input
-              id='originStationStatus'
-              classNameContainer='w-full'
-              label='Estatus'
-              readOnly
-              value='Operativo'
-            />
+            <div className='w-full flex flex-col justify-between items-start mt-2'>
+              <Label>
+              Estatus
+              </Label>
+
+              <Badge className='w-full text-sm py-2 mt-2 bg-green-100 border-green-500 text-green-500'>
+              Operativo
+              </Badge>
+            </div>
           </div>
         </section>
 
@@ -165,35 +167,42 @@ export const DetailInfo = () => {
               id='originStationName'
               label='Nombre'
               readOnly
-              value='Lorem ipsum dolor'
+              value='Estacion Palito'
+              classNameContainer='w-full'
             />
 
-            <Input
-              id='originStationStatus'
-              label='Estado'
-              readOnly
-              value='Lorem ipsum dolor'
-            />
+            <div className='w-full flex flex-col justify-between items-start mt-2'>
+              <Label>
+              Estatus
+              </Label>
+
+              <Badge className='w-full text-sm py-2 mt-2 bg-green-100 border-green-500 text-green-500'>
+              Operativo
+              </Badge>
+            </div>
           </div>
 
-          <div className='flex justify-between items-start gap-x-4'>
+          <div className='flex justify-between items-start gap-x-4 mt-2'>
             <Input
               id='originStationCity'
               label='Ciudad'
               readOnly
-              value='Lorem ipsum dolor'
+              value='El Palito'
+              classNameContainer='w-full'
             />
 
-            <Input
-              id='originStationType'
-              label='Tipo'
-              readOnly
-              value='Almacenamiento'
-            />
+            <div className='w-full flex flex-col justify-between items-start mt-2'>
+              <Label>Tipo</Label>
+
+              <Badge className='w-full text-sm py-2 mt-2'>
+                Almacenamiento
+              </Badge>
+            </div>
+
           </div>
 
           <div className='flex justify-between items-start mt-2'>
-            <Input
+            <TextArea
               id='originStationReference'
               classNameContainer='w-full'
               label='Referencia'
@@ -213,35 +222,42 @@ export const DetailInfo = () => {
               id='destinyStationName'
               label='Nombre'
               readOnly
-              value='Lorem ipsum dolor'
+              value='PDV Mercedes'
+              classNameContainer='w-full'
             />
 
-            <Input
-              id='destinyStationState'
-              label='Estado'
-              readOnly
-              value='Lorem ipsum dolor'
-            />
+            <div className='w-full flex flex-col justify-between items-start mt-2'>
+              <Label>
+              Estatus
+              </Label>
+
+              <Badge className='w-full text-sm py-2 mt-2 bg-green-100 border-green-500 text-green-500'>
+              Operativo
+              </Badge>
+            </div>
           </div>
 
-          <div className='flex justify-between items-start gap-x-4'>
+          <div className='flex justify-between items-start gap-x-4 mt-2'>
             <Input
               id='destinyStationCity'
               label='Ciudad'
               readOnly
-              value='Lorem ipsum dolor'
+              value='Caracas'
+              classNameContainer='w-full'
             />
 
-            <Input
-              id='destinyStationType'
-              label='Tipo'
-              readOnly
-              value='Surtido'
-            />
+            <div className='w-full flex flex-col justify-between items-start mt-2'>
+              <Label>Tipo</Label>
+
+              <Badge className='w-full text-sm py-2 mt-2'>
+                Almacenamiento
+              </Badge>
+            </div>
+
           </div>
 
           <div className='flex justify-between items-start mt-2'>
-            <Input
+            <TextArea
               id='destinyStationReference'
               classNameContainer='w-full'
               label='Referencia'
@@ -266,17 +282,18 @@ export const DetailInfo = () => {
             />
           </div>
 
-          <div className='flex justify-between items-start mt-2'>
-            <label className='block'>
-              <span className='sr-only'>Choose profile photo</span>
-              <input type='file' className='block w-full text-sm text-slate-500
-                file:mr-4 file:py-2 file:px-4
-                file:rounded-full file:border-0
-                file:text-sm file:font-semibold
-                file:bg-violet-50 file:text-violet-700
-                hover:file:bg-violet-100
-              '/>
-            </label>
+          <div className='flex flex-col justify-between items-start mt-2'>
+            <div className='w-full h-full px-4 py-6 flex justify-center items-center bg-slate-200 rounded-md'>
+              <img
+                src='/images/asset-pdf.png'
+                alt='pdf'
+                className='w-16'
+              />
+            </div>
+
+            <Button className='w-full mt-2'>
+              Descargar Guia
+            </Button>
           </div>
         </section>
       </article>

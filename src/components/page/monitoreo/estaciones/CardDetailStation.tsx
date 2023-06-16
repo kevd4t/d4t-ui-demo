@@ -1,6 +1,6 @@
 import { Card } from '@/components/common/cards'
 import { Input } from '@/components/common/inputs/Input'
-import { Textarea } from '@/components/common/textarea'
+import { TextArea } from '@/components/common/textarea'
 
 export const CardDetailStation = () => {
   return (
@@ -52,7 +52,7 @@ export const CardDetailStation = () => {
           </div>
 
           <div className='flex justify-between items-start mt-2'>
-            <Textarea
+            <TextArea
               id='reference'
               className='w-full'
               label='Referencia'

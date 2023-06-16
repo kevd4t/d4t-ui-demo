@@ -18,7 +18,7 @@ const GPSMonitoringPage = () => {
       <BasicMapNoSSR />
       <DetailInfo />
 
-      <div className='fixed bottom-4 left-80 z-10 flex gap-x-5'>
+      <div className='fixed bottom-4 left-72 z-10 flex gap-x-5'>
         <Button className='flex justify-start items-center'>
           <IconChevronLeft className='h-5' /> Regresar
         </Button>

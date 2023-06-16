@@ -1,12 +1,20 @@
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import 'leaflet-defaulticon-compatibility'
 import { Badge } from '@/components/ui'
 
 const BasicMap = () => {
-  const initialPosition = { lat: 10.4985458, lng: -66.8510023 }
-  const markerPosition = { lat: 10.483191, lng: -66.861999 }
+  const initialPosition = { lat: 10.2951745, lng: -67.2647287 }
+
+  const originMarkerPosition = { lat: 10.474600249467448, lng: -68.11135802862464 }
+
+  const destionationPostionMarker = { lat: 10.4844962, lng: -66.8650018 }
+
+  const polylinePositions = [
+    { lat: 10.474600249467448, lng: -68.11135802862464 },
+    { lat: 10.4844962, lng: -66.8650018 }
+  ]
 
   return (
     <MapContainer center={initialPosition} zoom={10} scrollWheelZoom={true} className='w-full h-full fixed top-0 right-0' style={{ zIndex: 0 }}>
@@ -15,12 +23,12 @@ const BasicMap = () => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      <Marker position={markerPosition}>
+      <Marker position={originMarkerPosition}>
         <Popup className='relative '>
           <img
-            src='/images/estacion-origen.png'
+            src='/images/palito-station.jpg'
             alt='estacion origen'
-            className='rounded-sm  object-cover'
+            className='rounded-sm object-cover'
           />
 
           <div className='absolute top-3.5 right-3.5'>
@@ -30,6 +38,29 @@ const BasicMap = () => {
           <div className='absolute bottom-2 left-2.5 px-2 pb-2 bg-gradient-to-t from-black w-[184px] rounded-sm'>
             <div className=' leading-[8px] text-white text-sm'>
               <span className='font-semibold text-lg'>Estacion Palito</span> <br />
+              <span className='text-xs leading-[8px]'>El Palito, Carabobo</span>
+            </div>
+          </div>
+        </Popup>
+      </Marker>
+
+      <Polyline color='#220bb9' positions={polylinePositions} />
+
+      <Marker position={destionationPostionMarker}>
+        <Popup className='relative '>
+          <img
+            src='/images/mercedes-station.jpg'
+            alt='estacion origen'
+            className='rounded-sm object-cover'
+          />
+
+          <div className='absolute top-3.5 right-3.5'>
+            <Badge>Surtido</Badge>
+          </div>
+
+          <div className='absolute bottom-2 left-2.5 px-2 pb-2 bg-gradient-to-t from-black w-[184px] rounded-sm'>
+            <div className=' leading-[8px] text-white text-sm'>
+              <span className='font-semibold text-lg truncate'>PDV Las Mercedes</span> <br />
               <span className='text-xs leading-[8px]'>Las Mercedes, Caracas</span>
             </div>
           </div>
