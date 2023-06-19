@@ -2,7 +2,7 @@ export type DashboardModuleRoutes = '/dashboard'
 
 export type AuthenticationModuleRoutes = '/iniciar-sesion' | '/recuperar-cuenta'
 
-export type UsersModuleRoutes = '/usuarios' | '/usuarios/crear'
+export type UsersModuleRoutes = '/usuarios' | '/usuarios/crear' | '/usuarios/grupos' | '/usuarios/grupos/crear'
 
 export type MonitoringModuleRoutes = '/monitoreo/rutas' | '/monitoreo/rutas/33' | '/monitoreo/estaciones' | '/monitoreo/estaciones/33' // TODO: Remove detail
 
