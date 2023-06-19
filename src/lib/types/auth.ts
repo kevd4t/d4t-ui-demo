@@ -1,32 +1,20 @@
-/* eslint-disable no-unused-vars */
 import { IGenericFetchReturn } from './http'
-
-export enum ERole {
-  ADMIN = 'ADMIN'
-}
-
-export interface IRole {
-  title: ERole.ADMIN
-  users: []
-  createdAt: string
-  updatedAt: string
-  id: string
-}
+import { TRole } from './roles'
 
 export interface IAuth {
   id: string
+  name: string
+  lastname: string
   email: string
-  firstName: string
-  lastName: string
-  password: string
-  isDeleted: boolean,
-  picture: string | null
-  phone: string | null
-  roles: IRole[]
+  ci: string
+  photo: string | null
+  phone: string
+  role: TRole
+  isActive: boolean
+  refreshToken: string
+  accessToken: string
   createdAt: string
   updatedAt: string
-  accessToken: string
-  refreshToken: string
 }
 
 export interface IReturnAuth extends IGenericFetchReturn {

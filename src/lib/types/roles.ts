@@ -1,0 +1,1 @@
+export type TRole = 'OPERATOR' | 'SUPERVISOR' | 'COORDINATOR' | 'ADMINISTRATOR'
