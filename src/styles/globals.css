@@ -98,8 +98,8 @@
     /* display: grid; */
     /* grid-template-columns: 250px minmax(0,1fr); */
     display: flex;
-    justify-content: start;
-    align-items: start;
+    justify-content: flex-start;
+    align-items: flex-start;
   }
 
   .authLayout_sidebar {
