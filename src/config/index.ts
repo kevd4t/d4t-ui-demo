@@ -10,7 +10,11 @@ export const siteConfig = {
     USERS: {
       LIST: { TITLE: 'Usuarios' },
       CREATE: { TITLE: 'Crear Usuario' },
-      EDIT: { TITLE: 'Editar Usuario' }
+      EDIT: { TITLE: 'Editar Usuario' },
+      GROUPS: {
+        CREATE: { TITLE: 'Crear Grupos de Usuarios' },
+        LIST: { TITLE: 'Grupos de Usuarios' }
+      }
     },
 
     ASSORTMENT: {
