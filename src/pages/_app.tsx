@@ -1,4 +1,5 @@
 import { Analytics } from '@vercel/analytics/react'
+import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from 'next-themes'
 import { Toaster } from 'sonner'
 
@@ -9,19 +10,22 @@ import { APP_CONFIG } from '@/config'
 import { LoadingPage } from '@/components/layout/common/LoadingPage'
 import '@/styles/globals.css'
 
-export default function EcommerceAdminApp ({ Component, pageProps }: AppPropsWithLayout) {
+export default function D4TErpApp ({ Component, pageProps: { session, ...pageProps } }: AppPropsWithLayout) {
   const { isRouteChanging, loadingKey } = useLoadingPage()
 
   const getLayout = Component.getLayout ?? ((page) => page)
 
   return (
-    <ThemeProvider attribute='class'>
-      <LoadingPage isRouteChanging={isRouteChanging} key={loadingKey} />
-      <Toaster richColors />
+    <SessionProvider session={session}>
+      <ThemeProvider attribute='class'>
+        <LoadingPage isRouteChanging={isRouteChanging} key={loadingKey} />
 
-      { getLayout(<Component {...pageProps} />) }
+        { getLayout(<Component {...pageProps} />) }
+        { APP_CONFIG.ENV.IS_PRODUCTION && <Analytics /> }
 
-      { APP_CONFIG.ENV.IS_PRODUCTION && <Analytics /> }
-    </ThemeProvider>
+        <Toaster richColors />
+      </ThemeProvider>
+    </SessionProvider>
+
   )
 }
