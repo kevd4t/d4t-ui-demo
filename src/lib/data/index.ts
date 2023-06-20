@@ -100,8 +100,11 @@ const fakeUsers = [
     id: 1,
     name: 'Kevin',
     lastname: 'Blanco',
+    ci: '26.567.324',
+    phone: '(0412)-3285323',
     email: 'k.blanco@d4t.tech',
     role: 'OPERATOR',
+    isActive: true,
     token: crypto.randomUUID(),
     group: fakeGroupsUser[0]
   },
@@ -109,26 +112,35 @@ const fakeUsers = [
     id: 2,
     name: 'Kevin',
     lastname: 'Sanchez',
-    email: 'k.blanco@d4t.tech',
+    ci: '87.436.283',
+    phone: '(0416)-4357213',
+    email: 'k.sanchez@d4t.tech',
     role: 'SUPERVISOR',
+    isActive: false,
     token: crypto.randomUUID(),
     group: fakeGroupsUser[1]
   },
   {
     id: 3,
-    name: 'Kevin',
-    lastname: 'Sanchez',
-    email: 'k.blanco@d4t.tech',
+    name: 'Danilo',
+    lastname: 'Torento',
+    ci: '43.356.824',
+    phone: '(0424)-7887432',
+    email: 'danilo@gmail.com',
     role: 'COORDINATOR',
+    isActive: true,
     token: crypto.randomUUID(),
     group: fakeGroupsUser[3]
   },
   {
     id: 4,
-    name: 'Kevin',
-    lastname: 'Sanchez',
-    email: 'k.blanco@d4t.tech',
+    name: 'Brandon',
+    lastname: 'Rodriguez',
+    ci: '64.347.341',
+    phone: '(0416)-3514364',
+    email: 'brandonr4op@hotmail.com',
     role: 'ADMINISTRATOR',
+    isActive: true,
     token: crypto.randomUUID(),
     group: fakeGroupsUser[4]
   },
@@ -136,8 +148,11 @@ const fakeUsers = [
     id: 5,
     name: 'Daniela',
     lastname: 'Perez',
+    ci: '56.545.534',
+    phone: '(0412)-8730594',
     email: 'd.perez@d4t.tech',
     role: 'ADMINISTRATOR',
+    isActive: true,
     token: crypto.randomUUID(),
     group: fakeGroupsUser[4]
   },
@@ -145,8 +160,11 @@ const fakeUsers = [
     id: 6,
     name: 'Jhon',
     lastname: 'Smith',
+    ci: '65.334.545',
+    phone: '(0414)-8634572',
     email: 'j.smith@example.com',
     role: 'OPERATOR',
+    isActive: false,
     token: crypto.randomUUID(),
     group: fakeGroupsUser[0]
   },
@@ -154,8 +172,11 @@ const fakeUsers = [
     id: 7,
     name: 'Maribel',
     lastname: 'Cabarcas',
+    ci: '11.235.763',
+    phone: '(0414)-2346123',
     email: 'maribel@gmail.com',
     role: 'SUPERVISOR',
+    isActive: true,
     token: crypto.randomUUID(),
     group: fakeGroupsUser[2]
   },
@@ -163,8 +184,11 @@ const fakeUsers = [
     id: 8,
     name: 'Maria',
     lastname: 'Juanes',
+    ci: '88.432.456',
+    phone: '(0424)-7859458',
     email: 'mariajuanes@gmail.com',
     role: 'COORDINATOR',
+    isActive: true,
     token: crypto.randomUUID(),
     group: fakeGroupsUser[3]
   },
@@ -172,8 +196,35 @@ const fakeUsers = [
     id: 9,
     name: 'Jose',
     lastname: 'Idalgo',
+    ci: '26.444.745',
+    phone: '(0414)-0983451',
     email: 'j.idalgo@example.com',
     role: 'ADMINISTRATOR',
+    isActive: true,
+    token: crypto.randomUUID(),
+    group: fakeGroupsUser[4]
+  },
+  {
+    id: 10,
+    name: 'Crisbely',
+    lastname: 'Mares',
+    ci: '86.34.125',
+    phone: '(0424)-1257654',
+    email: 'j.idalgo@example.com',
+    role: 'ADMINISTRATOR',
+    isActive: true,
+    token: crypto.randomUUID(),
+    group: fakeGroupsUser[4]
+  },
+  {
+    id: 11,
+    name: 'Pedro',
+    lastname: 'Blanco',
+    ci: '9.656.345',
+    phone: '(0412)-7451653',
+    email: 'j.idalgo@example.com',
+    role: 'ADMINISTRATOR',
+    isActive: true,
     token: crypto.randomUUID(),
     group: fakeGroupsUser[4]
   }
@@ -276,4 +327,4 @@ const FAKE_DATA_DIC = {
   METER_MODELS: () => meterMarks.find(meterMark => meterMark.models)
 }
 
-export const getFakeData = (typeData: TypeData) => FAKE_DATA_DIC[typeData]()
+export const getFakeData = (typeData: TypeData): any[] => FAKE_DATA_DIC[typeData]()

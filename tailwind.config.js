@@ -11,6 +11,9 @@ module.exports = {
       }
     },
     extend: {
+      screens: {
+        lg: '1040px'
+      },
       backgroundColor: {
         dark: 'hsl(var(--background))',
         'dark-hover': '#0f1629'

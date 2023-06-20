@@ -11,6 +11,7 @@ export const siteConfig = {
       LIST: { TITLE: 'Usuarios' },
       CREATE: { TITLE: 'Crear Usuario' },
       EDIT: { TITLE: 'Editar Usuario' },
+      DETAIL: { TITLE: 'Detalle de Usuario' },
       GROUPS: {
         CREATE: { TITLE: 'Crear Grupos de Usuarios' },
         LIST: { TITLE: 'Grupos de Usuarios' }
@@ -113,5 +114,29 @@ export const siteConfig = {
 export const APP_CONFIG = {
   ENV: {
     IS_PRODUCTION: process?.env?.IS_PRODUCTION?.toLowerCase?.() === 'true' || false
-  }
+  },
+  ROLES_DIC: {
+    OPERATOR: { label: 'Operador', key: 'OPERATOR' },
+    SUPERVISOR: { label: 'Supervisor', key: 'SUPERVISOR' },
+    COORDINATOR: { label: 'Coordinador', key: 'COORDINATOR' },
+    ADMINISTRATOR: { label: 'Administrador', key: 'ADMINISTRATOR' }
+  },
+  ROLES_ARRAY: [
+    {
+      label: 'Operador',
+      value: 'OPERATOR'
+    },
+    {
+      label: 'Operador',
+      value: 'SUPERVISOR'
+    },
+    {
+      label: 'Operador',
+      value: 'COORDINATOR'
+    },
+    {
+      label: 'Operador',
+      value: 'ADMINISTRATOR'
+    }
+  ]
 }

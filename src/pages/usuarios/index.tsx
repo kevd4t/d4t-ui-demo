@@ -1,18 +1,31 @@
-import { CommingSoonIllustration } from '@/components/common/comming-soon/CommingSoon'
-import { siteConfig } from '@/config'
-import { AuthenticatedLayout } from '@/layouts/Authenticated'
+import useSWR from 'swr'
+
+import { usersColumns, usersColumnsToFilter } from '@/lib/utils/tableColumns'
 import type { ReactElement } from '@/lib/types'
+import { siteConfig } from '@/config'
+
+import { AuthenticatedLayout } from '@/layouts/Authenticated'
+import { DataTable } from '@/components/common/tables'
+import { HeaderPage } from '@/components/common/headers/HeaderPage'
 
 const { ROUTES } = siteConfig
 
 const UsersPage = () => {
-  return (
-    <div className='w-full h-[calc(100vh_-_100px)] flex justify-center items-center'>
-      <div className='w-full max-w-3xl mx-auto flex flex-col justify-center items-center -mt-32'>
-        <CommingSoonIllustration />
+  const { data, error, isLoading } = useSWR('/api/users', { revalidateOnFocus: false })
 
-        <h5 className='text-5xl font-black -mt-10 text-gray-800 dark:text-white'>Proximamente</h5>
-      </div>
+  if (error) return <div>failed to load</div>
+  if (isLoading) return <div>loading...</div>
+
+  return (
+    <div>
+      <HeaderPage title='Usuarios' />
+
+      <DataTable
+        visibilityColumns
+        columns={usersColumns}
+        data={data}
+        itemsToFilter={usersColumnsToFilter}
+      />
     </div>
   )
 }

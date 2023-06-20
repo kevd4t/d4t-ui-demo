@@ -2,9 +2,11 @@ import { Analytics } from '@vercel/analytics/react'
 import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from 'next-themes'
 import { Toaster } from 'sonner'
+import { SWRConfig } from 'swr'
 
 import { useLoadingPage } from '@/lib/hooks/useLoadingPage'
 import { AppPropsWithLayout } from '@/lib/types'
+import { fetcher } from '@/lib/utils/fetcher'
 import { APP_CONFIG } from '@/config'
 
 import { LoadingPage } from '@/components/layout/common/LoadingPage'
@@ -16,16 +18,17 @@ export default function D4TErpApp ({ Component, pageProps: { session, ...pagePro
   const getLayout = Component.getLayout ?? ((page) => page)
 
   return (
-    <SessionProvider session={session}>
-      <ThemeProvider attribute='class'>
-        <LoadingPage isRouteChanging={isRouteChanging} key={loadingKey} />
+    <SWRConfig value={{ fetcher }}>
+      <SessionProvider session={session}>
+        <ThemeProvider attribute='class'>
+          <LoadingPage isRouteChanging={isRouteChanging} key={loadingKey} />
 
-        { getLayout(<Component {...pageProps} />) }
-        { APP_CONFIG.ENV.IS_PRODUCTION && <Analytics /> }
+          { getLayout(<Component {...pageProps} />) }
+          { APP_CONFIG.ENV.IS_PRODUCTION && <Analytics /> }
 
-        <Toaster richColors />
-      </ThemeProvider>
-    </SessionProvider>
-
+          <Toaster richColors />
+        </ThemeProvider>
+      </SessionProvider>
+    </SWRConfig>
   )
 }
