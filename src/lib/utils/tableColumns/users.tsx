@@ -157,7 +157,17 @@ export const usersColumns: ColumnDef<IUser>[] = [
           {original.isActive ? 'Activo' : 'Bloqueado'}
         </Badge>
       </div>
-    )
+    ),
+    filterFn: (row, id, value) => {
+      console.log({
+        row,
+        id,
+        value,
+        rowGetValueID: row.getValue(id)
+      })
+
+      return value.includes(row.getValue(id))
+    }
   },
   {
     id: 'actions',
@@ -187,6 +197,20 @@ export const usersColumnsToFilter = [
       {
         label: 'Administrador',
         value: 'ADMINISTRATOR'
+      }
+    ]
+  },
+  {
+    columnID: 'isActive',
+    label: 'Estatus',
+    options: [
+      {
+        label: 'Activo',
+        value: true
+      },
+      {
+        label: 'Bloqueado',
+        value: false
       }
     ]
   }

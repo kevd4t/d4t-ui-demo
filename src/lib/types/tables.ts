@@ -2,7 +2,7 @@ import { LucideIcon } from 'lucide-react'
 
 type TOptionItemToFilter = {
   label: string
-  value: string
+  value: string | boolean
   icon?: LucideIcon
 }
 
