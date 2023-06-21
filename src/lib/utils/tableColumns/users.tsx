@@ -190,6 +190,7 @@ export const usersColumns: ColumnDef<IUser>[] = [
 
 export const usersColumnsToFilter: IItemToFilter[] = [
   {
+    queryFilterColumnID: 'role',
     columnID: 'Rol',
     label: 'Rol',
     icon: <IconUserStar className='h-4 w-4 mr-2' />,
@@ -213,6 +214,7 @@ export const usersColumnsToFilter: IItemToFilter[] = [
     ]
   },
   {
+    queryFilterColumnID: 'status',
     columnID: 'Estatus',
     label: 'Estatus',
     icon: <IconUserQuestion className='h-4 w-4 mr-2' />,

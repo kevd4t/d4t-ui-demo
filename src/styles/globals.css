@@ -146,3 +146,5 @@
     transform: rotate(360deg);
   }
 }
+
+@import './loaders.css'

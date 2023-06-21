@@ -8,6 +8,7 @@ type TOptionItemToFilter = {
 }
 
 export interface IItemToFilter {
+  queryFilterColumnID?: string
   columnID: string,
   label: string,
   icon?: ReactNode

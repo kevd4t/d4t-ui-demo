@@ -17,10 +17,6 @@ const UsersPage = () => {
         createItem={{ href: '/usuarios/crear', title: 'Crear Usuario' }}
       />
 
-      <button>
-
-      </button>
-
       <DataTable
         visibilityColumns
         columns={usersColumns}

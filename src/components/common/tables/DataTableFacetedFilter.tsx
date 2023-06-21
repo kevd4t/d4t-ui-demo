@@ -1,5 +1,5 @@
 import type { ReactNode } from '@/lib/types'
-import { Column } from '@tanstack/react-table'
+import { Column, Table } from '@tanstack/react-table'
 import { Check, LucideIcon } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
@@ -21,9 +21,11 @@ import {
 } from '@/components/ui'
 
 interface IDataTableFacetedFilter<TData, TValue> {
+  table?: Table<TData>
   column?: Column<TData, TValue>
   title?: string
   icon?: ReactNode
+  queryFilterColumnID: string
   options: {
     label: string
     value: string | boolean
@@ -31,7 +33,7 @@ interface IDataTableFacetedFilter<TData, TValue> {
   }[]
 }
 
-export function DataTableFacetedFilter<TData, TValue> ({ column, title, icon, options }: IDataTableFacetedFilter<TData, TValue>) {
+export function DataTableFacetedFilter<TData, TValue> ({ queryFilterColumnID, column, title, icon, options }: IDataTableFacetedFilter<TData, TValue>) {
   const facets = column?.getFacetedUniqueValues()
   const selectedValues = new Set(column?.getFilterValue() as string[])
 
@@ -40,50 +42,57 @@ export function DataTableFacetedFilter<TData, TValue> ({ column, title, icon, op
       <PopoverTrigger asChild>
         <Button variant='outline' size='sm' className='py-5 border-dashed'>
           {icon}
+
           {title}
 
-          {selectedValues?.size > 0 && (
-            <>
-              <Separator orientation='vertical' className='mx-2 h-4' />
-              <Badge
-                variant='secondary'
-                className='rounded-sm px-1 font-normal lg:hidden'
-              >
-                {selectedValues.size}
-              </Badge>
-              <div className='hidden space-x-1 lg:flex'>
-                {selectedValues.size > 2
-                  ? (
-                    <Badge
-                      variant='secondary'
-                      className='rounded-sm px-1 font-normal'
-                    >
-                      {selectedValues.size} selected
-                    </Badge>
-                  )
-                  : (
-                    options
-                      .filter((option) => selectedValues.has(option.value.toString()))
-                      .map((option) => (
-                        <Badge
-                          variant='secondary'
-                          key={option.value.toString()}
-                          className='rounded-sm px-1 font-normal'
-                        >
-                          {option.label}
-                        </Badge>
-                      ))
-                  )}
-              </div>
-            </>
-          )}
+          {
+            selectedValues?.size > 0 && (
+              <>
+                <Separator orientation='vertical' className='mx-2 h-4' />
+                <Badge
+                  variant='secondary'
+                  className='rounded-sm px-1 font-normal lg:hidden'
+                >
+                  {selectedValues.size}
+                </Badge>
+
+                <div className='hidden space-x-1 lg:flex'>
+                  {selectedValues.size > 2
+                    ? (
+                      <Badge
+                        variant='secondary'
+                        className='rounded-sm px-1 font-normal'
+                      >
+                        {selectedValues.size} selected
+                      </Badge>
+                    )
+                    : (
+                      options
+                        .filter((option) => selectedValues.has(option.value.toString()))
+                        .map((option) => (
+                          <Badge
+                            variant='secondary'
+                            key={option.value.toString()}
+                            className='rounded-sm px-1 font-normal'
+                          >
+                            {option.label}
+                          </Badge>
+                        ))
+                    )}
+                </div>
+              </>
+            )
+          }
         </Button>
       </PopoverTrigger>
+
       <PopoverContent className='w-[200px] p-0' align='start'>
         <Command>
           <CommandInput placeholder={title} />
+
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
+
             <CommandGroup>
               {options.map((option) => {
                 const isSelected = selectedValues.has(option.value.toString())
@@ -96,7 +105,11 @@ export function DataTableFacetedFilter<TData, TValue> ({ column, title, icon, op
                       } else {
                         selectedValues.add(option.value.toString())
                       }
+
                       const filterValues = Array.from(selectedValues)
+
+                      console.log({ [queryFilterColumnID]: selectedValues })
+
                       column?.setFilterValue(
                         filterValues.length ? filterValues : undefined
                       )
@@ -125,9 +138,11 @@ export function DataTableFacetedFilter<TData, TValue> ({ column, title, icon, op
                 )
               })}
             </CommandGroup>
+
             {selectedValues.size > 0 && (
               <>
                 <CommandSeparator />
+
                 <CommandGroup>
                   <CommandItem
                     onSelect={() => column?.setFilterValue(undefined)}

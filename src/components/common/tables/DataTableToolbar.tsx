@@ -26,8 +26,8 @@ export function DataTableToolbar<TData> ({ table, itemsToFilter, inputSearch = n
   const { handleSubmit, register } = useForm<ISearchData>()
 
   const onSubmit = async ({ search }: ISearchData) => {
-    console.log('search: ', search)
     setSearch(search)
+    console.log({ search })
   }
 
   return (
@@ -51,7 +51,9 @@ export function DataTableToolbar<TData> ({ table, itemsToFilter, inputSearch = n
             itemsToFilter.map(item => {
               return table.getColumn(item.columnID) && (
                 <DataTableFacetedFilter
+                  table={table}
                   key={item.columnID}
+                  queryFilterColumnID={item.queryFilterColumnID}
                   column={table.getColumn(item.columnID)}
                   title={item.label}
                   options={item.options}
