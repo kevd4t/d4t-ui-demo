@@ -91,7 +91,7 @@ export const ColumnSort = ({ column, columnLabel }: { column: Column<IUser>, col
 
 export const usersColumns: ColumnDef<IUser>[] = [
   {
-    id: 'id',
+    id: 'ID',
     accessorKey: 'id',
     header: ({ column }) => <ColumnSort column={column} columnLabel='ID' />,
     cell: ({ row: { original } }) => (
@@ -112,39 +112,40 @@ export const usersColumns: ColumnDef<IUser>[] = [
     )
   },
   {
-    id: 'ci',
+    id: 'Cedula de Identidad',
     accessorKey: 'ci',
     header: ({ column }) => <ColumnSort column={column} columnLabel='Cedula' />,
-    cell: ({ row }) => {
-      const ci = row.getValue('ci') as string
-      return <div className='pl-4 w-full'>{ci}</div>
+    cell: ({ row: { original } }) => {
+      return <div className='pl-4 w-full'>{original.ci}</div>
     }
   },
   {
-    id: 'phone',
+    id: 'Telefono',
     accessorKey: 'phone',
     header: ({ column }) => <ColumnSort column={column} columnLabel='Telefono' />,
-    cell: ({ row }) => {
-      const phone = row.getValue('phone') as string
-      return <div className='pl-4 w-full'>{phone}</div>
+    cell: ({ row: { original } }) => {
+      return <div className='pl-4 w-full'>{original.phone}</div>
     }
   },
   {
-    id: 'role',
+    id: 'Rol',
     accessorKey: 'role',
     header: ({ column }) => (
       <div className='w-full text-center'>
         <ColumnSort column={column} columnLabel='Rol' />
       </div>
     ),
-    cell: ({ row }) => {
-      const role = row.getValue('role') as TRole
-      return <div className='text-center w-full'><Badge>{ROLES[role].label}</Badge></div>
+    cell: ({ row: { original } }) => {
+      return (
+        <div className='text-center w-full'>
+          <Badge>{ROLES[original.role].label}</Badge>
+        </div>
+      )
     },
     filterFn: (row, id, value) => value.includes(row.getValue(id))
   },
   {
-    id: 'isActive',
+    id: 'Estatus',
     accessorKey: 'isActive',
     header: ({ column }) => (
       <div className='w-full text-center'>
@@ -161,7 +162,7 @@ export const usersColumns: ColumnDef<IUser>[] = [
     filterFn: (row, id, value) => value.includes(row.getValue(id).toString())
   },
   {
-    id: 'actions',
+    id: 'Acciones',
     accessorKey: 'actions',
     header: () => <div className='w-full text-right'>Acciones</div>,
     cell: ({ row }) => <div className='w-full text-right'><UserRowActions user={row.original} /></div>
@@ -170,7 +171,7 @@ export const usersColumns: ColumnDef<IUser>[] = [
 
 export const usersColumnsToFilter = [
   {
-    columnID: 'role',
+    columnID: 'Rol',
     label: 'Rol',
     options: [
       {
@@ -192,7 +193,7 @@ export const usersColumnsToFilter = [
     ]
   },
   {
-    columnID: 'isActive',
+    columnID: 'Estatus',
     label: 'Estatus',
     options: [
       {
