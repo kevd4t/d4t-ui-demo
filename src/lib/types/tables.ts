@@ -21,6 +21,5 @@ export interface ITablePaginationlabel {
 
 export interface ITableSearchInput {
   placeholder: string
-  search: string
   mutate: any
 }

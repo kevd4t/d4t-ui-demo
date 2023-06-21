@@ -31,7 +31,6 @@ const UsersPage = () => {
         labelPagination={{ singularItem: 'Usuario', pluralItem: 'Usuarios' }}
         inputSearch={{
           placeholder: 'Buscar Usuario',
-          search: '',
           mutate
         }}
       />

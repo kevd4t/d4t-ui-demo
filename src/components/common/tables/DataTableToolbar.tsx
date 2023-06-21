@@ -41,9 +41,7 @@ export function DataTableToolbar<TData> ({ table, itemsToFilter, inputSearch = n
                 placeholder={inputSearch.placeholder}
                 type='text'
                 // value={(table.getColumn('ID')?.getFilterValue() as string) ?? ''}
-                // onChange={(event) =>
-                //   table.getColumn('ID')?.setFilterValue(event.target.value)
-                // }
+                // onChange={(event) => table.getColumn('ID')?.setFilterValue(event.target.value)}
               />
 
               <Button>
