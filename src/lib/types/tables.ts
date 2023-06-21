@@ -1,3 +1,4 @@
+import type { ReactNode } from '@/lib/types'
 import { LucideIcon } from 'lucide-react'
 
 type TOptionItemToFilter = {
@@ -9,5 +10,6 @@ type TOptionItemToFilter = {
 export interface IItemToFilter {
   columnID: string,
   label: string,
+  icon?: ReactNode
   options: TOptionItemToFilter[]
 }

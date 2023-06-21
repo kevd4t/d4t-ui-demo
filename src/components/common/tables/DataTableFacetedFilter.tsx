@@ -1,6 +1,6 @@
-import * as React from 'react'
+import type { ReactNode } from '@/lib/types'
 import { Column } from '@tanstack/react-table'
-import { Check, LucideIcon, PlusCircle } from 'lucide-react'
+import { Check, LucideIcon } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
@@ -23,6 +23,7 @@ import {
 interface IDataTableFacetedFilter<TData, TValue> {
   column?: Column<TData, TValue>
   title?: string
+  icon?: ReactNode
   options: {
     label: string
     value: string | boolean
@@ -30,7 +31,7 @@ interface IDataTableFacetedFilter<TData, TValue> {
   }[]
 }
 
-export function DataTableFacetedFilter<TData, TValue> ({ column, title, options }: IDataTableFacetedFilter<TData, TValue>) {
+export function DataTableFacetedFilter<TData, TValue> ({ column, title, icon, options }: IDataTableFacetedFilter<TData, TValue>) {
   const facets = column?.getFacetedUniqueValues()
   const selectedValues = new Set(column?.getFilterValue() as string[])
 
@@ -38,8 +39,10 @@ export function DataTableFacetedFilter<TData, TValue> ({ column, title, options 
     <Popover>
       <PopoverTrigger asChild>
         <Button variant='outline' size='sm' className='py-2 border-dashed'>
-          <PlusCircle className='mr-2 h-4 w-4' />
+          {/* <PlusCircle className='mr-2 h-4 w-4' /> */}
+          {icon}
           {title}
+
           {selectedValues?.size > 0 && (
             <>
               <Separator orientation='vertical' className='mx-2 h-4' />

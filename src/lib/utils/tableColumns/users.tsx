@@ -1,4 +1,4 @@
-import { IconClipboard, IconDots, IconEdit, IconEye, IconEyeOff, IconSortAscending, IconSortDescending } from '@tabler/icons-react'
+import { IconClipboard, IconDots, IconEdit, IconEye, IconEyeOff, IconSortAscending, IconSortDescending, IconUserQuestion, IconUserStar } from '@tabler/icons-react'
 import { Column, ColumnDef } from '@tanstack/react-table'
 import { ChevronsUpDown } from 'lucide-react'
 
@@ -6,8 +6,8 @@ import { APP_CONFIG } from '@/config'
 import { IUser } from '@/lib/types/users'
 
 import { Badge, Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui'
-import { TRole } from '@/lib/types'
 import { useRouter } from 'next/router'
+import { IItemToFilter } from '@/lib/types/tables'
 
 const { ROLES_DIC: ROLES } = APP_CONFIG
 
@@ -169,10 +169,11 @@ export const usersColumns: ColumnDef<IUser>[] = [
   }
 ]
 
-export const usersColumnsToFilter = [
+export const usersColumnsToFilter: IItemToFilter[] = [
   {
     columnID: 'Rol',
     label: 'Rol',
+    icon: <IconUserStar className='h-4 w-4 mr-2' />,
     options: [
       {
         label: 'Operador',
@@ -195,6 +196,7 @@ export const usersColumnsToFilter = [
   {
     columnID: 'Estatus',
     label: 'Estatus',
+    icon: <IconUserQuestion className='h-4 w-4 mr-2' />,
     options: [
       {
         label: 'Activo',

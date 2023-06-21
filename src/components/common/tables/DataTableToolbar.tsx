@@ -38,6 +38,7 @@ export function DataTableToolbar<TData> ({ table, itemsToFilter }: DataTableTool
                 column={table.getColumn(item.columnID)}
                 title={item.label}
                 options={item.options}
+                icon={item.icon}
               />
             )
           })
