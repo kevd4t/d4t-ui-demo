@@ -11,14 +11,17 @@ import { DataTable } from '@/components/common/tables'
 const { ROUTES } = siteConfig
 
 const UsersPage = () => {
-  const { data, error, isLoading } = useSWR('/api/users', { revalidateOnFocus: false })
+  const { data, error, isLoading, mutate } = useSWR('/api/users', { revalidateOnFocus: false })
 
   if (error) return <div>failed to load</div>
   if (isLoading) return <div>loading...</div>
 
   return (
-    <div>
-      <HeaderPage title='Usuarios' createItem={{ href: '/usuarios/crear', title: 'Crear Usuario' }} />
+    <>
+      <HeaderPage
+        title='Usuarios'
+        createItem={{ href: '/usuarios/crear', title: 'Crear Usuario' }}
+      />
 
       <DataTable
         visibilityColumns
@@ -26,8 +29,13 @@ const UsersPage = () => {
         data={data}
         itemsToFilter={usersColumnsToFilter}
         labelPagination={{ singularItem: 'Usuario', pluralItem: 'Usuarios' }}
+        inputSearch={{
+          placeholder: 'Buscar Usuario',
+          search: '',
+          mutate
+        }}
       />
-    </div>
+    </>
   )
 }
 

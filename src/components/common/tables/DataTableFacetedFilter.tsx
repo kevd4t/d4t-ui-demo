@@ -38,8 +38,7 @@ export function DataTableFacetedFilter<TData, TValue> ({ column, title, icon, op
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant='outline' size='sm' className='py-2 border-dashed'>
-          {/* <PlusCircle className='mr-2 h-4 w-4' /> */}
+        <Button variant='outline' size='sm' className='py-5 border-dashed'>
           {icon}
           {title}
 

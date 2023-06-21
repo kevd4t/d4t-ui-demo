@@ -1,14 +1,14 @@
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react'
 import { Table } from '@tanstack/react-table'
 
-import { IDataPaginationlabel } from '@/lib/types/tables'
+import { ITablePaginationlabel } from '@/lib/types/tables'
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>
-  labelPagination?: IDataPaginationlabel
+  labelPagination?: ITablePaginationlabel
 }
 
 export function DataTablePagination<TData> ({ table, labelPagination }: DataTablePaginationProps<TData>) {

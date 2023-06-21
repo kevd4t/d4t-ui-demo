@@ -26,17 +26,25 @@ import { DataTablePagination } from './DataTablePagination'
 import { DataTableToolbar } from './DataTableToolbar'
 import { DropDownSettingsColumns } from './DropdownSettingsColumns'
 import { useState } from 'react'
-import { IDataPaginationlabel, IItemToFilter } from '@/lib/types/tables'
+import { ITablePaginationlabel, IItemToFilter, ITableSearchInput } from '@/lib/types/tables'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   visibilityColumns?: boolean,
   itemsToFilter?: IItemToFilter[]
-  labelPagination: IDataPaginationlabel
+  labelPagination: ITablePaginationlabel
+  inputSearch?: ITableSearchInput
 }
 
-export function DataTable<TData, TValue> ({ columns, data, visibilityColumns, itemsToFilter, labelPagination }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue> ({
+  columns,
+  data,
+  visibilityColumns,
+  itemsToFilter,
+  labelPagination,
+  inputSearch = null
+}: DataTableProps<TData, TValue>) {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [sorting, setSorting] = useState<SortingState>([])
@@ -67,7 +75,7 @@ export function DataTable<TData, TValue> ({ columns, data, visibilityColumns, it
   return (
     <div className='space-y-4'>
       <div className='w-full flex justify-between items-center'>
-        { itemsToFilter && <DataTableToolbar table={table} itemsToFilter={itemsToFilter} /> }
+        { itemsToFilter && <DataTableToolbar inputSearch={inputSearch} table={table} itemsToFilter={itemsToFilter} /> }
 
         { visibilityColumns && <DropDownSettingsColumns table={table} /> }
       </div>

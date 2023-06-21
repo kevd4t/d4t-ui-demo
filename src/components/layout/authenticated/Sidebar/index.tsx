@@ -106,7 +106,7 @@ export const Sidebar = () => {
             />
           </li>
 
-          <li>
+          {/* <li>
             <LinkNavigation
               to='/extraccion'
               label='Extraccion'
@@ -128,7 +128,7 @@ export const Sidebar = () => {
               label='Distribucion'
               icon={<IconTruck className='dark:text-white' />}
             />
-          </li>
+          </li> */}
 
           <li>
             <LinkNavigation

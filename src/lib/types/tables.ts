@@ -14,7 +14,13 @@ export interface IItemToFilter {
   options: TOptionItemToFilter[]
 }
 
-export interface IDataPaginationlabel {
+export interface ITablePaginationlabel {
   pluralItem: string
   singularItem: string
+}
+
+export interface ITableSearchInput {
+  placeholder: string
+  search: string
+  mutate: any
 }
