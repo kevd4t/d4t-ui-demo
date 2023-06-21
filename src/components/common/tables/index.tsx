@@ -39,7 +39,7 @@ export function DataTable<TData, TValue> ({ columns, data, visibilityColumns, it
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [sorting, setSorting] = useState<SortingState>([])
-  // const [rowSelection, setRowSelection] = useState({})
+  const [rowSelection, setRowSelection] = useState({})
 
   const table = useReactTable({
     data,
@@ -47,11 +47,11 @@ export function DataTable<TData, TValue> ({ columns, data, visibilityColumns, it
     state: {
       sorting,
       columnVisibility,
-      // rowSelection,
+      rowSelection,
       columnFilters
     },
-    // enableRowSelection: true,
-    // onRowSelectionChange: setRowSelection,
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
@@ -102,7 +102,7 @@ export function DataTable<TData, TValue> ({ columns, data, visibilityColumns, it
                   table.getRowModel().rows.map((row) => (
                     <TableRow
                       key={row.id}
-                      // data-state={row.getIsSelected() && 'selected'}
+                      data-state={row.getIsSelected() && 'selected'}
                     >
                       {
                         row.getVisibleCells().map((cell) => (

@@ -5,7 +5,7 @@ import { ChevronsUpDown } from 'lucide-react'
 import { APP_CONFIG } from '@/config'
 import { IUser } from '@/lib/types/users'
 
-import { Badge, Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui'
+import { Badge, Button, Checkbox, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui'
 import { useRouter } from 'next/router'
 import { IItemToFilter } from '@/lib/types/tables'
 
@@ -90,6 +90,25 @@ export const ColumnSort = ({ column, columnLabel }: { column: Column<IUser>, col
 }
 
 export const usersColumns: ColumnDef<IUser>[] = [
+  {
+    id: 'select',
+    header: ({ table }) => (
+      <Checkbox
+        checked={table.getIsAllPageRowsSelected()}
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label='Select all'
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label='Select row'
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false
+  },
   {
     id: 'ID',
     accessorKey: 'id',
