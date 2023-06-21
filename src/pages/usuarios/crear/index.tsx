@@ -20,7 +20,7 @@ const CreateUserPage = () => {
 
 CreateUserPage.getLayout = function getLayout (page: ReactElement) {
   return (
-    <AuthenticatedLayout title={`${ROUTES.USERS.CREATE.TITLE} | ${siteConfig.TITLE}`} mainClassName='p-0 sm:p-0'>
+    <AuthenticatedLayout title={`${ROUTES.USERS.CREATE.TITLE} | ${siteConfig.TITLE}`} >
       {page}
     </AuthenticatedLayout>
   )

@@ -20,7 +20,7 @@ const CitiesSettingsPage = () => {
 
 CitiesSettingsPage.getLayout = function getLayout (page: ReactElement) {
   return (
-    <AuthenticatedLayout title={`${ROUTES.SETTINGS.CITIES.LIST.TITLE} | ${siteConfig.TITLE}`} mainClassName='p-0 sm:p-0'>
+    <AuthenticatedLayout title={`${ROUTES.SETTINGS.CITIES.LIST.TITLE} | ${siteConfig.TITLE}`} >
       {page}
     </AuthenticatedLayout>
   )

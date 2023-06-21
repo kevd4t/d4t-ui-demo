@@ -20,7 +20,7 @@ const CreateUserGroupsPage = () => {
 
 CreateUserGroupsPage.getLayout = function getLayout (page: ReactElement) {
   return (
-    <AuthenticatedLayout title={`${ROUTES.USERS.GROUPS.CREATE.TITLE} | ${siteConfig.TITLE}`} mainClassName='p-0 sm:p-0'>
+    <AuthenticatedLayout title={`${ROUTES.USERS.GROUPS.CREATE.TITLE} | ${siteConfig.TITLE}`} >
       {page}
     </AuthenticatedLayout>
   )

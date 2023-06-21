@@ -5,8 +5,8 @@ import type { ReactElement } from '@/lib/types'
 import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
-import { DataTable } from '@/components/common/tables'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
+import { DataTable } from '@/components/common/tables'
 
 const { ROUTES } = siteConfig
 
@@ -18,13 +18,14 @@ const UsersPage = () => {
 
   return (
     <div>
-      <HeaderPage title='Usuarios' />
+      <HeaderPage title='Usuarios' createItem={{ href: '/usuarios/crear', title: 'Crear Usuario' }} />
 
       <DataTable
         visibilityColumns
         columns={usersColumns}
         data={data}
         itemsToFilter={usersColumnsToFilter}
+        labelPagination={{ singularItem: 'Usuario', pluralItem: 'Usuarios' }}
       />
     </div>
   )
@@ -32,7 +33,7 @@ const UsersPage = () => {
 
 UsersPage.getLayout = function getLayout (page: ReactElement) {
   return (
-    <AuthenticatedLayout title={`${ROUTES.USERS.LIST.TITLE} | ${siteConfig.TITLE}`} mainClassName='p-0 sm:p-0'>
+    <AuthenticatedLayout title={`${ROUTES.USERS.LIST.TITLE} | ${siteConfig.TITLE}`} >
       {page}
     </AuthenticatedLayout>
   )

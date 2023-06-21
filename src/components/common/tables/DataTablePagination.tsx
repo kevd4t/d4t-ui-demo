@@ -1,24 +1,27 @@
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react'
 import { Table } from '@tanstack/react-table'
 
+import { IDataPaginationlabel } from '@/lib/types/tables'
+
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>
+  labelPagination?: IDataPaginationlabel
 }
 
-export function DataTablePagination<TData> ({ table }: DataTablePaginationProps<TData>) {
+export function DataTablePagination<TData> ({ table, labelPagination }: DataTablePaginationProps<TData>) {
   return (
     <div className='flex items-center justify-end px-2'>
       <div className='flex-1 text-sm text-muted-foreground'>
         {table.getFilteredSelectedRowModel().rows.length} de {' '}
-        {table.getFilteredRowModel().rows.length} Usuario(s) Seleccionados.
+        {table.getFilteredRowModel().rows.length} {labelPagination.singularItem}(s) Seleccionados.
       </div>
 
       <div className='flex items-center space-x-6 lg:space-x-8'>
         <div className='flex items-center space-x-2'>
-          <p className='text-sm font-medium'>Usuarios por Pagina</p>
+          <p className='text-sm font-medium'>{labelPagination.pluralItem} por Pagina</p>
 
           <Select
             value={`${table.getState().pagination.pageSize}`}

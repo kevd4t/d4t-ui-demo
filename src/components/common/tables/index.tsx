@@ -26,16 +26,17 @@ import { DataTablePagination } from './DataTablePagination'
 import { DataTableToolbar } from './DataTableToolbar'
 import { DropDownSettingsColumns } from './DropdownSettingsColumns'
 import { useState } from 'react'
-import { IItemToFilter } from '@/lib/types/tables'
+import { IDataPaginationlabel, IItemToFilter } from '@/lib/types/tables'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   visibilityColumns?: boolean,
   itemsToFilter?: IItemToFilter[]
+  labelPagination: IDataPaginationlabel
 }
 
-export function DataTable<TData, TValue> ({ columns, data, visibilityColumns, itemsToFilter }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue> ({ columns, data, visibilityColumns, itemsToFilter, labelPagination }: DataTableProps<TData, TValue>) {
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [sorting, setSorting] = useState<SortingState>([])
@@ -126,7 +127,7 @@ export function DataTable<TData, TValue> ({ columns, data, visibilityColumns, it
         </Table>
       </div>
 
-      <DataTablePagination table={table} />
+      <DataTablePagination labelPagination={labelPagination} table={table} />
     </div>
   )
 }

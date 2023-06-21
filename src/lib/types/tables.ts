@@ -13,3 +13,8 @@ export interface IItemToFilter {
   icon?: ReactNode
   options: TOptionItemToFilter[]
 }
+
+export interface IDataPaginationlabel {
+  pluralItem: string
+  singularItem: string
+}
