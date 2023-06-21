@@ -158,16 +158,7 @@ export const usersColumns: ColumnDef<IUser>[] = [
         </Badge>
       </div>
     ),
-    filterFn: (row, id, value) => {
-      console.log({
-        row,
-        id,
-        value,
-        rowGetValueID: row.getValue(id)
-      })
-
-      return value.includes(row.getValue(id))
-    }
+    filterFn: (row, id, value) => value.includes(row.getValue(id).toString())
   },
   {
     id: 'actions',
