@@ -1,4 +1,3 @@
-// import useSWR from 'swr'
 import { useRouter } from 'next/router'
 
 import type { ReactElement } from '@/lib/types'
@@ -11,10 +10,6 @@ const { ROUTES } = siteConfig
 
 const DetailUserPage = () => {
   const router = useRouter()
-  // const { data, error, isLoading } = useSWR('/api/users', { revalidateOnFocus: false })
-
-  // if (error) return <div>failed to load</div>
-  // if (isLoading) return <div>loading...</div>
 
   return (
     <div>

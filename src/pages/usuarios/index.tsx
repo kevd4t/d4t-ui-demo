@@ -1,5 +1,3 @@
-import useSWR from 'swr'
-
 import { usersColumns, usersColumnsToFilter } from '@/lib/utils/tableColumns'
 import type { ReactElement } from '@/lib/types'
 import { siteConfig } from '@/config'
@@ -7,15 +5,11 @@ import { siteConfig } from '@/config'
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
 import { DataTable } from '@/components/common/tables'
+import { fetchUsers } from '@/lib/services/users'
 
 const { ROUTES } = siteConfig
 
 const UsersPage = () => {
-  const { data, error, isLoading, mutate } = useSWR('/api/users', { revalidateOnFocus: false })
-
-  if (error) return <div>failed to load</div>
-  if (isLoading) return <div>loading...</div>
-
   return (
     <>
       <HeaderPage
@@ -23,16 +17,17 @@ const UsersPage = () => {
         createItem={{ href: '/usuarios/crear', title: 'Crear Usuario' }}
       />
 
+      <button>
+
+      </button>
+
       <DataTable
         visibilityColumns
         columns={usersColumns}
-        data={data}
         itemsToFilter={usersColumnsToFilter}
         labelPagination={{ singularItem: 'Usuario', pluralItem: 'Usuarios' }}
-        inputSearch={{
-          placeholder: 'Buscar Usuario',
-          mutate
-        }}
+        inputSearch={{ placeholder: 'Buscar Usuario' }}
+        query={{ queryKey: 'users', queryFn: () => fetchUsers, queryParams: { rol: '*', status: '*' } }}
       />
     </>
   )

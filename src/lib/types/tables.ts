@@ -19,7 +19,30 @@ export interface ITablePaginationlabel {
   singularItem: string
 }
 
+export interface IUrlUsersSWR {
+  page?: number
+  initFetch?: boolean
+  search?: string
+}
+
 export interface ITableSearchInput {
-  placeholder: string
-  mutate: any
+  placeholder: string,
+}
+
+export interface ITableQuery {
+  queryKey: string
+  queryFn: any
+  queryParams: any
+}
+
+export interface ITableQueryData {
+  info: {
+    pageCount: number
+    totalItems: number
+    totalPages: number
+    currentPage: number
+    nextPage: number | null
+    prevPage: number | null
+  }
+  results: any[]
 }
