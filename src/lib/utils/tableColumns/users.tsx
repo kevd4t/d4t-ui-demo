@@ -101,12 +101,12 @@ export const usersColumns: ColumnDef<IUser>[] = [
     )
   },
   {
-    id: 'fullName',
+    id: 'Usuario',
     accessorFn: row => ({ name: row.name, lastname: row.lastname }),
     accessorKey: 'fullName',
     header: ({ column }) => <ColumnSort column={column} columnLabel='Usuario' />,
     cell: ({ row: { original } }) => (
-      <div className='font-medium pl-6'>
+      <div className='font-medium pl-4'>
         {`${original.name} ${original.lastname}`}
       </div>
     )
