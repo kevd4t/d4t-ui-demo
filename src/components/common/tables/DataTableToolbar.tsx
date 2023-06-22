@@ -51,7 +51,7 @@ export function DataTableToolbar<TData> ({ table, itemsToFilter, inputSearch = n
             {
               isFetching
                 ? <Spinner />
-                : <IconSearch className='h-5 w-5' />
+                : <IconSearch className='dark:border-white h-5 w-5' />
             }
           </Button>
         </form>

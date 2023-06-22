@@ -1,29 +1,41 @@
 import type { ReactElement } from '@/lib/types'
 import { siteConfig } from '@/config'
 
+import { statusTypeColumns, statusTypeColumnsToFilter } from '@/lib/utils/tableColumns/type-status'
+import { fetchStatusType } from '@/lib/services/settings/status/type'
+
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
-import { CommingSoonIllustration } from '@/components/common/comming-soon/CommingSoon'
+import { HeaderPage } from '@/components/common/headers/HeaderPage'
+import { DataTable } from '@/components/common/tables'
 
 const { ROUTES } = siteConfig
 
-const StatusSettingsPage = () => {
+const StatusTypeSettingsPage = () => {
   return (
-    <div className='w-full h-[calc(100vh_-_100px)] flex justify-center items-center'>
-      <div className='w-full max-w-3xl mx-auto flex flex-col justify-center items-center -mt-32'>
-        <CommingSoonIllustration />
+    <>
+      <HeaderPage
+        title='Tipo de Estados'
+        createItem={{ href: '/ajustes/estados/crear', title: 'Crear Estado' }}
+      />
 
-        <h5 className='text-5xl font-black -mt-10 text-gray-800 dark:text-white'>Proximamente</h5>
-      </div>
-    </div>
+      <DataTable
+        visibilityColumns
+        columns={statusTypeColumns}
+        itemsToFilter={statusTypeColumnsToFilter}
+        labelPagination={{ singularItem: 'Estado', pluralItem: 'Estados' }}
+        inputSearch={{ placeholder: 'Buscar Tipo Estado' }}
+        query={{ queryKey: 'statusType', queryFn: () => fetchStatusType }}
+      />
+    </>
   )
 }
 
-StatusSettingsPage.getLayout = function getLayout (page: ReactElement) {
+StatusTypeSettingsPage.getLayout = function getLayout (page: ReactElement) {
   return (
-    <AuthenticatedLayout title={`${ROUTES.SETTINGS.STATUS.LIST.TITLE} | ${siteConfig.TITLE}`} >
+    <AuthenticatedLayout title={`${ROUTES.SETTINGS.CATEGORIES.LIST.TITLE} | ${siteConfig.TITLE}`} >
       {page}
     </AuthenticatedLayout>
   )
 }
 
-export default StatusSettingsPage
+export default StatusTypeSettingsPage

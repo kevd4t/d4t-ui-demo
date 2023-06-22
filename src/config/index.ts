@@ -61,6 +61,7 @@ export const siteConfig = {
     SETTINGS: {
       CATEGORIES: {
         LIST: { TITLE: 'Categorias' },
+        DETAIL: { TITLE: 'Detalle de Categoria' },
         CREATE: { TITLE: 'Crear Categoria' },
         EDIT: { TITLE: 'Editar Categoria' }
       },

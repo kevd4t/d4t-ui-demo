@@ -23,7 +23,7 @@ const CategorySettingsPage = () => {
         itemsToFilter={categoryColumnsToFilter}
         labelPagination={{ singularItem: 'Categoria', pluralItem: 'Categorias' }}
         inputSearch={{ placeholder: 'Buscar Categoria' }}
-        query={{ queryKey: 'categorias', queryFn: () => fetchCategories }}
+        query={{ queryKey: 'categories', queryFn: () => fetchCategories }}
       />
     </>
   )

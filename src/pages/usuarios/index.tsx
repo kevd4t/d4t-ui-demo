@@ -1,4 +1,4 @@
-import { usersColumns, usersColumnsToFilter } from '@/lib/utils/tableColumns'
+import { usersColumns, usersColumnsToFilter } from '@/lib/utils/tableColumns/users'
 import type { ReactElement } from '@/lib/types'
 import { siteConfig } from '@/config'
 

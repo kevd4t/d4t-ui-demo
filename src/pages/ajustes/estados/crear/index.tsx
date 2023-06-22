@@ -6,7 +6,7 @@ import { CommingSoonIllustration } from '@/components/common/comming-soon/Commin
 
 const { ROUTES } = siteConfig
 
-const CreateStatesSettingsPage = () => {
+const CreateStatusTypeSettingsPage = () => {
   return (
     <div className='w-full h-[calc(100vh_-_100px)] flex justify-center items-center'>
       <div className='w-full max-w-3xl mx-auto flex flex-col justify-center items-center -mt-32'>
@@ -18,7 +18,7 @@ const CreateStatesSettingsPage = () => {
   )
 }
 
-CreateStatesSettingsPage.getLayout = function getLayout (page: ReactElement) {
+CreateStatusTypeSettingsPage.getLayout = function getLayout (page: ReactElement) {
   return (
     <AuthenticatedLayout title={`${ROUTES.SETTINGS.STATUS.CREATE.TITLE} | ${siteConfig.TITLE}`} >
       {page}
@@ -26,4 +26,4 @@ CreateStatesSettingsPage.getLayout = function getLayout (page: ReactElement) {
   )
 }
 
-export default CreateStatesSettingsPage
+export default CreateStatusTypeSettingsPage

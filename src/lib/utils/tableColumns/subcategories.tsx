@@ -5,9 +5,9 @@ import { ChevronsUpDown } from 'lucide-react'
 import { Badge, Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui'
 import { useRouter } from 'next/router'
 import { IItemToFilter } from '@/lib/types/tables'
-import { ICategory } from '@/lib/types/categories'
+import { ISubCategory } from '@/lib/types/'
 
-export const CategoryRowActions = ({ user: category }: { user: ICategory }) => {
+export const SubCategoryRowActions = ({ subcategory }: { subcategory: ISubCategory }) => {
   const router = useRouter()
 
   return (
@@ -24,19 +24,19 @@ export const CategoryRowActions = ({ user: category }: { user: ICategory }) => {
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem onClick={() => router.push(`/ajustes/categorias/${category.id}`)}>
+        <DropdownMenuItem onClick={() => router.push(`/categorias/${subcategory.id}`)}>
           <IconEye className='mr-2 h-4 w-4' />
-          Ver Categoria
+          Ver SubCategoria
         </DropdownMenuItem>
 
-        <DropdownMenuItem onClick={() => router.push(`/ajustes/categorias/${category.id}/editar`)}>
+        <DropdownMenuItem onClick={() => router.push(`/categorias/${subcategory.id}/editar`)}>
           <IconEdit className='mr-2 h-4 w-4' />
-          Editar Categoria
+          Editar SubCategoria
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(category.id.toString())}>
+        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(subcategory.id.toString())}>
           <IconClipboard className='h-4 w-4 mr-2' />
           Copiar ID
         </DropdownMenuItem>
@@ -45,7 +45,7 @@ export const CategoryRowActions = ({ user: category }: { user: ICategory }) => {
   )
 }
 
-export const ColumnSort = ({ column, columnLabel }: { column: Column<ICategory>, columnLabel: string }) => {
+export const ColumnSort = ({ column, columnLabel }: { column: Column<ISubCategory>, columnLabel: string }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -85,7 +85,7 @@ export const ColumnSort = ({ column, columnLabel }: { column: Column<ICategory>,
   )
 }
 
-export const categoryColumns: ColumnDef<ICategory>[] = [
+export const subcategoryColumns: ColumnDef<ISubCategory>[] = [
   {
     id: 'ID',
     accessorKey: 'id',
@@ -107,10 +107,8 @@ export const categoryColumns: ColumnDef<ICategory>[] = [
   {
     id: 'Descripcion',
     accessorKey: 'description',
-    header: ({ column }) => <ColumnSort column={column} columnLabel='Descripcion' />,
-    cell: ({ row: { original } }) => {
-      return <div className='pl-4 w-full'>{original.description}</div>
-    }
+    header: 'Descripcion',
+    cell: ({ row: { original } }) => original.description
   },
   {
     id: 'Estatus',
@@ -135,13 +133,13 @@ export const categoryColumns: ColumnDef<ICategory>[] = [
     header: () => <div className='w-full text-right'>Acciones</div>,
     cell: ({ row }) => (
       <div className='w-full text-right'>
-        <CategoryRowActions user={row.original} />
+        <SubCategoryRowActions subcategory={row.original} />
       </div>
     )
   }
 ]
 
-export const categoryColumnsToFilter: IItemToFilter[] = [
+export const subcategoryColumnsToFilter: IItemToFilter[] = [
   {
     queryFilterColumnID: 'status',
     columnID: 'Estatus',

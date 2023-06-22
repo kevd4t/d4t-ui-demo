@@ -1,21 +1,19 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getFakeData } from '@/lib/data'
 
-const handleApiCategories = (req: NextApiRequest, res: NextApiResponse) => {
+const handleApiStatusType = (req: NextApiRequest, res: NextApiResponse) => {
   setTimeout(() => {
-    const categories = getFakeData('CATEGORIES')
+    const statusType = getFakeData('STATUS_TYPE')
+    console.log(statusType)
     return res.status(200).json({
       info: {
-        pageCount: 55,
-        totalItems: 953,
-        totalPages: 30,
         currentPage: 1,
         nextPage: 2,
         prevPage: null
       },
-      results: categories
+      results: statusType
     })
   }, 3000)
 }
 
-export default handleApiCategories
+export default handleApiStatusType

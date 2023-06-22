@@ -232,7 +232,7 @@ const fakeUsers = [
 
 const fakeSubcategories = [
   {
-    id: crypto.randomUUID(),
+    id: 67,
     title: 'Grupo de Operadores 1',
     description: 'lorem ipsu detniat',
     isActive: true
@@ -241,7 +241,7 @@ const fakeSubcategories = [
 
 const fakeCategories = [
   {
-    id: crypto.randomUUID(),
+    id: 46,
     title: 'Categoria 1',
     description: 'lorem ipsu detniat',
     isActive: true,
@@ -261,8 +261,8 @@ const status = [
 
 const typeStatus = [
   {
-    id: crypto.randomUUID(),
-    title: 'Estaciones',
+    id: 23,
+    title: 'Estados de GPS',
     description: 'lorem ipsu detniat',
     isActive: true,
     status: [...status]
@@ -313,13 +313,21 @@ const meterMarks = [
   }
 ]
 
-type TypeData = 'USERS' | 'CATEGORIES' | 'SUBCATEGORIES' | 'STATUS_TYPE' | 'STATUS' | 'GPS_MARKS' | 'GPS_MODELS' | 'METER_MARKS' | 'METER_MODELS'
+type TypeData = 'USERS' |
+  'CATEGORIES' |
+  'SUBCATEGORIES' |
+  'STATUS_TYPE' |
+  'STATUS' |
+  'GPS_MARKS' |
+  'GPS_MODELS' |
+  'METER_MARKS' |
+  'METER_MODELS'
 
 const FAKE_DATA_DIC = {
   USERS: () => fakeUsers,
   CATEGORIES: () => fakeCategories,
   SUBCATEGORIES: () => fakeCategories.find(category => category.subcategories),
-  TYPE_STATUS: () => typeStatus,
+  STATUS_TYPE: () => typeStatus,
   STATUS: () => typeStatus.find(typeStatus => typeStatus.status),
   GPS_MARKS: () => gpsMarks,
   GPS_MODELS: () => gpsMarks.find(gpsMark => gpsMark.models),
@@ -327,4 +335,5 @@ const FAKE_DATA_DIC = {
   METER_MODELS: () => meterMarks.find(meterMark => meterMark.models)
 }
 
+//  @ts-ignore
 export const getFakeData = (typeData: TypeData): any[] => FAKE_DATA_DIC[typeData]()
