@@ -37,7 +37,7 @@ const SubCategorySettingsPage = () => {
   return (
     <>
       <HeaderPage
-        title={`Detalle de Categoria ${data.id}`}
+        title={'Detalle de Categoria 23'}
       />
 
       <div className='w-full h-full max-w-4xl mx-auto'>
