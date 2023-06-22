@@ -19,6 +19,7 @@ import {
   PopoverContent,
   PopoverTrigger
 } from '@/components/ui'
+import { useTableStore } from '@/lib/store/table'
 
 interface IDataTableFacetedFilter<TData, TValue> {
   table?: Table<TData>
@@ -36,6 +37,7 @@ interface IDataTableFacetedFilter<TData, TValue> {
 export function DataTableFacetedFilter<TData, TValue> ({ queryFilterColumnID, column, title, icon, options }: IDataTableFacetedFilter<TData, TValue>) {
   const facets = column?.getFacetedUniqueValues()
   const selectedValues = new Set(column?.getFilterValue() as string[])
+  const { setFilters } = useTableStore()
 
   return (
     <Popover>
@@ -108,11 +110,11 @@ export function DataTableFacetedFilter<TData, TValue> ({ queryFilterColumnID, co
 
                       const filterValues = Array.from(selectedValues)
 
-                      console.log({ [queryFilterColumnID]: selectedValues })
+                      // const optionSelected = options.filter((option) => selectedValues.has(option.value.toString())).map(option => option.value)
 
-                      column?.setFilterValue(
-                        filterValues.length ? filterValues : undefined
-                      )
+                      setFilters({ [queryFilterColumnID]: filterValues })
+
+                      column?.setFilterValue(filterValues.length ? filterValues : undefined)
                     }}
                   >
                     <div
@@ -145,7 +147,10 @@ export function DataTableFacetedFilter<TData, TValue> ({ queryFilterColumnID, co
 
                 <CommandGroup>
                   <CommandItem
-                    onSelect={() => column?.setFilterValue(undefined)}
+                    onSelect={() => {
+                      column?.setFilterValue(undefined)
+                      setFilters({ [queryFilterColumnID]: [] })
+                    }}
                     className='justify-center text-center'
                   >
                     Limpiar Filtros

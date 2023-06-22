@@ -33,7 +33,6 @@ export interface ITableSearchInput {
 export interface ITableQuery {
   queryKey: string
   queryFn: any
-  queryParams: any
 }
 
 export interface ITableQueryData {
@@ -46,4 +45,13 @@ export interface ITableQueryData {
     prevPage: number | null
   }
   results: any[]
+}
+
+export type TFilters = any[]
+
+export interface IQueryParams<DynamicFilters> {
+  pageIndex: number
+  pageSize: number
+  search: string
+  filters: DynamicFilters
 }

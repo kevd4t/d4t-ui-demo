@@ -23,7 +23,7 @@ const UsersPage = () => {
         itemsToFilter={usersColumnsToFilter}
         labelPagination={{ singularItem: 'Usuario', pluralItem: 'Usuarios' }}
         inputSearch={{ placeholder: 'Buscar Usuario' }}
-        query={{ queryKey: 'users', queryFn: () => fetchUsers, queryParams: { rol: '*', status: '*' } }}
+        query={{ queryKey: 'users', queryFn: () => fetchUsers }}
       />
     </>
   )

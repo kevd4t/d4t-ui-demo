@@ -11,7 +11,7 @@ export const DropDownSettingsColumns = ({ table }: IDropdownSettingsColumnsProps
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='outline' className='ml-auto py-5'>
+        <Button variant='outline' className='ml-auto py-5 whitespace-nowrap'>
           <IconAdjustmentsHorizontal className='mr-2 h-4 w-4' />
 
           Ajustes de Columnas

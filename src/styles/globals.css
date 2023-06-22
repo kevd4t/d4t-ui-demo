@@ -129,10 +129,8 @@
 /* Loaders */
 
 .spinner {
-  border: 4px solid white;
+  border: 3px solid white;
   border-left-color: transparent;
-  width: 24px;
-  height: 24px;
   border-radius: 999px;
   animation: spin 1s linear infinite;
 }

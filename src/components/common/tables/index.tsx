@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -54,9 +54,9 @@ export function DataTable<TData, TValue> ({
   const [sorting, setSorting] = useState<SortingState>([])
   const [rowSelection, setRowSelection] = useState({})
   const [search, setSearch] = useState('')
-  const [globalFilter, setGlobalFilter] = useState<any>(null)
+  const [filters, setFilters] = useState<any>(null)
 
-  const fetchDataOptions = { pageIndex, pageSize, search, globalFilter, ...query.queryParams }
+  const fetchDataOptions = { pageIndex, pageSize, search, filters }
 
   const { data, error, isFetching } = useQuery<ITableQueryData>({
     queryKey: [query.queryKey, fetchDataOptions],
@@ -72,16 +72,15 @@ export function DataTable<TData, TValue> ({
   )
 
   const table = useReactTable({
-    data: data?.results ?? defaultData,
     columns,
+    data: data?.results ?? defaultData,
     pageCount: data?.info?.pageCount ?? -1,
-    state: { sorting, columnVisibility, rowSelection, columnFilters, pagination, globalFilter },
+    state: { sorting, columnVisibility, rowSelection, columnFilters, pagination },
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
-    onGlobalFilterChange: setGlobalFilter,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -94,12 +93,14 @@ export function DataTable<TData, TValue> ({
 
   return (
     <div className='space-y-4'>
-      <div className='w-full flex justify-between items-center'>
+      <div className='w-full flex flex-wrap justify-between items-center gap-y-2'>
         <DataTableToolbar
+          setFilters={setFilters}
           setSearch={setSearch}
           inputSearch={inputSearch}
           table={table}
           itemsToFilter={itemsToFilter}
+          isFetching={isFetching}
         />
 
         { visibilityColumns && <DropDownSettingsColumns table={table} /> }

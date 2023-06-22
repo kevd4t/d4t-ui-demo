@@ -49,7 +49,7 @@ export function DataTablePagination<TData> ({ table, labelPagination }: DataTabl
           <Button
             variant='outline'
             className='hidden h-8 w-8 p-0 lg:flex'
-            onClick={() => table.setPageIndex(0)}
+            onClick={() => table.setPageIndex(1)}
             disabled={!table.getCanPreviousPage()}
           >
             <span className='sr-only'>Primera Pagina</span>
