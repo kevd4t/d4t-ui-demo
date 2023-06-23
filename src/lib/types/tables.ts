@@ -1,5 +1,7 @@
 import type { ReactNode } from '@/lib/types'
+import { PaginationState, RowSelectionState, Table } from '@tanstack/react-table'
 import { LucideIcon } from 'lucide-react'
+import { Dispatch, SetStateAction } from 'react'
 
 type TOptionItemToFilter = {
   label: string
@@ -54,4 +56,20 @@ export interface IQueryParams<DynamicFilters> {
   pageSize: number
   search: string
   filters: DynamicFilters
+}
+
+// NEW
+export interface IPaginationProps extends PaginationState {
+  labels: ITablePaginationlabel
+  setPagination: Dispatch<SetStateAction<PaginationState>>
+}
+
+export interface DataTablePaginationProps<TData> {
+  table: Table<TData>
+  pagination?: IPaginationProps
+}
+
+export interface ISelection {
+  rowSelection: RowSelectionState
+  setRowSelection: Dispatch<SetStateAction<RowSelectionState>>
 }

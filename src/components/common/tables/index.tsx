@@ -28,7 +28,7 @@ import {
 import { ITablePaginationlabel, IItemToFilter, ITableSearchInput, ITableQuery, ITableQueryData } from '@/lib/types/tables'
 import { LoaderDots } from '@/components/common/loaders/DynamicDots'
 import { DropDownSettingsColumns } from './DropdownSettingsColumns'
-import { DataTablePagination } from './DataTablePagination'
+// import { DataTablePagination } from './DataTablePagination'
 import { DataTableToolbar } from './DataTableToolbar'
 
 interface DataTableProps<TData, TValue> {
@@ -183,7 +183,7 @@ export function DataTable<TData, TValue> ({
         }
       </div>
 
-      <DataTablePagination labelPagination={labelPagination} table={table} />
+      {/* <DataTablePagination labelPagination={labelPagination} table={table} /> */}
     </div>
   )
 }

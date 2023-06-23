@@ -1,7 +1,7 @@
 import { fetcher } from '@/lib/utils/fetcher'
 
 export const fetchUsers = async ({ queryKey }) => {
-  const [, { pageIndex, pageSize, search, filters }] = queryKey
+  const { pageIndex = 1, pageSize, search, filters } = queryKey[1]
 
   const filterStatus = filters?.status && (filters?.status.length > 0) ? `&status=${filters?.status}` : ''
   const filterRoles = filters?.role && (filters?.role.length > 0) ? `&role=${filters?.role}` : ''

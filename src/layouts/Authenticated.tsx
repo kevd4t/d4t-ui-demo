@@ -19,7 +19,7 @@ export const AuthenticatedLayout = ({ children, title, mainClassName }: { childr
 
       <GlobalCommandMenu />
 
-      <div className='authLayout-container overflow-x-hidden'>
+      <div className='authLayout-container'>
         <Sidebar />
 
         <Button
