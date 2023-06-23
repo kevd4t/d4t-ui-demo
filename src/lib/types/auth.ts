@@ -1,4 +1,3 @@
-import { IGenericFetchReturn } from './http'
 import { TRole } from './roles'
 
 export interface IAuth {
@@ -17,6 +16,6 @@ export interface IAuth {
   updatedAt: string
 }
 
-export interface IReturnAuth extends IGenericFetchReturn {
+export interface IReturnAuth {
   data: IAuth
 }

@@ -5,7 +5,7 @@ import { ChevronsUpDown } from 'lucide-react'
 import { Badge, Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui'
 import { useRouter } from 'next/router'
 import { IItemToFilter } from '@/lib/types/tables'
-import { ISubCategory } from '@/lib/types/subcategories'
+import { ISubCategory } from '@/lib/types/categories'
 
 export const StatusTypeRowActions = ({ subcategory }: { subcategory: ISubCategory }) => {
   const router = useRouter()
