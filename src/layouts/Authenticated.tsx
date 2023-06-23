@@ -31,7 +31,7 @@ export const AuthenticatedLayout = ({ children, title, mainClassName }: { childr
           <IconMenu2 size={18} />
         </Button>
 
-        <main className={`p-6 sm:p-10 min-h-screen h-full dark:bg-dark w-full max-w-[1440px] mx-auto ${mainClassName}`}>
+        <main className={`p-6 sm:p-10 min-h-screen h-full w-full max-w-[1440px] mx-auto ${mainClassName}`}>
           {children}
         </main>
       </div>

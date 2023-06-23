@@ -1,0 +1,11 @@
+/* Leaflet */
+.leaflet-popup-content-wrapper {
+  width: max-content;
+  border-radius: 8px !important;
+}
+
+.leaflet-popup-content {
+  width: 200px !important;
+  margin: 0px !important;
+  padding: 8px !important;
+}

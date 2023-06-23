@@ -18,3 +18,27 @@
     opacity: 0;
   }
 }
+
+/* Loaders */
+
+.spinner {
+  border: 3px solid white;
+  border-left-color: transparent;
+  border-radius: 999px;
+  animation: spin 1s linear infinite;
+}
+
+.dark .spinner {
+  border: 3px solid black;
+  border-left-color: transparent;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

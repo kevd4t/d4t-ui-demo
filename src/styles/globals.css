@@ -39,6 +39,8 @@
   .dark {
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
+
+    --background-hover: 240deg 3.05% 16.21%;
  
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
@@ -76,3 +78,7 @@
     @apply bg-background text-foreground;
   }
 }
+
+@import './loaders.css';
+@import './maps.css';
+@import './layouts.css';

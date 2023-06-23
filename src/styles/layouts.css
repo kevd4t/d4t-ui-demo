@@ -1,0 +1,23 @@
+.authLayout-container {
+  position: relative;
+}
+
+.authLayout_sidebar {
+  display: none;
+  width: 100%;
+  position: fixed;
+  @apply w-full h-screen overflow-y-auto hidden transform top-0 left-0 overflow-auto ease-in-out transition-all duration-300 text-gray-700 z-10 lg:flex flex-col justify-start items-center md:rounded-r-xl pt-5 pb-10 border-r-2 border-gray-100;
+}
+
+@media screen and (min-width: 1040px) {
+  .authLayout-container {
+    display: grid;
+    grid-template-columns: 250px minmax(0,1fr);
+  }
+
+  .authLayout_sidebar {
+    position: sticky;
+    width: 260px;
+    display: block;
+  }
+}
