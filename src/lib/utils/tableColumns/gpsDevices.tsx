@@ -1,9 +1,9 @@
-import { IconClipboard, IconDots, IconEdit, IconEye, IconEyeOff, IconSortAscending, IconSortDescending, IconStatusChange } from '@tabler/icons-react'
+import { IconClipboard, IconDots, IconEdit, IconEye, IconEyeOff, IconSortAscending, IconSortDescending } from '@tabler/icons-react'
 import { Column, ColumnDef } from '@tanstack/react-table'
 import { ChevronsUpDown } from 'lucide-react'
 import { useRouter } from 'next/router'
 
-import { IItemToFilter, IGPSDevice } from '@/lib/types'
+import { IGPSDevice } from '@/lib/types'
 import { Badge, Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Avatar, AvatarImage, AvatarFallback } from '@/components/ui'
 
 export const GpsDeviceRowActions = ({ gpsDevice }: { gpsDevice: IGPSDevice }) => {

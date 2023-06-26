@@ -17,7 +17,7 @@ import {
 } from '@tanstack/react-table'
 
 import {
-  Table,
+  TableUI,
   TableBody,
   TableCell,
   TableHead,
@@ -127,7 +127,7 @@ export function DataTable<TData, TValue> ({
 
         {
           (!isFetching && data) && (
-            <Table>
+            <TableUI>
               <TableHeader>
                 {
                   table.getHeaderGroups().map((headerGroup) => (
@@ -178,7 +178,7 @@ export function DataTable<TData, TValue> ({
                     )
                 }
               </TableBody>
-            </Table>
+            </TableUI>
           )
         }
       </div>
