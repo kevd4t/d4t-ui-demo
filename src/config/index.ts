@@ -116,12 +116,18 @@ export const APP_CONFIG = {
   ENV: {
     IS_PRODUCTION: process?.env?.IS_PRODUCTION?.toLowerCase?.() === 'true' || false
   },
+
+  DOCSLY: {
+    PUBLIC_ID: process.env.NEXT_PUBLIC_DOCSLY_KEY
+  },
+
   ROLES_DIC: {
     OPERATOR: { label: 'Operador', key: 'OPERATOR' },
     SUPERVISOR: { label: 'Supervisor', key: 'SUPERVISOR' },
     COORDINATOR: { label: 'Coordinador', key: 'COORDINATOR' },
     ADMINISTRATOR: { label: 'Administrador', key: 'ADMINISTRATOR' }
   },
+
   ROLES_ARRAY: [
     {
       label: 'Operador',

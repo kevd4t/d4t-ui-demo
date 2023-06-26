@@ -1,3 +1,6 @@
+import { ICity, IState, IStation } from '../types/'
+import { IGPSDevice, IGPSMark, IGPSModel } from '../types/gps'
+
 const MODULES_DIC = {
   MONITORING_ROUTES: 'MONITORING_ROUTES',
   MONITORING_METERS: 'MONITORING_METERS',
@@ -259,7 +262,7 @@ const status = [
   }
 ]
 
-const typeStatus = [
+const statusType = [
   {
     id: 23,
     title: 'Estados de GPS',
@@ -269,31 +272,31 @@ const typeStatus = [
   }
 ]
 
-const gpsModels = [
+const gpsModels: IGPSModel[] = [
   {
-    id: crypto.randomUUID(),
+    id: 87,
     title: 'VTS GT02',
     description: 'lorem ipsu detniat',
     image: 'https://via.placeholder.com/200/red',
-    typeGPS: 'Satelital',
-    isActive: true
+    isActive: true,
+    type: 'Operativo'
   }
 ]
 
-const gpsMarks = [
+const gpsMarks: IGPSMark[] = [
   {
-    id: crypto.randomUUID(),
+    id: 257,
     title: 'Miggy',
     description: 'lorem ipsu detniat',
     image: 'https://via.placeholder.com/100/red',
     isActive: true,
-    models: [...gpsModels]
+    gpsModels
   }
 ]
 
 const meterModels = [
   {
-    id: crypto.randomUUID(),
+    id: 345,
     title: 'VTS GT02',
     description: 'lorem ipsu detniat',
     image: 'https://via.placeholder.com/200/red',
@@ -304,12 +307,80 @@ const meterModels = [
 
 const meterMarks = [
   {
-    id: crypto.randomUUID(),
+    id: 874,
     title: 'Pekin',
     description: 'lorem ipsu detniat',
     image: 'https://via.placeholder.com/100/red',
     isActive: true,
     models: [...meterModels]
+  }
+]
+
+export const trucks = [
+  {
+    id: 766,
+    title: 'VTS GT02',
+    image: 'https://via.placeholder.com/200/red',
+    numberPlate: 'AB054MN',
+    typeTruck: 'Gandola',
+    status: 'Operativo',
+    station: null,
+    fleet: null
+  }
+]
+
+export const fleets = [
+  {
+    id: 105,
+    title: 'Pekin',
+    description: 'lorem ipsu detniat',
+    status: 'Operativo',
+    trucks: [...trucks]
+  }
+]
+
+export const gpsDevices: IGPSDevice[] = [
+  {
+    id: 257,
+    serial: 'J-454NX2',
+    image: 'https://via.placeholder.com/100/red',
+    status: 'Operativo',
+    fleet: fleets[0],
+    gpsMark: gpsMarks[0],
+    gpsModel: gpsModels[0],
+    truck: trucks[0]
+  }
+]
+
+export const states: IState[] = [
+  {
+    id: 343,
+    latCenter: '10.475133262177959',
+    lngCenter: '-66.89036951713241',
+    title: 'Distrito Capital'
+  }
+]
+
+export const cities: ICity[] = [
+  {
+    id: 105,
+    title: 'Caracas',
+    lat: '10.475133262177959',
+    lng: '-66.89036951713241'
+  }
+]
+
+export const stations: IStation[] = [
+  {
+    id: 105,
+    title: 'Estacion Las Mercedes',
+    status: 'Operativo',
+    lat: '10.484595715655246',
+    lng: '-66.86487300765505',
+    type: 'Gandola',
+    city: cities[0],
+    metersCount: 44,
+    reference: 'Estacion de Servicio Las Mercedes, ubicado en las Mercedes :D'
   }
 ]
 
@@ -321,18 +392,27 @@ type TypeData = 'USERS' |
   'GPS_MARKS' |
   'GPS_MODELS' |
   'METER_MARKS' |
-  'METER_MODELS'
+  'METER_MODELS' |
+  'FLEETS' |
+  'STATIONS' |
+  'GPS_DEVICES'
 
 const FAKE_DATA_DIC = {
   USERS: () => fakeUsers,
   CATEGORIES: () => fakeCategories,
   SUBCATEGORIES: () => fakeCategories.find(category => category.subcategories),
-  STATUS_TYPE: () => typeStatus,
-  STATUS: () => typeStatus.find(typeStatus => typeStatus.status),
+  STATUS_TYPE: () => statusType,
+  STATUS: () => statusType.find(statusType => statusType.status),
   GPS_MARKS: () => gpsMarks,
-  GPS_MODELS: () => gpsMarks.find(gpsMark => gpsMark.models),
+  GPS_MODELS: () => gpsMarks.find(gpsMark => gpsMark.gpsModels),
   METER_MARKS: () => meterMarks,
-  METER_MODELS: () => meterMarks.find(meterMark => meterMark.models)
+  METER_MODELS: () => meterMarks.find(meterMark => meterMark.models),
+  FLEETS: () => fleets,
+  TRUCKS: () => fleets.find(fleets => fleets.trucks),
+  STATIONS: () => stations,
+  STATES: () => states,
+  CITIES: () => cities,
+  GPS_DEVICES: () => gpsDevices
 }
 
 //  @ts-ignore

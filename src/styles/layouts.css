@@ -1,5 +1,6 @@
 .authLayout-container {
   position: relative;
+  overflow-x: hidden;
 }
 
 .authLayout_sidebar {

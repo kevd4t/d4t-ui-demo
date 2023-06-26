@@ -1,12 +1,12 @@
-import { IconClipboard, IconDots, IconEdit, IconEye, IconEyeOff, IconSortAscending, IconSortDescending } from '@tabler/icons-react'
+import { IconClipboard, IconDots, IconEdit, IconEye, IconEyeOff, IconSortAscending, IconSortDescending, IconStatusChange } from '@tabler/icons-react'
 import { Column, ColumnDef } from '@tanstack/react-table'
 import { ChevronsUpDown } from 'lucide-react'
 import { useRouter } from 'next/router'
 
-import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui'
-import { IStatusType } from '@/lib/types/status'
+import { IItemToFilter, IGPSDevice } from '@/lib/types'
+import { Badge, Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Avatar, AvatarImage, AvatarFallback } from '@/components/ui'
 
-export const StatusTypeRowActions = ({ statusType }: { statusType: IStatusType }) => {
+export const GpsDeviceRowActions = ({ gpsDevice }: { gpsDevice: IGPSDevice }) => {
   const router = useRouter()
 
   return (
@@ -23,19 +23,19 @@ export const StatusTypeRowActions = ({ statusType }: { statusType: IStatusType }
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem onClick={() => router.push(`/categorias/${statusType.id}`)}>
+        <DropdownMenuItem onClick={() => router.push(`/categorias/${gpsDevice.id}`)}>
           <IconEye className='mr-2 h-4 w-4' />
-          Ver Tipo de Estado
+          Ver Estacion
         </DropdownMenuItem>
 
-        <DropdownMenuItem onClick={() => router.push(`/categorias/${statusType.id}/editar`)}>
+        <DropdownMenuItem onClick={() => router.push(`/categorias/${gpsDevice.id}/editar`)}>
           <IconEdit className='mr-2 h-4 w-4' />
-          Editar Tipo de Estado
+          Editar Estacion
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(statusType.id.toString())}>
+        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(gpsDevice.id.toString())}>
           <IconClipboard className='h-4 w-4 mr-2' />
           Copiar ID
         </DropdownMenuItem>
@@ -44,13 +44,13 @@ export const StatusTypeRowActions = ({ statusType }: { statusType: IStatusType }
   )
 }
 
-export const ColumnSort = ({ column, columnLabel }: { column: Column<IStatusType>, columnLabel: string }) => {
+export const ColumnSort = ({ column, columnLabel }: { column: Column<IGPSDevice>, columnLabel: string }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant='ghost'>
           { columnLabel }
-          <ChevronsUpDown className='ml-2 h-4 w-4' />
+          <ChevronsUpDown className='h-4 w-4' />
         </Button>
       </DropdownMenuTrigger>
 
@@ -84,32 +84,60 @@ export const ColumnSort = ({ column, columnLabel }: { column: Column<IStatusType
   )
 }
 
-export const statusTypeColumns: ColumnDef<IStatusType>[] = [
+export const gpsDeviceColumns: ColumnDef<IGPSDevice>[] = [
   {
     id: 'ID',
     accessorKey: 'id',
     header: ({ column }) => <ColumnSort column={column} columnLabel='ID' />,
     cell: ({ row: { original } }) => (
-      <div className='font-medium pl-6'>
+      <div className='font-medium pl-4'>
         { original.id }
       </div>
     )
   },
   {
-    id: 'Titulo',
-    accessorKey: 'title',
+    id: 'Imagen',
+    accessorKey: 'image',
     header: 'Titulo',
-    cell: ({ row: { original } }) => {
-      return <div className='w-full'>{original.title}</div>
-    }
+    cell: ({ row: { original } }) => (
+      <Avatar>
+        <AvatarImage src='https://github.com/shadcn.png' />
+        <AvatarFallback>CN</AvatarFallback>
+      </Avatar>
+    )
   },
   {
-    id: 'Descripcion',
-    accessorKey: 'description',
-    header: ({ column }) => <ColumnSort column={column} columnLabel='Descripcion' />,
-    cell: ({ row: { original } }) => {
-      return <div className='pl-4 w-full'>{original.description}</div>
-    }
+    id: 'Serial',
+    accessorKey: 'serial',
+    header: 'Serial'
+  },
+  {
+    id: 'Modelo',
+    accessorKey: 'gpsModel',
+    header: 'Modelo',
+    cell: ({ row }) => row.original.gpsModel.title
+  },
+  {
+    id: 'Flota',
+    accessorKey: 'fleet',
+    header: 'Flota',
+    cell: ({ row }) => row.original.fleet.title
+  },
+  {
+    id: 'Unidad',
+    accessorKey: 'truck',
+    header: 'Unidad',
+    cell: ({ row }) => row.original.truck.title
+  },
+  {
+    id: 'Estatus',
+    accessorKey: 'status',
+    header: ({ column }) => <ColumnSort column={column} columnLabel='Estatus' />,
+    cell: ({ row: { original } }) => (
+      <Badge className='w-full'>
+        {original.status}
+      </Badge>
+    )
   },
   {
     id: 'Acciones',
@@ -117,7 +145,7 @@ export const statusTypeColumns: ColumnDef<IStatusType>[] = [
     header: () => <div className='w-full text-right'>Acciones</div>,
     cell: ({ row }) => (
       <div className='w-full text-right'>
-        <StatusTypeRowActions statusType={row.original} />
+        <GpsDeviceRowActions gpsDevice={row.original} />
       </div>
     )
   }

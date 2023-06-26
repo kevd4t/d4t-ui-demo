@@ -13,7 +13,7 @@ import { InputUI } from '@/components/ui'
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
-  itemsToFilter: IItemToFilter[]
+  itemsToFilter?: IItemToFilter[]
   isFetching: boolean
   inputSearch?: ITableInputSearchProps
   // inputSearch?: ITableSearchInput

@@ -1,10 +1,15 @@
-import { fetcher } from '@/lib/utils/fetcher'
-
-export const fetchStatus = async ({ queryKey }) => {
-  const [, { pageIndex, pageSize, search }] = queryKey
-
+export const handleFetchUrlTypeStatus = ({ pageIndex, pageSize, search }) => {
   const searchText = search ? `&search=${search}` : ''
 
-  const data = await fetcher(`/api/type-status?page=${pageIndex}&limit=${pageSize}${searchText}`)
-  return data
+  const url = `/api/status-type?page=${pageIndex}&limit=${pageSize}${searchText}`
+
+  return url
+}
+
+export const handleFetchUrlStatusByType = ({ pageIndex, pageSize, search, typeStatusId }) => {
+  const searchText = search ? `&search=${search}` : ''
+
+  const url = `/api/status-type/${typeStatusId}/status?page=${pageIndex}&limit=${pageSize}${searchText}`
+
+  return url
 }

@@ -1,8 +1,8 @@
-import { ColumnDef, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
+import { ColumnDef, TableState, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
 
 import { IItemToFilter, IPaginationProps, ISelection, ITableInputSearchProps } from '@/lib/types'
 
-import { Table as TableUI } from '@/components/ui/table'
+import { TableUI } from '@/components/ui/table'
 import { TablePagination } from './TablePagination'
 import { TableHeader } from './TableHeader'
 import { TableBody } from './TableBody'
@@ -39,16 +39,20 @@ export function Table<TData, TValue> ({
     [pagination.pageIndex, pagination.pageSize]
   )
 
+  const stateWithRowSelections = { rowSelection: selection?.rowSelection, pagination: paginationMemo }
+
+  const state: Partial<TableState> = selection ? stateWithRowSelections : { pagination: paginationMemo }
+
   const table = useReactTable({
+    state,
     columns,
     data: data ?? defaultData,
     getCoreRowModel: getCoreRowModel(),
-    state: { rowSelection: selection.rowSelection, pagination: paginationMemo },
     getPaginationRowModel: getPaginationRowModel(),
     onPaginationChange: pagination.setPagination,
     manualPagination: true,
-    enableRowSelection: true,
-    onRowSelectionChange: selection.setRowSelection
+    enableRowSelection: Boolean(selection),
+    onRowSelectionChange: selection?.setRowSelection || null
   })
 
   return (

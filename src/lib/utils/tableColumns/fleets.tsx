@@ -3,10 +3,10 @@ import { Column, ColumnDef } from '@tanstack/react-table'
 import { ChevronsUpDown } from 'lucide-react'
 import { useRouter } from 'next/router'
 
-import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui'
-import { IStatusType } from '@/lib/types/status'
+import { Badge, Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui'
+import { IFleet } from '@/lib/types'
 
-export const StatusTypeRowActions = ({ statusType }: { statusType: IStatusType }) => {
+export const FleetRowActions = ({ fleet }: { fleet: IFleet }) => {
   const router = useRouter()
 
   return (
@@ -23,19 +23,19 @@ export const StatusTypeRowActions = ({ statusType }: { statusType: IStatusType }
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem onClick={() => router.push(`/categorias/${statusType.id}`)}>
+        <DropdownMenuItem onClick={() => router.push(`/categorias/${fleet.id}`)}>
           <IconEye className='mr-2 h-4 w-4' />
-          Ver Tipo de Estado
+          Ver Flota
         </DropdownMenuItem>
 
-        <DropdownMenuItem onClick={() => router.push(`/categorias/${statusType.id}/editar`)}>
+        <DropdownMenuItem onClick={() => router.push(`/categorias/${fleet.id}/editar`)}>
           <IconEdit className='mr-2 h-4 w-4' />
-          Editar Tipo de Estado
+          Editar Flota
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(statusType.id.toString())}>
+        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(fleet.id.toString())}>
           <IconClipboard className='h-4 w-4 mr-2' />
           Copiar ID
         </DropdownMenuItem>
@@ -44,7 +44,7 @@ export const StatusTypeRowActions = ({ statusType }: { statusType: IStatusType }
   )
 }
 
-export const ColumnSort = ({ column, columnLabel }: { column: Column<IStatusType>, columnLabel: string }) => {
+export const ColumnSort = ({ column, columnLabel }: { column: Column<IFleet>, columnLabel: string }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -84,7 +84,7 @@ export const ColumnSort = ({ column, columnLabel }: { column: Column<IStatusType
   )
 }
 
-export const statusTypeColumns: ColumnDef<IStatusType>[] = [
+export const fleetColumns: ColumnDef<IFleet>[] = [
   {
     id: 'ID',
     accessorKey: 'id',
@@ -112,12 +112,22 @@ export const statusTypeColumns: ColumnDef<IStatusType>[] = [
     }
   },
   {
+    id: 'Estatus',
+    accessorKey: 'status',
+    header: ({ column }) => <ColumnSort column={column} columnLabel='Estatus' />,
+    cell: ({ row }) => (
+      <Badge className='ml-4'>
+        {row.original.status}
+      </Badge>
+    )
+  },
+  {
     id: 'Acciones',
     accessorKey: 'actions',
     header: () => <div className='w-full text-right'>Acciones</div>,
     cell: ({ row }) => (
       <div className='w-full text-right'>
-        <StatusTypeRowActions statusType={row.original} />
+        <FleetRowActions fleet={row.original} />
       </div>
     )
   }

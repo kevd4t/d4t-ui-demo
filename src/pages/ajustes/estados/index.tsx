@@ -1,30 +1,49 @@
-import type { ReactElement } from '@/lib/types'
-import { siteConfig } from '@/config'
+import { PaginationState } from '@tanstack/react-table'
+import { useState } from 'react'
 
-import { statusTypeColumns, statusTypeColumnsToFilter } from '@/lib/utils/tableColumns/type-status'
-import { fetchStatusType } from '@/lib/services/settings/status/type'
+import { handleFetchUrlTypeStatus } from '@/lib/services/settings/status'
+import type { IFetchDataTable, ReactElement } from '@/lib/types'
+import { IStatusType } from '@/lib/types/status'
+import { useFetch } from '@/lib/hooks/useFetch'
+import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
-import { DataTable } from '@/components/common/tables'
+import { Table } from '@/components/common/tables/Table'
+import { statusTypeColumns } from '@/lib/utils/tableColumns/type-status'
 
 const { ROUTES } = siteConfig
 
 const StatusTypeSettingsPage = () => {
+  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
+  const { data, error, isLoading, fetcher } = useFetch<IFetchDataTable<IStatusType>>('/api/categories')
+
+  const pagination = {
+    pageSize,
+    pageIndex,
+    setPagination,
+    labels: { pluralItem: 'Estados', singularItem: 'Estado' }
+  }
+
+  const handleSearchWithParams = async ({ search }) => {
+    const url = handleFetchUrlTypeStatus({ pageSize, pageIndex, search })
+    fetcher(url)
+  }
+
   return (
     <>
       <HeaderPage
-        title='Tipo de Estados'
+        title='Estados'
         createItem={{ href: '/ajustes/estados/crear', title: 'Crear Estado' }}
       />
 
-      <DataTable
+      <Table
         visibilityColumns
+        data={data?.results}
         columns={statusTypeColumns}
-        itemsToFilter={statusTypeColumnsToFilter}
-        labelPagination={{ singularItem: 'Estado', pluralItem: 'Estados' }}
-        inputSearch={{ placeholder: 'Buscar Tipo Estado' }}
-        query={{ queryKey: 'statusType', queryFn: () => fetchStatusType }}
+        pagination={pagination}
+        queryInfo={{ isFetching: isLoading, error }}
+        inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Estado' }}
       />
     </>
   )

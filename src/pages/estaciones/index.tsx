@@ -1,20 +1,52 @@
-import type { ReactElement } from '@/lib/types'
+import { PaginationState } from '@tanstack/react-table'
+import { useState } from 'react'
+
+import type { IFetchDataTable, IFleet, IStation, ReactElement } from '@/lib/types'
+import { handleFetchUrlStations } from '@/lib/services/stations'
+import { fleetColumns } from '@/lib/utils/tableColumns/fleets'
+import { useFetch } from '@/lib/hooks/useFetch'
 import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
-import { CommingSoonIllustration } from '@/components/common/comming-soon/CommingSoon'
+import { HeaderPage } from '@/components/common/headers/HeaderPage'
+import { Table } from '@/components/common/tables/Table'
+import { stationColumns, stationColumnsToFilter } from '@/lib/utils/tableColumns/stations'
 
 const { ROUTES } = siteConfig
 
 const StationsPage = () => {
-  return (
-    <div className='w-full h-[calc(100vh_-_100px)] flex justify-center items-center'>
-      <div className='w-full max-w-3xl mx-auto flex flex-col justify-center items-center -mt-32'>
-        <CommingSoonIllustration />
+  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
+  const { data, error, isLoading, fetcher } = useFetch<IFetchDataTable<IStation>>('/api/stations')
 
-        <h5 className='text-5xl font-black -mt-10 text-gray-800 dark:text-white'>Proximamente</h5>
-      </div>
-    </div>
+  const pagination = {
+    pageSize,
+    pageIndex,
+    setPagination,
+    labels: { pluralItem: 'Estaciones', singularItem: 'Estacion' }
+  }
+
+  const handleSearchWithParams = async ({ search, filters }) => {
+    const url = handleFetchUrlStations({ pageSize, pageIndex, search, filters })
+    fetcher(url)
+  }
+
+  return (
+    <>
+      <HeaderPage
+        title='Estaciones'
+        createItem={{ href: '/estaciones/crear', title: 'Crear Estacion' }}
+      />
+
+      <Table
+        visibilityColumns
+        data={data?.results}
+        columns={stationColumns}
+        pagination={pagination}
+        itemsToFilter={stationColumnsToFilter}
+        queryInfo={{ isFetching: isLoading, error }}
+        inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Estacion' }}
+      />
+    </>
   )
 }
 

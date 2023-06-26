@@ -1,4 +1,5 @@
 export * from './calendar'
+export * from './avatar'
 export * from './button'
 export * from './badge'
 export * from './context-menu'

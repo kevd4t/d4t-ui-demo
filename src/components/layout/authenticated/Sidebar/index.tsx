@@ -162,8 +162,8 @@ export const Sidebar = () => {
                     icon: <IconBadgeAd className='dark:text-white' />
                   },
                   {
-                    label: 'GPS',
-                    to: '/ajustes/gps',
+                    label: 'Dispositivos GPS',
+                    to: '/ajustes/dispositivos-gps',
                     icon: <IconDeviceMobilePin className='dark:text-white' />
                   }
                 ]}

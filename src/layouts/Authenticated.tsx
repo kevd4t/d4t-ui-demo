@@ -5,9 +5,10 @@ import { useSidebarStore } from '@/lib/store/sidebar'
 import type { ReactNode } from '@/lib/types'
 
 import { GlobalCommandMenu } from '@/components/layout/authenticated/GlobalCommandMenu'
+import { PageTransition } from '@/components/layout/common/PageTransition'
+// import DocslyClient from '@/components/layout/authenticated/DocslyClient'
 import { Sidebar } from '@/components/layout/authenticated'
 import { Button } from '@/components/ui'
-import { PageTransition } from '@/components/layout/common/PageTransition'
 
 export const AuthenticatedLayout = ({ children, title, mainClassName }: { children: ReactNode, title: string, mainClassName?: string }) => {
   const { openSidebar } = useSidebarStore()
@@ -17,6 +18,8 @@ export const AuthenticatedLayout = ({ children, title, mainClassName }: { childr
       <Head>
         <title>{ title }</title>
       </Head>
+
+      {/* <DocslyClient /> */}
 
       <GlobalCommandMenu />
 

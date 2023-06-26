@@ -1,20 +1,52 @@
-import type { ReactElement } from '@/lib/types'
+import { PaginationState } from '@tanstack/react-table'
+import { useState } from 'react'
+
+import type { IFetchDataTable, ReactElement } from '@/lib/types'
+import { useFetch } from '@/lib/hooks/useFetch'
+import { IGPSMark } from '@/lib/types/gps'
 import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
-import { CommingSoonIllustration } from '@/components/common/comming-soon/CommingSoon'
+import { HeaderPage } from '@/components/common/headers/HeaderPage'
+import { Table } from '@/components/common/tables/Table'
+import { handleFetchUrlGpsMarks } from '@/lib/services/settings/gps/marks'
+import { gpsMarkColumns, gpsMarkColumnsToFilter } from '@/lib/utils/tableColumns/gpsMarks'
 
 const { ROUTES } = siteConfig
 
 const GPSMarksSettingsPage = () => {
-  return (
-    <div className='w-full h-[calc(100vh_-_100px)] flex justify-center items-center'>
-      <div className='w-full max-w-3xl mx-auto flex flex-col justify-center items-center -mt-32'>
-        <CommingSoonIllustration />
+  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
+  const { data, error, isLoading, fetcher } = useFetch<IFetchDataTable<IGPSMark>>('/api/gps-marks')
 
-        <h5 className='text-5xl font-black -mt-10 text-gray-800 dark:text-white'>Proximamente</h5>
-      </div>
-    </div>
+  const pagination = {
+    pageSize,
+    pageIndex,
+    setPagination,
+    labels: { pluralItem: 'Marcas de GPS', singularItem: 'Marca de GPS' }
+  }
+
+  const handleSearchWithParams = async ({ search }) => {
+    const url = handleFetchUrlGpsMarks({ pageSize, pageIndex, search })
+    fetcher(url)
+  }
+
+  return (
+    <>
+      <HeaderPage
+        title='Marcas de GPS'
+        createItem={{ href: '/ajustes/marcas-de-gps/crear', title: 'Crear Marca de GPS' }}
+      />
+
+      <Table
+        visibilityColumns
+        data={data?.results}
+        columns={gpsMarkColumns}
+        itemsToFilter={gpsMarkColumnsToFilter}
+        pagination={pagination}
+        queryInfo={{ isFetching: isLoading, error }}
+        inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Marca de GPS' }}
+      />
+    </>
   )
 }
 
