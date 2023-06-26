@@ -3,10 +3,33 @@ import type { ReactNode } from '@/lib/types'
 
 import { GlobalCommandMenu } from '@/components/layout/authenticated/GlobalCommandMenu'
 import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
 
-export const PublicLayout = ({ children, title, mainClassName }: { children: ReactNode, title: string, mainClassName?: string }) => {
+const BackgroundLayout = () => {
+  const [mounted, setMounted] = useState(false)
   const { theme } = useTheme()
 
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return null
+  }
+  return (
+    <div className='w-full h-full fixed z-10' style={{
+      backgroundImage: 'url("/images/public-layout-bg.png")',
+      backgroundPosition: 'right',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+      opacity: '0.4',
+      visibility: theme === 'dark' ? 'hidden' : 'visible'
+    }}>
+    </div>
+  )
+}
+
+export const PublicLayout = ({ children, title, mainClassName }: { children: ReactNode, title: string, mainClassName?: string }) => {
   return (
     <>
       <Head>
@@ -20,15 +43,7 @@ export const PublicLayout = ({ children, title, mainClassName }: { children: Rea
           {children}
         </div>
 
-        <div className='w-full h-full fixed z-10' style={{
-          backgroundImage: 'url("/images/public-layout-bg.png")',
-          backgroundPosition: 'right',
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-          opacity: '0.4',
-          visibility: theme === 'dark' ? 'hidden' : 'visible'
-        }}>
-        </div>
+        <BackgroundLayout />
 
         <div className='w-full h-full relative z-10' style={{
           backgroundImage: 'url("/static/bg-signin.svg")',

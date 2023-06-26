@@ -1,4 +1,4 @@
-import { IconUser, IconHeartRateMonitor, IconChartPie, IconLogout, IconUsers, IconUserCircle, IconUserShield, IconTruckDelivery, IconSun, IconMoon, IconSettings, IconBuildingSkyscraper, IconHierarchy2, IconChartDots, IconBusStop, IconBadgeAd, IconMapPins, IconDeviceMobilePin, IconLayoutSidebarLeftCollapse, IconLayoutSidebarRightExpand } from '@tabler/icons-react'
+import { IconUser, IconHeartRateMonitor, IconChartPie, IconLogout, IconUsers, IconUserCircle, IconUserShield, IconTruckDelivery, IconSettings, IconBuildingSkyscraper, IconHierarchy2, IconChartDots, IconBusStop, IconBadgeAd, IconMapPins, IconDeviceMobilePin, IconLayoutSidebarLeftCollapse, IconLayoutSidebarRightExpand } from '@tabler/icons-react'
 import { useRouter } from 'next/router'
 import { toast } from 'sonner'
 import { useState } from 'react'
@@ -12,14 +12,13 @@ import { useState } from 'react'
 
 import { LinkNavigationNested } from './LinkNavigationNested'
 import { LinkNavigation } from './LinkNavigation'
-import { useTheme } from 'next-themes'
 import { Badge } from '@/components/ui/badge'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { ToggleTheme } from './ToggleTheme'
 // import { Badge, Divider } from '@tremor/react'
 
 export const Sidebar = () => {
   // const { removeAuth } = useAuthStore()
-  const { theme, setTheme } = useTheme()
   // const [, setIsLoading] = useState(false)
   const [openSidebar, setIsOpenSidebar] = useState(true)
   // const { isOpen } = useDrawerStore()
@@ -43,14 +42,6 @@ export const Sidebar = () => {
   }
 
   const toggleOpenSidebar = () => setIsOpenSidebar(prevState => !prevState)
-
-  const toggleTheme = () => {
-    if (theme === 'light') {
-      setTheme('dark')
-    } else {
-      setTheme('light')
-    }
-  }
 
   return (
     <div
@@ -202,26 +193,7 @@ export const Sidebar = () => {
             <div className='border border-slate-200 w-full'></div>
 
             <li>
-              <button
-                onClick={toggleTheme}
-                className='w-full border-2 border-transparent flex items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 hover:dark:bg-dark-hover select-none'
-              >
-                {
-                  theme === 'light'
-                    ? (
-                      <>
-                        <IconMoon className='dark:text-white' />
-                        <span className='pl-2 dark:text-white'>Oscuro</span>
-                      </>
-                    )
-                    : (
-                      <>
-                        <IconSun className='dark:text-white' />
-                        <span className='pl-2 dark:text-white'>Claro</span>
-                      </>
-                    )
-                }
-              </button>
+              <ToggleTheme />
             </li>
 
             <li>
