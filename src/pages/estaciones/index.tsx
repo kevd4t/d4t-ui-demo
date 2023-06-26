@@ -1,9 +1,8 @@
 import { PaginationState } from '@tanstack/react-table'
 import { useState } from 'react'
 
-import type { IFetchDataTable, IFleet, IStation, ReactElement } from '@/lib/types'
+import type { IFetchDataTable, IStation, ReactElement } from '@/lib/types'
 import { handleFetchUrlStations } from '@/lib/services/stations'
-import { fleetColumns } from '@/lib/utils/tableColumns/fleets'
 import { useFetch } from '@/lib/hooks/useFetch'
 import { siteConfig } from '@/config'
 
