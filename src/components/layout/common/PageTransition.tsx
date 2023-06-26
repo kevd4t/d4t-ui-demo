@@ -32,18 +32,16 @@ export const PageTransition = ({ children }) => {
   const { asPath } = useRouter()
 
   return (
-    <div className='effect-2'>
-      <AnimatePresence initial={false} mode='wait'>
-        <motion.div
-          key={asPath}
-          variants={variants}
-          initial='fadeIn'
-          animate='inactive'
-          exit='fadeOut'
-        >
-          {children}
-        </motion.div>
-      </AnimatePresence>
-    </div>
+    <AnimatePresence initial={false} mode='wait'>
+      <motion.div
+        key={asPath}
+        variants={variants}
+        initial='fadeIn'
+        animate='inactive'
+        exit='fadeOut'
+      >
+        {children}
+      </motion.div>
+    </AnimatePresence>
   )
 }
