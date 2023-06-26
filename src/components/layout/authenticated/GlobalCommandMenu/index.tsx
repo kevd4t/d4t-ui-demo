@@ -159,7 +159,7 @@ export function GlobalCommandMenu () {
           icon: <IconDeviceMobilePin className='mr-2 h-4 w-4' />,
           closeGlobalCommandMenuDialog,
           value: 'CREATE_GPS_DEVICE',
-          link: '/ajustes/gps/crear'
+          link: '/ajustes/dispositivos-gps/crear'
         }
       ]
     },
