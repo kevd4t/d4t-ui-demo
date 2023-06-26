@@ -1,7 +1,8 @@
 import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { Button } from '@/components/ui'
-import { Table } from '@tanstack/react-table'
 import { IconAdjustmentsHorizontal } from '@tabler/icons-react'
+import { Table } from '@tanstack/react-table'
+
+import { Button } from '@/components/ui'
 
 interface IDropdownSettingsColumnsProps {
   table: Table<any>

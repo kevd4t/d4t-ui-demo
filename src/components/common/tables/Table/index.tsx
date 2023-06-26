@@ -1,6 +1,6 @@
 import { ColumnDef, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
 
-import { IPaginationProps, ISelection } from '@/lib/types'
+import { IItemToFilter, IPaginationProps, ISelection, ITableInputSearchProps } from '@/lib/types'
 
 import { Table as TableUI } from '@/components/ui/table'
 import { TablePagination } from './TablePagination'
@@ -19,6 +19,8 @@ interface DataTableProps<TData, TValue> {
   queryInfo: { isFetching: boolean, error: any }
   selection?: ISelection
   visibilityColumns?: boolean
+  inputSearch?: ITableInputSearchProps
+  itemsToFilter?: IItemToFilter[]
 }
 
 export function Table<TData, TValue> ({
@@ -27,6 +29,8 @@ export function Table<TData, TValue> ({
   pagination,
   queryInfo,
   selection,
+  itemsToFilter,
+  inputSearch,
   visibilityColumns
 }: DataTableProps<TData, TValue>) {
   const defaultData = useMemo(() => [], [])
@@ -50,14 +54,12 @@ export function Table<TData, TValue> ({
   return (
     <div className='space-y-4'>
       <div className='w-full flex flex-wrap justify-between items-center gap-y-2'>
-        {/* <TableToolbar
-          setFilters={setFilters}
-          setSearch={setSearch}
+        <TableToolbar
           inputSearch={inputSearch}
           itemsToFilter={itemsToFilter}
-          isFetching={isFetching}
+          isFetching={queryInfo.isFetching}
           table={table}
-        /> */}
+        />
 
         { visibilityColumns && <SettingsColumns table={table} /> }
       </div>

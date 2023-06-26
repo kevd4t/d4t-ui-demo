@@ -1,38 +1,37 @@
-import { Dispatch, SetStateAction } from 'react'
 import { IconSearch } from '@tabler/icons-react'
 import { Table } from '@tanstack/react-table'
 import { useForm } from 'react-hook-form'
 import { X } from 'lucide-react'
 
-import { IItemToFilter, ITableSearchInput } from '@/lib/types/tables'
+import { IItemToFilter, ITableInputSearchProps } from '@/lib/types/tables'
+import { useTableStore } from '@/lib/store/table'
 
+import { Spinner } from '@/components/common/loaders/Spinner'
 import { TableFacetedFilter } from './TableFacetedFilter'
 import { Button } from '@/components/ui/button'
 import { InputUI } from '@/components/ui'
-import { useTableStore } from '@/lib/store/table'
-import { Spinner } from '@/components/common/loaders/Spinner'
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
   itemsToFilter: IItemToFilter[]
-  inputSearch?: ITableSearchInput
-  setSearch?: Dispatch<SetStateAction<string>>
-  setFilters?: Dispatch<SetStateAction<any>>
   isFetching: boolean
+  inputSearch?: ITableInputSearchProps
+  // inputSearch?: ITableSearchInput
+  // setSearch?: Dispatch<SetStateAction<string>>
+  // setFilters?: Dispatch<SetStateAction<any>>
 }
 
 interface ISearchData {
   search: string
 }
 
-export function TableToolbar<TData> ({ table, itemsToFilter, inputSearch = null, setSearch, setFilters, isFetching }: DataTableToolbarProps<TData>) {
+export function TableToolbar<TData> ({ table, itemsToFilter, inputSearch = null, isFetching }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getPreFilteredRowModel().rows.length > table.getFilteredRowModel().rows.length
   const { handleSubmit, register } = useForm<ISearchData>()
   const { filters } = useTableStore()
 
   const onSubmit = async ({ search }: ISearchData) => {
-    setSearch(search)
-    setFilters(filters)
+    inputSearch.handleSearchWithParams({ search, filters })
   }
 
   return (

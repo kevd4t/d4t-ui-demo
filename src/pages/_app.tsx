@@ -23,6 +23,7 @@ export default function D4TErpApp ({ Component, pageProps: { session, ...pagePro
           <LoadingPage isRouteChanging={isRouteChanging} key={loadingKey} />
 
           { getLayout(<Component {...pageProps} />) }
+
           { APP_CONFIG.ENV.IS_PRODUCTION && <Analytics /> }
 
           <Toaster richColors />

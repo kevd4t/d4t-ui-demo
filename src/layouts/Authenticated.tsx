@@ -7,6 +7,7 @@ import type { ReactNode } from '@/lib/types'
 import { GlobalCommandMenu } from '@/components/layout/authenticated/GlobalCommandMenu'
 import { Sidebar } from '@/components/layout/authenticated'
 import { Button } from '@/components/ui'
+import { PageTransition } from '@/components/layout/common/PageTransition'
 
 export const AuthenticatedLayout = ({ children, title, mainClassName }: { children: ReactNode, title: string, mainClassName?: string }) => {
   const { openSidebar } = useSidebarStore()
@@ -32,7 +33,9 @@ export const AuthenticatedLayout = ({ children, title, mainClassName }: { childr
         </Button>
 
         <main className={`p-6 sm:p-10 min-h-screen h-full w-full max-w-[1440px] mx-auto ${mainClassName}`}>
-          {children}
+          <PageTransition>
+            {children}
+          </PageTransition>
         </main>
       </div>
     </>

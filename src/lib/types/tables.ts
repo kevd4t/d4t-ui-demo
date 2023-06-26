@@ -73,3 +73,8 @@ export interface ISelection {
   rowSelection: RowSelectionState
   setRowSelection: Dispatch<SetStateAction<RowSelectionState>>
 }
+
+export interface ITableInputSearchProps {
+  handleSearchWithParams?: (...args: any[]) => void
+  placeholder: string
+}

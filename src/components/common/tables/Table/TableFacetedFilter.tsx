@@ -110,8 +110,6 @@ export function TableFacetedFilter<TData, TValue> ({ queryFilterColumnID, column
 
                       const filterValues = Array.from(selectedValues)
 
-                      // const optionSelected = options.filter((option) => selectedValues.has(option.value.toString())).map(option => option.value)
-
                       setFilters({ [queryFilterColumnID]: filterValues })
 
                       column?.setFilterValue(filterValues.length ? filterValues : undefined)
