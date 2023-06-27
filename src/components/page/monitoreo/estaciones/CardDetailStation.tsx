@@ -5,7 +5,7 @@ import { TextArea } from '@/components/common/textarea'
 export const CardDetailStation = () => {
   return (
     <div className='w-full max-w-md h-full relative'>
-      <Card className='max-h-[calc(100vh-100px)] overflow-y-auto bg-white dark:bg-dark shadow-lg pb-4 sticky top-0 right-0'>
+      <Card className='max-h-[calc(100vh-100px)] overflow-y-auto bg-main shadow-lg pb-4 sticky top-0 right-0'>
         <section className='w-full'>
           <img
             src='/images/estacion-origen.png'

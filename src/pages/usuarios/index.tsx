@@ -7,7 +7,7 @@ import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
-import { Table } from '@/components/common/tables/Table'
+import { Table } from '@/components/common/tables/GenericTable'
 import { useFetch } from '@/lib/hooks/useFetch'
 import { handleFetchUrlUsers } from '@/lib/services/users'
 

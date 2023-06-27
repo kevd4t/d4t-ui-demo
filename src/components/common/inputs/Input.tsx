@@ -13,7 +13,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 export const Input = ({ children, id, register, messageErrors = null, label, classNameContainer, inputErrors = {}, ...rest }: InputProps) => {
   return (
     <div className={classNameContainer}>
-      <Label>{ label }</Label> <br />
+      <Label htmlFor={id}>{ label }</Label> <br />
       {
         (id && !rest.readOnly)
           ? messageErrors[id] && <span className='text-sm text-red-500'>* {messageErrors[id]?.message}</span>

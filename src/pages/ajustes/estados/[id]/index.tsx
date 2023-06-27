@@ -3,7 +3,7 @@ import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
-// import { DataTable } from '@/components/common/tables'
+// import { Table } from '@/components/common/tables'
 // import { fetchCategories } from '@/lib/services/settings/categories'
 // import { categoryColumns, categoryColumnsToFilter } from '@/lib/utils/tableColumns/categories'
 

@@ -67,6 +67,7 @@ export interface IPaginationProps extends PaginationState {
 export interface DataTablePaginationProps<TData> {
   table: Table<TData>
   pagination?: IPaginationProps
+  rowsToSelect?: boolean
 }
 
 export interface ISelection {

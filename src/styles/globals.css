@@ -74,6 +74,17 @@
   * {
     @apply border-border;
   }
+
+  *::-moz-selection { /* support firefox */
+    color: white;
+    background: #f81ce5;
+  }
+  
+  *::selection {
+    color: white;
+    background: #f81ce5;
+  }
+
   body {
     @apply bg-background text-foreground;
   }

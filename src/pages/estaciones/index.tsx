@@ -8,7 +8,7 @@ import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
-import { Table } from '@/components/common/tables/Table'
+import { Table } from '@/components/common/tables/GenericTable'
 import { stationColumns, stationColumnsToFilter } from '@/lib/utils/tableColumns/stations'
 
 const { ROUTES } = siteConfig

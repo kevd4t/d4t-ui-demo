@@ -1,43 +1,43 @@
-import { fetchSubCategories } from '@/lib/services/settings/categories'
-import type { ICategory, ReactElement } from '@/lib/types'
+import { PaginationState, RowSelectionState } from '@tanstack/react-table'
+import { useState } from 'react'
+
+import { subcategoryColumns, subcategoryColumnsToFilter } from '@/lib/utils/tableColumns/subcategories'
+import type { ICategoryWithSubCategories, ReactElement } from '@/lib/types'
+import { handleFetchUrlCategories } from '@/lib/services/categories'
+import { useFetch } from '@/lib/hooks/useFetch'
 import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
+import { FormDetailCategoryDisabled } from '@/components/page/ajustes/categorias/FormDetailCategoryDisabled'
 import { CardUI, CardUIContent, CardUITitle, Separator } from '@/components/ui'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
-import { DataTable } from '@/components/common/tables'
-import { subcategoryColumns, subcategoryColumnsToFilter } from '@/lib/utils/tableColumns/subcategories'
-import { FormDetailCategoryDisabled } from '@/components/page/ajustes/categorias/FormDetailCategoryDisabled'
-import { useQuery } from '@tanstack/react-query'
-import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
+import { Table } from '@/components/common/tables/GenericTable'
+import { useRouter } from 'next/router'
 
 const { ROUTES } = siteConfig
 
 const SubCategorySettingsPage = () => {
-  const { data, isLoading, error } = useQuery<ICategory>(
-    ['detailCategory'],
-    () => fetch('/api/categories/23').then(res => res.json())
-  )
+  const router = useRouter()
+  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
+  const { data, error, isLoading, fetcher } = useFetch<ICategoryWithSubCategories>(`/api/categories/${router.query.id}`)
+  const [subcategoriesSelected, setSubcategoriesSelected] = useState<RowSelectionState>({})
 
-  if (isLoading) {
-    return (
-      <div className='h-[80vh] w-full flex flex-col justify-center items-center'>
-        <WomanLoading className='w-96' />
-        <h6 className='font-bold text-5xl'>Cargando...</h6>
-      </div>
-    )
+  const pagination = {
+    pageSize,
+    pageIndex,
+    setPagination,
+    labels: { pluralItem: 'Usuarios', singularItem: 'Usuario' }
   }
 
-  if (error) {
-    return (
-      <div>Error</div>
-    )
+  const handleSearchWithParams = async ({ search, filters }) => {
+    const url = handleFetchUrlCategories({ pageSize, pageIndex, search, filters })
+    fetcher(url)
   }
 
   return (
     <>
       <HeaderPage
-        title={'Detalle de Categoria 23'}
+        title={`Detalle de Categoria ${router.query.id}`}
       />
 
       <div className='w-full h-full max-w-4xl mx-auto'>
@@ -56,13 +56,15 @@ const SubCategorySettingsPage = () => {
 
           <Separator className='my-4' />
 
-          <DataTable
+          <Table
             visibilityColumns
+            pagination={pagination}
+            data={data?.subcategories}
             columns={subcategoryColumns}
             itemsToFilter={subcategoryColumnsToFilter}
-            labelPagination={{ singularItem: 'Subcategoria', pluralItem: 'Subcategorias' }}
-            inputSearch={{ placeholder: 'Buscar Subcategoria' }}
-            query={{ queryKey: 'subcategories', queryFn: () => fetchSubCategories }}
+            queryInfo={{ isFetching: isLoading, error }}
+            inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Subcategoria' }}
+            selection={{ rowSelection: subcategoriesSelected, setRowSelection: setSubcategoriesSelected }}
           />
         </CardUI>
       </div>

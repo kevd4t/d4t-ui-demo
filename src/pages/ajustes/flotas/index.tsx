@@ -9,7 +9,7 @@ import { useFetch } from '@/lib/hooks/useFetch'
 import { IFleet } from '@/lib/types/fleets'
 import { handleFetchUrlFleets } from '@/lib/services/settings/fleets'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
-import { Table } from '@/components/common/tables/Table'
+import { Table } from '@/components/common/tables/GenericTable'
 import { fleetColumns } from '@/lib/utils/tableColumns/fleets'
 
 const { ROUTES } = siteConfig

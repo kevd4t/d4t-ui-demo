@@ -9,7 +9,7 @@ import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
-import { Table } from '@/components/common/tables/Table'
+import { Table } from '@/components/common/tables/GenericTable'
 import { statusTypeColumns } from '@/lib/utils/tableColumns/type-status'
 
 const { ROUTES } = siteConfig

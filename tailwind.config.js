@@ -13,12 +13,16 @@ module.exports = {
       }
     },
     extend: {
+      gridTemplateColumns: {
+        sidebar: '250px minmax(0,1fr)',
+        'sidebar-collapsed': '106px auto'
+      },
       screens: {
         lg: '1040px'
       },
       backgroundColor: {
-        dark: 'hsl(var(--background))',
-        'dark-hover': 'hsl(var(--background-hover) / 68%)'
+        main: 'hsl(var(--background))',
+        'main-hover': 'hsl(var(--background-hover) / 68%)'
       },
       borderColor: {
         dark: 'hsl(var(--border))'

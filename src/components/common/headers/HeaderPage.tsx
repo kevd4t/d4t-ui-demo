@@ -14,7 +14,7 @@ interface IHeaderPageProps {
 export const HeaderPage = ({ title, createItem }: IHeaderPageProps) => {
   return (
     <div className='w-full flex justify-between items-center'>
-      <h4 className='w-full font-bold text-3xl py-4'>
+      <h4 className='w-full font-bold text-3xl pt-4 pb-6'>
         {title}
       </h4>
 

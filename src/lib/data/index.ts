@@ -1,5 +1,6 @@
 import { ICity, IState, IStation } from '../types/'
 import { IGPSDevice, IGPSMark, IGPSModel } from '../types/gps'
+import { IRoute } from '../types/routes'
 
 const MODULES_DIC = {
   MONITORING_ROUTES: 'MONITORING_ROUTES',
@@ -384,6 +385,19 @@ export const stations: IStation[] = [
   }
 ]
 
+export const routes: IRoute[] = [
+  {
+    id: 3471,
+    originStation: 'Estacion 1',
+    finalStation: 'Estacion 2',
+    fleet: fleets[0],
+    gpsDevice: gpsDevices[0],
+    guide: 'J-45MNXG23',
+    status: 'En Curso',
+    truck: trucks[0]
+  }
+]
+
 type TypeData = 'USERS' |
   'CATEGORIES' |
   'SUBCATEGORIES' |
@@ -394,8 +408,10 @@ type TypeData = 'USERS' |
   'METER_MARKS' |
   'METER_MODELS' |
   'FLEETS' |
+  'CITIES' |
   'STATIONS' |
-  'GPS_DEVICES'
+  'GPS_DEVICES' |
+  'ROUTES'
 
 const FAKE_DATA_DIC = {
   USERS: () => fakeUsers,
@@ -412,7 +428,8 @@ const FAKE_DATA_DIC = {
   STATIONS: () => stations,
   STATES: () => states,
   CITIES: () => cities,
-  GPS_DEVICES: () => gpsDevices
+  GPS_DEVICES: () => gpsDevices,
+  ROUTES: () => routes
 }
 
 //  @ts-ignore

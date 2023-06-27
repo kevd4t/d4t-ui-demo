@@ -1,6 +1,5 @@
 .authLayout-container {
   position: relative;
-  overflow-x: hidden;
 }
 
 .authLayout_sidebar {
@@ -13,12 +12,10 @@
 @media screen and (min-width: 1040px) {
   .authLayout-container {
     display: grid;
-    grid-template-columns: 250px minmax(0,1fr);
+    /* grid-template-columns: 250px minmax(0,1fr); */
   }
 
   .authLayout_sidebar {
     position: sticky;
-    width: 260px;
-    display: block;
   }
 }

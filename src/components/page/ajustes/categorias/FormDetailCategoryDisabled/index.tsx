@@ -1,9 +1,9 @@
-import type { ICategory } from '@/lib/types'
+import type { ICategoryWithSubCategories } from '@/lib/types'
 import { Input } from '@/components/common/inputs/Input'
 import { Label, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui'
 import { TextArea } from '@/components/common/textarea'
 
-export const FormDetailCategoryDisabled = ({ title, description, isActive }: ICategory) => {
+export const FormDetailCategoryDisabled = ({ title, description, isActive }: ICategoryWithSubCategories) => {
   return (
     <form>
       <section className='w-full h-full'>
@@ -21,26 +21,16 @@ export const FormDetailCategoryDisabled = ({ title, description, isActive }: ICa
           />
 
           <div className='w-full'>
-            <Label htmlFor='status'>
-              Estado
-            </Label>
-
-            <div className='my-2'></div>
-
-            <Select defaultValue={`${isActive}`} disabled>
-              <SelectTrigger id='status' className='w-full'>
-                <SelectValue placeholder='Seleciona un Estado' />
-              </SelectTrigger>
-
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Estatus</SelectLabel>
-                  <SelectItem value='true'>Activo</SelectItem>
-                  <SelectItem value='false'>Bloqueado</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-
+            <Input
+              id='status'
+              type='text'
+              label='Estado'
+              tabIndex={2}
+              classNameContainer='w-full'
+              disabled
+              value={isActive ? 'Activo' : 'Bloqueado'}
+              readOnly
+            />
           </div>
         </div>
 
@@ -49,7 +39,7 @@ export const FormDetailCategoryDisabled = ({ title, description, isActive }: ICa
           label='Descripcion'
           placeholder='Ingrese titulo de la categoria'
           classNameContainer='w-full mt-4'
-          tabIndex={1}
+          tabIndex={3}
           value={description}
           readOnly
           disabled

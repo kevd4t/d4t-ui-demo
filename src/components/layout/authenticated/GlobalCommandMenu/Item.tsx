@@ -1,7 +1,7 @@
 import { type ReactElement } from 'react'
 import Link from 'next/link'
 
-import { TModuleRoutes } from '@/lib/types/routes'
+import { TModuleRoutes } from '@/lib/types/module-routes'
 
 import { CommandItem, CommandShortcut } from '@/components/ui/command'
 import { KBD, type KBDProps } from '@/components/common/kbd'

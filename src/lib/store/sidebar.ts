@@ -8,7 +8,7 @@ interface ISidebarAtom {
 }
 
 export const useSidebarStore = create<ISidebarAtom>(set => ({
-  isOpen: false,
+  isOpen: true,
   openSidebar: () => set({ isOpen: true }),
   closeSidebar: () => set({ isOpen: false }),
   toggleSidebar: () => set(prevState => ({ isOpen: !prevState.isOpen }))

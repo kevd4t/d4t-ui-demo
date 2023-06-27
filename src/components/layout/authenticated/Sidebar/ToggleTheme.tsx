@@ -2,7 +2,7 @@ import { IconMoon, IconSun } from '@tabler/icons-react'
 import { useTheme } from 'next-themes'
 import React, { useEffect, useState } from 'react'
 
-export const ToggleTheme = () => {
+export const ToggleTheme = ({ collapsed }) => {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
 
@@ -24,20 +24,20 @@ export const ToggleTheme = () => {
   return (
     <button
       onClick={toggleTheme}
-      className='w-full border-2 border-transparent flex items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 hover:dark:bg-dark-hover select-none'
+      className={`w-full border-2 border-transparent flex ${collapsed ? 'justify-center' : ''} items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 hover:dark:bg-main-hover select-none`}
     >
       {
         theme === 'light'
           ? (
             <>
               <IconMoon className='dark:text-white' />
-              <span className='pl-2 dark:text-white'>Oscuro</span>
+              {!collapsed && <span className='pl-2 dark:text-white text-sm'>Oscuro</span>}
             </>
           )
           : (
             <>
               <IconSun className='dark:text-white' />
-              <span className='pl-2 dark:text-white'>Claro</span>
+              {!collapsed && <span className='pl-2 dark:text-white text-sm'>Claro</span>}
             </>
           )
       }

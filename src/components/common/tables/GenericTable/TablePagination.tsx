@@ -5,13 +5,17 @@ import { DataTablePaginationProps } from '@/lib/types'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
 
-export function TablePagination<TData> ({ table, pagination }: DataTablePaginationProps<TData>) {
+export function TablePagination<TData> ({ table, pagination, rowsToSelect }: DataTablePaginationProps<TData>) {
   return (
     <div className='flex items-center justify-end px-2'>
-      <div className='flex-1 text-sm text-muted-foreground'>
-        {table.getFilteredSelectedRowModel().rows.length} de {' '}
-        {table.getFilteredRowModel().rows.length} {pagination.labels.singularItem}(s) Seleccionados.
-      </div>
+      {
+        rowsToSelect && (
+          <div className='flex-1 text-sm text-muted-foreground'>
+            {table.getFilteredSelectedRowModel().rows.length} de {' '}
+            {table.getFilteredRowModel().rows.length} {pagination.labels.singularItem}(s) Seleccionados.
+          </div>
+        )
+      }
 
       <div className='flex items-center space-x-6 lg:space-x-8'>
         <div className='flex items-center space-x-2'>

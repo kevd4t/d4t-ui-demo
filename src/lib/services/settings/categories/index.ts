@@ -1,26 +1,21 @@
-import { ITableCategoryWithSubCategories } from '@/lib/types'
-import { fetcher } from '@/lib/utils/fetcher'
+export const handleFetchUrlCategories = ({ pageIndex, pageSize, search, filters }) => {
+  const status = (filters?.status?.length) ? filters?.status : null
 
-export const fetchCategories = async ({ queryKey }) => {
-  const [, { pageIndex, pageSize, search, filters }] = queryKey
-
-  console.log({ fetchCategories: queryKey })
-
-  const filterStatus = filters?.status && (filters?.status.length > 0) ? `&status=${filters?.status}` : ''
+  const filterStatus = status ? `&status=${status}` : ''
   const searchText = search ? `&search=${search}` : ''
 
-  const data = await fetcher(`/api/categories?page=${pageIndex}&limit=${pageSize}${filterStatus}${searchText}`)
-  return data
+  const url = `/api/categories?page=${pageIndex}&limit=${pageSize}${searchText}${filterStatus}`
+
+  return url
 }
 
-export const fetchSubCategories = async ({ queryKey }) => {
-  const [, { pageIndex, pageSize, search, filters }] = queryKey
+export const handleFetchUrlSubCategoriesByCategoryId = ({ categoryId, pageIndex, pageSize, search, filters }) => {
+  const status = (filters?.status?.length) ? filters?.status : null
 
-  const filterStatus = filters?.status && (filters?.status.length > 0) ? `&status=${filters?.status}` : ''
+  const filterStatus = status ? `&status=${status}` : ''
   const searchText = search ? `&search=${search}` : ''
 
-  const data: ITableCategoryWithSubCategories = await fetcher(`/api/categories?page=${pageIndex}&limit=${pageSize}${filterStatus}${searchText}`)
-  const subcategories = data.results.flatMap((category) => category.subcategories)
+  const url = `/api/categories/${categoryId}/subcategories?page=${pageIndex}&limit=${pageSize}${searchText}${filterStatus}`
 
-  return { info: data.info, results: [...subcategories] }
+  return url
 }

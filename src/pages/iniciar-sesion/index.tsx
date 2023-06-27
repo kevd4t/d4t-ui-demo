@@ -16,7 +16,7 @@ const SignInPage = () => {
 
   return (
     <div className='w-full h-full flex flex-col justify-center items-center relative'>
-      <div className='max-w-md w-full -mt-20 bg-white dark:bg-dark rounded-md p-6 backdrop-blur-sm bg-white/60 border border-slate-300 dark:border-dark'>
+      <div className='max-w-md w-full -mt-20 bg-white dark:bg-main rounded-md p-6 backdrop-blur-sm bg-white/60 border border-slate-300 dark:border-dark'>
         <img
           src='/images/logo.png'
           alt='logo'

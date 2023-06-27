@@ -10,8 +10,8 @@ import { PageTransition } from '@/components/layout/common/PageTransition'
 import { Sidebar } from '@/components/layout/authenticated'
 import { Button } from '@/components/ui'
 
-export const AuthenticatedLayout = ({ children, title, mainClassName }: { children: ReactNode, title: string, mainClassName?: string }) => {
-  const { openSidebar } = useSidebarStore()
+export const AuthenticatedLayout = ({ children, title, mainClassName, noPageTransition = false }: { children: ReactNode, title: string, mainClassName?: string, noPageTransition?: boolean }) => {
+  const { isOpen, toggleSidebar } = useSidebarStore()
 
   return (
     <>
@@ -23,11 +23,17 @@ export const AuthenticatedLayout = ({ children, title, mainClassName }: { childr
 
       <GlobalCommandMenu />
 
-      <div className='authLayout-container'>
+      <div className={
+        `authLayout-container grid 
+        ${isOpen ? 'grid-cols-sidebar' : ''}
+        ${!isOpen ? 'grid-cols-sidebar-collapsed' : ''} 
+        transition-[grid-template-columns] duration-300 ease-in-out`
+      }
+      >
         <Sidebar />
 
         <Button
-          onClick={openSidebar}
+          onClick={toggleSidebar}
           variant='secondary'
           color='blue'
           className='block md:hidden px-1.5 absolute top-3 right-3'
@@ -36,9 +42,15 @@ export const AuthenticatedLayout = ({ children, title, mainClassName }: { childr
         </Button>
 
         <main className={`p-6 sm:p-10 min-h-screen h-full w-full max-w-[1440px] mx-auto ${mainClassName}`}>
-          <PageTransition>
-            {children}
-          </PageTransition>
+          {
+            noPageTransition
+              ? (<>{ children }</>)
+              : (
+                <PageTransition>
+                  {children}
+                </PageTransition>
+              )
+          }
         </main>
       </div>
     </>

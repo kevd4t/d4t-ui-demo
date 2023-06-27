@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { PaginationState } from '@tanstack/react-table'
 import { useFetch } from '@/lib/hooks/useFetch'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
-import { Table } from '@/components/common/tables/Table'
+import { Table } from '@/components/common/tables/GenericTable'
 import { gpsDeviceColumns } from '@/lib/utils/tableColumns/gpsDevices'
 import { handleFetchUrlGpsDevices } from '@/lib/services/settings/gps/devices'
 
