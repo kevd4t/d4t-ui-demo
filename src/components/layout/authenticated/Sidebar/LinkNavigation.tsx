@@ -23,7 +23,7 @@ export const LinkNavigation = ({ to, label, icon, onClick }: LinkNavigationProps
       }
     >
       <div>{icon}</div>
-      <span className='pl-2 mt-0.5 dark:text-white'>{label}</span>
+      <span className='pl-2 mt-0.5 dark:text-white text-sm'>{label}</span>
     </Link>
   )
 }

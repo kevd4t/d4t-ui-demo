@@ -1,5 +1,5 @@
 import { Analytics } from '@vercel/analytics/react'
-import { SessionProvider } from 'next-auth/react'
+// import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from 'next-themes'
 import { Toaster } from 'sonner'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -18,17 +18,17 @@ export default function D4TErpApp ({ Component, pageProps: { session, ...pagePro
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SessionProvider session={session}>
-        <ThemeProvider attribute='class'>
-          <LoadingPage isRouteChanging={isRouteChanging} key={loadingKey} />
+      {/* <SessionProvider session={session}> */}
+      <ThemeProvider attribute='class'>
+        <LoadingPage isRouteChanging={isRouteChanging} key={loadingKey} />
 
-          { getLayout(<Component {...pageProps} />) }
+        { getLayout(<Component {...pageProps} />) }
 
-          { APP_CONFIG.ENV.IS_PRODUCTION && <Analytics /> }
+        { APP_CONFIG.ENV.IS_PRODUCTION && <Analytics /> }
 
-          <Toaster richColors />
-        </ThemeProvider>
-      </SessionProvider>
+        <Toaster richColors />
+      </ThemeProvider>
+      {/* </SessionProvider> */}
     </QueryClientProvider>
   )
 }

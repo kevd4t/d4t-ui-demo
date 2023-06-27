@@ -1,17 +1,15 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getFakeData } from '@/lib/data'
 
-const handleApiCategories = (req: NextApiRequest, res: NextApiResponse) => {
-  const categories = getFakeData('CATEGORIES')
+const handleApiStationByID = (req: NextApiRequest, res: NextApiResponse) => {
+  const stations = getFakeData('STATIONS')
 
-  setTimeout(() => {
-    return res.status(200).json({
-      id: req.query.id,
-      title: categories[0].title,
-      description: categories[0].description,
-      isActive: categories[0].isActive
-    })
-  }, 3000)
+  return res.status(200).json({
+    id: req.query.id,
+    title: stations[0].title,
+    description: stations[0].description,
+    isActive: stations[0].isActive
+  })
 }
 
-export default handleApiCategories
+export default handleApiStationByID
