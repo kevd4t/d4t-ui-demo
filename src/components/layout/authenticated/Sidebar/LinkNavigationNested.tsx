@@ -40,8 +40,8 @@ export const LinkNavigationNested = ({ label, icon, subLinks, onClick, collapsed
 
         {
           show
-            ? (<IconChevronUp />)
-            : (<IconChevronDown />)
+            ? (<IconChevronUp className='dark:text-white' />)
+            : (<IconChevronDown className='dark:text-white' />)
         }
 
       </button>
