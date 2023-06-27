@@ -1,6 +1,5 @@
 import type { ICategoryWithSubCategories } from '@/lib/types'
 import { Input } from '@/components/common/inputs/Input'
-import { Label, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui'
 import { TextArea } from '@/components/common/textarea'
 
 export const FormDetailCategoryDisabled = ({ title, description, isActive }: ICategoryWithSubCategories) => {
