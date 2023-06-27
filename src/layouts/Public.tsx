@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import type { ReactNode } from '@/lib/types'
 
-import { GlobalCommandMenu } from '@/components/layout/authenticated/GlobalCommandMenu'
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 
@@ -35,8 +34,6 @@ export const PublicLayout = ({ children, title, mainClassName }: { children: Rea
       <Head>
         <title>{ title }</title>
       </Head>
-
-      <GlobalCommandMenu />
 
       <main className={`h-screen w-full flex justify-start items-start overflow-hidden ${mainClassName}`}>
         <div className='w-full h-full z-20'>
