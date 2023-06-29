@@ -27,10 +27,10 @@ export const UploadUserPhoto = ({ imageToUpload, onChange, label, emptyClassName
           <>
             {
               (imageList.length >= 1)
-                ? <div>
+                ? <div className='h-[243px]'>
                   {
                     imageList.map((image, index) => (
-                      <div key={index} className ='w-full h-full flex flex-col justify-center items-center'>
+                      <div key={index} className ='w-full h-full flex flex-col justify-center items-center py-4'>
                         <img
                           src={image.data_url}
                           alt='image'
