@@ -25,7 +25,6 @@ export const FormCreateCategory = () => {
             messageErrors={errors}
             inputErrors={{ required: { value: true, message: 'Titulo Requerido' } }}
             tabIndex={1}
-            classNameContainer='w-full'
           />
 
           <div className='w-full'>

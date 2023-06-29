@@ -10,6 +10,7 @@ import { HeaderPage } from '@/components/common/headers/HeaderPage'
 import { Table } from '@/components/common/tables/GenericTable'
 import { useFetch } from '@/lib/hooks/useFetch'
 import { handleFetchUrlUsers } from '@/lib/services/users'
+import { handleTableItemsSelected } from '@/lib/utils/handleTableItemsSelected'
 
 const { ROUTES } = siteConfig
 
@@ -26,6 +27,9 @@ const UsersPage = () => {
   }
 
   const handleSearchWithParams = async ({ search, filters }) => {
+    const usersSelectedFullData = handleTableItemsSelected({ itemsTableSelected: usersSelected, dataItems: data.results })
+    console.log({ usersSelectedFullData })
+
     const url = handleFetchUrlUsers({ pageSize, pageIndex, search, filters })
     fetcher(url)
   }
@@ -34,7 +38,10 @@ const UsersPage = () => {
     <>
       <HeaderPage
         title='Usuarios'
-        createItem={{ href: '/usuarios/crear', title: 'Crear Usuario' }}
+        createItems={[
+          { href: '/usuarios/crear', title: 'Crear Usuario' },
+          { href: '/usuarios/grupos/crear', title: 'Crear Grupo' }
+        ]}
       />
 
       <Table

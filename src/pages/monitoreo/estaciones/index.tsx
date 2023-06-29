@@ -11,7 +11,7 @@ import { heatMapChartData } from '@/components/common/charts/heatMapChartData'
 import { lineChartData } from '@/components/common/charts/lineChartData'
 import { barChartData } from '@/components/common/charts/barChartData'
 import { pieChartData } from '@/components/common/charts/pieChartData'
-import { Card } from '@/components/common/cards'
+import { Card } from '@/components/ui'
 
 const { ROUTES } = siteConfig
 

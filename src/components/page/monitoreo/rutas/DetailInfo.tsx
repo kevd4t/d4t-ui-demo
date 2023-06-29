@@ -48,7 +48,7 @@ export const DetailInfo = () => {
             <div className='flex justify-between items-start mt-2'>
               <Input
                 id='driverInfoDNI'
-                classNameContainer='w-full'
+
                 label='Cedula de Identidad'
                 readOnly
                 value='12.345.678'
@@ -109,7 +109,7 @@ export const DetailInfo = () => {
                 label='Nombre'
                 readOnly
                 value='Flota 99'
-                classNameContainer='w-full'
+
               />
 
               <div className='w-full flex flex-col justify-between items-start mt-2'>
@@ -170,7 +170,7 @@ export const DetailInfo = () => {
                 label='Nombre'
                 readOnly
                 value='Estacion El Palito'
-                classNameContainer='w-full'
+
               />
 
               <div className='w-full flex flex-col justify-between items-start mt-2'>
@@ -190,7 +190,7 @@ export const DetailInfo = () => {
                 label='Estado'
                 readOnly
                 value='Yaracuy'
-                classNameContainer='w-full'
+
               />
 
               <div className='w-full flex flex-col justify-between items-start mt-2'>
@@ -206,7 +206,7 @@ export const DetailInfo = () => {
             <div className='flex justify-between items-start mt-2'>
               <TextArea
                 id='originStationReference'
-                classNameContainer='w-full'
+
                 label='Referencia'
                 readOnly
                 value='Porem ipsum dolor sit amet, consectetur adipiscing elita'
@@ -225,7 +225,7 @@ export const DetailInfo = () => {
                 label='Nombre'
                 readOnly
                 value='PDV Mercedes'
-                classNameContainer='w-full'
+
               />
 
               <div className='w-full flex flex-col justify-between items-start mt-2'>
@@ -245,7 +245,7 @@ export const DetailInfo = () => {
                 label='Estado'
                 readOnly
                 value='Distrito Federal'
-                classNameContainer='w-full'
+
               />
 
               <div className='w-full flex flex-col justify-between items-start mt-2'>
@@ -261,7 +261,7 @@ export const DetailInfo = () => {
             <div className='flex justify-between items-start mt-2'>
               <TextArea
                 id='destinyStationReference'
-                classNameContainer='w-full'
+
                 label='Referencia'
                 readOnly
                 value='Porem ipsum dolor sit amet, consectetur adipiscing elita'
@@ -277,7 +277,7 @@ export const DetailInfo = () => {
             <div className='flex justify-between items-start mt-2'>
               <Input
                 id='guideName'
-                classNameContainer='w-full'
+
                 label='Numero de la Guia'
                 readOnly
                 value='J-4086MZX'

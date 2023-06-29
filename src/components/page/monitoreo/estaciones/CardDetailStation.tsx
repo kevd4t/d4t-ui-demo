@@ -1,4 +1,4 @@
-import { Card } from '@/components/common/cards'
+import { Card } from '@/components/ui'
 import { Input } from '@/components/common/inputs/Input'
 import { TextArea } from '@/components/common/textarea'
 

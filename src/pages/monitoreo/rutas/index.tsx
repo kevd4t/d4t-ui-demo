@@ -34,7 +34,7 @@ const RoutesMonitoringPage = () => {
     <>
       <HeaderPage
         title='Rutas'
-        createItem={{ href: '/monitoreo/rutas/crear', title: 'Crear Ruta' }}
+        createItems={[{ href: '/monitoreo/rutas/crear', title: 'Crear Ruta' }]}
       />
 
       <Table

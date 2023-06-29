@@ -106,7 +106,7 @@ export const statusTypeColumns: ColumnDef<IStatusType>[] = [
   {
     id: 'Descripcion',
     accessorKey: 'description',
-    header: ({ column }) => <ColumnSort column={column} columnLabel='Descripcion' />,
+    header: 'Descripcion',
     cell: ({ row: { original } }) => {
       return <div className='pl-4 w-full'>{original.description}</div>
     }

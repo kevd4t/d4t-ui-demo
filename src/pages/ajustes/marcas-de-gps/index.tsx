@@ -34,7 +34,7 @@ const GPSMarksSettingsPage = () => {
     <>
       <HeaderPage
         title='Marcas de GPS'
-        createItem={{ href: '/ajustes/marcas-de-gps/crear', title: 'Crear Marca de GPS' }}
+        createItems={[{ href: '/ajustes/marcas-de-gps/crear', title: 'Crear Marca de GPS' }]}
       />
 
       <Table

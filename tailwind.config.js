@@ -28,6 +28,7 @@ module.exports = {
         dark: 'hsl(var(--border))'
       },
       colors: {
+        'primary-gray': '#64748B',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

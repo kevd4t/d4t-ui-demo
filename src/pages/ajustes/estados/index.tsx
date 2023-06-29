@@ -34,7 +34,7 @@ const StatusTypeSettingsPage = () => {
     <>
       <HeaderPage
         title='Estados'
-        createItem={{ href: '/ajustes/estados/crear', title: 'Crear Estado' }}
+        createItems={[{ href: '/ajustes/estados/crear', title: 'Crear Estado' }]}
       />
 
       <Table

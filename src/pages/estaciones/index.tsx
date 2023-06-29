@@ -33,7 +33,7 @@ const StationsPage = () => {
     <>
       <HeaderPage
         title='Estaciones'
-        createItem={{ href: '/estaciones/crear', title: 'Crear Estacion' }}
+        createItems={[{ href: '/estaciones/crear', title: 'Crear Estacion' }]}
       />
 
       <Table

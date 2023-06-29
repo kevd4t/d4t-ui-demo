@@ -17,19 +17,15 @@ export const FormSignIn = () => {
   const router = useRouter()
 
   const onSubmit = ({ email, password }: IDataSignIn) => {
-    setIsLoading(false)
+    setIsLoading(true)
 
     if (email === 'admin@gmail.com' && password === '123456') {
-      setIsLoading(true)
-
       setTimeout(() => {
         toast.success('Sesion Iniciada')
         setIsLoading(false)
         router.push('/dashboard')
       }, 1000)
     } else {
-      setIsLoading(true)
-
       setTimeout(() => {
         toast.error('Correo o Contraseña Invalidos')
         setIsLoading(false)

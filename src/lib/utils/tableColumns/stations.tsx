@@ -130,9 +130,9 @@ export const stationColumns: ColumnDef<IStation>[] = [
     accessorKey: 'status',
     header: ({ column }) => <ColumnSort column={column} columnLabel='Estatus' />,
     cell: ({ row }) => (
-      <Badge className='w-full'>
-        {row.original.status}
-      </Badge>
+      <div className='text-center w-full'>
+        <Badge>{row.original.status}</Badge>
+      </div>
     )
   },
   {

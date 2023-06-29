@@ -33,7 +33,7 @@ const CategorySettingsPage = () => {
     <>
       <HeaderPage
         title='Categorias'
-        createItem={{ href: '/ajustes/categorias/crear', title: 'Crear Categoria' }}
+        createItems={[{ href: '/ajustes/categorias/crear', title: 'Crear Categoria' }]}
       />
 
       <Table

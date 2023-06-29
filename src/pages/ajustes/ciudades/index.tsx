@@ -33,7 +33,7 @@ const CitiesSettingsPage = () => {
     <>
       <HeaderPage
         title='Ciudades'
-        createItem={{ href: '/ajustes/ciudades/crear', title: 'Crear Ciudad' }}
+        createItems={[{ href: '/ajustes/ciudades/crear', title: 'Crear Ciudad' }]}
       />
 
       <Table

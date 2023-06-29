@@ -1,5 +1,5 @@
-import { ColumnDef, TableState, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
-import { useMemo } from 'react'
+import { ColumnDef, SortingState, TableState, getCoreRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table'
+import { useMemo, useState } from 'react'
 
 import { IItemToFilter, IPaginationProps, ISelection, ITableInputSearchProps } from '@/lib/types'
 
@@ -34,13 +34,14 @@ export function Table<TData, TValue> ({
   inputSearch,
   visibilityColumns
 }: DataTableProps<TData, TValue>) {
+  const [sorting, setSorting] = useState<SortingState>([])
   const defaultData = useMemo(() => [], [])
   const paginationMemo = useMemo(
     () => ({ pageIndex: pagination.pageIndex, pageSize: pagination.pageSize }),
     [pagination.pageIndex, pagination.pageSize]
   )
 
-  const stateWithRowSelections = { rowSelection: selection?.rowSelection, pagination: paginationMemo }
+  const stateWithRowSelections = { rowSelection: selection?.rowSelection, pagination: paginationMemo, sorting }
 
   const state: Partial<TableState> = selection ? stateWithRowSelections : { pagination: paginationMemo }
 
@@ -52,6 +53,8 @@ export function Table<TData, TValue> ({
     getPaginationRowModel: getPaginationRowModel(),
     onPaginationChange: pagination.setPagination,
     manualPagination: true,
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
     enableRowSelection: Boolean(selection),
     onRowSelectionChange: selection?.setRowSelection || null
   })

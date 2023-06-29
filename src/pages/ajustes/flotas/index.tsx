@@ -34,7 +34,7 @@ const FleetsSettingsPage = () => {
     <>
       <HeaderPage
         title='Flotas'
-        createItem={{ href: '/ajustes/flotas/crear', title: 'Crear Flota' }}
+        createItems={[{ href: '/ajustes/flotas/crear', title: 'Crear Flota' }]}
       />
 
       <Table

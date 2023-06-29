@@ -64,16 +64,12 @@ export const ColumnSort = ({ column, columnLabel }: { column: Column<IUser>, col
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem
-          onClick={() => column.toggleSorting(true)}
-        >
+        <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
           <IconSortAscending className='mr-2 h-4 w-4' />
           Ascendente
         </DropdownMenuItem>
 
-        <DropdownMenuItem
-          onClick={() => column.toggleSorting(false)}
-        >
+        <DropdownMenuItem onClick={() => column.toggleSorting(false)}>
           <IconSortDescending className='mr-2 h-4 w-4' />
           Descendente
         </DropdownMenuItem>
@@ -99,7 +95,7 @@ export const usersColumns: ColumnDef<IUser>[] = [
         aria-label='Select all'
       />
     ),
-    cell: ({ row }) => (
+    cell: ({ row, table }) => (
       <Checkbox
         checked={row.getIsSelected()}
         onCheckedChange={(value) => row.toggleSelected(!!value)}
