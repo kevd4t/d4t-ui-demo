@@ -15,7 +15,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
-import { IconId } from '@tabler/icons-react'
+import { IconId, IconUser } from '@tabler/icons-react'
 import { UploadUserPhoto } from './UploadUserPhoto'
 
 const { PHONE_LINE_CODES, ROLES_DIC: ROLES, IS_ACTIVE } = APP_CONFIG
@@ -45,8 +45,8 @@ const defaultValues: IDataToCreateUser = {
 }
 
 export const FormCreateUser = () => {
-  const [imageToUpload, setImageToUpload] = useState([])
   const [userPhoto, setUserPhoto] = useState([])
+  const [ciImage, setImageToUpload] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const form = useForm<IDataToCreateUser>({ defaultValues })
   const router = useRouter()
@@ -65,19 +65,31 @@ export const FormCreateUser = () => {
     setIsLoading(true)
 
     console.log({ data })
-    if (!imageToUpload || !imageToUpload[0]) {
-      toast.error('La imagen es requerida')
+    if (!ciImage || !ciImage[0]) {
+      toast.error('La Foto de la Cedula es requerida')
       setIsLoading(false)
       return
     }
 
-    if (imageToUpload[0]?.file?.size > APP_CONFIG.FILES_RULES.LIMIT_SIZE) {
+    if (ciImage[0]?.file?.size > APP_CONFIG.FILES_RULES.LIMIT_SIZE) {
       toast.error('Solo archivos menos de 10MB')
       setIsLoading(false)
       return
     }
 
-    const singleImage = imageToUpload[0]?.file
+    if (!userPhoto || !userPhoto[0]) {
+      toast.error('La Foto de Perfil es requerida')
+      setIsLoading(false)
+      return
+    }
+
+    if (userPhoto[0]?.file?.size > APP_CONFIG.FILES_RULES.LIMIT_SIZE) {
+      toast.error('Solo archivos menos de 10MB')
+      setIsLoading(false)
+      return
+    }
+
+    const singleImage = ciImage[0]?.file
     console.log({ singleImage })
     setIsLoading(false)
   }
@@ -117,13 +129,15 @@ export const FormCreateUser = () => {
       <div className='max-w-xs w-full flex flex-col justify-start items-start sticky pt-6 top-0 left-0'>
         <Card className='w-full sticky top-0 left-0'>
           <CardHeader>
-            <Avatar className='w-20 h-20 rounded-sm mx-auto'>
-              <AvatarImage src='#' />
-              <AvatarFallback className='rounded-md'>USER</AvatarFallback>
+            <Avatar className='w-32 h-32 rounded-sm mx-auto'>
+              <AvatarImage src={userPhoto[0]?.data_url} className='object-contain' />
+              <AvatarFallback className='rounded-md'>
+                <IconUser className='text-zinc-500 w-10 h-10' />
+              </AvatarFallback>
             </Avatar>
           </CardHeader>
 
-          <CardContent className='mt-0'>
+          <CardContent>
             <h6 className='font-semibold'>Informacion Basica</h6>
 
             <ul className='mt-2'>
@@ -134,7 +148,7 @@ export const FormCreateUser = () => {
 
               <li className='flex justify-start items-center text-sm text-primary-gray'>
                 <span className='font-semibold dark:text-white'>Telefono:</span> &nbsp;
-                <span className='dark:text-gray-300'>{form.watch('phoneCode')} {form.watch('phoneNumber')}</span>
+                <span className='dark:text-gray-300'>({form.watch('phoneCode')}) {form.watch('phoneNumber')}</span>
               </li>
 
               <li className='flex justify-start items-center text-sm text-primary-gray'>
@@ -169,10 +183,10 @@ export const FormCreateUser = () => {
 
           <CardContent className='mt-0'>
             {
-              imageToUpload[0]?.data_url
+              ciImage[0]?.data_url
                 ? (
                   <img
-                    src={imageToUpload[0]?.data_url}
+                    src={ciImage[0]?.data_url}
                     alt='image'
                     className='rounded-md w-140 max-h-[400px] object-contain mx-auto'
                   />
@@ -192,16 +206,6 @@ export const FormCreateUser = () => {
 
       <div className='w-full pt-6'>
         <div className='w-full h-full flex flex-col xl:flex-row justify-start items-start gap-x-6 gap-y-6'>
-          <Card className='w-full xl:w-1/3 min-w-[230px] h-full xl:h-[333px]'>
-            <CardHeader className='pb-4'>
-              <h6 className='font-semibold'>Foto de Perfil</h6>
-            </CardHeader>
-
-            <CardContent className='flex flex-col justify-between items-start xl:pb-2 h-[190px]'>
-              <UploadUserPhoto imageToUpload={userPhoto} onChange={onChangeUserPhoto} />
-            </CardContent>
-          </Card>
-
           <Card className='p-4 w-full'>
             <CardTitle>Informacion Basica</CardTitle>
 
@@ -305,16 +309,6 @@ export const FormCreateUser = () => {
         </div>
 
         <Card className='p-4 mt-6 w-full'>
-          <CardTitle>Foto de la Cedula de Identidad</CardTitle>
-
-          <Separator className='my-4' />
-
-          <CardContent className='mt-0'>
-            <UploadImage onChange={onChangeImageCI} imageToUpload={imageToUpload} emptyClassName='h-[476px]' />
-          </CardContent>
-        </Card>
-
-        <Card className='p-4 mt-6 w-full'>
           <CardTitle>Rol y Estado</CardTitle>
 
           <Separator className='my-4' />
@@ -369,9 +363,37 @@ export const FormCreateUser = () => {
           </section>
         </Card>
 
-        <Button tabIndex={10} type='submit' className='mt-2 w-full py-2 text-base'>
-          Crear Usuario
-        </Button>
+        <div className='w-full h-full mt-6 grid grid-cols-6 gap-4'>
+          <Card className='p-4 w-full h-full col-span-2'>
+            <CardTitle>Foto de Perfil</CardTitle>
+
+            <Separator className='my-4' />
+
+            <CardContent className='flex flex-col justify-between items-start pb-0'>
+              <UploadUserPhoto imageToUpload={userPhoto} onChange={onChangeUserPhoto} />
+            </CardContent>
+          </Card>
+
+          <Card className='p-4 w-full col-span-4'>
+            <CardTitle>Foto de la Cedula de Identidad</CardTitle>
+
+            <Separator className='my-4' />
+
+            <CardContent className='mt-0 pb-0'>
+              <UploadImage onChange={onChangeImageCI} imageToUpload={ciImage} emptyClassName='h-[285px]' />
+            </CardContent>
+          </Card>
+        </div>
+
+        <section className='w-full flex justify-between items-start mt-6 gap-x-6'>
+          <Button variant='outline' tabIndex={10} type='button' className='w-full py-2 text-base'>
+            Cancelar
+          </Button>
+
+          <Button tabIndex={11} type='submit' className='w-full py-2 text-base'>
+            Crear Usuario
+          </Button>
+        </section>
       </div>
     </form>
   )

@@ -21,42 +21,44 @@ export const UploadUserPhoto = ({ imageToUpload, onChange, label, emptyClassName
         value={imageToUpload}
         onChange={onChange}
         dataURLKey='data_url'
-        acceptType={['webp', 'png']}
+        acceptType={['webp', 'png', 'jpg', 'jpeg']}
       >
         {({ imageList, onImageUpload, onImageUpdate, onImageRemove, isDragging, dragProps }) => (
           <>
             {
               (imageList.length >= 1)
-                ? <div className='h-[243px]'>
+                ? <>
                   {
                     imageList.map((image, index) => (
-                      <div key={index} className ='w-full h-full flex flex-col justify-center items-center py-4'>
-                        <img
-                          src={image.data_url}
-                          alt='image'
-                          className='rounded-md object-contain m-auto w-full h-full'
-                          style={{ width: '-webkit-fill-available' }}
-                        />
+                      <div key={index} className ='w-full h-full flex flex-col justify-center items-center'>
+                        <div className='w-full h-[235px]'>
+                          <img
+                            src={image.data_url}
+                            alt='image'
+                            className='rounded-md object-contain m-auto w-full h-full'
+                            style={{ width: '-webkit-fill-available' }}
+                          />
+                        </div>
 
                         <div className='mt-2 gap-x-2 w-full flex justify-between items-start'>
-                          <Button type='button' onClick={() => onImageUpdate(index)}>
-                          Cambiar
+                          <Button className='w-full' type='button' onClick={() => onImageUpdate(index)}>
+                            Cambiar
                           </Button>
 
-                          <Button type='button' onClick={() => onImageRemove(index)}>
-                          Eliminar
+                          <Button className='w-full' type='button' onClick={() => onImageRemove(index)}>
+                            Eliminar
                           </Button>
                         </div>
                       </div>
                     ))
                   }
-                </div>
+                </>
                 : <>
                   <div
                     {...dragProps}
                     className={cn(
                       `${isDragging ? 'border-indigo-600' : 'border-gray-300'}`,
-                      'w-full h-full mt-1 flex flex-col justify-center items-center px-6 pt-5 pb-6 border-2 border-dashed rounded-md text-center',
+                      'w-full h-[223px] mt-1 flex flex-col justify-center items-center px-6 pt-5 pb-6 border-2 border-dashed rounded-md text-center',
                       emptyClassName
                     )}
                   >
