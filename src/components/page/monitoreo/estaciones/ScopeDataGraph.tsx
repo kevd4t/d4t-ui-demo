@@ -1,7 +1,6 @@
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/common/selects'
-import { Label } from '@/components/common/labels'
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem, Button } from '@/components/ui'
 import { DatePickerWithRange } from '@/components/common/date-pickers'
-import { Button } from '@/components/ui'
+import { Label } from '@/components/common/labels'
 
 export const ScopeDataGraph = () => {
   return (

@@ -9,7 +9,7 @@ import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
 import { FormDetailCategoryDisabled } from '@/components/page/ajustes/categorias/FormDetailCategoryDisabled'
-import { CardUI, CardUIContent, CardUITitle, Separator } from '@/components/ui'
+import { Card, CardContent, CardTitle, Separator } from '@/components/ui'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
 import { Table } from '@/components/common/tables/GenericTable'
 import { useRouter } from 'next/router'
@@ -41,18 +41,18 @@ const SubCategorySettingsPage = () => {
       />
 
       <div className='w-full h-full max-w-4xl mx-auto'>
-        <CardUI className='p-4'>
-          <CardUITitle>Informacion Basica</CardUITitle>
+        <Card className='p-4'>
+          <CardTitle>Informacion Basica</CardTitle>
 
           <Separator className='my-4' />
 
-          <CardUIContent className='p-0'>
+          <CardContent className='p-0'>
             <FormDetailCategoryDisabled {...data} />
-          </CardUIContent>
-        </CardUI>
+          </CardContent>
+        </Card>
 
-        <CardUI className='p-4 mt-6'>
-          <CardUITitle>Subcategorias</CardUITitle>
+        <Card className='p-4 mt-6'>
+          <CardTitle>Subcategorias</CardTitle>
 
           <Separator className='my-4' />
 
@@ -66,7 +66,7 @@ const SubCategorySettingsPage = () => {
             inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Subcategoria' }}
             selection={{ rowSelection: subcategoriesSelected, setRowSelection: setSubcategoriesSelected }}
           />
-        </CardUI>
+        </Card>
       </div>
     </>
   )
