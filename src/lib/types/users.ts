@@ -2,10 +2,11 @@ import { TModules } from './modules'
 import { TRole } from './roles'
 
 export interface IUserGroup {
-  id: number;
-  title: string;
-  description: string;
-  moduleAccess: TModules[];
+  id: number
+  title: string
+  description: string
+  moduleAccess: TModules[]
+  isActive: boolean
 }
 
 export interface IUser {
@@ -13,7 +14,7 @@ export interface IUser {
   id: string
   name: string
   lastname: string
-  token: string;
+  token: string
   email: string
   ci: string
   photo: string

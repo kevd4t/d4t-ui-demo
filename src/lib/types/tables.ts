@@ -73,6 +73,7 @@ export interface DataTablePaginationProps<TData> {
 export interface ISelection {
   rowSelection: RowSelectionState
   setRowSelection: Dispatch<SetStateAction<RowSelectionState>>
+  getFullDataSelection?: (table: Table<any>) => void
 }
 
 export interface ITableInputSearchProps {

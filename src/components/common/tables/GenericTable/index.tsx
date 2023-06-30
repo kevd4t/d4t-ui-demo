@@ -1,5 +1,5 @@
 import { ColumnDef, SortingState, TableState, getCoreRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { IItemToFilter, IPaginationProps, ISelection, ITableInputSearchProps } from '@/lib/types'
 
@@ -42,7 +42,6 @@ export function Table<TData, TValue> ({
   )
 
   const stateWithRowSelections = { rowSelection: selection?.rowSelection, pagination: paginationMemo, sorting }
-
   const state: Partial<TableState> = selection ? stateWithRowSelections : { pagination: paginationMemo }
 
   const table = useReactTable({
@@ -54,10 +53,19 @@ export function Table<TData, TValue> ({
     onPaginationChange: pagination.setPagination,
     manualPagination: true,
     onSortingChange: setSorting,
+    enableSorting: true,
     getSortedRowModel: getSortedRowModel(),
     enableRowSelection: Boolean(selection),
     onRowSelectionChange: selection?.setRowSelection || null
   })
+
+  useEffect(() => {
+    if (selection?.getFullDataSelection) {
+      selection?.getFullDataSelection(table)
+    }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selection?.rowSelection])
 
   return (
     <div className='space-y-4'>

@@ -168,5 +168,13 @@ export const APP_CONFIG = {
       { label: '0416', value: '0416', image: '/images/marks/movilnet.png' },
       { label: '0426', value: '0426', image: '/images/marks/movilnet.png' }
     ]
+  },
+
+  CI_TYPES: {
+    VENEZUELAN: { label: 'Venezolano', value: 'VENEZUELAN', key: 'V' },
+    PASSPORT: { label: 'Pasaporte', value: 'PASSPORT', key: 'P' },
+    JURIDICAL: { label: 'Jurídico', value: 'JURIDICAL', key: 'J' },
+    FOREIGN: { label: 'Extranjero', value: 'FOREIGN', key: 'E' },
+    GOVERNMENTAL: { label: 'Gubernamental', value: 'GOVERNMENTAL', key: 'G' }
   }
 }

@@ -72,30 +72,34 @@ const MODULE_ACCESS_BY_ROLE = {
   ADMINISTRATOR_DEFAULT: ADMINISTRATOR_DEFAULT_MODULES_ACCESS
 }
 
-const fakeGroupsUser = [
+const fakeUserGroups = [
   {
     id: 1,
     title: 'Grupo de Operadores 1',
     description: 'lorem ipsu detniat',
-    moduleAccess: MODULE_ACCESS_BY_ROLE.OPERATOR_DEFAULT
+    moduleAccess: MODULE_ACCESS_BY_ROLE.OPERATOR_DEFAULT,
+    isActive: true
   },
   {
     id: 2,
-    title: 'SUPERVISOR_DEFAULT',
+    title: 'Grupo de Supervisores 4',
     description: 'lorem ipsu detniat',
-    moduleAccess: MODULE_ACCESS_BY_ROLE.SUPERVISOR_DEFAULT
+    moduleAccess: MODULE_ACCESS_BY_ROLE.SUPERVISOR_DEFAULT,
+    isActive: true
   },
   {
     id: 3,
-    title: 'COORDINATOR_DEFAULT',
+    title: 'Grupo de Coordinadores',
     description: 'lorem ipsu detniat',
-    moduleAccess: MODULE_ACCESS_BY_ROLE.COORDINATOR_DEFAULT
+    moduleAccess: MODULE_ACCESS_BY_ROLE.COORDINATOR_DEFAULT,
+    isActive: true
   },
   {
     id: 4,
-    title: 'ADMINISTRATOR_DEFAULT',
+    title: 'Grupo de Administradores',
     description: 'lorem ipsu detniat',
-    moduleAccess: MODULE_ACCESS_BY_ROLE.ADMINISTRATOR_DEFAULT
+    moduleAccess: MODULE_ACCESS_BY_ROLE.ADMINISTRATOR_DEFAULT,
+    isActive: true
   }
 ]
 
@@ -110,7 +114,7 @@ const fakeUsers = [
     role: 'OPERATOR',
     isActive: true,
     token: crypto.randomUUID(),
-    group: fakeGroupsUser[0]
+    group: fakeUserGroups[0]
   },
   {
     id: 2,
@@ -122,7 +126,7 @@ const fakeUsers = [
     role: 'SUPERVISOR',
     isActive: false,
     token: crypto.randomUUID(),
-    group: fakeGroupsUser[1]
+    group: fakeUserGroups[1]
   },
   {
     id: 3,
@@ -134,7 +138,7 @@ const fakeUsers = [
     role: 'COORDINATOR',
     isActive: true,
     token: crypto.randomUUID(),
-    group: fakeGroupsUser[3]
+    group: fakeUserGroups[3]
   },
   {
     id: 4,
@@ -146,7 +150,7 @@ const fakeUsers = [
     role: 'ADMINISTRATOR',
     isActive: true,
     token: crypto.randomUUID(),
-    group: fakeGroupsUser[4]
+    group: fakeUserGroups[4]
   },
   {
     id: 5,
@@ -158,7 +162,7 @@ const fakeUsers = [
     role: 'ADMINISTRATOR',
     isActive: true,
     token: crypto.randomUUID(),
-    group: fakeGroupsUser[4]
+    group: fakeUserGroups[4]
   },
   {
     id: 6,
@@ -170,7 +174,7 @@ const fakeUsers = [
     role: 'OPERATOR',
     isActive: false,
     token: crypto.randomUUID(),
-    group: fakeGroupsUser[0]
+    group: fakeUserGroups[0]
   },
   {
     id: 7,
@@ -182,7 +186,7 @@ const fakeUsers = [
     role: 'SUPERVISOR',
     isActive: true,
     token: crypto.randomUUID(),
-    group: fakeGroupsUser[2]
+    group: fakeUserGroups[2]
   },
   {
     id: 8,
@@ -194,7 +198,7 @@ const fakeUsers = [
     role: 'COORDINATOR',
     isActive: true,
     token: crypto.randomUUID(),
-    group: fakeGroupsUser[3]
+    group: fakeUserGroups[3]
   },
   {
     id: 9,
@@ -206,7 +210,7 @@ const fakeUsers = [
     role: 'ADMINISTRATOR',
     isActive: true,
     token: crypto.randomUUID(),
-    group: fakeGroupsUser[4]
+    group: fakeUserGroups[4]
   },
   {
     id: 10,
@@ -218,7 +222,7 @@ const fakeUsers = [
     role: 'ADMINISTRATOR',
     isActive: true,
     token: crypto.randomUUID(),
-    group: fakeGroupsUser[4]
+    group: fakeUserGroups[4]
   },
   {
     id: 11,
@@ -230,7 +234,7 @@ const fakeUsers = [
     role: 'ADMINISTRATOR',
     isActive: true,
     token: crypto.randomUUID(),
-    group: fakeGroupsUser[4]
+    group: fakeUserGroups[4]
   }
 ]
 
@@ -398,7 +402,9 @@ export const routes: IRoute[] = [
   }
 ]
 
-type TypeData = 'USERS' |
+type TypeData =
+  'USERS' |
+  'USER_GROUPS' |
   'CATEGORIES' |
   'SUBCATEGORIES' |
   'STATUS_TYPE' |
@@ -415,6 +421,7 @@ type TypeData = 'USERS' |
 
 const FAKE_DATA_DIC = {
   USERS: () => fakeUsers,
+  USER_GROUPS: () => fakeUserGroups,
   CATEGORIES: () => fakeCategories,
   SUBCATEGORIES: () => fakeCategories.find(category => category.subcategories),
   STATUS_TYPE: () => statusType,

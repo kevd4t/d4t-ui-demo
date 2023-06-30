@@ -1,10 +1,10 @@
-import { Input } from '@/components/common/inputs/Input'
-import { Spinner } from '@/components/common/loaders/Spinner'
-import { Button } from '@/components/ui'
+import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
+
+import { Input } from '@/components/common/inputs/Input'
+import { Button } from '@/components/ui'
 
 interface IDataSignIn {
   email: string
@@ -57,12 +57,8 @@ export const FormSignIn = () => {
         tabIndex={2}
       />
 
-      <Button type='submit' tabIndex={3} disabled={isLoading}>
-        {
-          isLoading
-            ? (<Spinner className='border-white' />)
-            : ' Iniciar Sesion'
-        }
+      <Button type='submit' tabIndex={3} isLoading={isLoading} disabled={isLoading}>
+        Iniciar Sesion
       </Button>
     </form>
   )

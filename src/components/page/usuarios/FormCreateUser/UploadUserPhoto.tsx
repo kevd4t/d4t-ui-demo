@@ -10,9 +10,14 @@ interface IUploadImageProps {
   onChange: onChangeImage
   label?: string
   emptyClassName?: string
+  tabIndexs?: {
+    upload?: number
+    change?: number
+    delete?: number
+  }
 }
 
-export const UploadUserPhoto = ({ imageToUpload, onChange, label, emptyClassName }: IUploadImageProps) => {
+export const UploadUserPhoto = ({ imageToUpload, onChange, label, emptyClassName, tabIndexs }: IUploadImageProps) => {
   return (
     <div className='w-full h-full'>
       { label && <Label>{label}</Label> }
@@ -41,11 +46,11 @@ export const UploadUserPhoto = ({ imageToUpload, onChange, label, emptyClassName
                         </div>
 
                         <div className='mt-2 gap-x-2 w-full flex justify-between items-start'>
-                          <Button className='w-full' type='button' onClick={() => onImageUpdate(index)}>
+                          <Button tabIndex={tabIndexs?.change} className='w-full' type='button' onClick={() => onImageUpdate(index)}>
                             Cambiar
                           </Button>
 
-                          <Button className='w-full' type='button' onClick={() => onImageRemove(index)}>
+                          <Button tabIndex={tabIndexs?.delete} className='w-full' type='button' onClick={() => onImageRemove(index)}>
                             Eliminar
                           </Button>
                         </div>
@@ -65,7 +70,7 @@ export const UploadUserPhoto = ({ imageToUpload, onChange, label, emptyClassName
                     <IconUser className='text-zinc-500 w-10 h-10' />
                   </div>
 
-                  <Button className={`w-full mt-4 ${isDragging ? 'text-indigo-600' : ''}`} type='button' onClick={onImageUpload}>
+                  <Button tabIndex={tabIndexs?.upload} className={`w-full mt-4 ${isDragging ? 'text-indigo-600' : ''}`} type='button' onClick={onImageUpload}>
                     Cargar Foto
                   </Button>
                 </>

@@ -3,7 +3,7 @@ import { IFetchDataTable } from './http'
 export interface ISubCategory {
   id: number
   title: string
-  description: string;
+  description: string
   isActive: boolean
   createdAt: string
   updatedAt: string
