@@ -2,6 +2,7 @@ import { PaginationState, RowSelectionState, type Table as TableType } from '@ta
 import { IconId, IconUser } from '@tabler/icons-react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
+import JSConfetti from 'js-confetti'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
@@ -23,6 +24,7 @@ import { GenericCombobox } from '@/components/common/combox'
 import { GenericSelect } from '@/components/common/selects'
 import { Input } from '@/components/common/inputs/Input'
 import { UploadUserPhoto } from './UploadUserPhoto'
+import { Congratulations } from '@/components/common/illustrations/Congratulations'
 
 const { PHONE_LINE_CODES, CI_TYPES, ROLES_DIC: ROLES, IS_ACTIVE } = APP_CONFIG
 
@@ -55,6 +57,7 @@ const defaultValues: IDataToCreateUser = {
 export const FormCreateUser = () => {
   const [tableUserGroupsSelected, HandleTableUserGroupsSelected] = useState<RowSelectionState>({})
   const [fullDataUserGroupsSelected, setFullDataUserGroupsSelected] = useState([])
+  const [modalInfo, setModalInfo] = useState({ open: false, label: '', illustration: null })
   const [loading, setLoading] = useState({ meessage: '', value: false })
   const form = useForm<IDataToCreateUser>({ defaultValues })
   const [ciImage, setImageToUpload] = useState([])
@@ -158,6 +161,7 @@ export const FormCreateUser = () => {
     }
 
     setLoading(({ meessage: 'Creando Usuario', value: true }))
+    setModalInfo(prevState => ({ ...prevState, label: 'Creando Usuario', open: true }))
     await simulateFetch(3000)
 
     const ciImageFile = ciImage[0]?.file
@@ -172,21 +176,30 @@ export const FormCreateUser = () => {
       group: fullDataUserGroupsSelected[0].original
     })
 
+    setModalInfo(prevState => ({ label: 'Usuario Creado', open: true, illustration: <Congratulations className='h-72' /> }))
     setLoading({ meessage: '', value: false })
+    const jsConfetti = new JSConfetti()
+    jsConfetti.addConfetti()
+
+    await simulateFetch(4000)
+    setModalInfo({ illustration: null, label: '', open: false })
+    setLoading({ meessage: '', value: false })
+
     router.push('/usuarios/23')
   }
 
   return (
     <>
-      <Dialog modal open={loading.value}>
+      <Dialog modal open={modalInfo.open}>
         <DialogContent aria-modal>
           <DialogHeader>
             <div className='w-full h-full flex flex-col justify-center items-center'>
-              <WomanLoading className='w-72' />
+              {loading.value && <WomanLoading className='w-72' />}
+              {modalInfo.illustration}
 
               <div className='flex'>
-                <h5 className='font-bold text-4xl'>{loading.meessage}</h5>
-                <div className='dot-flashing mt-6 ml-5'></div>
+                <h5 className='font-bold text-4xl'>{modalInfo.label}</h5>
+                {loading.value && <div className='dot-flashing mt-6 ml-5'></div>}
               </div>
             </div>
           </DialogHeader>
@@ -194,7 +207,7 @@ export const FormCreateUser = () => {
       </Dialog>
 
       <div className='w-full h-full flex justify-start items-start gap-x-10'>
-        <div className='max-w-xs w-full flex flex-col justify-start items-start sticky pt-6 top-0 left-0'>
+        <div className='hidden max-w-xs w-full lg:flex flex-col justify-start items-start sticky pt-6 top-0 left-0'>
           <Card className='w-full sticky top-0 left-0'>
             <CardHeader>
               <Avatar className='w-32 h-32 rounded-sm mx-auto'>
@@ -284,7 +297,7 @@ export const FormCreateUser = () => {
                 <Separator className='my-4' />
 
                 <section className='w-full space-y-4'>
-                  <div className='w-full flex justify-between items-start gap-x-5'>
+                  <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
                     <Input
                       id='names'
                       type='text'
@@ -308,7 +321,7 @@ export const FormCreateUser = () => {
                     />
                   </div>
 
-                  <div className='w-full flex justify-between items-end gap-x-5'>
+                  <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
                     <Input
                       id='username'
                       type='text'
@@ -351,19 +364,7 @@ export const FormCreateUser = () => {
                     </div>
                   </div>
 
-                  <div className='w-full flex justify-between items-start gap-x-5'>
-                    {/* <Input
-                      id='ci'
-                      tabIndex={6}
-                      maxLength={10}
-                      placeholder='00.000.000'
-                      register={form.register}
-                      onKeyUp={handleOnKeyUpCI}
-                      inputErrors={userRules.ci}
-                      label='Cedula de Identidad'
-                      onKeyPress={handleOnlyNumbers}
-                      messageErrors={form.formState.errors}
-                    /> */}
+                  <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
                     <div className='w-full flex justify-start items-end gap-x-2'>
                       <GenericCombobox
                         id='ciType'
@@ -413,7 +414,7 @@ export const FormCreateUser = () => {
 
               <Separator className='my-4' />
 
-              <section className='w-full flex justify-start items-center gap-x-5'>
+              <section className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
                 <GenericSelect
                   id='role'
                   label='Rol'
@@ -468,8 +469,8 @@ export const FormCreateUser = () => {
             />
           </Card>
 
-          <div className='w-full h-full mt-6 grid grid-cols-6 gap-4'>
-            <Card className='p-4 w-full h-full col-span-2'>
+          <div className='w-full h-full mt-6 grid grid-rows-2 grid-cols-1 md:grid-rows-1 md:grid-cols-6 gap-4'>
+            <Card className='p-4 w-full h-full col-span-6 md:col-span-2'>
               <CardTitle>Foto de Perfil</CardTitle>
 
               <Separator className='my-4' />
@@ -487,7 +488,7 @@ export const FormCreateUser = () => {
               </CardContent>
             </Card>
 
-            <Card className='p-4 w-full col-span-4'>
+            <Card className='p-4 w-full col-span-6 md:col-span-4'>
               <CardTitle>Foto de la Cedula de Identidad</CardTitle>
 
               <Separator className='my-4' />

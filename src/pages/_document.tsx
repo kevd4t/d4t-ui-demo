@@ -13,7 +13,7 @@ export default function Document () {
 
       </Head>
 
-      <body>
+      <body className='overflow-x-hidden'>
         <Main />
         <NextScript />
       </body>

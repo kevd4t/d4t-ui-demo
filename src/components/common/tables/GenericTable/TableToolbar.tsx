@@ -37,10 +37,10 @@ export function TableToolbar<TData> ({ table, itemsToFilter, inputSearch = null,
   return (
     <div className='w-auto flex items-center justify-between'>
       <div className='w-full flex flex-wrap items-center gap-x-2 gap-y-2'>
-        <form onSubmit={handleSubmit(onSubmit)} className='flex justify-start items-center mr-4'>
+        <form onSubmit={handleSubmit(onSubmit)} className='w-full flex justify-start items-center sm:mr-4'>
           <InputUI
             {...register('search')}
-            className='py-2 w-[150px] lg:w-[250px] max-w-xs mr-3'
+            className='py-2 w-full sm:w-[200px] lg:w-[250px] max-w-xs mr-3'
             placeholder={inputSearch?.placeholder ?? ''}
             type='text'
             disabled={isFetching}

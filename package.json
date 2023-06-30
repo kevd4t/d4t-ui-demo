@@ -47,6 +47,7 @@
     "date-fns": "2.30.0",
     "dotenv": "16.2.0",
     "framer-motion": "^10.12.17",
+    "js-confetti": "^0.11.0",
     "leaflet": "1.9.4",
     "leaflet-defaulticon-compatibility": "0.1.1",
     "lucide-react": "0.224.0",

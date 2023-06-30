@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 
 export function TablePagination<TData> ({ table, pagination, rowsToSelect }: DataTablePaginationProps<TData>) {
   return (
-    <div className='flex items-center justify-end px-2'>
+    <div className='flex flex-wrap items-center justify-end px-2'>
       {
         rowsToSelect && (
           <div className='flex-1 text-sm text-muted-foreground'>
@@ -17,8 +17,8 @@ export function TablePagination<TData> ({ table, pagination, rowsToSelect }: Dat
         )
       }
 
-      <div className='flex items-center space-x-6 lg:space-x-8'>
-        <div className='flex items-center space-x-2'>
+      <div className='flex items-end sm:items-center space-x-6 lg:space-x-8 mt-2 sm:mt-0'>
+        <div className='flex flex-wrap items-center gap-2'>
           <p className='text-sm font-medium'>{pagination.labels.pluralItem} por Pagina</p>
 
           <Select

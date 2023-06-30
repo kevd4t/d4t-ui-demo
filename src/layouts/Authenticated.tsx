@@ -25,7 +25,7 @@ export const AuthenticatedLayout = ({ children, title, mainClassName, noPageTran
 
       <div className={
         `authLayout-container grid 
-        ${isOpen ? 'grid-cols-sidebar' : ''}
+        ${isOpen ? ' grid-cols-1 xl:grid-cols-sidebar' : ''}
         ${!isOpen ? 'grid-cols-sidebar-collapsed' : ''} 
         transition-[grid-template-columns] duration-300 ease-in-out`
       }
