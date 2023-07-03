@@ -34,10 +34,6 @@ export interface IUser {
   updatedAt: string
 }
 
-export interface IAuth extends IUser {
-  token: string
-}
-
 export interface IDataToCreateUser {
   names: string
   surnames: string

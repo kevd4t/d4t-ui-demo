@@ -42,7 +42,7 @@ export const UploadUserPhoto = ({ imageToUpload, onChange, label, emptyClassName
                   {
                     imageList.map((image, index) => (
                       <div key={index} className ='w-full h-full flex flex-col justify-center items-center'>
-                        <Button tabIndex={tabIndexs?.viewCompress} className='whitespace-nowrap pb-2' type='button' onClick={() => compress.openComparisons()}>
+                        <Button tabIndex={tabIndexs?.viewCompress} className='whitespace-nowrap mb-2' type='button' onClick={() => compress.openComparisons()}>
                           Ver Compresión
                         </Button>
 

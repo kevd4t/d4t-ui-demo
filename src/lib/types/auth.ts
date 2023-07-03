@@ -1,19 +1,7 @@
-import { TRole } from './roles'
+import { IUser } from './users'
 
-export interface IAuth {
-  id: string
-  name: string
-  lastname: string
-  email: string
-  ci: string
-  photo: string | null
-  phone: string
-  role: TRole
-  isActive: boolean
-  refreshToken: string
-  accessToken: string
-  createdAt: string
-  updatedAt: string
+export interface IAuth extends IUser {
+  token: string
 }
 
 export interface IReturnAuth {
