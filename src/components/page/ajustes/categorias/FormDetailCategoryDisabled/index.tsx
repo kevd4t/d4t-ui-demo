@@ -13,7 +13,6 @@ export const FormDetailCategoryDisabled = ({ title, description, isActive }: ICa
             label='Titulo'
             placeholder='Ingrese titulo de la categoria'
             tabIndex={1}
-
             disabled
             value={title}
             readOnly
@@ -25,7 +24,6 @@ export const FormDetailCategoryDisabled = ({ title, description, isActive }: ICa
               type='text'
               label='Estado'
               tabIndex={2}
-
               disabled
               value={isActive ? 'Activo' : 'Bloqueado'}
               readOnly

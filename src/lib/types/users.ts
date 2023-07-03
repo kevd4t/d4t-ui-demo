@@ -1,26 +1,54 @@
 import { TModules } from './modules'
 import { TRole } from './roles'
 
+export type TCIType = 'V' | 'E' | 'P' | 'J' | 'G'
+
+export interface ICI {
+  type: TCIType
+  number: string
+  image: string
+}
+
 export interface IUserGroup {
   id: number
   title: string
   description: string
-  moduleAccess: TModules[]
+  // TO FIX TYPE
+  moduleAccess: TModules[] | string[]
   isActive: boolean
 }
 
 export interface IUser {
-  group: IUserGroup
-  id: string
-  name: string
-  lastname: string
-  token: string
+  id: number
+  names: string
+  username: string
+  surnames: string
   email: string
-  ci: string
   photo: string
   phone: string
+  ci: ICI
   role: TRole
+  group: IUserGroup
   isActive: boolean
   createdAt: string
   updatedAt: string
 }
+
+export interface IAuth extends IUser {
+  token: string
+}
+
+export interface IDataToCreateUser {
+  names: string
+  surnames: string
+  username: string
+  ciType: string
+  ciNumber: string
+  phoneCode: string
+  phoneNumber: string
+  email: string
+  isActive: 'true' | 'false'
+  role: TRole
+}
+
+export interface IUserDetail extends IUser {}

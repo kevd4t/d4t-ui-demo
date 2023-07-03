@@ -19,3 +19,18 @@
     position: sticky;
   }
 }
+
+/* images zoom background */
+
+[data-rmiz-modal-overlay="visible"] {
+  backdrop-filter: blur(6px);
+  background-color: hsl(var(--background) / 74%);
+}
+
+[data-rmiz-btn-unzoom-icon="true"] {
+  color: black;
+}
+
+.dark [data-rmiz-btn-unzoom-icon="true"] {
+  color: white;
+}

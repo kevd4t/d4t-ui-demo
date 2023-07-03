@@ -40,7 +40,7 @@ export const UserRowActions = ({ user }: { user: IUser }) => {
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(user.id)}>
+        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(user.id.toString())}>
           <IconClipboard className='h-4 w-4 mr-2' />
           Copiar ID
         </DropdownMenuItem>
@@ -117,21 +117,22 @@ export const usersColumns: ColumnDef<IUser>[] = [
   },
   {
     id: 'Usuario',
-    accessorFn: row => ({ name: row.name, lastname: row.lastname }),
+    accessorFn: row => ({ name: row.names, lastname: row.surnames }),
     accessorKey: 'fullName',
     header: 'Usuario',
     cell: ({ row: { original } }) => (
       <div className='font-medium'>
-        {`${original.name} ${original.lastname}`}
+        {`${original.names} ${original.surnames}`}
       </div>
     )
   },
   {
     id: 'Cedula de Identidad',
-    accessorKey: 'ci',
-    header: ({ column }) => <ColumnSort column={column} columnLabel='Cedula' />,
+    accessorKey: 'ciNumber',
+    accessorFn: (user) => `${user.ci.number}`,
+    header: ({ column }) => <ColumnSort column={column} columnLabel='Cedula de Identidad' />,
     cell: ({ row: { original } }) => {
-      return <div className='pl-4 w-full'>{original.ci}</div>
+      return <div className='pl-4 w-full'>{`${original.ci.type}-${original.ci.number}`}</div>
     }
   },
   {

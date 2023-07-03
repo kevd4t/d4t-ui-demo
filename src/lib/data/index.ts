@@ -1,4 +1,4 @@
-import { ICity, IState, IStation } from '../types/'
+import { ICity, IState, IStation, IUser, IUserGroup } from '../types/'
 import { IGPSDevice, IGPSMark, IGPSModel } from '../types/gps'
 import { IRoute } from '../types/routes'
 
@@ -72,7 +72,7 @@ const MODULE_ACCESS_BY_ROLE = {
   ADMINISTRATOR_DEFAULT: ADMINISTRATOR_DEFAULT_MODULES_ACCESS
 }
 
-const fakeUserGroups = [
+const fakeUserGroups: IUserGroup[] = [
   {
     id: 1,
     title: 'Grupo de Operadores 1',
@@ -103,138 +103,215 @@ const fakeUserGroups = [
   }
 ]
 
-const fakeUsers = [
+const fakeUsers: IUser[] = [
   {
     id: 1,
-    name: 'Kevin',
-    lastname: 'Blanco',
-    ci: '26.567.324',
-    phone: '(0412)-3285323',
+    names: 'Kevin Daniel',
+    surnames: 'Blanco Ortiz',
+    ci: {
+      type: 'V',
+      number: '26567324',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/EXAMPLEVENEZUELANID.jpg/800px-EXAMPLEVENEZUELANID.jpg'
+    },
+    phone: '04123285323',
     email: 'k.blanco@d4t.tech',
     role: 'OPERATOR',
     isActive: true,
-    token: crypto.randomUUID(),
-    group: fakeUserGroups[0]
+    username: 'user_name.35',
+    photo: 'https://fotomanias.com.ar/wp-content/uploads/2019/03/foto-carnet-fondo-celeste.jpg',
+    group: fakeUserGroups[0],
+    createdAt: new Date().toDateString(),
+    updatedAt: new Date().toDateString()
   },
   {
     id: 2,
-    name: 'Kevin',
-    lastname: 'Sanchez',
-    ci: '87.436.283',
-    phone: '(0416)-4357213',
+    names: 'Kevin',
+    surnames: 'Sanchez',
+    ci: {
+      type: 'V',
+      number: '87436283',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/EXAMPLEVENEZUELANID.jpg/800px-EXAMPLEVENEZUELANID.jpg'
+    },
+    phone: '04164357213',
     email: 'k.sanchez@d4t.tech',
     role: 'SUPERVISOR',
     isActive: false,
-    token: crypto.randomUUID(),
-    group: fakeUserGroups[1]
+    username: 'user_name.35',
+    photo: 'https://fotomanias.com.ar/wp-content/uploads/2019/03/foto-carnet-fondo-celeste.jpg',
+    group: fakeUserGroups[1],
+    createdAt: new Date().toDateString(),
+    updatedAt: new Date().toDateString()
   },
   {
     id: 3,
-    name: 'Danilo',
-    lastname: 'Torento',
-    ci: '43.356.824',
-    phone: '(0424)-7887432',
+    names: 'Danilo',
+    surnames: 'Torento',
+    ci: {
+      type: 'V',
+      number: '43356824',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/EXAMPLEVENEZUELANID.jpg/800px-EXAMPLEVENEZUELANID.jpg'
+    },
+    phone: '04247887432',
     email: 'danilo@gmail.com',
     role: 'COORDINATOR',
     isActive: true,
-    token: crypto.randomUUID(),
-    group: fakeUserGroups[3]
+    username: 'user_name.35',
+    photo: 'https://fotomanias.com.ar/wp-content/uploads/2019/03/foto-carnet-fondo-celeste.jpg',
+    group: fakeUserGroups[3],
+    createdAt: new Date().toDateString(),
+    updatedAt: new Date().toDateString()
   },
   {
     id: 4,
-    name: 'Brandon',
-    lastname: 'Rodriguez',
-    ci: '64.347.341',
-    phone: '(0416)-3514364',
+    names: 'Brandon',
+    surnames: 'Rodriguez',
+    ci: {
+      type: 'V',
+      number: '64347341',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/EXAMPLEVENEZUELANID.jpg/800px-EXAMPLEVENEZUELANID.jpg'
+    },
+    phone: '04163514364',
     email: 'brandonr4op@hotmail.com',
     role: 'ADMINISTRATOR',
     isActive: true,
-    token: crypto.randomUUID(),
-    group: fakeUserGroups[4]
+    username: 'user_name.35',
+    photo: 'https://fotomanias.com.ar/wp-content/uploads/2019/03/foto-carnet-fondo-celeste.jpg',
+    group: fakeUserGroups[4],
+    createdAt: new Date().toDateString(),
+    updatedAt: new Date().toDateString()
   },
   {
     id: 5,
-    name: 'Daniela',
-    lastname: 'Perez',
-    ci: '56.545.534',
-    phone: '(0412)-8730594',
+    names: 'Daniela',
+    surnames: 'Perez',
+    ci: {
+      type: 'V',
+      number: '56545534',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/EXAMPLEVENEZUELANID.jpg/800px-EXAMPLEVENEZUELANID.jpg'
+    },
+    phone: '04128730594',
     email: 'd.perez@d4t.tech',
     role: 'ADMINISTRATOR',
     isActive: true,
-    token: crypto.randomUUID(),
-    group: fakeUserGroups[4]
+    username: 'user_name.35',
+    photo: 'https://fotomanias.com.ar/wp-content/uploads/2019/03/foto-carnet-fondo-celeste.jpg',
+    group: fakeUserGroups[4],
+    createdAt: new Date().toDateString(),
+    updatedAt: new Date().toDateString()
   },
   {
     id: 6,
-    name: 'Jhon',
-    lastname: 'Smith',
-    ci: '65.334.545',
-    phone: '(0414)-8634572',
+    names: 'Jhon',
+    surnames: 'Smith',
+    ci: {
+      type: 'V',
+      number: '65334545',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/EXAMPLEVENEZUELANID.jpg/800px-EXAMPLEVENEZUELANID.jpg'
+    },
+    phone: '04148634572',
     email: 'j.smith@example.com',
     role: 'OPERATOR',
     isActive: false,
-    token: crypto.randomUUID(),
-    group: fakeUserGroups[0]
+    username: 'user_name.35',
+    photo: 'https://fotomanias.com.ar/wp-content/uploads/2019/03/foto-carnet-fondo-celeste.jpg',
+    group: fakeUserGroups[0],
+    createdAt: new Date().toDateString(),
+    updatedAt: new Date().toDateString()
   },
   {
     id: 7,
-    name: 'Maribel',
-    lastname: 'Cabarcas',
-    ci: '11.235.763',
-    phone: '(0414)-2346123',
+    names: 'Maribel',
+    surnames: 'Cabarcas',
+    ci: {
+      type: 'V',
+      number: '11235763',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/EXAMPLEVENEZUELANID.jpg/800px-EXAMPLEVENEZUELANID.jpg'
+    },
+    phone: '04142346123',
     email: 'maribel@gmail.com',
     role: 'SUPERVISOR',
     isActive: true,
-    token: crypto.randomUUID(),
-    group: fakeUserGroups[2]
+    username: 'user_name.35',
+    photo: 'https://fotomanias.com.ar/wp-content/uploads/2019/03/foto-carnet-fondo-celeste.jpg',
+    group: fakeUserGroups[2],
+    createdAt: new Date().toDateString(),
+    updatedAt: new Date().toDateString()
   },
   {
     id: 8,
-    name: 'Maria',
-    lastname: 'Juanes',
-    ci: '88.432.456',
-    phone: '(0424)-7859458',
+    names: 'Maria',
+    surnames: 'Juanes',
+    ci: {
+      type: 'V',
+      number: '88432456',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/EXAMPLEVENEZUELANID.jpg/800px-EXAMPLEVENEZUELANID.jpg'
+    },
+    phone: '04247859458',
     email: 'mariajuanes@gmail.com',
     role: 'COORDINATOR',
     isActive: true,
-    token: crypto.randomUUID(),
-    group: fakeUserGroups[3]
+    username: 'user_name.35',
+    photo: 'https://fotomanias.com.ar/wp-content/uploads/2019/03/foto-carnet-fondo-celeste.jpg',
+    group: fakeUserGroups[3],
+    createdAt: new Date().toDateString(),
+    updatedAt: new Date().toDateString()
   },
   {
     id: 9,
-    name: 'Jose',
-    lastname: 'Idalgo',
-    ci: '26.444.745',
-    phone: '(0414)-0983451',
+    names: 'Jose',
+    surnames: 'Idalgo',
+    ci: {
+      type: 'V',
+      number: '26444745',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/EXAMPLEVENEZUELANID.jpg/800px-EXAMPLEVENEZUELANID.jpg'
+    },
+    phone: '04140983451',
     email: 'j.idalgo@example.com',
     role: 'ADMINISTRATOR',
     isActive: true,
-    token: crypto.randomUUID(),
-    group: fakeUserGroups[4]
+    username: 'user_name.35',
+    photo: 'https://fotomanias.com.ar/wp-content/uploads/2019/03/foto-carnet-fondo-celeste.jpg',
+    group: fakeUserGroups[4],
+    createdAt: new Date().toDateString(),
+    updatedAt: new Date().toDateString()
   },
   {
     id: 10,
-    name: 'Crisbely',
-    lastname: 'Mares',
-    ci: '86.34.125',
-    phone: '(0424)-1257654',
+    names: 'Crisbely',
+    surnames: 'Mares',
+    ci: {
+      type: 'V',
+      number: '8634125',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/EXAMPLEVENEZUELANID.jpg/800px-EXAMPLEVENEZUELANID.jpg'
+    },
+    phone: '04241257654',
     email: 'j.idalgo@example.com',
     role: 'ADMINISTRATOR',
     isActive: true,
-    token: crypto.randomUUID(),
-    group: fakeUserGroups[4]
+    username: 'user_name.35',
+    photo: 'https://fotomanias.com.ar/wp-content/uploads/2019/03/foto-carnet-fondo-celeste.jpg',
+    group: fakeUserGroups[4],
+    createdAt: new Date().toDateString(),
+    updatedAt: new Date().toDateString()
   },
   {
     id: 11,
-    name: 'Pedro',
-    lastname: 'Blanco',
-    ci: '9.656.345',
-    phone: '(0412)-7451653',
+    names: 'Pedro',
+    surnames: 'Blanco',
+    ci: {
+      type: 'V',
+      number: '9656345',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/EXAMPLEVENEZUELANID.jpg/800px-EXAMPLEVENEZUELANID.jpg'
+    },
+    phone: '04127451653',
     email: 'j.idalgo@example.com',
     role: 'ADMINISTRATOR',
     isActive: true,
-    token: crypto.randomUUID(),
-    group: fakeUserGroups[4]
+    username: 'user_name.35',
+    photo: 'https://fotomanias.com.ar/wp-content/uploads/2019/03/foto-carnet-fondo-celeste.jpg',
+    group: fakeUserGroups[4],
+    createdAt: new Date().toDateString(),
+    updatedAt: new Date().toDateString()
   }
 ]
 

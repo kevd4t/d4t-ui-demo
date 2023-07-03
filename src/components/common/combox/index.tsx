@@ -25,6 +25,7 @@ interface IGenericComboxProps {
   defaultValue?: string
   setValue?: (value: string) => void
   placeholder?: string
+  disabled?: boolean
   tabIndex?: number
   rules?: RegisterOptions<any>
   buttonClassName?: string
@@ -33,11 +34,12 @@ interface IGenericComboxProps {
 
 export function GenericCombobox ({
   id,
-  value,
   form,
   label,
   items,
   rules,
+  value,
+  disabled,
   setValue,
   tabIndex,
   placeholder,
@@ -63,6 +65,7 @@ export function GenericCombobox ({
             <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger asChild>
                 <Button
+                  disabled={disabled}
                   tabIndex={tabIndex}
                   variant='outline'
                   role='combobox'

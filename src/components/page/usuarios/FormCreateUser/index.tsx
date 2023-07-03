@@ -1,14 +1,16 @@
 import { PaginationState, RowSelectionState, type Table as TableType } from '@tanstack/react-table'
 import { IconId, IconUser } from '@tabler/icons-react'
+import ReactCompareImage from 'react-compare-image'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import JSConfetti from 'js-confetti'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
-import type { IFetchDataTable, IUserGroup, TRole } from '@/lib/types'
 import { userGroupsColumns, userGroupsColumnsToFilter } from '@/lib/utils/tableColumns/user-groups'
-import { formatCI, formatPhoneNumber } from '@/lib/utils/formaters'
+import type { IDataToCreateUser, IFetchDataTable, IUserGroup } from '@/lib/types'
+import { convertBytes, formatCI, formatPhoneNumber } from '@/lib/utils/formaters'
+import { compressImage } from '@/lib/utils/handleCompressionImage'
 import { handleOnlyNumbers } from '@/lib/utils/handleOnlyNumbers'
 import { handleFetchUrlUserGroups } from '@/lib/services/users'
 import { simulateFetch } from '@/lib/utils/simulateFetch'
@@ -17,6 +19,7 @@ import { APP_CONFIG } from '@/config'
 import { userRules } from './rules'
 
 import { Avatar, AvatarFallback, AvatarImage, Badge, Button, Card, CardContent, CardHeader, CardTitle, Dialog, DialogContent, DialogHeader, Separator } from '@/components/ui'
+import { Congratulations } from '@/components/common/illustrations/Congratulations'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
 import { Table } from '@/components/common/tables/GenericTable'
 import { UploadImage } from '@/components/common/uploadImages'
@@ -24,22 +27,8 @@ import { GenericCombobox } from '@/components/common/combox'
 import { GenericSelect } from '@/components/common/selects'
 import { Input } from '@/components/common/inputs/Input'
 import { UploadUserPhoto } from './UploadUserPhoto'
-import { Congratulations } from '@/components/common/illustrations/Congratulations'
 
 const { PHONE_LINE_CODES, CI_TYPES, ROLES_DIC: ROLES, IS_ACTIVE } = APP_CONFIG
-
-interface IDataToCreateUser {
-  names: string
-  surnames: string
-  username: string
-  ciType: string
-  ciNumber: string
-  phoneCode: string
-  phoneNumber: string
-  email: string
-  isActive: 'true' | 'false'
-  role: TRole
-}
 
 const defaultValues: IDataToCreateUser = {
   names: '',
@@ -54,17 +43,23 @@ const defaultValues: IDataToCreateUser = {
   role: 'OPERATOR'
 }
 
+const initialImageValues = {
+  original: [],
+  compressed: []
+}
+
 export const FormCreateUser = () => {
+  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
   const [tableUserGroupsSelected, HandleTableUserGroupsSelected] = useState<RowSelectionState>({})
-  const [fullDataUserGroupsSelected, setFullDataUserGroupsSelected] = useState([])
+  const [showComparisons, setShowComparisons] = useState({ userPhoto: false, ciImage: false })
   const [modalInfo, setModalInfo] = useState({ open: false, label: '', illustration: null })
+  const [fullDataUserGroupsSelected, setFullDataUserGroupsSelected] = useState([])
   const [loading, setLoading] = useState({ meessage: '', value: false })
+  const [userPhoto, setUserPhoto] = useState(initialImageValues)
+  const [ciImage, setCIImage] = useState(initialImageValues)
   const form = useForm<IDataToCreateUser>({ defaultValues })
-  const [ciImage, setImageToUpload] = useState([])
-  const [userPhoto, setUserPhoto] = useState([])
   const router = useRouter()
 
-  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
   const { data, error, isLoading: isLoadingUserGroups, fetcher } = useFetch<IFetchDataTable<IUserGroup>>('/api/users/groups')
 
   const pagination = {
@@ -79,12 +74,54 @@ export const FormCreateUser = () => {
     fetcher(url)
   }
 
-  const onChangeImageCI = (imageList, addUpdateIndex) => {
-    setImageToUpload(imageList)
+  const onChangeImageCI = async (imageList, addUpdateIndex) => {
+    const imageFile: File = imageList[0]?.file
+
+    if (!imageFile) {
+      setCIImage(prevState => ({
+        original: [{ ...prevState.original[0] }],
+        compressed: []
+      }))
+
+      return
+    }
+
+    const { data_url, file } = await compressImage({ imageFile, quality: 10, maxWidth: 200, maxHeight: 200 })
+
+    console.log({
+      original: convertBytes(imageList[0]?.file?.size),
+      compressed: convertBytes(file.size)
+    })
+
+    setCIImage(prevState => ({
+      original: [{ data_url: imageList[0]?.data_url, file: imageList[0]?.file }],
+      compressed: [{ data_url: data_url?.toString(), file }]
+    }))
   }
 
-  const onChangeUserPhoto = (imageList, addUpdateIndex) => {
-    setUserPhoto(imageList)
+  const onChangeUserPhoto = async (imageList, addUpdateIndex) => {
+    const imageFile: File = imageList[0]?.file
+
+    if (!imageFile) {
+      setUserPhoto(prevState => ({
+        original: [{ ...prevState.original[0] }],
+        compressed: []
+      }))
+
+      return
+    }
+
+    const { data_url, file } = await compressImage({ imageFile, quality: 10, maxWidth: 200, maxHeight: 200 })
+
+    console.log({
+      original: convertBytes(imageList[0]?.file?.size),
+      compressed: convertBytes(file.size)
+    })
+
+    setUserPhoto(prevState => ({
+      original: [{ data_url: imageList[0]?.data_url, file: imageList[0]?.file }],
+      compressed: [{ data_url: data_url?.toString(), file }]
+    }))
   }
 
   const getFullDataSelection = (table: TableType<any>) => {
@@ -121,6 +158,16 @@ export const FormCreateUser = () => {
     const allCITypes = [CI_TYPES.VENEZUELAN, CI_TYPES.JURIDICAL, CI_TYPES.FOREIGN, CI_TYPES.PASSPORT, CI_TYPES.GOVERNMENTAL]
     const allTypesCIFormated = allCITypes.map(ciType => ({ label: ciType.key, value: ciType.key.toLowerCase() }))
     return allTypesCIFormated
+  }
+
+  const handleCloseComparisons = () => {
+    if (showComparisons.ciImage === true) {
+      setShowComparisons(prevState => ({ ...prevState, ciImage: false }))
+    }
+
+    if (showComparisons.userPhoto === true) {
+      setShowComparisons(prevState => ({ ...prevState, userPhoto: false }))
+    }
   }
 
   const onSubmit = async (data: IDataToCreateUser) => {
@@ -206,12 +253,38 @@ export const FormCreateUser = () => {
         </DialogContent>
       </Dialog>
 
+      <Dialog modal open={showComparisons.ciImage} onOpenChange={handleCloseComparisons}>
+        <DialogContent aria-modal>
+          <div className='w-full h-full flex flex-col justify-center items-center'>
+            <ReactCompareImage
+              leftImage={ciImage.compressed[0]?.data_url}
+              leftImageLabel='Comprimido'
+              rightImage={ciImage.original[0]?.data_url}
+              rightImageLabel='Original'
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog modal open={showComparisons.userPhoto} onOpenChange={handleCloseComparisons}>
+        <DialogContent aria-modal>
+          <div className='w-full h-full flex flex-col justify-center items-center'>
+            <ReactCompareImage
+              leftImage={userPhoto.compressed[0]?.data_url}
+              leftImageLabel='Comprimido'
+              rightImage={userPhoto.original[0]?.data_url}
+              rightImageLabel='Original'
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
+
       <div className='w-full h-full flex justify-start items-start gap-x-10'>
         <div className='hidden max-w-xs w-full lg:flex flex-col justify-start items-start sticky pt-6 top-0 left-0'>
           <Card className='w-full sticky top-0 left-0'>
             <CardHeader>
               <Avatar className='w-32 h-32 rounded-sm mx-auto'>
-                <AvatarImage src={userPhoto[0]?.data_url} className='object-contain' />
+                <AvatarImage src={userPhoto?.compressed[0]?.data_url} className='object-contain' />
                 <AvatarFallback className='rounded-md'>
                   <IconUser className='text-zinc-500 w-10 h-10' />
                 </AvatarFallback>
@@ -233,7 +306,7 @@ export const FormCreateUser = () => {
                 </li>
 
                 <li className='flex justify-start items-center text-sm text-primary-gray'>
-                  <span className='font-semibold dark:text-white'>Correo Electronico:</span> &nbsp;
+                  <span className='font-semibold dark:text-white'>Email:</span> &nbsp;
                   <span className='dark:text-gray-300'>{form.watch('email')}</span>
                 </li>
 
@@ -267,10 +340,10 @@ export const FormCreateUser = () => {
 
             <CardContent className='mt-0'>
               {
-                ciImage[0]?.data_url
+                ciImage?.compressed[0]?.data_url
                   ? (
                     <img
-                      src={ciImage[0]?.data_url}
+                      src={ciImage?.compressed[0]?.data_url}
                       alt='image'
                       className='rounded-md w-140 max-h-[400px] object-contain mx-auto'
                     />
@@ -477,8 +550,10 @@ export const FormCreateUser = () => {
 
               <CardContent className='flex flex-col justify-between items-start pb-0'>
                 <UploadUserPhoto
-                  imageToUpload={userPhoto}
+                  zoom
+                  imageToUpload={userPhoto.compressed}
                   onChange={onChangeUserPhoto}
+                  compress={{ openComparisons: () => setShowComparisons(prevStatus => ({ ...prevStatus, userPhoto: true })) }}
                   tabIndexs={{
                     upload: 11,
                     change: 11,
@@ -495,18 +570,14 @@ export const FormCreateUser = () => {
 
               <CardContent className='mt-0 pb-0'>
                 <UploadImage
-                  onChange={onChangeImageCI}
-                  imageToUpload={ciImage}
+                  zoom
                   emptyClassName='h-[285px]'
+                  onChange={onChangeImageCI}
+                  imageToUpload={ciImage.compressed}
                   uploadLabel='Cargar Cedula de Identidad'
-                  icons={{
-                    placeholder: <IconId className='text-zinc-400 w-14 h-14' strokeWidth={1.5} />
-                  }}
-                  tabIndexs={{
-                    upload: 13,
-                    change: 13,
-                    delete: 14
-                  }}
+                  tabIndexs={{ upload: 13, change: 13, delete: 14 }}
+                  icons={{ placeholder: <IconId className='text-zinc-400 w-14 h-14' strokeWidth={1.5} /> }}
+                  compress={{ openComparisons: () => setShowComparisons(prevStatus => ({ ...prevStatus, ciImage: true })) }}
                 />
               </CardContent>
             </Card>

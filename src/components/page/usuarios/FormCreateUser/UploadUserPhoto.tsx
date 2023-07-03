@@ -1,5 +1,6 @@
 import ImageUploading from 'react-images-uploading'
 import { IconUser } from '@tabler/icons-react'
+import Zoom from 'react-medium-image-zoom'
 
 import { ImageListType, onChangeImage } from '@/lib/types/files'
 import { cn } from '@/lib/utils'
@@ -10,14 +11,19 @@ interface IUploadImageProps {
   onChange: onChangeImage
   label?: string
   emptyClassName?: string
+  zoom?: boolean
+  compress?: {
+    openComparisons: () => void
+  }
   tabIndexs?: {
+    viewCompress?: number
     upload?: number
     change?: number
     delete?: number
   }
 }
 
-export const UploadUserPhoto = ({ imageToUpload, onChange, label, emptyClassName, tabIndexs }: IUploadImageProps) => {
+export const UploadUserPhoto = ({ imageToUpload, onChange, label, emptyClassName, tabIndexs, zoom, compress }: IUploadImageProps) => {
   return (
     <div className='w-full h-full'>
       { label && <Label>{label}</Label> }
@@ -36,14 +42,35 @@ export const UploadUserPhoto = ({ imageToUpload, onChange, label, emptyClassName
                   {
                     imageList.map((image, index) => (
                       <div key={index} className ='w-full h-full flex flex-col justify-center items-center'>
-                        <div className='w-full h-[235px]'>
-                          <img
-                            src={image.data_url}
-                            alt='image'
-                            className='rounded-md object-contain m-auto w-full h-full'
-                            style={{ width: '-webkit-fill-available' }}
-                          />
-                        </div>
+                        <Button tabIndex={tabIndexs?.viewCompress} className='whitespace-nowrap pb-2' type='button' onClick={() => compress.openComparisons()}>
+                          Ver Compresión
+                        </Button>
+
+                        {
+                          zoom
+                            ? (
+                              <Zoom>
+                                <div className='w-full h-[235px]'>
+                                  <img
+                                    src={image.data_url}
+                                    alt='image'
+                                    className='rounded-md object-contain m-auto w-full h-full'
+                                    style={{ width: '-webkit-fill-available' }}
+                                  />
+                                </div>
+                              </Zoom>
+                            )
+                            : (
+                              <div className='w-full h-[235px]'>
+                                <img
+                                  src={image.data_url}
+                                  alt='image'
+                                  className='rounded-md object-contain m-auto w-full h-full'
+                                  style={{ width: '-webkit-fill-available' }}
+                                />
+                              </div>
+                            )
+                        }
 
                         <div className='mt-2 gap-x-2 w-full flex justify-between items-start'>
                           <Button tabIndex={tabIndexs?.change} className='w-full' type='button' onClick={() => onImageUpdate(index)}>

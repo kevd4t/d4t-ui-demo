@@ -6,6 +6,11 @@ export interface IFetchDataTable<TEntity> {
   results: TEntity[]
 }
 
+export interface IFetchData<TEntity> {
+  code: string
+  results: TEntity
+}
+
 export interface IFetchErrorReturn {
   data: null,
   error: {

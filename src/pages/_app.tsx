@@ -9,6 +9,7 @@ import { AppPropsWithLayout } from '@/lib/types'
 import { APP_CONFIG } from '@/config'
 
 import { LoadingPage } from '@/components/layout/common/LoadingPage'
+import 'react-medium-image-zoom/dist/styles.css'
 import '@/styles/globals.css'
 
 export default function D4TErpApp ({ Component, pageProps: { session, ...pageProps } }: AppPropsWithLayout) {

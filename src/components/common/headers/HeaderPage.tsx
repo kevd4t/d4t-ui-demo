@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import { TModuleRoutes } from '@/lib/types'
-import { buttonVariants } from '@/components/ui'
-import { IconCirclePlus } from '@tabler/icons-react'
+import { Button, buttonVariants } from '@/components/ui'
+import { IconChevronLeft, IconCirclePlus } from '@tabler/icons-react'
 import { cn } from '@/lib/utils'
+import { useRouter } from 'next/router'
 
 type TCreateItem = { title: string, href: TModuleRoutes }
 
@@ -13,11 +14,19 @@ interface IHeaderPageProps {
 }
 
 export const HeaderPage = ({ title, createItems, containerClassName }: IHeaderPageProps) => {
+  const router = useRouter()
+
   return (
     <div className={cn('w-full flex justify-between items-center pt-4 pb-6', containerClassName)}>
-      <h4 className='w-full font-bold text-3xl'>
-        {title}
-      </h4>
+      <div className='flex justify-start items-center gap-x-4'>
+        <Button variant='outline' className='p-3' onClick={() => router.back()}>
+          <IconChevronLeft className='h-5 w-5' />
+        </Button>
+
+        <h4 className='w-full font-bold text-3xl'>
+          {title}
+        </h4>
+      </div>
 
       {
         createItems?.length > 0 && (

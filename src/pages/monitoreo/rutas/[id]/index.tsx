@@ -27,10 +27,8 @@ const DetailRouteMonitoringPage = () => {
   if (error) {
     return (
       <div className='w-full h-full flex flex-col justify-center items-center'>
-        <WomanLoading />
-        <div>
-          <h5>Hubo Un Error</h5>
-        </div>
+        <WomanLoading className='w-96' />
+        <h5 className='font-bold text-4xl'>Hubo un Error</h5>
       </div>
     )
   }

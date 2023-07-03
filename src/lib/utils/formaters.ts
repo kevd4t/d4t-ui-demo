@@ -8,45 +8,33 @@ export const formatCI = (value: string) => {
 }
 
 export const formatPhoneNumber = (value: string) => {
-  // Eliminar todos los espacios en blanco del valor actual del campo de entrada
   const sanitizedPhoneNumber = value.replace(/\s/g, '')
 
   const formattedPhoneNumber = sanitizedPhoneNumber.replace(/(\d{3})(\d{4})/, (match, p1, p2) => {
     return `${p1} ${p2}`
   })
 
-  // Definir los códigos de área permitidos
-  // const allowedAreaCodes = ['0412', '0414', '0416', '0424', '0426']
-
-  // // Verificar si el número de teléfono tiene un código de área permitido
-  // const areaCodeMatch = sanitizedPhoneNumber.match(/^(0\d{3})/)
-  // const isAreaCodeAllowed = areaCodeMatch && allowedAreaCodes.includes(areaCodeMatch[1])
-
-  // // Formatear el número de teléfono con los espacios y el código de línea entre paréntesis
-  // const formattedPhoneNumber = sanitizedPhoneNumber.replace(/(\d{4})(\d{3})(\d{4})/, (match, p1, p2, p3) => {
-  //   const areaCode = isAreaCodeAllowed ? `(${areaCodeMatch[1]})` : '(0412)'
-  //   return `${areaCode} ${p2} ${p3}`
-  // })
-
   return formattedPhoneNumber
 }
 
-export const formatFullPhone = (value: string) => {
-  // Eliminar todos los espacios en blanco del valor actual del campo de entrada
-  const sanitizedPhoneNumber = value.replace(/\s/g, '')
+export const formatPhone = (phoneNumber: string): { codeLine: string; number: string } => {
+  const codeLine = phoneNumber.substring(0, 4)
+  const number = phoneNumber.substring(4)
+  const formattedNumber = number.replace(/(\d{3})(\d{4})/, '$1 $2')
 
-  // Definir los códigos de área permitidos
-  const allowedAreaCodes = ['0412', '0414', '0416', '0424', '0426']
+  return { codeLine, number: formattedNumber }
+}
 
-  // Verificar si el número de teléfono tiene un código de área permitido
-  const areaCodeMatch = sanitizedPhoneNumber.match(/^(0\d{3})/)
-  const isAreaCodeAllowed = areaCodeMatch && allowedAreaCodes.includes(areaCodeMatch[1])
-
-  // Formatear el número de teléfono con los espacios y el código de línea entre paréntesis
-  const formattedPhoneNumber = sanitizedPhoneNumber.replace(/(\d{4})(\d{3})(\d{4})/, (match, p1, p2, p3) => {
-    const areaCode = isAreaCodeAllowed ? `(${areaCodeMatch[1]})` : '(0412)'
-    return `${areaCode} ${p2} ${p3}`
-  })
-
-  return formattedPhoneNumber
+export const convertBytes = (bytes: number): string => {
+  if (bytes < 1024) {
+    return `${bytes} B`
+  } else if (bytes < 1024 * 1024) {
+    const kilobytes = bytes / 1024
+    const formattedKB = kilobytes.toFixed(1)
+    return `${formattedKB} KB`
+  } else {
+    const megabytes = bytes / (1024 * 1024)
+    const formattedMB = megabytes.toFixed(1)
+    return `${formattedMB} MB`
+  }
 }

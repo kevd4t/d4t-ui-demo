@@ -122,7 +122,15 @@ export const APP_CONFIG = {
   },
 
   FILES_RULES: {
-    LIMIT_SIZE: 10485760 // 10 MB
+    ALLOW_TYPE_FILES: {
+      WEBP: 'webp',
+      PNG: 'png',
+      JPG: 'jpg',
+      JPEG: 'jpeg'
+    },
+    LIMIT_SIZE: {
+      '4MB': 4000000
+    }
   },
 
   IS_ACTIVE: {
