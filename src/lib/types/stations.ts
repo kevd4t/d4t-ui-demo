@@ -26,7 +26,7 @@ export interface IDataToCreateStation {
   truck: ITruck
 }
 
-export interface IUserDetail extends IStation {}
-export interface IDataToEditUser extends IDataToCreateStation {
+export interface IStationDetail extends IStation {}
+export interface IDataToEditStation extends IDataToCreateStation {
   trucks: ITruck[]
 }

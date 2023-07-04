@@ -8,14 +8,14 @@ export const CardDetailStation = () => {
       <Card className='max-h-[calc(100vh-100px)] overflow-y-auto bg-main shadow-lg pb-4 sticky top-0 right-0'>
         <section className='w-full'>
           <img
-            src='/images/estacion-origen.png'
-            alt='estacion origen'
+            src='/images/estación-origen.png'
+            alt='estación origen'
             className='w-full rounded-t-md h-40 object-cover'
           />
         </section>
 
         <section className='px-4 mt-4'>
-          <h4 className='font-semibold'>Estacion de Origen</h4>
+          <h4 className='font-semibold'>Estación de Origen</h4>
 
           <div className='my-2 border border-slate-100'></div>
 

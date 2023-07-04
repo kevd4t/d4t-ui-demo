@@ -27,7 +27,7 @@ const BasicMap = () => {
         <Popup className='relative '>
           <img
             src='/images/palito-station.jpg'
-            alt='estacion origen'
+            alt='estación origen'
             className='rounded-sm object-cover'
           />
 
@@ -37,7 +37,7 @@ const BasicMap = () => {
 
           <div className='absolute bottom-2 left-2.5 px-2 pb-2 bg-gradient-to-t from-black w-[184px] rounded-sm'>
             <div className=' leading-[8px] text-white text-sm'>
-              <span className='font-semibold text-lg'>Estacion El Palito</span> <br />
+              <span className='font-semibold text-lg'>Estación El Palito</span> <br />
               <span className='text-xs leading-[8px]'>El Palito, Yaracuy</span>
             </div>
           </div>
@@ -50,7 +50,7 @@ const BasicMap = () => {
         <Popup className='relative '>
           <img
             src='/images/mercedes-station.jpg'
-            alt='estacion origen'
+            alt='estación origen'
             className='rounded-sm object-cover'
           />
 

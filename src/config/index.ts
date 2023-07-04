@@ -48,8 +48,8 @@ export const siteConfig = {
 
     STATIONS: {
       LIST: { TITLE: 'Estaciones' },
-      CREATE: { TITLE: 'Crear Estacion' },
-      EDIT: { TITLE: 'Editar Estacion' }
+      CREATE: { TITLE: 'Crear Estación' },
+      EDIT: { TITLE: 'Editar Estación' }
     },
 
     DISTRIBUTION: {
@@ -104,7 +104,7 @@ export const siteConfig = {
     MONITORING: {
       STATIONS: {
         LIST: { TITLE: 'Estaciones' },
-        DETAIL: { TITLE: 'Monitoreo de la Estacion' }
+        DETAIL: { TITLE: 'Monitoreo de la Estación' }
       },
 
       ROUTES: {

@@ -10,7 +10,7 @@ const { ROUTES } = siteConfig
 const CreateStationPage = () => {
   return (
     <>
-      <HeaderPage title='Crear Estacion' containerClassName='pb-0' />
+      <HeaderPage title='Crear Estación' containerClassName='pb-0' />
 
       <FormCreateUser />
     </>

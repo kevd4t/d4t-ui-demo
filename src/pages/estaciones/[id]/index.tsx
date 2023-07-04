@@ -35,9 +35,7 @@ const DetailUserPage = () => {
 
   return (
     <>
-      <HeaderPage title={`Detalle de Usuario ${router.query.id}`} />
-
-      <DetailUser user={data.results} />
+      <HeaderPage title={`Detalle de Estación ${router.query.id}`} />
     </>
   )
 }

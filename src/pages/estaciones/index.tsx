@@ -21,7 +21,7 @@ const StationsPage = () => {
     pageSize,
     pageIndex,
     setPagination,
-    labels: { pluralItem: 'Estaciones', singularItem: 'Estacion' }
+    labels: { pluralItem: 'Estaciones', singularItem: 'Estación' }
   }
 
   const handleSearchWithParams = async ({ search, filters }) => {
@@ -33,7 +33,7 @@ const StationsPage = () => {
     <>
       <HeaderPage
         title='Estaciones'
-        createItems={[{ href: '/estaciones/crear', title: 'Crear Estacion' }]}
+        createItems={[{ href: '/estaciones/crear', title: 'Crear Estación' }]}
       />
 
       <Table
@@ -43,7 +43,7 @@ const StationsPage = () => {
         pagination={pagination}
         itemsToFilter={stationColumnsToFilter}
         queryInfo={{ isFetching: isLoading, error }}
-        inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Estacion' }}
+        inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Estación' }}
       />
     </>
   )

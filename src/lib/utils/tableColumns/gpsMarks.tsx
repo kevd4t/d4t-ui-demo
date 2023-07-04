@@ -25,12 +25,12 @@ export const GpsMarkRowActions = ({ gpsMark }: { gpsMark: IGPSMark }) => {
 
         <DropdownMenuItem onClick={() => router.push(`/categorias/${gpsMark.id}`)}>
           <IconEye className='mr-2 h-4 w-4' />
-          Ver Estacion
+          Ver Estación
         </DropdownMenuItem>
 
         <DropdownMenuItem onClick={() => router.push(`/categorias/${gpsMark.id}/editar`)}>
           <IconEdit className='mr-2 h-4 w-4' />
-          Editar Estacion
+          Editar Estación
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />

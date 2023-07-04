@@ -11,14 +11,14 @@ export const DetailInfo = () => {
           <section className='w-full'>
             <img
               src='/images/unidad-cisterna.png'
-              alt='estacion origen'
+              alt='estación origen'
               className='w-full rounded-t-md h-40 object-cover'
             />
 
             <div className='w-full'>
               <img
                 src='/images/driver.png'
-                alt='estacion origen'
+                alt='estación origen'
                 className='object-cover w-20 -mt-10 mx-auto'
               />
             </div>
@@ -160,7 +160,7 @@ export const DetailInfo = () => {
           </section>
 
           <section className='px-4 mt-4'>
-            <h4 className='font-semibold'>Estacion de Origen</h4>
+            <h4 className='font-semibold'>Estación de Origen</h4>
 
             <div className='my-2 border border-slate-100'></div>
 
@@ -169,7 +169,7 @@ export const DetailInfo = () => {
                 id='originStationName'
                 label='Nombre'
                 readOnly
-                value='Estacion El Palito'
+                value='Estación El Palito'
 
               />
 
@@ -215,7 +215,7 @@ export const DetailInfo = () => {
           </section>
 
           <section className='px-4 mt-4'>
-            <h4 className='font-semibold'>Estacion de Destino</h4>
+            <h4 className='font-semibold'>Estación de Destino</h4>
 
             <div className='my-2 border border-slate-100'></div>
 

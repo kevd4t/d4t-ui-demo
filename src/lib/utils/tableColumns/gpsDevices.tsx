@@ -25,12 +25,12 @@ export const GpsDeviceRowActions = ({ gpsDevice }: { gpsDevice: IGPSDevice }) =>
 
         <DropdownMenuItem onClick={() => router.push(`/categorias/${gpsDevice.id}`)}>
           <IconEye className='mr-2 h-4 w-4' />
-          Ver Estacion
+          Ver Estación
         </DropdownMenuItem>
 
         <DropdownMenuItem onClick={() => router.push(`/categorias/${gpsDevice.id}/editar`)}>
           <IconEdit className='mr-2 h-4 w-4' />
-          Editar Estacion
+          Editar Estación
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />

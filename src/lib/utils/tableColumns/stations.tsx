@@ -25,12 +25,12 @@ export const StationRowActions = ({ station }: { station: IStation }) => {
 
         <DropdownMenuItem onClick={() => router.push(`/categorias/${station.id}`)}>
           <IconEye className='mr-2 h-4 w-4' />
-          Ver Estacion
+          Ver Estación
         </DropdownMenuItem>
 
         <DropdownMenuItem onClick={() => router.push(`/categorias/${station.id}/editar`)}>
           <IconEdit className='mr-2 h-4 w-4' />
-          Editar Estacion
+          Editar Estación
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />

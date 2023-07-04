@@ -1,4 +1,4 @@
-import { ICity, IState, IStation, IUser, IUserGroup } from '../types/'
+import { ICity, IState, IStation, ITruck, IUser, IUserGroup } from '../types/'
 import { IGPSDevice, IGPSMark, IGPSModel } from '../types/gps'
 import { IRoute } from '../types/routes'
 
@@ -398,7 +398,7 @@ const meterMarks = [
   }
 ]
 
-export const trucks = [
+export const trucks: ITruck[] = [
   {
     id: 766,
     title: 'VTS GT02',
@@ -455,22 +455,23 @@ export const cities: ICity[] = [
 export const stations: IStation[] = [
   {
     id: 105,
-    title: 'Estacion Las Mercedes',
+    title: 'Estación Las Mercedes',
     status: 'Operativo',
     lat: '10.484595715655246',
     lng: '-66.86487300765505',
     type: 'Gandola',
     city: cities[0],
     metersCount: 44,
-    reference: 'Estacion de Servicio Las Mercedes, ubicado en las Mercedes :D'
+    reference: 'Estación de Servicio Las Mercedes, ubicado en las Mercedes :D',
+    trucks
   }
 ]
 
 export const routes: IRoute[] = [
   {
     id: 3471,
-    originStation: 'Estacion 1',
-    finalStation: 'Estacion 2',
+    originStation: 'Estación 1',
+    finalStation: 'Estación 2',
     fleet: fleets[0],
     gpsDevice: gpsDevices[0],
     guide: 'J-45MNXG23',
