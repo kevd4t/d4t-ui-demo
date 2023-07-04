@@ -11,7 +11,7 @@ import { heatMapChartData } from '@/components/common/charts/heatMapChartData'
 import { lineChartData } from '@/components/common/charts/lineChartData'
 import { barChartData } from '@/components/common/charts/barChartData'
 import { pieChartData } from '@/components/common/charts/pieChartData'
-import { Card } from '@/components/ui'
+import { Card, CardHeader } from '@/components/ui'
 
 const { ROUTES } = siteConfig
 
@@ -26,7 +26,9 @@ const MonitoringStationsPage = () => {
     <div className='w-full h-full flex justify-start items-start'>
       <div className='w-full h-full mr-4'>
         <Card>
-          <ScopeDataGraph />
+          <CardHeader>
+            <ScopeDataGraph />
+          </CardHeader>
         </Card>
 
         <section className='w-full h-full flex flex-col justify-start items-start'>

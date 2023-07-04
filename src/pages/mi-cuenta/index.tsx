@@ -2,7 +2,7 @@ import { AuthenticatedLayout } from '@/layouts/Authenticated'
 import type { ReactElement, ReactNode } from '@/lib/types'
 import { siteConfig } from '@/config'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
-import { Card, Avatar, AvatarFallback, AvatarImage, Button, Separator } from '@/components/ui'
+import { Card, Avatar, AvatarFallback, AvatarImage, Button, Separator, CardContent } from '@/components/ui'
 
 import { Input } from '@/components/common/inputs/Input'
 import { useState } from 'react'
@@ -160,46 +160,48 @@ const MyAccountPage = () => {
       <HeaderPage title='Mi Cuenta' />
 
       <Card>
-        <div className='w-full h-full flex justify-start'>
-          <section className='w-min flex'>
-            <div className='flex flex-col justify-start items-start gap-y-4'>
-              {
-                contentTabs.map((contentTab, idx) => (
-                  <Button
-                    tabIndex={idx}
-                    variant='outline'
-                    key={contentTab.tabKey}
-                    onClick={() => setTabActive({ label: contentTab.label, tabKey: contentTab.tabKey, content: contentTab.content })}
-                    className={`w-full justify-start whitespace-nowrap ${tabActive.tabKey === contentTab.tabKey ? 'bg-accent' : ''}`}
+        <CardContent className='p-4'>
+          <div className='w-full h-full flex justify-start'>
+            <section className='w-min flex'>
+              <div className='flex flex-col justify-start items-start gap-y-4'>
+                {
+                  contentTabs.map((contentTab, idx) => (
+                    <Button
+                      tabIndex={idx}
+                      variant='outline'
+                      key={contentTab.tabKey}
+                      onClick={() => setTabActive({ label: contentTab.label, tabKey: contentTab.tabKey, content: contentTab.content })}
+                      className={`w-full justify-start whitespace-nowrap ${tabActive.tabKey === contentTab.tabKey ? 'bg-accent' : ''}`}
+                    >
+                      {contentTab.label}
+                    </Button>
+                  )
+                  )
+                }
+              </div>
+
+              <Separator className='h-full mx-7' orientation='vertical' />
+            </section>
+
+            <section className='w-full'>
+              <h5 className='font-bold text-xl'>{tabActive.label}</h5>
+
+              <div className='w-full h-full mt-4'>
+                <AnimatePresence initial={false} mode='wait'>
+                  <motion.div
+                    key={tabActive.tabKey}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.2 }}
                   >
-                    {contentTab.label}
-                  </Button>
-                )
-                )
-              }
-            </div>
-
-            <Separator className='h-full mx-7' orientation='vertical' />
-          </section>
-
-          <section className='w-full'>
-            <h5 className='font-bold text-xl'>{tabActive.label}</h5>
-
-            <div className='w-full h-full mt-4'>
-              <AnimatePresence initial={false} mode='wait'>
-                <motion.div
-                  key={tabActive.tabKey}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {tabActive.content}
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </section>
-        </div>
+                    {tabActive.content}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </section>
+          </div>
+        </CardContent>
       </Card>
     </div>
   )
