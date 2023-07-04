@@ -256,11 +256,12 @@ export const DetailUser = ({ user }: { user: IUserDetail }) => {
 
               <Separator className='my-4' />
 
-              <CardContent className='flex flex-col justify-between items-start pb-0'>
+              <CardContent className='flex h-3/4 flex-col justify-center items-center pb-0'>
                 <img
                   src={user.photo}
                   alt={`${user.names} ${user.surnames}`}
                   tabIndex={12}
+                  className='rounded-md'
                 />
               </CardContent>
             </Card>

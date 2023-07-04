@@ -5,6 +5,7 @@ import { toast } from 'sonner'
 
 import { Input } from '@/components/common/inputs/Input'
 import { Button } from '@/components/ui'
+import Link from 'next/link'
 
 interface IDataSignIn {
   email: string
@@ -40,7 +41,7 @@ export const FormSignIn = () => {
         type='email'
         register={register}
         label='Correo Electronico'
-        placeholder='Ingrese Correo Electronico'
+        placeholder='usuario@ejemplo.com'
         messageErrors={errors}
         inputErrors={{ required: { value: true, message: 'Correo Requerido' } }}
         tabIndex={1}
@@ -51,7 +52,7 @@ export const FormSignIn = () => {
         type='password'
         register={register}
         label='Contraseña'
-        placeholder='Ingrese Contraseña'
+        placeholder='**********'
         messageErrors={errors}
         inputErrors={{ required: { value: true, message: 'Contraseña Requerida' } }}
         tabIndex={2}
@@ -60,6 +61,14 @@ export const FormSignIn = () => {
       <Button type='submit' tabIndex={3} isLoading={isLoading} disabled={isLoading}>
         Iniciar Sesion
       </Button>
+
+      <div className='text-sm'>
+        <span className='text-muted-foreground font-medium'>¿Haz olvidado tus contraseña?</span> <br />
+
+        <Link href='/recuperar-cuenta' className='text-green-800 hover:text-green-700 font-medium underline'>
+          Recuperar Contraseña
+        </Link>
+      </div>
     </form>
   )
 }

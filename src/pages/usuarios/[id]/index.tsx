@@ -17,7 +17,7 @@ const DetailUserPage = () => {
 
   if (error) {
     return (
-      <div className='w-full h-full flex flex-col justify-center items-center'>
+      <div className='w-full h-[80vh] flex flex-col justify-center items-center'>
         <WomanLoading className='w-96' />
         <h5 className='font-bold text-4xl'>Hubo un Error</h5>
       </div>
@@ -26,7 +26,7 @@ const DetailUserPage = () => {
 
   if (isLoading) {
     return (
-      <div className='w-full h-full flex flex-col justify-center items-center'>
+      <div className='w-full h-[80vh] flex flex-col justify-center items-center'>
         <WomanLoading className='w-96' />
         <h5 className='font-bold text-4xl'>Cargando...</h5>
       </div>

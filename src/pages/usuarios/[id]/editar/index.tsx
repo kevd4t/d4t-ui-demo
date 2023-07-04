@@ -1,24 +1,48 @@
 import { useRouter } from 'next/router'
 
-import type { ReactElement } from '@/lib/types'
+import type { IFetchData, IUserDetail, ReactElement } from '@/lib/types'
+import { useFetch } from '@/lib/hooks/useFetch'
 import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
+import { FormEditUser } from '@/components/page/usuarios/FormEditUser'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
+import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
 
 const { ROUTES } = siteConfig
 
-const DetailUserPage = () => {
+const EditUserPage = () => {
   const router = useRouter()
+  const { data, error, isLoading } = useFetch<IFetchData<IUserDetail>>(`/api/users/${router.query.id}`)
+
+  if (error) {
+    return (
+      <div className='w-full h-[80vh] flex flex-col justify-center items-center'>
+        <WomanLoading className='w-96' />
+        <h5 className='font-bold text-4xl'>Hubo un Error</h5>
+      </div>
+    )
+  }
+
+  if (isLoading) {
+    return (
+      <div className='w-full h-[80vh] flex flex-col justify-center items-center'>
+        <WomanLoading className='w-96' />
+        <h5 className='font-bold text-4xl'>Cargando...</h5>
+      </div>
+    )
+  }
 
   return (
-    <div>
+    <>
       <HeaderPage title={`Editar Usuario ${router.query.id}`} />
-    </div>
+
+      <FormEditUser user={data.results} />
+    </>
   )
 }
 
-DetailUserPage.getLayout = function getLayout (page: ReactElement) {
+EditUserPage.getLayout = function getLayout (page: ReactElement) {
   return (
     <AuthenticatedLayout title={`${ROUTES.USERS.DETAIL.TITLE} | ${siteConfig.TITLE}`} >
       {page}
@@ -26,4 +50,4 @@ DetailUserPage.getLayout = function getLayout (page: ReactElement) {
   )
 }
 
-export default DetailUserPage
+export default EditUserPage

@@ -48,3 +48,6 @@ export interface IDataToCreateUser {
 }
 
 export interface IUserDetail extends IUser {}
+export interface IDataToEditUser extends IDataToCreateUser {
+  group: IUserGroup
+}

@@ -7,6 +7,10 @@ export const siteConfig = {
       TITLE: 'Iniciar Sesion'
     },
 
+    RECOVER_ACCOUNT: {
+      TITLE: 'Recuperar Cuenta'
+    },
+
     USERS: {
       LIST: { TITLE: 'Usuarios' },
       CREATE: { TITLE: 'Crear Usuario' },
@@ -115,6 +119,10 @@ export const siteConfig = {
 export const APP_CONFIG = {
   ENV: {
     IS_PRODUCTION: process?.env?.IS_PRODUCTION?.toLowerCase?.() === 'true' || false
+  },
+
+  DUMMY_DATA: {
+    RECOVER_ACCOUNT_VERIFICATION_CODE: 24040
   },
 
   DOCSLY: {

@@ -8,8 +8,8 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 
 import { userGroupsColumns, userGroupsColumnsToFilter } from '@/lib/utils/tableColumns/user-groups'
-import type { IDataToCreateUser, IFetchDataTable, IUserGroup } from '@/lib/types'
-import { convertBytes, formatCI, formatPhoneNumber } from '@/lib/utils/formaters'
+import type { IDataToEditUser, IFetchDataTable, IUserDetail, IUserGroup } from '@/lib/types'
+import { convertBytes, formatCI, formatPhone, formatPhoneNumber } from '@/lib/utils/formaters'
 import { compressImage } from '@/lib/utils/handleCompressionImage'
 import { handleOnlyNumbers } from '@/lib/utils/handleOnlyNumbers'
 import { handleFetchUrlUserGroups } from '@/lib/services/users'
@@ -18,7 +18,7 @@ import { useFetch } from '@/lib/hooks/useFetch'
 import { APP_CONFIG } from '@/config'
 import { userRules } from './rules'
 
-import { Avatar, AvatarFallback, AvatarImage, Badge, Button, Card, CardContent, CardHeader, CardTitle, Dialog, DialogContent, DialogHeader, Separator } from '@/components/ui'
+import { Avatar, AvatarFallback, AvatarImage, Badge, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Dialog, DialogContent, DialogHeader, Separator } from '@/components/ui'
 import { Congratulations } from '@/components/common/illustrations/Congratulations'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
 import { Table } from '@/components/common/tables/GenericTable'
@@ -30,34 +30,43 @@ import { UploadUserPhoto } from './UploadUserPhoto'
 
 const { PHONE_LINE_CODES, CI_TYPES, ROLES_DIC: ROLES, IS_ACTIVE } = APP_CONFIG
 
-const defaultValues: IDataToCreateUser = {
-  names: '',
-  surnames: '',
-  username: '',
-  phoneCode: PHONE_LINE_CODES.DIGITAL[0].value,
-  phoneNumber: '',
-  ciType: 'v',
-  ciNumber: '',
-  email: '',
-  isActive: 'true',
-  role: 'OPERATOR'
-}
+export const FormEditUser = ({ user }: { user: IUserDetail }) => {
+  const defaultValues: IDataToEditUser = {
+    names: user.names,
+    surnames: user.surnames,
+    username: user.username,
+    phoneCode: formatPhone(user.phone).codeLine,
+    phoneNumber: formatPhone(user.phone).number,
+    ciType: user.ci.type.toLowerCase(),
+    ciNumber: formatCI(user.ci.number),
+    email: user.email,
+    isActive: String(user.isActive) as 'true' | 'false',
+    role: user.role,
+    group: user.group
+  }
 
-const initialImageValues = {
-  original: [],
-  compressed: []
-}
+  const initialUserPhoto = {
+    original: [{ data_url: user.photo, file: null }],
+    compressed: [{ data_url: user.photo, file: null }]
+  }
 
-export const FormCreateUser = () => {
+  const initialCIImage = {
+    original: [{ data_url: user.ci.image, file: null }],
+    compressed: [{ data_url: user.ci.image, file: null }]
+  }
+
+  const initialFullDataUserGroupsSelected = [{ original: { ...user.group } }]
+
+  const [fullDataUserGroupsSelected, setFullDataUserGroupsSelected] = useState(initialFullDataUserGroupsSelected)
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
   const [tableUserGroupsSelected, HandleTableUserGroupsSelected] = useState<RowSelectionState>({})
   const [showComparisons, setShowComparisons] = useState({ userPhoto: false, ciImage: false })
   const [modalInfo, setModalInfo] = useState({ open: false, label: '', illustration: null })
-  const [fullDataUserGroupsSelected, setFullDataUserGroupsSelected] = useState([])
   const [loading, setLoading] = useState({ meessage: '', value: false })
-  const [userPhoto, setUserPhoto] = useState(initialImageValues)
-  const [ciImage, setCIImage] = useState(initialImageValues)
-  const form = useForm<IDataToCreateUser>({ defaultValues })
+  const [showTableUserGroups, setShowTableUserGroups] = useState(false)
+  const [userPhoto, setUserPhoto] = useState(initialUserPhoto)
+  const form = useForm<IDataToEditUser>({ defaultValues })
+  const [ciImage, setCIImage] = useState(initialCIImage)
   const router = useRouter()
 
   const { data, error, isLoading: isLoadingUserGroups, fetcher } = useFetch<IFetchDataTable<IUserGroup>>('/api/users/groups')
@@ -170,7 +179,7 @@ export const FormCreateUser = () => {
     }
   }
 
-  const onSubmit = async (data: IDataToCreateUser) => {
+  const onSubmit = async (data: IDataToEditUser) => {
     if (!fullDataUserGroupsSelected?.length) {
       toast.error('El Grupo Es Requerido')
       setLoading({ meessage: '', value: false })
@@ -207,8 +216,8 @@ export const FormCreateUser = () => {
       return
     }
 
-    setLoading(({ meessage: 'Creando Usuario', value: true }))
-    setModalInfo(prevState => ({ ...prevState, label: 'Creando Usuario', open: true }))
+    setLoading(({ meessage: 'Editando Usuario', value: true }))
+    setModalInfo(prevState => ({ ...prevState, label: 'Editando Usuario', open: true }))
     await simulateFetch(3000)
 
     const ciImageFile = ciImage[0]?.file
@@ -223,7 +232,7 @@ export const FormCreateUser = () => {
       group: fullDataUserGroupsSelected[0].original
     })
 
-    setModalInfo(prevState => ({ label: 'Usuario Creado', open: true, illustration: <Congratulations className='h-72' /> }))
+    setModalInfo(prevState => ({ label: 'Usuario Editado', open: true, illustration: <Congratulations className='h-72' /> }))
     setLoading({ meessage: '', value: false })
     const jsConfetti = new JSConfetti()
     jsConfetti.addConfetti()
@@ -232,7 +241,7 @@ export const FormCreateUser = () => {
     setModalInfo({ illustration: null, label: '', open: false })
     setLoading({ meessage: '', value: false })
 
-    router.push('/usuarios/1')
+    router.push('/usuarios')
   }
 
   return (
@@ -522,24 +531,57 @@ export const FormCreateUser = () => {
           </form>
 
           <Card className='p-4 mt-6 w-full'>
-            <CardTitle>Grupos de Usuarios</CardTitle>
+            <CardTitle className='w-full flex flex-row justify-between items-center'>
+              <div>Grupos de Usuarios</div>
+
+              <Button onClick={() => setShowTableUserGroups(prevState => !prevState)}>
+                { showTableUserGroups ? 'Cancelar' : 'Cambiar Grupo' }
+              </Button>
+            </CardTitle>
 
             <Separator className='my-4' />
 
-            <Table
-              visibilityColumns
-              data={data?.results}
-              pagination={pagination}
-              columns={userGroupsColumns}
-              itemsToFilter={userGroupsColumnsToFilter}
-              queryInfo={{ isFetching: isLoadingUserGroups, error }}
-              inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Grupo de Usuarios' }}
-              selection={{
-                rowSelection: tableUserGroupsSelected,
-                setRowSelection: HandleTableUserGroupsSelected,
-                getFullDataSelection
-              }}
-            />
+            {
+              showTableUserGroups
+                ? (
+                  <Table
+                    visibilityColumns
+                    data={data?.results}
+                    pagination={pagination}
+                    columns={userGroupsColumns}
+                    itemsToFilter={userGroupsColumnsToFilter}
+                    queryInfo={{ isFetching: isLoadingUserGroups, error }}
+                    inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Grupo de Usuarios' }}
+                    selection={{
+                      rowSelection: tableUserGroupsSelected,
+                      setRowSelection: HandleTableUserGroupsSelected,
+                      getFullDataSelection
+                    }}
+                  />
+                )
+                : (
+                  <Card className='max-w-sm mx-auto'>
+                    <CardHeader>
+                      <CardTitle>{user.group.title}</CardTitle>
+                      <CardDescription>{user.group.description}</CardDescription>
+                    </CardHeader>
+
+                    <CardContent>
+                      <Badge>{user.group.isActive ? 'Activo' : 'Bloqueado'}</Badge>
+
+                      <br />
+
+                      {
+                        user.group.moduleAccess.map(access => (
+                          <Badge key={access}>
+                            {access}
+                          </Badge>
+                        ))
+                      }
+                    </CardContent>
+                  </Card>
+                )
+            }
           </Card>
 
           <div className='w-full h-full mt-6 grid grid-rows-2 grid-cols-1 md:grid-rows-1 md:grid-cols-6 gap-4'>
@@ -595,7 +637,7 @@ export const FormCreateUser = () => {
               isLoading={loading.value}
               onClick={form.handleSubmit(onSubmit)}
             >
-              Crear Usuario
+              Editar Usuario
             </Button>
           </section>
         </div>

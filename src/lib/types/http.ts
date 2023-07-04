@@ -1,4 +1,5 @@
 export interface IFetchDataTable<TEntity> {
+  code: string
   info: {
     pagePrev: number
     pageNext: number
@@ -6,12 +7,15 @@ export interface IFetchDataTable<TEntity> {
   results: TEntity[]
 }
 
-export interface IFetchData<TEntity> {
+export interface IFetchData<TEntity = any> {
   code: string
-  results: TEntity
+  results: TEntity | {
+    message: string
+  }
 }
 
 export interface IFetchErrorReturn {
+  code: string
   data: null,
   error: {
     status: number,
