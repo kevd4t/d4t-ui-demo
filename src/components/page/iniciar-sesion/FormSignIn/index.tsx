@@ -63,7 +63,7 @@ export const FormSignIn = () => {
       </Button>
 
       <div className='text-sm'>
-        <span className='text-muted-foreground font-medium'>¿Haz olvidado tus contraseña?</span> <br />
+        <span className='text-muted-foreground'>¿Haz olvidado tu contraseña?</span> <br />
 
         <Link href='/recuperar-cuenta' className='text-green-800 hover:text-green-700 font-medium underline'>
           Recuperar Contraseña
