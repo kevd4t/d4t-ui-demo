@@ -5,7 +5,6 @@ import { useFetch } from '@/lib/hooks/useFetch'
 import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
-import { FormEditUser } from '@/components/page/usuarios/FormEditUser'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
 
@@ -13,7 +12,7 @@ const { ROUTES } = siteConfig
 
 const EditUserPage = () => {
   const router = useRouter()
-  const { data, error, isLoading } = useFetch<IFetchData<IUserDetail>>(`/api/users/${router.query.id}`)
+  const { error, isLoading } = useFetch<IFetchData<IUserDetail>>(`/api/users/${router.query.id}`)
 
   if (error) {
     return (
@@ -36,8 +35,6 @@ const EditUserPage = () => {
   return (
     <>
       <HeaderPage title={`Editar Usuario ${router.query.id}`} />
-
-      <FormEditUser user={data.results} />
     </>
   )
 }

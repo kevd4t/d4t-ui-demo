@@ -12,7 +12,7 @@ const { ROUTES } = siteConfig
 
 const EditUserPage = () => {
   const router = useRouter()
-  const { data, error, isLoading } = useFetch<IFetchData<IUserDetail>>(`/api/stations/${router.query.id}`)
+  const { error, isLoading } = useFetch<IFetchData<IUserDetail>>(`/api/stations/${router.query.id}`)
 
   if (error) {
     return (

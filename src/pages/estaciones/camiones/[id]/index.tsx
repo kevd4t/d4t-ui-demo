@@ -5,7 +5,6 @@ import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
-import { DetailUser } from '@/components/page/usuarios/DetailUser'
 import { useFetch } from '@/lib/hooks/useFetch'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
 
@@ -13,7 +12,7 @@ const { ROUTES } = siteConfig
 
 const DetailUserPage = () => {
   const router = useRouter()
-  const { data, error, isLoading } = useFetch<IFetchData<IUserDetail>>(`/api/users/${router.query.id}`)
+  const { error, isLoading } = useFetch<IFetchData<IUserDetail>>(`/api/users/${router.query.id}`)
 
   if (error) {
     return (
@@ -36,8 +35,6 @@ const DetailUserPage = () => {
   return (
     <>
       <HeaderPage title={`Detalle de Usuario ${router.query.id}`} />
-
-      <DetailUser user={data.results} />
     </>
   )
 }
