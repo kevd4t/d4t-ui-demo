@@ -16,6 +16,7 @@ interface IUploadImageProps {
   imageContainerClassName?: string
   uploadLabel?: string
   zoom?: boolean
+  multiple?: boolean
   compress?: {
     openComparisons: () => void
   }
@@ -31,7 +32,19 @@ interface IUploadImageProps {
   }
 }
 
-export const UploadImage = ({ imageToUpload, onChange, label, uploadLabel, tabIndexs, emptyClassName, imageContainerClassName, icons, zoom, compress }: IUploadImageProps) => {
+export const UploadImage = ({
+  imageToUpload,
+  onChange,
+  multiple = false,
+  label,
+  uploadLabel,
+  tabIndexs,
+  emptyClassName,
+  imageContainerClassName,
+  icons,
+  zoom,
+  compress
+}: IUploadImageProps) => {
   return (
     <div>
       { label && <Label>{label}</Label> }
@@ -39,6 +52,7 @@ export const UploadImage = ({ imageToUpload, onChange, label, uploadLabel, tabIn
       <ImageUploading
         value={imageToUpload}
         onChange={onChange}
+        multiple={multiple}
         dataURLKey='data_url'
         acceptType={['webp', 'png', 'jpg', 'jpeg']}
       >
