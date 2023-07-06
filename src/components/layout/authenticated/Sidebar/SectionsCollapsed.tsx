@@ -1,11 +1,11 @@
 import { Badge } from '@/components/ui'
-import { IconBadgeAd, IconBuildingSkyscraper, IconBusStop, IconChartDots, IconChartPie, IconDeviceMobilePin, IconHeartRateMonitor, IconHierarchy2, IconLayoutSidebarLeftCollapse, IconLayoutSidebarLeftExpand, IconLogout, IconMapPins, IconSettings, IconTruckDelivery, IconUser, IconUserCircle, IconUserShield, IconUsers } from '@tabler/icons-react'
+import { IconBadgeAd, IconBuildingSkyscraper, IconBusStop, IconChartDots, IconChartPie, IconDeviceMobilePin, IconHeartRateMonitor, IconHierarchy2, IconLayoutSidebarLeftCollapse, IconLayoutSidebarLeftExpand, IconLogout, IconMapPins, IconRouter, IconSettings, IconTruckDelivery, IconUser, IconUserCircle, IconUserShield, IconUsers } from '@tabler/icons-react'
 import React from 'react'
 import { LinkNavigation } from './LinkNavigation'
 import { LinkNavigationNested } from './LinkNavigationNested'
 import { ToggleTheme } from './ToggleTheme'
 
-export const SectionsCollapsed = ({ toggleSidebar, isOpen, logout }) => {
+export const SectionsCollapsable = ({ toggleSidebar, isOpen, logout }) => {
   return (
     <>
       <section className={`flex ${!isOpen ? 'justify-center' : ''} items-center text-gray-500 capitalize`}>
@@ -97,6 +97,16 @@ export const SectionsCollapsed = ({ toggleSidebar, isOpen, logout }) => {
                   label: 'Flotas',
                   to: '/ajustes/flotas',
                   icon: <IconBusStop className='dark:text-white' />
+                },
+                {
+                  label: 'Marcas de Medidores',
+                  to: '/ajustes/marcas-de-medidores',
+                  icon: <IconBadgeAd className='dark:text-white' />
+                },
+                {
+                  label: 'Medidores',
+                  to: '/ajustes/medidores',
+                  icon: <IconRouter className='dark:text-white' />
                 },
                 {
                   label: 'Marcas de GPS',
