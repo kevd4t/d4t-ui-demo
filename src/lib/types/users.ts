@@ -51,3 +51,13 @@ export interface IUserDetail extends IUser {}
 export interface IDataToEditUser extends IDataToCreateUser {
   group: IUserGroup
 }
+
+// User Group
+export interface IDataToCreateUserGroup {
+  title: string
+  description: string
+  isActive: boolean
+  users?: IUser[]
+}
+
+export interface IDataToEditUserGroup extends IDataToCreateUserGroup {}
