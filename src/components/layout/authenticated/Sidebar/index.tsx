@@ -11,7 +11,7 @@ import { toast } from 'sonner'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { useSidebarStore } from '@/lib/store/sidebar'
 // import { SectionsFullWidth } from './SectionsFullWidth'
-import { SectionsCollapsed } from './SectionsCollapsed'
+import { SectionsCollapsable } from './SectionsCollapsable'
 // import { Badge, Divider } from '@tremor/react'
 
 export const Sidebar = () => {
@@ -46,7 +46,7 @@ export const Sidebar = () => {
       className='authLayout_sidebar bg-main dark:border-transparent'
     >
       <ScrollArea className='w-full h-full p-4'>
-        <SectionsCollapsed isOpen={isOpen} logout={logout} toggleSidebar={toggleSidebar} />
+        <SectionsCollapsable isOpen={isOpen} logout={logout} toggleSidebar={toggleSidebar} />
       </ScrollArea>
     </div>
   )
