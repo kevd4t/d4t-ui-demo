@@ -1,51 +1,98 @@
-import { IconClipboard, IconDots, IconEdit, IconEye, IconEyeOff, IconSortAscending, IconSortDescending, IconUserQuestion, IconUserStar } from '@tabler/icons-react'
+import { IconClipboard, IconDots, IconEdit, IconEye, IconEyeOff, IconSortAscending, IconSortDescending, IconUserOff, IconUserQuestion, IconUserStar } from '@tabler/icons-react'
 import { Column, ColumnDef } from '@tanstack/react-table'
 import { ChevronsUpDown } from 'lucide-react'
-
-import { APP_CONFIG } from '@/config'
-import { IUser } from '@/lib/types/users'
-
-import { Badge, Button, Checkbox, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { toast } from 'sonner'
+
 import { IItemToFilter } from '@/lib/types/tables'
+import { useFetch } from '@/lib/hooks/useFetch'
+import { IUser } from '@/lib/types/users'
+import { APP_CONFIG } from '@/config'
+
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, Badge, Button, Checkbox, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui'
+import { Spinner } from '@/components/common/loaders/Spinner'
 
 const { ROLES_DIC: ROLES } = APP_CONFIG
 
 export const UserRowActions = ({ user }: { user: IUser }) => {
+  const [openAlert, setOpenAlert] = useState(false)
+  const { isLoading, error, fetcher } = useFetch()
   const router = useRouter()
 
+  const blockUser = async () => {
+    const data: any = await fetcher(`/api/users/${user.id}/block`, { method: 'PUT' })
+
+    if (error) {
+      toast.error('Hubo un error')
+      return
+    }
+
+    console.log({ data })
+    toast.success(`${user.names} ${user.surnames} ha sido bloqueado`)
+    setOpenAlert(false)
+  }
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant='ghost' className='h-8 w-8 p-0'>
-          <span className='sr-only'>Abrir menu</span>
-          <IconDots className='h-4 w-4' />
-        </Button>
-      </DropdownMenuTrigger>
+    <>
+      <AlertDialog open={openAlert}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>¿Esta seguro de bloquear este usuario?</AlertDialogTitle>
+            <AlertDialogDescription>
+                Se bloqueara la cuenta del usuario {user.names} {user.surnames}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
 
-      <DropdownMenuContent align='end'>
-        <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isLoading} onClick={() => setOpenAlert(false)}>
+              Cancelar
+            </AlertDialogCancel>
 
-        <DropdownMenuSeparator />
+            <AlertDialogAction disabled={isLoading} onClick={blockUser} className='w-[89px]'>
+              { isLoading ? <Spinner /> : 'Bloquear' }
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
-        <DropdownMenuItem onClick={() => router.push(`/usuarios/${user.id}`)}>
-          <IconEye className='mr-2 h-4 w-4' />
-          Ver Usuario
-        </DropdownMenuItem>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant='ghost' className='h-8 w-8 p-0'>
+            <span className='sr-only'>Abrir menu</span>
+            <IconDots className='h-4 w-4' />
+          </Button>
+        </DropdownMenuTrigger>
 
-        <DropdownMenuItem onClick={() => router.push(`/usuarios/${user.id}/editar`)}>
-          <IconEdit className='mr-2 h-4 w-4' />
-          Editar Usuario
-        </DropdownMenuItem>
+        <DropdownMenuContent align='end'>
+          <DropdownMenuLabel>Acciones</DropdownMenuLabel>
 
-        <DropdownMenuSeparator />
+          <DropdownMenuSeparator />
 
-        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(user.id.toString())}>
-          <IconClipboard className='h-4 w-4 mr-2' />
-          Copiar ID
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+          <DropdownMenuItem onClick={() => router.push(`/usuarios/${user.id}`)}>
+            <IconEye className='mr-2 h-4 w-4' />
+            Ver Usuario
+          </DropdownMenuItem>
+
+          <DropdownMenuItem onClick={() => router.push(`/usuarios/${user.id}/editar`)}>
+            <IconEdit className='mr-2 h-4 w-4' />
+            Editar Usuario
+          </DropdownMenuItem>
+
+          <DropdownMenuItem onClick={() => setOpenAlert(true)}>
+            <IconUserOff className='mr-2 h-4 w-4' />
+            Bloquear Usuario
+          </DropdownMenuItem>
+
+          <DropdownMenuSeparator />
+
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(user.id.toString())}>
+            <IconClipboard className='h-4 w-4 mr-2' />
+            Copiar ID
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
   )
 }
 
