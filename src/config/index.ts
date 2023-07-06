@@ -98,6 +98,18 @@ export const siteConfig = {
         LIST: { TITLE: 'Dispositivos GPS' },
         CREATE: { TITLE: 'Crear Dispositivo GPS' },
         EDIT: { TITLE: 'Editar Dispositivo GPS' }
+      },
+
+      METER_MARKS: {
+        LIST: { TITLE: 'Marcas de Medidores' },
+        CREATE: { TITLE: 'Crear Marca de Medidor' },
+        EDIT: { TITLE: 'Editar Marca de Medidor' }
+      },
+
+      METER_DEVICE: {
+        LIST: { TITLE: 'Medidores' },
+        CREATE: { TITLE: 'Crear Medidor' },
+        EDIT: { TITLE: 'Editar Medidor' }
       }
     },
 
