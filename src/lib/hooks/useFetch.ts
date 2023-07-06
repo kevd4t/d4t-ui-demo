@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react'
 import { RequestInit } from '../types'
 
 export function useFetch<IData = unknown> (initialUrl?: string) {
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState<IData>(null)
   const [error, setError] = useState(null)
 
-  const fetcher = async (url: string, options?: RequestInit) => {
+  async function fetcher (url: string, options?: RequestInit) {
     setIsLoading(true)
 
     return new Promise((resolve, reject) => {
