@@ -3,12 +3,11 @@ import { getFakeData } from '@/lib/data'
 
 const handleApiFleetById = (req: NextApiRequest, res: NextApiResponse) => {
   const fleets = getFakeData('FLEETS')
+  const fleetFinded = fleets.find(fleet => fleet.id.toString() === req.query.id)
 
   return res.status(200).json({
-    id: req.query.id,
-    title: fleets[0].title,
-    description: fleets[0].description,
-    isActive: fleets[0].isActive
+    code: '0001',
+    results: fleetFinded
   })
 }
 
