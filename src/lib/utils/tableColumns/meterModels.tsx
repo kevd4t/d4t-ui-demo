@@ -1,8 +1,6 @@
 import { IconAdOff, IconBadgeAd, IconClipboard, IconDots, IconEdit, IconEye, IconEyeOff, IconRouter, IconSortAscending, IconSortDescending, IconStatusChange } from '@tabler/icons-react'
 import { Column, ColumnDef } from '@tanstack/react-table'
 import { ChevronsUpDown } from 'lucide-react'
-import Zoom from 'react-medium-image-zoom'
-import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
@@ -61,7 +59,6 @@ export const MeterModelRowActions = ({ meterModel }: { meterModel: IMeterModel }
   const [openViewModel, setOpenViewModel] = useState(false)
   const [openAlert, setOpenAlert] = useState(false)
   const { isLoading, error, fetcher } = useFetch()
-  const router = useRouter()
 
   const blockUser = async () => {
     const data: any = await fetcher(`/api/meter-models/${meterModel.id}/block`, { method: 'PUT' })

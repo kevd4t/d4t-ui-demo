@@ -2,7 +2,6 @@ import { PaginationState, RowSelectionState, type Table as TableType } from '@ta
 import { IconBadgeAd, IconId, IconRouter } from '@tabler/icons-react'
 import ReactCompareImage from 'react-compare-image'
 import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/router'
 import JSConfetti from 'js-confetti'
 import { useState } from 'react'
 import { toast } from 'sonner'
@@ -54,7 +53,6 @@ export const FormCreateMeterMark = () => {
   const formMeterModel = useForm<ICreateMeterMark>({ defaultValues })
   const [modelImage, setModelImage] = useState(initialImageValues)
   const [markImage, setMarkImage] = useState(initialImageValues)
-  const router = useRouter()
 
   const { data, error, isLoading: isLoadingMeterModels, fetcher } = useFetch<IFetchDataTable<IMeterModel>>('/api/meter-models')
 
