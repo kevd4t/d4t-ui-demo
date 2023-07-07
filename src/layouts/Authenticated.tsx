@@ -9,6 +9,7 @@ import { PageTransition } from '@/components/layout/common/PageTransition'
 // import DocslyClient from '@/components/layout/authenticated/DocslyClient'
 import { Sidebar } from '@/components/layout/authenticated'
 import { Button } from '@/components/ui'
+import { BottomNavigation } from '@/components/layout/authenticated/BottomNavigation'
 
 export const AuthenticatedLayout = ({ children, title, mainClassName, noPageTransition = false }: { children: ReactNode, title: string, mainClassName?: string, noPageTransition?: boolean }) => {
   const { isOpen, toggleSidebar } = useSidebarStore()
@@ -31,6 +32,7 @@ export const AuthenticatedLayout = ({ children, title, mainClassName, noPageTran
       }
       >
         <Sidebar />
+        <BottomNavigation />
 
         <Button
           onClick={toggleSidebar}

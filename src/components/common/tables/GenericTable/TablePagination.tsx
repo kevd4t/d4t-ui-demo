@@ -48,7 +48,7 @@ export function TablePagination<TData> ({ table, pagination, rowsToSelect }: Dat
             variant='outline'
             className='hidden h-8 w-8 p-0 lg:flex'
             onClick={() => table.setPageIndex(1)}
-            disabled={!table.getCanPreviousPage()}
+            disabled={table.getPageCount() === 1}
           >
             <span className='sr-only'>Primera Pagina</span>
             <ChevronsLeft className='h-4 w-4' />
@@ -58,7 +58,7 @@ export function TablePagination<TData> ({ table, pagination, rowsToSelect }: Dat
             variant='outline'
             className='h-8 w-8 p-0'
             onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
+            disabled={table.getPageCount() === 1}
           >
             <span className='sr-only'>Pagina Anterior</span>
             <ChevronLeft className='h-4 w-4' />

@@ -1,4 +1,4 @@
-import { ICity, IState, IStation, ITruck, IUser, IUserGroup } from '../types/'
+import { ICity, IMeterMark, IMeterModel, IState, IStation, ITruck, IUser, IUserGroup } from '../types/'
 import { IGPSDevice, IGPSMark, IGPSModel } from '../types/gps'
 import { IRoute } from '../types/routes'
 
@@ -376,25 +376,33 @@ const gpsMarks: IGPSMark[] = [
   }
 ]
 
-const meterModels = [
+const models: IMeterModel[] = [
   {
     id: 345,
     title: 'VTS GT02',
     description: 'lorem ipsu detniat',
     image: 'https://via.placeholder.com/200/red',
-    typeMeter: 'Litros',
+    type: 'litros',
+    isActive: true
+  },
+  {
+    id: 765,
+    title: 'VTS GT04',
+    description: 'lorem ipsu detniat',
+    image: 'https://via.placeholder.com/200/blue',
+    type: 'gasolina',
     isActive: true
   }
 ]
 
-const meterMarks = [
+const meterMarks: IMeterMark[] = [
   {
     id: 874,
     title: 'Pekin',
     description: 'lorem ipsu detniat',
     image: 'https://via.placeholder.com/100/red',
     isActive: true,
-    models: [...meterModels]
+    models: [...models]
   }
 ]
 
@@ -501,15 +509,15 @@ const FAKE_DATA_DIC = {
   USERS: () => fakeUsers,
   USER_GROUPS: () => fakeUserGroups,
   CATEGORIES: () => fakeCategories,
-  SUBCATEGORIES: () => fakeCategories.find(category => category.subcategories),
+  SUBCATEGORIES: () => fakeCategories.flatMap(category => category.subcategories),
   STATUS_TYPE: () => statusType,
-  STATUS: () => statusType.find(statusType => statusType.status),
+  STATUS: () => statusType.flatMap(statusType => statusType.status),
   GPS_MARKS: () => gpsMarks,
-  GPS_MODELS: () => gpsMarks.find(gpsMark => gpsMark.gpsModels),
+  GPS_MODELS: () => gpsMarks.flatMap(gpsMark => gpsMark.gpsModels),
   METER_MARKS: () => meterMarks,
-  METER_MODELS: () => meterMarks.find(meterMark => meterMark.models),
+  METER_MODELS: () => meterMarks.flatMap(meterMark => meterMark.models),
   FLEETS: () => fleets,
-  TRUCKS: () => fleets.find(fleets => fleets.trucks),
+  TRUCKS: () => fleets.flatMap(fleets => fleets.trucks),
   STATIONS: () => stations,
   STATES: () => states,
   CITIES: () => cities,

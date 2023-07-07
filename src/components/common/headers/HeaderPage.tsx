@@ -11,17 +11,22 @@ interface IHeaderPageProps {
   title: string
   createItems?: TCreateItem[]
   containerClassName?: string
+  allowGoBack?: boolean
 }
 
-export const HeaderPage = ({ title, createItems, containerClassName }: IHeaderPageProps) => {
+export const HeaderPage = ({ title, createItems, containerClassName, allowGoBack = true }: IHeaderPageProps) => {
   const router = useRouter()
 
   return (
     <div className={cn('w-full flex justify-between items-center pt-4 pb-6', containerClassName)}>
       <div className='flex justify-start items-center gap-x-4'>
-        <Button variant='outline' className='p-3' onClick={() => router.back()}>
-          <IconChevronLeft className='h-5 w-5' />
-        </Button>
+        {
+          allowGoBack && (
+            <Button variant='outline' className='p-3' onClick={() => router.back()}>
+              <IconChevronLeft className='h-5 w-5' />
+            </Button>
+          )
+        }
 
         <h4 className='w-full font-bold text-3xl'>
           {title}

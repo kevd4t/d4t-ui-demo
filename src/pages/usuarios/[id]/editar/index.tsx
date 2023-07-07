@@ -1,18 +1,44 @@
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { toast } from 'sonner'
 
 import type { IFetchData, IUserDetail, ReactElement } from '@/lib/types'
-import { useFetch } from '@/lib/hooks/useFetch'
 import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
+import { FormEditUser } from '@/components/page/usuarios/FormEditUser'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
 
 const { ROUTES } = siteConfig
 
 const EditUserPage = () => {
   const router = useRouter()
-  const { error, isLoading } = useFetch<IFetchData<IUserDetail>>(`/api/users/${router.query.id}`)
+  const [isLoading, setIsLoading] = useState(true)
+  const [user, setUser] = useState(null)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    // eslint-disable-next-line no-unused-expressions
+    (async () => {
+      setIsLoading(true)
+
+      const res = await fetch(`/api/users/${router.query.id}`)
+
+      if (!res.ok) {
+        toast.error('Hubo un Error')
+        setError('Hubo un Error')
+        setIsLoading(false)
+        return
+      }
+
+      const data: IFetchData<IUserDetail> = await res.json()
+      console.log({ data })
+      setUser(data.results)
+      setIsLoading(false)
+    })()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.query.id])
 
   if (error) {
     return (
@@ -35,6 +61,7 @@ const EditUserPage = () => {
   return (
     <>
       <HeaderPage title={`Editar Usuario ${router.query.id}`} />
+      <FormEditUser user={user} />
     </>
   )
 }

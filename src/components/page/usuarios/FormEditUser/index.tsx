@@ -31,6 +31,8 @@ import { UploadUserPhoto } from './UploadUserPhoto'
 const { PHONE_LINE_CODES, CI_TYPES, ROLES_DIC: ROLES, IS_ACTIVE } = APP_CONFIG
 
 export const FormEditUser = ({ user }: { user: IUserDetail }) => {
+  console.log(user)
+
   const defaultValues: IDataToEditUser = {
     names: user.names,
     surnames: user.surnames,

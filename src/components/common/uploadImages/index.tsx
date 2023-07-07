@@ -49,6 +49,8 @@ export const UploadImage = ({
     <div>
       { label && <Label>{label}</Label> }
 
+      <div className='my-2'></div>
+
       <ImageUploading
         value={imageToUpload}
         onChange={onChange}
@@ -127,7 +129,7 @@ export const UploadImage = ({
 
                         { icons?.placeholder || <IconPhotoPlus className='text-zinc-400 w-10 h-10' /> }
 
-                        <Button tabIndex={tabIndexs?.upload} className={`mt-2 ${isDragging && 'text-indigo-600'}`} onClick={onImageUpload}>
+                        <Button type='button' tabIndex={tabIndexs?.upload} className={`mt-2 ${isDragging && 'text-indigo-600'}`} onClick={onImageUpload}>
                           { icons?.uploadButton }
                           { uploadLabel || 'Cargar Imagen' }
                         </Button>

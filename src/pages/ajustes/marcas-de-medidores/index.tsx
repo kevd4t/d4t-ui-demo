@@ -1,6 +1,8 @@
 import { PaginationState } from '@tanstack/react-table'
 import { useState } from 'react'
 
+import { meterMarkColumns, meterMarkColumnsToFilter } from '@/lib/utils/tableColumns/meterMarks'
+import { handleFetchUrlGpsMarks } from '@/lib/services/settings/gps/marks'
 import type { IFetchDataTable, ReactElement } from '@/lib/types'
 import { useFetch } from '@/lib/hooks/useFetch'
 import { IGPSMark } from '@/lib/types/gps'
@@ -9,20 +11,18 @@ import { siteConfig } from '@/config'
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
 import { Table } from '@/components/common/tables/GenericTable'
-import { handleFetchUrlGpsMarks } from '@/lib/services/settings/gps/marks'
-import { gpsMarkColumns, gpsMarkColumnsToFilter } from '@/lib/utils/tableColumns/gpsMarks'
 
 const { ROUTES } = siteConfig
 
 const MetersMarksSettingsPage = () => {
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
-  const { data, error, isLoading, fetcher } = useFetch<IFetchDataTable<IGPSMark>>('/api/gps-marks')
+  const { data, error, isLoading, fetcher } = useFetch<IFetchDataTable<IGPSMark>>('/api/meter-marks')
 
   const pagination = {
     pageSize,
     pageIndex,
     setPagination,
-    labels: { pluralItem: 'Marcas de GPS', singularItem: 'Marca de GPS' }
+    labels: { pluralItem: 'Marcas', singularItem: 'Marca' }
   }
 
   const handleSearchWithParams = async ({ search }) => {
@@ -33,18 +33,18 @@ const MetersMarksSettingsPage = () => {
   return (
     <>
       <HeaderPage
-        title='Marcas de GPS'
-        createItems={[{ href: '/ajustes/marcas-de-gps/crear', title: 'Crear Marca de GPS' }]}
+        title='Marcas de Medidores'
+        createItems={[{ href: '/ajustes/marcas-de-medidores/crear', title: 'Crear Marca de Medidor' }]}
       />
 
       <Table
         visibilityColumns
         data={data?.results}
-        columns={gpsMarkColumns}
-        itemsToFilter={gpsMarkColumnsToFilter}
+        columns={meterMarkColumns}
+        itemsToFilter={meterMarkColumnsToFilter}
         pagination={pagination}
         queryInfo={{ isFetching: isLoading, error }}
-        inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Marca de GPS' }}
+        inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Marca de Medidor' }}
       />
     </>
   )

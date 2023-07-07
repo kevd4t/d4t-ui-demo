@@ -1,10 +1,12 @@
+import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
 import { useRouter } from 'next/router'
 
-import type { IFetchData, IUserDetail, ReactElement } from '@/lib/types'
-import { useFetch } from '@/lib/hooks/useFetch'
+import type { IMeterMark, ReactElement } from '@/lib/types'
 import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
+import { DetailMeterMark } from '@/components/page/ajustes/marcas-de-medidores/DetailMeterMark'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
 
@@ -12,7 +14,31 @@ const { ROUTES } = siteConfig
 
 const DetailMeterMarkPage = () => {
   const router = useRouter()
-  const { error, isLoading } = useFetch<IFetchData<IUserDetail>>(`/api/users/${router.query.id}`)
+  const [isLoading, setIsLoading] = useState(true)
+  const [meterMark, setMeterMark] = useState(null)
+  const [error, setError] = useState(null)
+
+  const getMeterMarkDetail = async () => {
+    setIsLoading(true)
+
+    const res = await fetch(`/api/meter-marks/${router.query.id}`)
+
+    if (!res.ok) {
+      toast.error('Hubo un Error')
+      setError('Hubo un Error-')
+      setIsLoading(false)
+      return
+    }
+
+    const data: IMeterMark = await res.json()
+    setMeterMark(data)
+    setIsLoading(false)
+  }
+
+  useEffect(() => {
+    getMeterMarkDetail()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.query.id])
 
   if (error) {
     return (
@@ -34,7 +60,8 @@ const DetailMeterMarkPage = () => {
 
   return (
     <>
-      <HeaderPage title={`Detalle de Usuario ${router.query.id}`} />
+      <HeaderPage title={`Detalle de Marca de Medidor ${router.query.id}`} />
+      <DetailMeterMark meterMark={meterMark} />
     </>
   )
 }
