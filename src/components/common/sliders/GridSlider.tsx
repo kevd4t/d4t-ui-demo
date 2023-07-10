@@ -22,42 +22,55 @@ export const GridSlider = ({
 }: IImagesSliderProps) => {
   console.log({ images })
   return (
+  // <Swiper
+  //   // grid={{ rows: 2 }}
+  //   // spaceBetween={spaceBetween}
+  //   // modules={[Grid, Pagination]}
+  //   // slidesPerView={slidesPerView}
+  //   // pagination={initialSliderOptions.pagination}
+  //   // breakpoints={initialSliderOptions.breakpoints}
+  //   slidesPerView={2}
+  //   grid={{ rows: 2 }}
+  //   spaceBetween={30}
+  //   pagination={{ clickable: true }}
+  //   modules={[Grid, Pagination]}
+  //   className={cn('h-52 bg-transparent swiper-modal', className)}
+  //   {...rest}
+  // >
+
+  //   {
+  //     images.map(image => {
+  //       return (
+  //         <SwiperSlide key={image.data_url} className='w-full bg-transparent'>
+  //           {
+  //             zoom
+  //               ? (
+  //                 <Zoom>
+  //                   <img
+  //                     src={image.data_url}
+  //                     alt='image-grid'
+  //                   />
+  //                 </Zoom>
+  //               )
+  //               : <img src={image.data_url} alt='image-grid' />
+  //           }
+  //         </SwiperSlide>
+  //       )
+  //     })
+  //   }
+  // </Swiper>
+
     <Swiper
-      // grid={{ rows: 2 }}
-      // spaceBetween={spaceBetween}
-      // modules={[Grid, Pagination]}
-      // slidesPerView={slidesPerView}
-      // pagination={initialSliderOptions.pagination}
-      // breakpoints={initialSliderOptions.breakpoints}
-      slidesPerView={2}
+      slidesPerView={3}
       grid={{ rows: 2 }}
       spaceBetween={30}
       pagination={{ clickable: true }}
       modules={[Grid, Pagination]}
-      className={cn('h-52 bg-transparent swiper-modal', className)}
-      {...rest}
+      className="swiper-modal"
     >
-
-      {
-        images.map(image => {
-          return (
-            <SwiperSlide key={image.data_url} className='w-full bg-transparent'>
-              {
-                zoom
-                  ? (
-                    <Zoom>
-                      <img
-                        src={image.data_url}
-                        alt='image-grid'
-                      />
-                    </Zoom>
-                  )
-                  : <img src={image.data_url} alt='image-grid' />
-              }
-            </SwiperSlide>
-          )
-        })
-      }
+      <SwiperSlide>Slide 1</SwiperSlide>
+      <SwiperSlide>Slide 2</SwiperSlide>
+      <SwiperSlide>Slide 3</SwiperSlide>
     </Swiper>
   )
 }

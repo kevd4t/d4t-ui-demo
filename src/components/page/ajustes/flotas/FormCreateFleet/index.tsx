@@ -42,8 +42,8 @@ interface IModalState {
 export const FormCreateFleet = () => {
   const [modalInfo, setModalInfo] = useState<IModalState>({ open: false, label: '', illustration: null, type: null })
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
-  const [tableMeterModelsSelected, HandleTableMeterModelsSelected] = useState<RowSelectionState>({})
-  const [fullDataMeterModelsSelected, setFullDataMeterModelsSelected] = useState([])
+  const [tableTrucksSelected, HandleTableTrucksSelected] = useState<RowSelectionState>({})
+  const [fullDataTrucksSelected, setFullDataTrucksSelected] = useState([])
   const [showComparisons, setShowComparisons] = useState({ markImage: false })
   const [loading, setLoading] = useState({ meessage: '', value: false })
   const [truckImages, setTruckImages] = useState(initialImageValues)
@@ -51,7 +51,7 @@ export const FormCreateFleet = () => {
   const formTruck = useForm<IFormCreateTruck>({ defaultValues })
   const [multipleImages, setMultipleImages] = useState([])
 
-  const { data, error, isLoading: isLoadingMeterModels, fetcher } = useFetch<IFetchDataTable<ITruck>>('/api/trucks')
+  const { data, error, isLoading: isLoadingTrucks, fetcher } = useFetch<IFetchDataTable<ITruck>>('/api/trucks')
 
   const pagination = {
     pageSize,
@@ -92,7 +92,7 @@ export const FormCreateFleet = () => {
 
   const getFullDataSelection = (table: TableType<any>) => {
     const fullDataSelection = table.getSelectedRowModel().flatRows
-    setFullDataMeterModelsSelected(fullDataSelection)
+    setFullDataTrucksSelected(fullDataSelection)
   }
 
   const handleCloseComparisons = () => {
@@ -106,17 +106,17 @@ export const FormCreateFleet = () => {
     setMultipleImages(imageList)
   }
 
-  const handleOpenCreateModelMarkModal = (value: boolean) => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_TRUCK', open: value }))
-  const toggleOpenCreateModelMarkModal = () => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_TRUCK', open: !prevState.open }))
+  const handleOpenCreateTruckModal = (value: boolean) => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_TRUCK', open: value }))
+  const toggleOpenCreateTruckModal = () => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_TRUCK', open: !prevState.open }))
 
   const onSubmitFormMeterMark = async (data) => {
-    if (!fullDataMeterModelsSelected?.length) {
+    if (!fullDataTrucksSelected?.length) {
       toast.error('La unidad es requerido')
       setLoading({ meessage: '', value: false })
       return
     }
 
-    if (fullDataMeterModelsSelected?.length > 1) {
+    if (fullDataTrucksSelected?.length > 1) {
       toast.error('Seleccione solo 1 unidad')
       setLoading({ meessage: '', value: false })
       return
@@ -126,13 +126,13 @@ export const FormCreateFleet = () => {
     setModalInfo((prevState) => ({ ...prevState, label: 'Creando Marca', open: true, type: 'CREATING_FLEET' }))
     await simulateFetch(3000)
 
-    const meterModelImageFile = truckImages.compressed[0]?.file
+    const truckImageFile = truckImages.compressed[0]?.file
 
     console.log({
       ...data,
-      model: {
-        ...fullDataMeterModelsSelected[0].original,
-        image: meterModelImageFile
+      truck: {
+        ...fullDataTrucksSelected[0].original,
+        image: truckImageFile
       }
     })
 
@@ -202,7 +202,7 @@ export const FormCreateFleet = () => {
       </Dialog>
 
       {/* Crear Unidad */}
-      <Dialog open={modalInfo.type === 'CREATE_TRUCK' && modalInfo.open} onOpenChange={handleOpenCreateModelMarkModal}>
+      <Dialog open={modalInfo.type === 'CREATE_TRUCK' && modalInfo.open} onOpenChange={handleOpenCreateTruckModal}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Crear Unidad</DialogTitle>
@@ -298,7 +298,7 @@ export const FormCreateFleet = () => {
               type='button'
               variant='outline'
               isLoading={loading.value}
-              onClick={() => handleOpenCreateModelMarkModal(false)}
+              onClick={() => handleOpenCreateTruckModal(false)}
             >
               Cancelar
             </Button>
@@ -406,7 +406,7 @@ export const FormCreateFleet = () => {
                 <CardDescription>Seleccione una unidad</CardDescription>
               </div>
 
-              <Button onClick={toggleOpenCreateModelMarkModal}>
+              <Button onClick={toggleOpenCreateTruckModal}>
                 Crear Unidad
               </Button>
             </section>
@@ -418,11 +418,11 @@ export const FormCreateFleet = () => {
               data={data?.results}
               pagination={pagination}
               columns={truckColumns}
-              queryInfo={{ isFetching: isLoadingMeterModels, error }}
+              queryInfo={{ isFetching: isLoadingTrucks, error }}
               inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Unidad' }}
               selection={{
-                rowSelection: tableMeterModelsSelected,
-                setRowSelection: HandleTableMeterModelsSelected,
+                rowSelection: tableTrucksSelected,
+                setRowSelection: HandleTableTrucksSelected,
                 getFullDataSelection
               }}
             />

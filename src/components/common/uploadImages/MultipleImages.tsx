@@ -1,6 +1,5 @@
 import ImageUploading from 'react-images-uploading'
 import { IconPhotoPlus } from '@tabler/icons-react'
-import Zoom from 'react-medium-image-zoom'
 
 import type { ImageListType, onChangeImage, ReactNode } from '@/lib/types'
 import { cn } from '@/lib/utils'
@@ -67,6 +66,7 @@ export const MultipleImages = ({
                     ? (
                       <div>
                         <GridSlider
+                          zoom={zoom}
                           images={imageList}
                         />
 
