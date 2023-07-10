@@ -1,4 +1,4 @@
-import { ICity, IMeterMark, IMeterModel, IState, IStation, ITruck, IUser, IUserGroup } from '../types/'
+import { ICity, IFleet, IMeterMark, IMeterModel, IState, IStation, ITruck, IUser, IUserGroup } from '../types/'
 import { IGPSDevice, IGPSMark, IGPSModel } from '../types/gps'
 import { IRoute } from '../types/routes'
 
@@ -419,7 +419,7 @@ export const trucks: ITruck[] = [
   }
 ]
 
-export const fleets = [
+export const fleets: IFleet[] = [
   {
     id: 105,
     title: 'Pekin',

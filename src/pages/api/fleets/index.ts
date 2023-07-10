@@ -6,6 +6,7 @@ const handleApiFleets = (req: NextApiRequest, res: NextApiResponse) => {
   const fleets: IFleet[] = getFakeData('FLEETS')
 
   return res.status(200).json({
+    code: '0001',
     info: {
       nextPage: 2,
       prevPage: 3

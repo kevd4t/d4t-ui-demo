@@ -23,12 +23,12 @@ export const FleetRowActions = ({ fleet }: { fleet: IFleet }) => {
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem onClick={() => router.push(`/categorias/${fleet.id}`)}>
+        <DropdownMenuItem onClick={() => router.push(`/ajustes/flotas/${fleet.id}`)}>
           <IconEye className='mr-2 h-4 w-4' />
           Ver Flota
         </DropdownMenuItem>
 
-        <DropdownMenuItem onClick={() => router.push(`/categorias/${fleet.id}/editar`)}>
+        <DropdownMenuItem onClick={() => router.push(`/ajustes/flotas/${fleet.id}/editar`)}>
           <IconEdit className='mr-2 h-4 w-4' />
           Editar Flota
         </DropdownMenuItem>
