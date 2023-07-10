@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react'
-import { toast } from 'sonner'
 import { useRouter } from 'next/router'
+import { toast } from 'sonner'
 
 import type { IMeterMark, ReactElement } from '@/lib/types'
 import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
-import { DetailMeterMark } from '@/components/page/ajustes/marcas-de-medidores/DetailMeterMark'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
-import { HeaderPage } from '@/components/common/headers/HeaderPage'
 import { DetailFleet } from '@/components/page/ajustes/flotas/DetailFleet'
+import { HeaderPage } from '@/components/common/headers/HeaderPage'
 
 const { ROUTES } = siteConfig
 
@@ -61,8 +60,8 @@ const DetailFleetPage = () => {
 
   return (
     <>
-      <HeaderPage title={`Detalle de Marca de Medidor ${router.query.id}`} />
-      <DetailFleet fleet={fleet} />
+      <HeaderPage title={`Detalle de Flota ${router.query.id}`} />
+      <DetailFleet fleet={fleet.results} />
     </>
   )
 }
