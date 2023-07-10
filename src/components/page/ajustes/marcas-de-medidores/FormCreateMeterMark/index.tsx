@@ -39,7 +39,7 @@ interface IModalState {
   open: boolean
   label: string
   illustration?: ReactNode
-  type: 'CREATE_METER_MODEL' | 'COMPARISON_MARK_IMAGE' | 'CREATING_METER_MARK' | 'METER_MARK_CREATED' | 'CREATING_METER_MODEL' | 'METER_MODEL_CREATED'
+  type: 'CREATE_TRUCK' | 'COMPARISON_TRUCK_IMAGE' | 'CREATING_FLEET' | 'METER_FLEET_CREATED' | 'CREATING_TRUCK_MODEL' | 'METER_TRUCK_CREATED'
 }
 
 export const FormCreateMeterMark = () => {
@@ -129,8 +129,8 @@ export const FormCreateMeterMark = () => {
     }
   }
 
-  const handleOpenCreateModelMarkModal = (value: boolean) => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_METER_MODEL', open: value }))
-  const toggleOpenCreateModelMarkModal = () => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_METER_MODEL', open: !prevState.open }))
+  const handleOpenCreateModelMarkModal = (value: boolean) => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_TRUCK', open: value }))
+  const toggleOpenCreateModelMarkModal = () => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_TRUCK', open: !prevState.open }))
 
   const onSubmitFormMeterMark = async (data) => {
     if (!fullDataMeterModelsSelected?.length) {
@@ -158,7 +158,7 @@ export const FormCreateMeterMark = () => {
     }
 
     setLoading(({ meessage: 'Creando Marca de Medidor', value: true }))
-    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Marca', open: true, type: 'CREATING_METER_MARK' }))
+    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Marca', open: true, type: 'CREATING_FLEET' }))
     await simulateFetch(3000)
 
     const meterMarkImageFile = markImage.compressed[0]?.file
@@ -173,7 +173,7 @@ export const FormCreateMeterMark = () => {
       }
     })
 
-    setModalInfo(prevState => ({ ...prevState, type: 'METER_MARK_CREATED', label: 'Marca Creada', illustration: <Congratulations className='h-72' /> }))
+    setModalInfo(prevState => ({ ...prevState, type: 'METER_FLEET_CREATED', label: 'Marca Creada', illustration: <Congratulations className='h-72' /> }))
     toast.success('Marca Creada Exitosamente')
     setLoading({ meessage: '', value: false })
     const jsConfetti = new JSConfetti()
@@ -200,14 +200,14 @@ export const FormCreateMeterMark = () => {
     }
 
     setLoading(({ meessage: 'Creando Modelo de Medidor', value: true }))
-    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Modelo', open: true, type: 'CREATING_METER_MODEL' }))
+    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Modelo', open: true, type: 'CREATING_TRUCK_MODEL' }))
     await simulateFetch(3000)
 
     const meterModelImageFile = modelImage.compressed[0]?.file
 
     console.log({ ...data, image: meterModelImageFile })
 
-    setModalInfo(prevState => ({ ...prevState, type: 'METER_MODEL_CREATED', label: 'Modelo Creado', illustration: <Congratulations className='h-72' /> }))
+    setModalInfo(prevState => ({ ...prevState, type: 'METER_TRUCK_CREATED', label: 'Modelo Creado', illustration: <Congratulations className='h-72' /> }))
     toast.success('Modelo Creado Exitosamente')
     setLoading({ meessage: '', value: false })
     const jsConfetti = new JSConfetti()
@@ -251,7 +251,7 @@ export const FormCreateMeterMark = () => {
         </DialogContent>
       </Dialog>
 
-      <Dialog open={modalInfo.type === 'CREATE_METER_MODEL' && modalInfo.open} onOpenChange={handleOpenCreateModelMarkModal}>
+      <Dialog open={modalInfo.type === 'CREATE_TRUCK' && modalInfo.open} onOpenChange={handleOpenCreateModelMarkModal}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Crear Modelo de Medidor</DialogTitle>

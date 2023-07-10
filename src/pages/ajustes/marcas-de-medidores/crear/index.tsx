@@ -11,7 +11,6 @@ const CreateMeterMarksSettingsPage = () => {
   return (
     <>
       <HeaderPage title='Crear Marca de Medidor' containerClassName='pb-0' />
-
       <FormCreateMeterMark />
     </>
   )

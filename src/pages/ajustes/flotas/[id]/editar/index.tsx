@@ -18,10 +18,10 @@ const EditFleetPage = () => {
   const [meterMark, setMeterMark] = useState(null)
   const [error, setError] = useState(null)
 
-  const getMeterMarkDetail = async () => {
+  const getFleetDetail = async () => {
     setIsLoading(true)
 
-    const res = await fetch(`/api/meter-marks/${router.query.id}`)
+    const res = await fetch(`/api/fleets/${router.query.id}`)
 
     if (!res.ok) {
       toast.error('Hubo un Error')
@@ -36,7 +36,7 @@ const EditFleetPage = () => {
   }
 
   useEffect(() => {
-    getMeterMarkDetail()
+    getFleetDetail()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query.id])
 
@@ -60,7 +60,7 @@ const EditFleetPage = () => {
 
   return (
     <>
-      <HeaderPage title={`Editar Usuario ${router.query.id}`} />
+      <HeaderPage title={`Editar Flota ${router.query.id}`} />
 
       <FormEditMeterMark meterMark={meterMark} />
     </>

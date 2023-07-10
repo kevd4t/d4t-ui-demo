@@ -584,14 +584,14 @@ export const FormCreateUserGroup = () => {
           </div>
 
           <section className='w-full flex justify-between items-start mt-6 gap-x-6'>
-            <Button variant='outline' tabIndex={15} type='button' className='w-full py-2 text-base'>
+            <Button variant='outline' tabIndex={15} type='button' className='w-full py-2 text-sm'>
               Cancelar
             </Button>
 
             <Button
               type='submit'
               tabIndex={16}
-              className='w-full py-2 text-base'
+              className='w-full py-2 text-sm'
               isLoading={loading.value}
               onClick={form.handleSubmit(onSubmit)}
             >

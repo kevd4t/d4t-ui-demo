@@ -8,7 +8,7 @@ export interface IFleet {
   trucks: ITruck[]
 }
 
-export interface IFormFieldsCreateFleet {
+export interface IFormCreateFleet {
   title: string
   description: string
   status: string

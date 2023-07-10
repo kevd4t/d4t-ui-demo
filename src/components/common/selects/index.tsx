@@ -6,7 +6,7 @@ import { Control, RegisterOptions } from 'react-hook-form'
 interface IGenericSelectItems {
   label: string
   icon?: ReactNode
-  value: boolean | string
+  value: boolean | string | number
 }
 
 interface IGenericSelectProps extends HTMLAttributes<HTMLDivElement> {

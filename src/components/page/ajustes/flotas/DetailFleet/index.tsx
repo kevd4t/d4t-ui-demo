@@ -1,22 +1,44 @@
-import { IconBadgeAd } from '@tabler/icons-react'
-import { useForm } from 'react-hook-form'
-import Zoom from 'react-medium-image-zoom'
+import { PaginationState } from '@tanstack/react-table'
+import { useState } from 'react'
 
-import type { IFleet, IFormFieldsCreateFleet } from '@/lib/types'
+import type { IFetchDataTable, IFleet, ITruck } from '@/lib/types'
+import { truckColumns } from '@/lib/utils/tableColumns/trucks'
+import { useFetch } from '@/lib/hooks/useFetch'
 
-import { Badge, Card, CardContent, CardDescription, CardHeader, CardTitle, Separator } from '@/components/ui'
+import { Badge, Card, CardContent, CardTitle, ScrollArea, Separator } from '@/components/ui'
+import { handleFetchUrlTruckByFleetId } from '@/lib/services/settings/fleets'
+import { Table } from '@/components/common/tables/GenericTable'
 import { Input } from '@/components/common/inputs/Input'
 import { TextArea } from '@/components/common/textarea'
 
+const tags = Array.from({ length: 10 }).map(
+  (_, i, a) => `Camión ${a.length - i}`
+).reverse()
 
 export const DetailFleet = ({ fleet }: { fleet: IFleet }) => {
+  console.log({ fleetId: fleet.id })
+  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
+  const { data, error, isLoading, fetcher } = useFetch<IFetchDataTable<ITruck>>(`/api/fleets/${fleet?.id}/trucks`)
+
+  const pagination = {
+    pageSize,
+    pageIndex,
+    setPagination,
+    labels: { pluralItem: 'Flotas', singularItem: 'Flota' }
+  }
+
+  const handleSearchWithParams = async ({ search }) => {
+    const url = handleFetchUrlTruckByFleetId({ pageSize, pageIndex, search, fleetId: fleet.id })
+    fetcher(url)
+  }
+
   return (
     <>
       <div className='w-full h-full flex justify-start items-start gap-x-10'>
         <div className='hidden max-w-xs w-full lg:flex flex-col justify-start items-start sticky pt-6 top-0 left-0'>
           <Card className='w-full sticky top-0 left-0'>
-            <CardContent>
-              <h6 className='font-semibold'>Informacion Basica</h6>
+            <CardContent className='pt-5'>
+              <CardTitle>Informacion Basica</CardTitle>
 
               <ul className='mt-2'>
                 <li className='flex justify-start items-center text-sm text-primary-gray'>
@@ -34,7 +56,26 @@ export const DetailFleet = ({ fleet }: { fleet: IFleet }) => {
 
               <Separator className='my-2' />
 
-              <Badge>{ fleet.status }</Badge>
+              <Badge className='w-full text-sm'>
+                { fleet.status }
+              </Badge>
+
+              <Separator className='my-2' />
+
+              <ScrollArea className='h-48 w-full rounded-md border'>
+                <div className='p-4'>
+                  <h6 className='mb-4 text-base font-medium leading-none'>Unidades</h6>
+
+                  {
+                    tags.map((tag) => (
+                      <>
+                        <div className='text-sm'>{tag}</div>
+                        <Separator className='my-2' />
+                      </>
+                    ))
+                  }
+                </div>
+              </ScrollArea>
             </CardContent>
           </Card>
         </div>
@@ -53,7 +94,7 @@ export const DetailFleet = ({ fleet }: { fleet: IFleet }) => {
                     id='title'
                     type='text'
                     tabIndex={1}
-                    label='Nombre'
+                    label='Título'
                     value={fleet.title}
                   />
 
@@ -62,7 +103,7 @@ export const DetailFleet = ({ fleet }: { fleet: IFleet }) => {
                     id='isActive'
                     type='text'
                     tabIndex={1}
-                    label='Nombre'
+                    label='Estatus'
                     value={fleet.status}
                   />
                 </div>
@@ -80,63 +121,23 @@ export const DetailFleet = ({ fleet }: { fleet: IFleet }) => {
           </div>
 
           <Card className='p-4 mt-6 w-full'>
-            <CardTitle>Modelos de Medidores</CardTitle>
-            <CardDescription>Seleccione un modelo</CardDescription>
+            <CardTitle>Unidades</CardTitle>
 
             <Separator className='my-4' />
 
-            {/* <ul className={`${fleet.models.length > 1 ? 'grid sm:grid-cols-2 grid-flow-row gap-4' : ''}`}>
-              {
-                fleet.trucks.map(truck => (
-                  <li key={truck.id}>
-                    <Card className='max-w-sm mx-auto'>
-                      <CardHeader>
-                        <CardTitle>{truck.title}</CardTitle>
-                      </CardHeader>
-
-                      <CardContent>
-                        <Badge>{truck.status}</Badge>
-
-                        <br />
-                        <Badge>
-                          {truck.}
-                        </Badge>
-                      </CardContent>
-                    </Card>
-                  </li>
-                ))
-              }
-            </ul> */}
+            {
+              data?.results && (
+                <Table
+                  visibilityColumns
+                  data={data.results}
+                  columns={truckColumns}
+                  pagination={pagination}
+                  queryInfo={{ isFetching: isLoading, error }}
+                  inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Unidad' }}
+                />
+              )
+            }
           </Card>
-
-          <div className='w-full h-full mt-6 flex justify-center items-start'>
-            <Card className='p-4 w-full col-span-6 md:col-span-4'>
-              <CardTitle>Foto de la Marca</CardTitle>
-
-              <Separator className='my-4' />
-
-              {/* {
-                fleet?.image
-                  ? (
-                    <Zoom>
-                      <img
-                        src={fleet?.image}
-                        alt='image'
-                        className='rounded-md w-140 max-h-[400px] object-contain mx-auto'
-                      />
-                    </Zoom>
-
-                  )
-                  : (
-                    <div
-                      className='border-gray-300 h-80 flex flex-col justify-center items-center px-6 pt-5 pb-6 border-2 border-dashed rounded-md text-center'
-                    >
-                      <IconBadgeAd className='text-zinc-400 w-20 h-20' strokeWidth={1.5} />
-                    </div>
-                  )
-              } */}
-            </Card>
-          </div>
         </div>
       </div>
     </>

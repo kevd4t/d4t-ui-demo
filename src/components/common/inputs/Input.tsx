@@ -30,11 +30,12 @@ export const Input = ({ children, id, register, messageErrors = null, label, cla
 
         {
           (id && !rest.readOnly)
-            ? messageErrors[id] && <span className='text-sm font-normal text-red-500'>* {messageErrors[id]?.message}</span>
+            ? messageErrors[id] && <span className='text-sm text-red-500'>* {messageErrors[id]?.message}</span>
             : null
         }
 
         <div className='my-2'></div>
+
         {
           register
             ? (
@@ -101,7 +102,7 @@ export const Input = ({ children, id, register, messageErrors = null, label, cla
 
       {
         (id && !rest.readOnly)
-          ? messageErrors[id] && <span className='text-sm font-normal text-red-500'>* {messageErrors[id]?.message}</span>
+          ? messageErrors[id] && <span className='text-sm text-red-500'>* {messageErrors[id]?.message}</span>
           : null
       }
 

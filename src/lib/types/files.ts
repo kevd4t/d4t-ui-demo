@@ -1,5 +1,5 @@
 export interface ImageType {
-  dataURL?: string
+  data_url?: string
   file?: File
   [key: string]: any
 }

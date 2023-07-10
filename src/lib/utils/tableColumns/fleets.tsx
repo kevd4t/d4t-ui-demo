@@ -1,46 +1,95 @@
-import { IconClipboard, IconDots, IconEdit, IconEye, IconEyeOff, IconSortAscending, IconSortDescending } from '@tabler/icons-react'
+import { IconClipboard, IconDots, IconEdit, IconEye, IconEyeOff, IconSortAscending, IconSortDescending, IconTruckOff } from '@tabler/icons-react'
 import { Column, ColumnDef } from '@tanstack/react-table'
 import { ChevronsUpDown } from 'lucide-react'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { toast } from 'sonner'
 
-import { Badge, Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui'
+import { useFetch } from '@/lib/hooks/useFetch'
 import { IFleet } from '@/lib/types'
 
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, Badge, Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui'
+import { Spinner } from '@/components/common/loaders/Spinner'
+
 export const FleetRowActions = ({ fleet }: { fleet: IFleet }) => {
+  const [openAlert, setOpenAlert] = useState(false)
+  const { isLoading, error, fetcher } = useFetch()
   const router = useRouter()
 
+  const blockUser = async () => {
+    const data: any = await fetcher(`/api/fleets/${fleet.id}/block`, { method: 'PUT' })
+
+    if (error) {
+      toast.error('Hubo un error')
+      return
+    }
+
+    console.log({ data })
+    toast.success(`${fleet.title} ha sido bloqueado`)
+    setOpenAlert(false)
+  }
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant='ghost' className='h-8 w-8 p-0'>
-          <span className='sr-only'>Abrir menu</span>
-          <IconDots className='h-4 w-4' />
-        </Button>
-      </DropdownMenuTrigger>
+    <>
+      <AlertDialog open={openAlert}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>¿Esta seguro de bloquear este usuario?</AlertDialogTitle>
 
-      <DropdownMenuContent align='end'>
-        <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+            <AlertDialogDescription>
+                Se bloqueara la unidad {fleet.title}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
 
-        <DropdownMenuSeparator />
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isLoading} onClick={() => setOpenAlert(false)}>
+              Cancelar
+            </AlertDialogCancel>
 
-        <DropdownMenuItem onClick={() => router.push(`/ajustes/flotas/${fleet.id}`)}>
-          <IconEye className='mr-2 h-4 w-4' />
-          Ver Flota
-        </DropdownMenuItem>
+            <AlertDialogAction disabled={isLoading} onClick={blockUser} className='w-[89px]'>
+              { isLoading ? <Spinner /> : 'Bloquear' }
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
-        <DropdownMenuItem onClick={() => router.push(`/ajustes/flotas/${fleet.id}/editar`)}>
-          <IconEdit className='mr-2 h-4 w-4' />
-          Editar Flota
-        </DropdownMenuItem>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant='ghost' className='h-8 w-8 p-0'>
+            <span className='sr-only'>Abrir menu</span>
+            <IconDots className='h-4 w-4' />
+          </Button>
+        </DropdownMenuTrigger>
 
-        <DropdownMenuSeparator />
+        <DropdownMenuContent align='end'>
+          <DropdownMenuLabel>Acciones</DropdownMenuLabel>
 
-        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(fleet.id.toString())}>
-          <IconClipboard className='h-4 w-4 mr-2' />
-          Copiar ID
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+          <DropdownMenuSeparator />
+
+          <DropdownMenuItem onClick={() => router.push(`/ajustes/flotas/${fleet.id}`)}>
+            <IconEye className='mr-2 h-4 w-4' />
+            Ver Flota
+          </DropdownMenuItem>
+
+          <DropdownMenuItem onClick={() => router.push(`/ajustes/flotas/${fleet.id}/editar`)}>
+            <IconEdit className='mr-2 h-4 w-4' />
+            Editar Flota
+          </DropdownMenuItem>
+
+          <DropdownMenuItem onClick={() => setOpenAlert(true)}>
+            <IconTruckOff className='mr-2 h-4 w-4' />
+            Bloquear Flota
+          </DropdownMenuItem>
+
+          <DropdownMenuSeparator />
+
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(fleet.id.toString())}>
+            <IconClipboard className='h-4 w-4 mr-2' />
+            Copiar ID
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
   )
 }
 

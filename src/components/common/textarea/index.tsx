@@ -13,7 +13,7 @@ interface InputProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 export const TextArea = ({ children, id, register, messageErrors = null, label, classNameContainer, inputErrors = {}, ...rest }: InputProps) => {
   return (
     <div className={`w-full ${classNameContainer}`}>
-      <Label>{ label }</Label> <br />
+      <Label>{ label }&nbsp;</Label>
       {
         ((id && !rest.readOnly) && messageErrors)
           ? messageErrors[id] && <span className='text-sm text-red-500'>* {messageErrors[id]?.message}</span>

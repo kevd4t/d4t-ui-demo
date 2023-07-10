@@ -1,36 +1,33 @@
 import { PaginationState, RowSelectionState, type Table as TableType } from '@tanstack/react-table'
-import { IconBadgeAd, IconId, IconRouter } from '@tabler/icons-react'
-import ReactCompareImage from 'react-compare-image'
+import { IconRouter } from '@tabler/icons-react'
 import { useForm } from 'react-hook-form'
 import JSConfetti from 'js-confetti'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
-import type { ICreateMeterMark, ICreateMeterModel, IFetchDataTable, IMeterModel, ReactNode } from '@/lib/types'
+import type { IFetchDataTable, IFormCreateFleet, IFormCreateTruck, ITruck, ReactNode } from '@/lib/types'
 import { compressImage } from '@/lib/utils/handleCompressionImage'
 import { handleFetchUrlUserGroups } from '@/lib/services/users'
 import { convertBytes } from '@/lib/utils/formaters'
+import { truckRules, fleetRules } from './rules'
 import { useFetch } from '@/lib/hooks/useFetch'
-import { meterMarkRules, meterModelRules } from './rules'
 import { APP_CONFIG } from '@/config'
 
-import { Badge, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, Separator } from '@/components/ui'
+import { Badge, Button, Card, CardContent, CardDescription, CardTitle, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, Separator } from '@/components/ui'
+import { Congratulations } from '@/components/common/illustrations/Congratulations'
+import { MultipleImages } from '@/components/common/uploadImages/MultipleImages'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
 import { Table } from '@/components/common/tables/GenericTable'
-import { UploadImage } from '@/components/common/uploadImages'
+import { truckColumns } from '@/lib/utils/tableColumns/trucks'
 import { GenericSelect } from '@/components/common/selects'
 import { simulateFetch } from '@/lib/utils/simulateFetch'
 import { Input } from '@/components/common/inputs/Input'
 import { TextArea } from '@/components/common/textarea'
-import { Congratulations } from '@/components/common/illustrations/Congratulations'
-import { meterModelColumns, meterModelColumnsToFilter } from '@/lib/utils/tableColumns/meterModels'
 
-const { IS_ACTIVE } = APP_CONFIG
-
-const defaultValues: ICreateMeterMark = {
+const defaultValues: IFormCreateFleet = {
   title: '',
   description: '',
-  isActive: 'true'
+  status: 'Operativo'
 }
 
 const initialImageValues = { original: [], compressed: [] }
@@ -39,7 +36,7 @@ interface IModalState {
   open: boolean
   label: string
   illustration?: ReactNode
-  type: 'CREATE_METER_MODEL' | 'COMPARISON_MARK_IMAGE' | 'CREATING_METER_MARK' | 'METER_MARK_CREATED' | 'CREATING_METER_MODEL' | 'METER_MODEL_CREATED'
+  type: 'CREATE_TRUCK' | 'COMPARISON_TRUCK_IMAGE' | 'CREATING_FLEET' | 'METER_FLEET_CREATED' | 'CREATING_TRUCK_MODEL' | 'METER_TRUCK_CREATED'
 }
 
 export const FormCreateFleet = () => {
@@ -49,18 +46,18 @@ export const FormCreateFleet = () => {
   const [fullDataMeterModelsSelected, setFullDataMeterModelsSelected] = useState([])
   const [showComparisons, setShowComparisons] = useState({ markImage: false })
   const [loading, setLoading] = useState({ meessage: '', value: false })
-  const formMeterMark = useForm<ICreateMeterMark>({ defaultValues })
-  const formMeterModel = useForm<ICreateMeterMark>({ defaultValues })
-  const [modelImage, setModelImage] = useState(initialImageValues)
-  const [markImage, setMarkImage] = useState(initialImageValues)
+  const [truckImages, setTruckImages] = useState(initialImageValues)
+  const formFleet = useForm<IFormCreateFleet>({ defaultValues })
+  const formTruck = useForm<IFormCreateTruck>({ defaultValues })
+  const [multipleImages, setMultipleImages] = useState([])
 
-  const { data, error, isLoading: isLoadingMeterModels, fetcher } = useFetch<IFetchDataTable<IMeterModel>>('/api/meter-models')
+  const { data, error, isLoading: isLoadingMeterModels, fetcher } = useFetch<IFetchDataTable<ITruck>>('/api/trucks')
 
   const pagination = {
     pageSize,
     pageIndex,
     setPagination,
-    labels: { pluralItem: 'Modelos', singularItem: 'Modelo' }
+    labels: { pluralItem: 'Unidades', singularItem: 'Unidad' }
   }
 
   const handleSearchWithParams = async ({ search, filters }) => {
@@ -68,11 +65,11 @@ export const FormCreateFleet = () => {
     fetcher(url)
   }
 
-  const onChangeImageMeterMark = async (imageList, addUpdateIndex) => {
+  const onChangeImageTruck = async (imageList, addUpdateIndex) => {
     const imageFile: File = imageList[0]?.file
 
     if (!imageFile) {
-      setMarkImage(prevState => ({
+      setTruckImages(prevState => ({
         original: [{ ...prevState.original[0] }],
         compressed: []
       }))
@@ -87,32 +84,7 @@ export const FormCreateFleet = () => {
       compressed: convertBytes(file.size)
     })
 
-    setMarkImage(prevState => ({
-      original: [{ data_url: imageList[0]?.data_url, file: imageList[0]?.file }],
-      compressed: [{ data_url: data_url?.toString(), file }]
-    }))
-  }
-
-  const onChangeImageMeterModel = async (imageList, addUpdateIndex) => {
-    const imageFile: File = imageList[0]?.file
-
-    if (!imageFile) {
-      setModelImage(prevState => ({
-        original: [{ ...prevState.original[0] }],
-        compressed: []
-      }))
-
-      return
-    }
-
-    const { data_url, file } = await compressImage({ imageFile, quality: 10, maxWidth: 200, maxHeight: 200 })
-
-    console.log({
-      original: convertBytes(imageList[0]?.file?.size),
-      compressed: convertBytes(file.size)
-    })
-
-    setModelImage(prevState => ({
+    setTruckImages(prevState => ({
       original: [{ data_url: imageList[0]?.data_url, file: imageList[0]?.file }],
       compressed: [{ data_url: data_url?.toString(), file }]
     }))
@@ -129,51 +101,42 @@ export const FormCreateFleet = () => {
     }
   }
 
-  const handleOpenCreateModelMarkModal = (value: boolean) => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_METER_MODEL', open: value }))
-  const toggleOpenCreateModelMarkModal = () => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_METER_MODEL', open: !prevState.open }))
+  const onChangeMultipleImages = (imageList, addUpdateIndex) => {
+    console.log(imageList, addUpdateIndex)
+    setMultipleImages(imageList)
+  }
+
+  const handleOpenCreateModelMarkModal = (value: boolean) => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_TRUCK', open: value }))
+  const toggleOpenCreateModelMarkModal = () => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_TRUCK', open: !prevState.open }))
 
   const onSubmitFormMeterMark = async (data) => {
     if (!fullDataMeterModelsSelected?.length) {
-      toast.error('El modelo es requerido')
+      toast.error('La unidad es requerido')
       setLoading({ meessage: '', value: false })
       return
     }
 
     if (fullDataMeterModelsSelected?.length > 1) {
-      toast.error('Seleccione solo 1 modelo')
-      setLoading({ meessage: '', value: false })
-      return
-    }
-
-    if (!markImage.compressed[0]?.data_url) {
-      toast.error('La foto de la marca es requerida')
-      setLoading({ meessage: '', value: false })
-      return
-    }
-
-    if (markImage.compressed[0].file?.size > APP_CONFIG.FILES_RULES.LIMIT_SIZE['4MB']) {
-      toast.error('Solo archivos menos de 4MB')
+      toast.error('Seleccione solo 1 unidad')
       setLoading({ meessage: '', value: false })
       return
     }
 
     setLoading(({ meessage: 'Creando Marca de Medidor', value: true }))
-    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Marca', open: true, type: 'CREATING_METER_MARK' }))
+    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Marca', open: true, type: 'CREATING_FLEET' }))
     await simulateFetch(3000)
 
-    const meterMarkImageFile = markImage.compressed[0]?.file
-    const meterModelImageFile = modelImage.compressed[0]?.file
+    const meterModelImageFile = truckImages.compressed[0]?.file
 
     console.log({
       ...data,
-      image: meterMarkImageFile,
       model: {
         ...fullDataMeterModelsSelected[0].original,
         image: meterModelImageFile
       }
     })
 
-    setModalInfo(prevState => ({ ...prevState, type: 'METER_MARK_CREATED', label: 'Marca Creada', illustration: <Congratulations className='h-72' /> }))
+    setModalInfo(prevState => ({ ...prevState, type: 'METER_FLEET_CREATED', label: 'Marca Creada', illustration: <Congratulations className='h-72' /> }))
     toast.success('Marca Creada Exitosamente')
     setLoading({ meessage: '', value: false })
     const jsConfetti = new JSConfetti()
@@ -186,29 +149,29 @@ export const FormCreateFleet = () => {
     // router.push('/ajustes/marcas-de-medidores')
   }
 
-  const onSubmitFormMterModel = async (data: ICreateMeterModel) => {
-    if (!modelImage.compressed[0]?.data_url) {
-      toast.error('La imagen del modelo es requerida')
+  const onSubmitFormTruck = async (data: IFormCreateTruck) => {
+    if (!truckImages.compressed[0]?.data_url) {
+      toast.error('La imagen del unidad es requerida')
       setLoading({ meessage: '', value: false })
       return
     }
 
-    if (modelImage.compressed[0].file?.size > APP_CONFIG.FILES_RULES.LIMIT_SIZE['4MB']) {
+    if (truckImages.compressed[0].file?.size > APP_CONFIG.FILES_RULES.LIMIT_SIZE['4MB']) {
       toast.error('Solo archivos menos de 4MB')
       setLoading({ meessage: '', value: false })
       return
     }
 
-    setLoading(({ meessage: 'Creando Modelo de Medidor', value: true }))
-    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Modelo', open: true, type: 'CREATING_METER_MODEL' }))
+    setLoading(({ meessage: 'Creando Unidad', value: true }))
+    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Unidad', open: true, type: 'CREATING_TRUCK_MODEL' }))
     await simulateFetch(3000)
 
-    const meterModelImageFile = modelImage.compressed[0]?.file
+    const meterModelImageFile = truckImages.compressed[0]?.file
 
     console.log({ ...data, image: meterModelImageFile })
 
-    setModalInfo(prevState => ({ ...prevState, type: 'METER_MODEL_CREATED', label: 'Modelo Creado', illustration: <Congratulations className='h-72' /> }))
-    toast.success('Modelo Creado Exitosamente')
+    setModalInfo(prevState => ({ ...prevState, type: 'METER_TRUCK_CREATED', label: 'Unidad Creada', illustration: <Congratulations className='h-72' /> }))
+    toast.success('Unidad Creada Exitosamente')
     setLoading({ meessage: '', value: false })
     const jsConfetti = new JSConfetti()
     jsConfetti.addConfetti()
@@ -238,58 +201,46 @@ export const FormCreateFleet = () => {
         </DialogContent>
       </Dialog>
 
-      <Dialog modal open={showComparisons.markImage} onOpenChange={handleCloseComparisons}>
-        <DialogContent aria-modal>
-          <div className='w-full h-full flex flex-col justify-center items-center'>
-            <ReactCompareImage
-              leftImage={markImage.compressed[0]?.data_url}
-              leftImageLabel='Comprimido'
-              rightImage={markImage.original[0]?.data_url}
-              rightImageLabel='Original'
-            />
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      <Dialog open={modalInfo.type === 'CREATE_METER_MODEL' && modalInfo.open} onOpenChange={handleOpenCreateModelMarkModal}>
+      {/* Crear Unidad */}
+      <Dialog open={modalInfo.type === 'CREATE_TRUCK' && modalInfo.open} onOpenChange={handleOpenCreateModelMarkModal}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Crear Modelo de Medidor</DialogTitle>
+            <DialogTitle>Crear Unidad</DialogTitle>
 
             <DialogDescription>
-              Crea el modelo de un medidor para asignarlo a una marca de medidor.
+              Crea una unidad para asignarlo a una flota
             </DialogDescription>
           </DialogHeader>
 
-          <form onSubmit={formMeterModel.handleSubmit(onSubmitFormMterModel)} autoFocus className='w-full'>
+          <form onSubmit={formTruck.handleSubmit(onSubmitFormTruck)} autoFocus className='w-full'>
             <section className='w-full space-y-4'>
               <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
                 <Input
                   id='title'
                   type='text'
-                  register={formMeterModel.register}
+                  tabIndex={1}
                   label='Nombre'
                   placeholder='Pekkin'
-                  messageErrors={formMeterModel.formState.errors}
-                  inputErrors={meterModelRules.title}
-                  tabIndex={1}
+                  register={formTruck.register}
+                  inputErrors={truckRules.title}
+                  messageErrors={formTruck.formState.errors}
                 />
 
                 <GenericSelect
-                  id='isActive'
-                  label='Estado'
-                  placeholder='Seleccione un Estado'
-                  defaultValue='true'
+                  id='status'
                   tabIndex={2}
-                  fieldControlled={{ control: formMeterModel.control, rules: meterModelRules.isActive }}
+                  label='Estado'
+                  defaultValue='true'
+                  placeholder='Seleccione un Estado'
+                  fieldControlled={{ control: formTruck.control, rules: truckRules.status }}
                   items={[
                     {
-                      label: 'Activo',
-                      value: true
+                      label: 'Operativo',
+                      value: 'Operativo'
                     },
                     {
-                      label: 'Bloqueado',
-                      value: false
+                      label: 'En Mantenimiento',
+                      value: 'Mantenimiento'
                     }
                   ]}
                 />
@@ -300,21 +251,21 @@ export const FormCreateFleet = () => {
                 rows={5}
                 tabIndex={3}
                 label='Descripción'
-                register={formMeterModel.register}
+                register={formTruck.register}
                 placeholder='Lorem ipsum dolor sit amet consectetur adipisicing elit quo laudantium ipsum natus.'
-                messageErrors={formMeterModel.formState.errors}
-                inputErrors={meterModelRules.description}
+                messageErrors={formTruck.formState.errors}
+                inputErrors={truckRules.description}
               />
             </section>
 
             <div className='mt-4'>
-              <UploadImage
+              <MultipleImages
                 zoom
-                label='Imagen del Modelo'
+                label='Imagen del Unidad'
                 emptyClassName='h-[200px]'
-                onChange={onChangeImageMeterModel}
-                imageToUpload={modelImage.compressed}
-                uploadLabel='Cargar Imagen del Modelo'
+                onChange={onChangeMultipleImages}
+                imageToUpload={multipleImages}
+                uploadLabel='Cargar Fotos de la Unidad'
                 tabIndexs={{ upload: 4, change: 4, delete: 5 }}
                 icons={{ placeholder: <IconRouter className='text-zinc-400 w-14 h-14' strokeWidth={1.5} /> }}
               />
@@ -324,11 +275,11 @@ export const FormCreateFleet = () => {
           <section>
             <GenericSelect
               id='type'
-              label='Tipo de Modelo'
+              label='Tipo de Unidad'
               placeholder='Seleccione un Estado'
               defaultValue='pepito'
               tabIndex={6}
-              fieldControlled={{ control: formMeterModel.control, rules: meterModelRules.isActive }}
+              fieldControlled={{ control: formTruck.control, rules: truckRules.status }}
               items={[
                 {
                   label: 'Pepito',
@@ -355,9 +306,9 @@ export const FormCreateFleet = () => {
             <Button
               type='button'
               isLoading={loading.value}
-              onClick={formMeterModel.handleSubmit(onSubmitFormMterModel)}
+              onClick={formTruck.handleSubmit(onSubmitFormTruck)}
             >
-              Crear Modelo
+              Crear Unidad
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -366,54 +317,34 @@ export const FormCreateFleet = () => {
       <div className='w-full h-full flex justify-start items-start gap-x-10'>
         <div className='hidden max-w-xs w-full lg:flex flex-col justify-start items-start sticky pt-6 top-0 left-0'>
           <Card className='w-full sticky top-0 left-0'>
-            <CardHeader>
-              {
-                markImage?.compressed[0]?.data_url
-                  ? (
-                    <img
-                      src={markImage?.compressed[0]?.data_url}
-                      alt='image'
-                      className='rounded-md w-140 max-h-[400px] object-contain mx-auto'
-                    />
-                  )
-                  : (
-                    <div
-                      className='border-gray-300 h-40 flex flex-col justify-center items-center px-6 pt-5 pb-6 border-2 border-dashed rounded-md text-center'
-                    >
-                      <IconBadgeAd className='text-zinc-400 w-20 h-20' strokeWidth={1.5} />
-                    </div>
-                  )
-              }
-            </CardHeader>
-
-            <CardContent>
+            <CardContent className='pt-6'>
               <h6 className='font-semibold'>Informacion Basica</h6>
 
               <ul className='mt-2'>
                 <li className='flex justify-start items-center text-sm text-primary-gray'>
                   <span className='font-semibold dark:text-white'>Nombre:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{formMeterMark.watch('title')}</span>
+                  <span className='dark:text-gray-300'>{formFleet.watch('title')}</span>
                 </li>
 
                 <li className='flex justify-start items-center text-sm text-primary-gray'>
                   <p className='dark:text-gray-300'>
                     <strong className='font-semibold dark:text-white'>Descripción:</strong>&nbsp;
-                    {formMeterMark.watch('description')}
+                    {formFleet.watch('description')}
                   </p>
                 </li>
               </ul>
 
               <Separator className='my-2' />
 
-              <Badge className={`w-full text-sm h-full py-1.5 ${IS_ACTIVE[formMeterMark.watch('isActive')].value ? 'border-2 bg-green-100 border-green-500 text-green-500' : 'border-2 bg-red-100 border-red-500 text-red-500'}`}>
-                {formMeterMark.watch('isActive') === 'true' ? 'Activo' : 'Bloqueado'}
+              <Badge className={'w-full text-sm h-full py-1.5'}>
+                {formFleet.watch('status')}
               </Badge>
             </CardContent>
           </Card>
         </div>
 
         <div className='w-full pt-6'>
-          <form onSubmit={formMeterMark.handleSubmit(onSubmitFormMeterMark)} autoFocus className='w-full'>
+          <form onSubmit={formFleet.handleSubmit(onSubmitFormMeterMark)} autoFocus className='w-full'>
             <div className='w-full h-full flex flex-col xl:flex-row justify-start items-start gap-x-6 gap-y-6'>
               <Card className='p-4 w-full'>
                 <CardTitle>Informacion Basica</CardTitle>
@@ -425,11 +356,11 @@ export const FormCreateFleet = () => {
                     <Input
                       id='title'
                       type='text'
-                      register={formMeterMark.register}
+                      register={formFleet.register}
                       label='Nombre'
                       placeholder='Pekkin'
-                      messageErrors={formMeterMark.formState.errors}
-                      inputErrors={meterMarkRules.title}
+                      messageErrors={formFleet.formState.errors}
+                      inputErrors={fleetRules.title}
                       tabIndex={1}
                     />
 
@@ -437,31 +368,31 @@ export const FormCreateFleet = () => {
                       id='isActive'
                       label='Estado'
                       placeholder='Seleccione un Estado'
-                      defaultValue='true'
+                      defaultValue='Operativo'
                       tabIndex={2}
-                      fieldControlled={{ control: formMeterMark.control, rules: meterMarkRules.isActive }}
+                      fieldControlled={{ control: formFleet.control, rules: fleetRules.status }}
                       items={[
                         {
-                          label: 'Activo',
-                          value: true
+                          label: 'Operativo',
+                          value: 'Operativo'
                         },
                         {
-                          label: 'Bloqueado',
-                          value: false
+                          label: 'En Mantenimiento',
+                          value: 'Mantenimiento'
                         }
                       ]}
                     />
                   </div>
 
                   <TextArea
-                    id='description'
                     rows={5}
                     tabIndex={3}
+                    id='description'
                     label='Descripción'
-                    register={formMeterMark.register}
+                    register={formFleet.register}
+                    inputErrors={fleetRules.description}
+                    messageErrors={formFleet.formState.errors}
                     placeholder='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo laudantium ipsum natus possimus amet reprehenderit veritatis eum deserunt labore quidem.'
-                    messageErrors={formMeterMark.formState.errors}
-                    inputErrors={meterMarkRules.description}
                   />
                 </section>
               </Card>
@@ -471,12 +402,12 @@ export const FormCreateFleet = () => {
           <Card className='p-4 mt-6 w-full'>
             <section className='w-full flex flex-row justify-between items-center'>
               <div>
-                <CardTitle>Modelos de Medidores</CardTitle>
-                <CardDescription>Seleccione un modelo</CardDescription>
+                <CardTitle>Unidades</CardTitle>
+                <CardDescription>Seleccione una unidad</CardDescription>
               </div>
 
               <Button onClick={toggleOpenCreateModelMarkModal}>
-                Crear Modelo
+                Crear Unidad
               </Button>
             </section>
 
@@ -486,10 +417,9 @@ export const FormCreateFleet = () => {
               visibilityColumns
               data={data?.results}
               pagination={pagination}
-              columns={meterModelColumns}
-              itemsToFilter={meterModelColumnsToFilter}
+              columns={truckColumns}
               queryInfo={{ isFetching: isLoadingMeterModels, error }}
-              inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Modelo de Medidores' }}
+              inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Unidad' }}
               selection={{
                 rowSelection: tableMeterModelsSelected,
                 setRowSelection: HandleTableMeterModelsSelected,
@@ -498,40 +428,19 @@ export const FormCreateFleet = () => {
             />
           </Card>
 
-          <div className='w-full h-full mt-6 flex justify-center items-start'>
-            <Card className='p-4 w-full col-span-6 md:col-span-4'>
-              <CardTitle>Foto de la Marca</CardTitle>
-
-              <Separator className='my-4' />
-
-              <CardContent className='mt-0 pb-0'>
-                <UploadImage
-                  zoom
-                  emptyClassName='h-[285px]'
-                  onChange={onChangeImageMeterMark}
-                  imageToUpload={markImage.compressed}
-                  uploadLabel='Cargar Foto de la Marca'
-                  tabIndexs={{ upload: 13, change: 13, delete: 14 }}
-                  icons={{ placeholder: <IconId className='text-zinc-400 w-14 h-14' strokeWidth={1.5} /> }}
-                  compress={{ openComparisons: () => setShowComparisons(prevStatus => ({ ...prevStatus, markImage: true })) }}
-                />
-              </CardContent>
-            </Card>
-          </div>
-
           <section className='w-full flex justify-between items-start mt-6 gap-x-6'>
-            <Button variant='outline' tabIndex={15} type='button' className='w-full py-2 text-base'>
+            <Button variant='outline' tabIndex={15} type='button' className='w-full py-2 text-sm'>
               Cancelar
             </Button>
 
             <Button
               type='submit'
               tabIndex={16}
-              className='w-full py-2 text-base'
+              className='w-full py-2 text-sm'
               isLoading={loading.value}
-              onClick={formMeterMark.handleSubmit(onSubmitFormMeterMark)}
+              onClick={formFleet.handleSubmit(onSubmitFormMeterMark)}
             >
-              Crear Marca
+              Crear Flota
             </Button>
           </section>
         </div>

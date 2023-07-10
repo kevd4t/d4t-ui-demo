@@ -412,16 +412,17 @@ export const trucks: ITruck[] = [
     title: 'VTS GT02',
     image: 'https://via.placeholder.com/200/red',
     numberPlate: 'AB054MN',
-    typeTruck: 'Gandola',
+    type: 'Gandola',
     status: 'Operativo',
     station: null,
-    fleet: null
+    fleet: null,
+    gps: null
   }
 ]
 
 export const fleets: IFleet[] = [
   {
-    id: 105,
+    id: 1,
     title: 'Pekin',
     description: 'lorem ipsu detniat',
     status: 'Operativo',
@@ -500,6 +501,7 @@ type TypeData =
   'METER_MARKS' |
   'METER_MODELS' |
   'FLEETS' |
+  'TRUCKS' |
   'CITIES' |
   'STATIONS' |
   'GPS_DEVICES' |
@@ -517,7 +519,9 @@ const FAKE_DATA_DIC = {
   METER_MARKS: () => meterMarks,
   METER_MODELS: () => meterMarks.flatMap(meterMark => meterMark.models),
   FLEETS: () => fleets,
-  TRUCKS: () => fleets.flatMap(fleets => fleets.trucks),
+  TRUCKS: () => fleets.flatMap(fleets => {
+    return fleets.trucks.map(truck => ({ ...truck, gps: gpsDevices[0], station: stations[0] }))
+  }),
   STATIONS: () => stations,
   STATES: () => states,
   CITIES: () => cities,
