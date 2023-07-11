@@ -7,10 +7,12 @@ import { initialSliderOptions } from './initialValues'
 interface IImagesSliderProps extends SwiperProps {
   images: string[]
   zoom?: boolean
+  intoModal?: boolean
 }
 
 export const ImagesSlider = ({
   images,
+  intoModal = false,
   className,
   zoom = initialSliderOptions.zoom,
   breakpoints = initialSliderOptions.breakpoints,
@@ -25,7 +27,7 @@ export const ImagesSlider = ({
       slidesPerView={slidesPerView}
       pagination={initialSliderOptions.pagination}
       breakpoints={initialSliderOptions.breakpoints}
-      className={cn('h-52 bg-transparent swiper-modal', className)}
+      className={cn('h-52 bg-transparent', className, intoModal ? 'swiper-modal' : '')}
       {...rest}
     >
       {

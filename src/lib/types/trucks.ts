@@ -6,7 +6,7 @@ export interface ITruck {
   id: number
   title: string
   numberPlate: string
-  image: string
+  images: string[]
   type: string
   status: string
   fleet: IFleet

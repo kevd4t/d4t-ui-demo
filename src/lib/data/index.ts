@@ -1,4 +1,4 @@
-import { ICity, IFleet, IMeterMark, IMeterModel, IState, IStation, ITruck, IUser, IUserGroup } from '../types/'
+import { ICity, IFleet, IMeterDevice, IMeterMark, IMeterModel, IState, IStation, ITruck, IUser, IUserGroup } from '../types/'
 import { IGPSDevice, IGPSMark, IGPSModel } from '../types/gps'
 import { IRoute } from '../types/routes'
 
@@ -410,7 +410,12 @@ export const trucks: ITruck[] = [
   {
     id: 766,
     title: 'VTS GT02',
-    image: 'https://via.placeholder.com/200/red',
+    images: [
+      'https://via.placeholder.com/200/ff4d4d',
+      'https://via.placeholder.com/200/blue',
+      'https://via.placeholder.com/200/00f46c',
+      'https://via.placeholder.com/200/ffed5f'
+    ],
     numberPlate: 'AB054MN',
     type: 'Gandola',
     status: 'Operativo',
@@ -489,6 +494,24 @@ export const routes: IRoute[] = [
   }
 ]
 
+export const meterDevices: IMeterDevice[] = [
+  {
+    id: 61,
+    serial: 'J-454NX2',
+    images: [
+      'https://via.placeholder.com/200/ff4d4d',
+      'https://via.placeholder.com/200/blue',
+      'https://via.placeholder.com/200/00f46c',
+      'https://via.placeholder.com/200/ffed5f'
+    ],
+    status: 'Operativo',
+    type: 'Operativo',
+    meterModel: meterMarks[0].models[0],
+    meterUnit: 'L',
+    station: stations[0]
+  }
+]
+
 type TypeData =
   'USERS' |
   'USER_GROUPS' |
@@ -505,6 +528,7 @@ type TypeData =
   'CITIES' |
   'STATIONS' |
   'GPS_DEVICES' |
+  'METER_DEVICES' |
   'ROUTES'
 
 const FAKE_DATA_DIC = {
@@ -526,6 +550,7 @@ const FAKE_DATA_DIC = {
   STATES: () => states,
   CITIES: () => cities,
   GPS_DEVICES: () => gpsDevices,
+  METER_DEVICES: () => meterDevices,
   ROUTES: () => routes
 }
 

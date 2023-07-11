@@ -57,8 +57,8 @@ export const meterModelRules: IFormRules<TMeterModelFields> = {
 
 export const TruckRowActions = ({ truck }: { truck: ITruck }) => {
   const initialImageValues = {
-    original: [{ data_url: truck.image, file: null }],
-    compressed: [{ data_url: truck.image, file: null }]
+    original: [{ data_url: truck.images, file: null }],
+    compressed: [{ data_url: truck.images, file: null }]
   }
 
   const defaultValues: IFormEditTruck = {
@@ -72,7 +72,7 @@ export const TruckRowActions = ({ truck }: { truck: ITruck }) => {
   }
 
   const [loading, setLoading] = useState({ meessage: '', value: false })
-  const [multipleTruckImages, setMultipleTruckImages] = useState([{ data_url: truck.image, file: null }])
+  const [multipleTruckImages, setMultipleTruckImages] = useState([{ data_url: truck.images, file: null }])
   const formEditTruck = useForm<IFormEditTruck>({ defaultValues })
   const [modelImage, setModelImage] = useState(initialImageValues)
   const [openViewTruck, setOpenViewTruck] = useState(false)
@@ -246,7 +246,7 @@ export const TruckRowActions = ({ truck }: { truck: ITruck }) => {
 
             <div className='w-full'>
               <ImagesSlider
-                images={[1, 2, 3, 4].map(() => truck.image)}
+                images={[1, 2, 3, 4].flatMap(() => truck.images)}
               />
             </div>
           </section>
@@ -352,7 +352,7 @@ export const TruckRowActions = ({ truck }: { truck: ITruck }) => {
                   label='Imagen del Unidad'
                   emptyClassName='h-[200px]'
                   onChange={onChangeMultipleTruckImages}
-                  imageToUpload={multipleTruckImages}
+                  imageToUpload={multipleTruckImages.map(truckImage => truckImage.data_url)}
                   uploadLabel='Cargar Fotos de la Unidad'
                   tabIndexs={{ upload: 4, change: 4, delete: 5 }}
                   icons={{ placeholder: <IconTruck className='text-zinc-400 w-14 h-14' strokeWidth={1.5} /> }}

@@ -13,3 +13,9 @@ export interface IFormCreateFleet {
   description: string
   status: string
 }
+
+export interface IFormEditFleet {
+  title: string
+  description: string
+  status: string
+}

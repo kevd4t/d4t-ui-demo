@@ -1,4 +1,4 @@
-import type { IFetchDataTable, IGPSDevice, ReactElement } from '@/lib/types'
+import type { IFetchDataTable, IGPSDevice, IMeterDevice, ReactElement } from '@/lib/types'
 import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
@@ -9,18 +9,19 @@ import { HeaderPage } from '@/components/common/headers/HeaderPage'
 import { Table } from '@/components/common/tables/GenericTable'
 import { gpsDeviceColumns } from '@/lib/utils/tableColumns/gpsDevices'
 import { handleFetchUrlGpsDevices } from '@/lib/services/settings/gps/devices'
+import { meterDeviceColumns } from '@/lib/utils/tableColumns/meterDevices'
 
 const { ROUTES } = siteConfig
 
-const GPSSettingsPage = () => {
+const MetersSettingsPage = () => {
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
-  const { data, error, isLoading, fetcher } = useFetch<IFetchDataTable<IGPSDevice>>('/api/gps-devices')
+  const { data, error, isLoading, fetcher } = useFetch<IFetchDataTable<IMeterDevice>>('/api/meter-devices')
 
   const pagination = {
     pageSize,
     pageIndex,
     setPagination,
-    labels: { pluralItem: 'Dispositivos GPS', singularItem: 'Dispositivo GPS' }
+    labels: { pluralItem: 'Estaciones', singularItem: 'Estación' }
   }
 
   const handleSearchWithParams = async ({ search, filters }) => {
@@ -31,23 +32,23 @@ const GPSSettingsPage = () => {
   return (
     <>
       <HeaderPage
-        title='Marcas de GPS'
-        createItems={[{ href: '/ajustes/dispositivos-gps/crear', title: 'Crear Dispositivo GPS' }]}
+        title='Medidores'
+        createItems={[{ href: '/ajustes/medidores/crear', title: 'Crear Medidor' }]}
       />
 
       <Table
         visibilityColumns
         data={data?.results}
-        columns={gpsDeviceColumns}
+        columns={meterDeviceColumns}
         pagination={pagination}
         queryInfo={{ isFetching: isLoading, error }}
-        inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Dispositivo GPS' }}
+        inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Medidor' }}
       />
     </>
   )
 }
 
-GPSSettingsPage.getLayout = function getLayout (page: ReactElement) {
+MetersSettingsPage.getLayout = function getLayout (page: ReactElement) {
   return (
     <AuthenticatedLayout title={`${ROUTES.SETTINGS.GPS_DEVICE.LIST.TITLE} | ${siteConfig.TITLE}`} >
       {page}
@@ -55,4 +56,4 @@ GPSSettingsPage.getLayout = function getLayout (page: ReactElement) {
   )
 }
 
-export default GPSSettingsPage
+export default MetersSettingsPage

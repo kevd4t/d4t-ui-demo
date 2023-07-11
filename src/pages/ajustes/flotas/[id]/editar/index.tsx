@@ -1,21 +1,21 @@
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { toast } from 'sonner'
 
 import type { IMeterMark, ReactElement } from '@/lib/types'
 import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
+import { FormEditFleet } from '@/components/page/ajustes/flotas/FormEditFleet'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
-import { FormEditMeterMark } from '@/components/page/ajustes/marcas-de-medidores/FormEditMeterMark'
-import { useEffect, useState } from 'react'
-import { toast } from 'sonner'
 
 const { ROUTES } = siteConfig
 
 const EditFleetPage = () => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
-  const [meterMark, setMeterMark] = useState(null)
+  const [fleet, setFleet] = useState(null)
   const [error, setError] = useState(null)
 
   const getFleetDetail = async () => {
@@ -31,7 +31,7 @@ const EditFleetPage = () => {
     }
 
     const data: IMeterMark = await res.json()
-    setMeterMark(data)
+    setFleet(data)
     setIsLoading(false)
   }
 
@@ -61,8 +61,9 @@ const EditFleetPage = () => {
   return (
     <>
       <HeaderPage title={`Editar Flota ${router.query.id}`} />
-
-      <FormEditMeterMark meterMark={meterMark} />
+      {
+        fleet?.results && (<FormEditFleet fleet={fleet.results} />)
+      }
     </>
   )
 }
