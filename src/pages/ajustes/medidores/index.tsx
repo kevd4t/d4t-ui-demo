@@ -1,4 +1,4 @@
-import type { IFetchDataTable, IGPSDevice, IMeterDevice, ReactElement } from '@/lib/types'
+import type { IFetchDataTable, IMeterDevice, ReactElement } from '@/lib/types'
 import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
@@ -7,7 +7,6 @@ import { PaginationState } from '@tanstack/react-table'
 import { useFetch } from '@/lib/hooks/useFetch'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
 import { Table } from '@/components/common/tables/GenericTable'
-import { gpsDeviceColumns } from '@/lib/utils/tableColumns/gpsDevices'
 import { handleFetchUrlGpsDevices } from '@/lib/services/settings/gps/devices'
 import { meterDeviceColumns } from '@/lib/utils/tableColumns/meterDevices'
 

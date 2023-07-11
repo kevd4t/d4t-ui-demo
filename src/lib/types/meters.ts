@@ -32,7 +32,7 @@ export interface IMeterDevice {
 
 export interface IFormCreateMeterDevice {
   serial: string
-  meterModel: IMeterModel
+  meterModel: string
   status: string
   type: string
   meterUnit: string
@@ -40,7 +40,7 @@ export interface IFormCreateMeterDevice {
 
 export interface IDataToEditMeterDevice extends IFormCreateMeterDevice {
   meterMark: IMeterMark
-  meterModel: IMeterModel
+  meterModel: string
   truck: ITruck
 }
 
