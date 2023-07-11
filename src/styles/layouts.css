@@ -34,3 +34,9 @@
 .dark [data-rmiz-btn-unzoom-icon="true"] {
   color: white;
 }
+
+/* padding scrollarea into modals */
+
+div[role="dialog"] div[data-radix-scroll-area-viewport] > div {
+  padding: 0px 6px;
+}

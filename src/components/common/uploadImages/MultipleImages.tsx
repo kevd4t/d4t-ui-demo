@@ -1,12 +1,13 @@
 import ImageUploading from 'react-images-uploading'
 import { IconPhotoPlus } from '@tabler/icons-react'
+import Zoom from 'react-medium-image-zoom'
 
 import type { ImageListType, onChangeImage, ReactNode } from '@/lib/types'
 import { cn } from '@/lib/utils'
 
 import { Button } from '@/components/ui'
 import { Label } from '../labels'
-import { GridSlider } from '../sliders/GridSlider'
+// import { GridSlider } from '../sliders/GridSlider'
 
 interface IUploadImageProps {
   imageToUpload: ImageListType
@@ -64,11 +65,78 @@ export const MultipleImages = ({
                 {
                   (imageList.length >= 1)
                     ? (
-                      <div>
-                        <GridSlider
+                      <div className='grid grid-cols-2 grid-flow-row gap-4'>
+                        {
+                          imageList.map((image, index) => {
+                            return (
+                              <div key={index} className ='imagen-container w-full flex flex-col justify-center items-center'>
+                                {
+                                  zoom
+                                    ? (
+                                      <Zoom>
+                                        <div className={cn('w-full h-[237px] bg-slate-50 bg-opacity-10 rounded-md p-2', imageContainerClassName)}>
+                                          <img
+                                            src={image.data_url}
+                                            alt='image'
+                                            className='rounded-md object-contain m-auto h-full'
+                                            style={{ width: '-webkit-fill-available' }}
+                                          />
+                                        </div>
+                                      </Zoom>
+                                    )
+                                    : (
+                                      <div className={cn('w-full h-[237px]', imageContainerClassName)}>
+                                        <img
+                                          src={image.data_url}
+                                          alt='image'
+                                          className='rounded-md object-contain m-auto h-full'
+                                          style={{ width: '-webkit-fill-available' }}
+                                        />
+                                      </div>
+                                    )
+                                }
+
+                                <div className='mt-2 gap-x-2 w-full flex justify-center items-start'>
+                                  {
+                                    compress && (
+                                      <Button tabIndex={tabIndexs?.viewCompress} className='whitespace-nowrap' type='button' onClick={() => compress.openComparisons()}>
+                                    Ver Compresión
+                                      </Button>
+                                    )
+                                  }
+
+                                  <Button tabIndex={tabIndexs?.change} className='max-w-[116.33px] w-full' type='button' onClick={() => onImageUpdate(index)}>
+                                Cambiar
+                                  </Button>
+
+                                  <Button tabIndex={tabIndexs?.delete} className='max-w-[116.33px] w-full' type='button' onClick={() => onImageRemove(index)}>
+                                Eliminar
+                                  </Button>
+                                </div>
+                              </div>
+                            )
+                          })
+                        }
+
+                        <div className ='imagen-container'>
+                          <div
+                            {...dragProps}
+                            className={cn(`w-full h-[237px] ${isDragging ? 'border-indigo-600' : 'border-slate-50'} flex flex-col justify-center items-center border-dashed border-2 bg-slate-50 bg-opacity-5 rounded-md p-2`, imageContainerClassName)}>
+                            <Button
+                              type='button'
+                              variant='outline'
+                              className='p-2 h-min'
+                              onClick={onImageUpload}
+                            >
+                              <IconPhotoPlus className='w-8 h-8'/>
+                            </Button>
+                          </div>
+                        </div>
+
+                        {/* <GridSlider
                           zoom={zoom}
                           images={imageList}
-                        />
+                        /> */}
 
                         {/* {
                           imageList.map((image, index) => {
@@ -139,7 +207,7 @@ export const MultipleImages = ({
                           { icons?.uploadButton }
                           { uploadLabel || 'Cargar Imagen' }
                         </Button>
-                        <span className='font-semibold text-zinc-500'>o arrastra y suelta una imagen</span>
+                        <span className='font-semibold text-zinc-500'>o arrastra y suelta imagenes</span>
                       </div>
                     </>
                 }

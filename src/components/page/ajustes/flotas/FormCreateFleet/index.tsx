@@ -1,5 +1,5 @@
 import { PaginationState, RowSelectionState, type Table as TableType } from '@tanstack/react-table'
-import { IconRouter } from '@tabler/icons-react'
+import { IconTruck } from '@tabler/icons-react'
 import { useForm } from 'react-hook-form'
 import JSConfetti from 'js-confetti'
 import { useState } from 'react'
@@ -8,12 +8,10 @@ import { toast } from 'sonner'
 import type { IFetchDataTable, IFormCreateFleet, IFormCreateTruck, ITruck, ReactNode } from '@/lib/types'
 import { compressImage } from '@/lib/utils/handleCompressionImage'
 import { handleFetchUrlUserGroups } from '@/lib/services/users'
-import { convertBytes } from '@/lib/utils/formaters'
 import { truckRules, fleetRules } from './rules'
 import { useFetch } from '@/lib/hooks/useFetch'
-import { APP_CONFIG } from '@/config'
 
-import { Badge, Button, Card, CardContent, CardDescription, CardTitle, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, Separator } from '@/components/ui'
+import { Badge, Button, Card, CardContent, CardDescription, CardTitle, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, ScrollArea, Separator } from '@/components/ui'
 import { Congratulations } from '@/components/common/illustrations/Congratulations'
 import { MultipleImages } from '@/components/common/uploadImages/MultipleImages'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
@@ -30,8 +28,6 @@ const defaultValues: IFormCreateFleet = {
   status: 'Operativo'
 }
 
-const initialImageValues = { original: [], compressed: [] }
-
 interface IModalState {
   open: boolean
   label: string
@@ -44,12 +40,10 @@ export const FormCreateFleet = () => {
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
   const [tableTrucksSelected, HandleTableTrucksSelected] = useState<RowSelectionState>({})
   const [fullDataTrucksSelected, setFullDataTrucksSelected] = useState([])
-  const [showComparisons, setShowComparisons] = useState({ markImage: false })
   const [loading, setLoading] = useState({ meessage: '', value: false })
-  const [truckImages, setTruckImages] = useState(initialImageValues)
+  const [multipleTruckImages, setMultipleTruckImages] = useState([])
   const formFleet = useForm<IFormCreateFleet>({ defaultValues })
   const formTruck = useForm<IFormCreateTruck>({ defaultValues })
-  const [multipleImages, setMultipleImages] = useState([])
 
   const { data, error, isLoading: isLoadingTrucks, fetcher } = useFetch<IFetchDataTable<ITruck>>('/api/trucks')
 
@@ -65,53 +59,22 @@ export const FormCreateFleet = () => {
     fetcher(url)
   }
 
-  const onChangeImageTruck = async (imageList, addUpdateIndex) => {
-    const imageFile: File = imageList[0]?.file
-
-    if (!imageFile) {
-      setTruckImages(prevState => ({
-        original: [{ ...prevState.original[0] }],
-        compressed: []
-      }))
-
-      return
-    }
-
-    const { data_url, file } = await compressImage({ imageFile, quality: 10, maxWidth: 200, maxHeight: 200 })
-
-    console.log({
-      original: convertBytes(imageList[0]?.file?.size),
-      compressed: convertBytes(file.size)
-    })
-
-    setTruckImages(prevState => ({
-      original: [{ data_url: imageList[0]?.data_url, file: imageList[0]?.file }],
-      compressed: [{ data_url: data_url?.toString(), file }]
-    }))
-  }
-
   const getFullDataSelection = (table: TableType<any>) => {
     const fullDataSelection = table.getSelectedRowModel().flatRows
     setFullDataTrucksSelected(fullDataSelection)
   }
 
-  const handleCloseComparisons = () => {
-    if (showComparisons.markImage === true) {
-      setShowComparisons(prevState => ({ ...prevState, markImage: false }))
-    }
-  }
-
-  const onChangeMultipleImages = (imageList, addUpdateIndex) => {
-    console.log(imageList, addUpdateIndex)
-    setMultipleImages(imageList)
+  const onChangeMultipleTruckImages = (imageList, addUpdateIndex) => {
+    console.log(imageList)
+    setMultipleTruckImages(imageList)
   }
 
   const handleOpenCreateTruckModal = (value: boolean) => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_TRUCK', open: value }))
   const toggleOpenCreateTruckModal = () => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_TRUCK', open: !prevState.open }))
 
-  const onSubmitFormMeterMark = async (data) => {
+  const onSubmitFormFleet = async (data) => {
     if (!fullDataTrucksSelected?.length) {
-      toast.error('La unidad es requerido')
+      toast.error('La unidad es requerida')
       setLoading({ meessage: '', value: false })
       return
     }
@@ -122,22 +85,20 @@ export const FormCreateFleet = () => {
       return
     }
 
-    setLoading(({ meessage: 'Creando Marca de Medidor', value: true }))
-    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Marca', open: true, type: 'CREATING_FLEET' }))
+    setLoading(({ meessage: 'Creando Flota', value: true }))
+    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Flota', open: true, type: 'CREATING_FLEET' }))
     await simulateFetch(3000)
 
-    const truckImageFile = truckImages.compressed[0]?.file
+    // console.log({
+    //   ...data,
+    //   trucks: [{
+    //     ...fullDataTrucksSelected[0].original,
+    //     image: null
+    //   }]
+    // })
 
-    console.log({
-      ...data,
-      truck: {
-        ...fullDataTrucksSelected[0].original,
-        image: truckImageFile
-      }
-    })
-
-    setModalInfo(prevState => ({ ...prevState, type: 'METER_FLEET_CREATED', label: 'Marca Creada', illustration: <Congratulations className='h-72' /> }))
-    toast.success('Marca Creada Exitosamente')
+    setModalInfo(prevState => ({ ...prevState, type: 'METER_FLEET_CREATED', label: 'Flota Creada', illustration: <Congratulations className='h-72' /> }))
+    toast.success('Flota Creada Exitosamente')
     setLoading({ meessage: '', value: false })
     const jsConfetti = new JSConfetti()
     jsConfetti.addConfetti()
@@ -146,29 +107,45 @@ export const FormCreateFleet = () => {
     setModalInfo({ illustration: null, label: '', open: false, type: null })
     setLoading({ meessage: '', value: false })
 
-    // router.push('/ajustes/marcas-de-medidores')
+    // router.push('/ajustes/flotas')
   }
 
   const onSubmitFormTruck = async (data: IFormCreateTruck) => {
-    if (!truckImages.compressed[0]?.data_url) {
+    if (!multipleTruckImages.length) {
       toast.error('La imagen del unidad es requerida')
       setLoading({ meessage: '', value: false })
       return
     }
 
-    if (truckImages.compressed[0].file?.size > APP_CONFIG.FILES_RULES.LIMIT_SIZE['4MB']) {
-      toast.error('Solo archivos menos de 4MB')
-      setLoading({ meessage: '', value: false })
-      return
-    }
+    const allMultipleTruckImagesCompress = multipleTruckImages.map(image => {
+      return compressImage({ imageFile: image.file, quality: 10, maxWidth: 500, maxHeight: 500 })
+    })
+
+    const allPromisesMultipleTruckImagesCompress: any[] = await Promise.allSettled(allMultipleTruckImagesCompress)
+    const multipleTruckImagesCompress = allPromisesMultipleTruckImagesCompress.map(promise => promise.value)
+
+    // if (truckImages.compressed[0].file?.size > APP_CONFIG.FILES_RULES.LIMIT_SIZE['4MB']) {
+    //   toast.error('Solo archivos menos de 4MB')
+    //   setLoading({ meessage: '', value: false })
+    //   return
+    // }
 
     setLoading(({ meessage: 'Creando Unidad', value: true }))
     setModalInfo((prevState) => ({ ...prevState, label: 'Creando Unidad', open: true, type: 'CREATING_TRUCK_MODEL' }))
     await simulateFetch(3000)
 
-    const meterModelImageFile = truckImages.compressed[0]?.file
+    const truckToCreate: IFormCreateTruck = {
+      gpsId: 2,
+      type: '',
+      title: '',
+      fleetId: 1,
+      status: '',
+      stationId: 4,
+      numberPlate: '',
+      images: multipleTruckImagesCompress.map(imageCompress => imageCompress.file)
+    }
 
-    console.log({ ...data, image: meterModelImageFile })
+    console.log({ truckToCreate })
 
     setModalInfo(prevState => ({ ...prevState, type: 'METER_TRUCK_CREATED', label: 'Unidad Creada', illustration: <Congratulations className='h-72' /> }))
     toast.success('Unidad Creada Exitosamente')
@@ -180,7 +157,7 @@ export const FormCreateFleet = () => {
     setModalInfo({ illustration: null, label: '', open: false, type: null })
     setLoading({ meessage: '', value: false })
 
-    // router.push('/ajustes/marcas-de-medidores')
+    // router.push('/ajustes/flotas')
   }
 
   return (
@@ -204,113 +181,115 @@ export const FormCreateFleet = () => {
       {/* Crear Unidad */}
       <Dialog open={modalInfo.type === 'CREATE_TRUCK' && modalInfo.open} onOpenChange={handleOpenCreateTruckModal}>
         <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Crear Unidad</DialogTitle>
+          <ScrollArea className='h-[70vh] px-2'>
+            <DialogHeader>
+              <DialogTitle>Crear Unidad</DialogTitle>
 
-            <DialogDescription>
-              Crea una unidad para asignarlo a una flota
-            </DialogDescription>
-          </DialogHeader>
+              <DialogDescription>
+                Crea una unidad para asignarlo a una flota
+              </DialogDescription>
+            </DialogHeader>
 
-          <form onSubmit={formTruck.handleSubmit(onSubmitFormTruck)} autoFocus className='w-full'>
-            <section className='w-full space-y-4'>
-              <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
-                <Input
-                  id='title'
-                  type='text'
-                  tabIndex={1}
-                  label='Nombre'
-                  placeholder='Pekkin'
+            <form onSubmit={formTruck.handleSubmit(onSubmitFormTruck)} autoFocus className='w-full mt-4'>
+              <section className='w-full space-y-4'>
+                <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
+                  <Input
+                    id='title'
+                    type='text'
+                    tabIndex={1}
+                    label='Nombre'
+                    placeholder='Pekkin'
+                    register={formTruck.register}
+                    inputErrors={truckRules.title}
+                    messageErrors={formTruck.formState.errors}
+                  />
+
+                  <GenericSelect
+                    id='status'
+                    tabIndex={2}
+                    label='Estado'
+                    defaultValue='true'
+                    placeholder='Seleccione un Estado'
+                    fieldControlled={{ control: formTruck.control, rules: truckRules.status }}
+                    items={[
+                      {
+                        label: 'Operativo',
+                        value: 'Operativo'
+                      },
+                      {
+                        label: 'En Mantenimiento',
+                        value: 'Mantenimiento'
+                      }
+                    ]}
+                  />
+                </div>
+
+                <TextArea
+                  id='description'
+                  rows={5}
+                  tabIndex={3}
+                  label='Descripción'
                   register={formTruck.register}
-                  inputErrors={truckRules.title}
+                  placeholder='Lorem ipsum dolor sit amet consectetur adipisicing elit quo laudantium ipsum natus.'
                   messageErrors={formTruck.formState.errors}
+                  inputErrors={truckRules.description}
                 />
+              </section>
 
+              <section className='mt-4'>
                 <GenericSelect
-                  id='status'
-                  tabIndex={2}
-                  label='Estado'
-                  defaultValue='true'
+                  id='type'
+                  label='Tipo de Unidad'
                   placeholder='Seleccione un Estado'
+                  defaultValue='pepito'
+                  tabIndex={6}
                   fieldControlled={{ control: formTruck.control, rules: truckRules.status }}
                   items={[
                     {
-                      label: 'Operativo',
-                      value: 'Operativo'
+                      label: 'Pepito',
+                      value: 'pepito'
                     },
                     {
-                      label: 'En Mantenimiento',
-                      value: 'Mantenimiento'
+                      label: 'Cocacola',
+                      value: 'cocacola'
                     }
                   ]}
                 />
+              </section>
+
+              <div className='mt-4'>
+                <MultipleImages
+                  zoom
+                  label='Imagen del Unidad'
+                  emptyClassName='h-[200px]'
+                  onChange={onChangeMultipleTruckImages}
+                  imageToUpload={multipleTruckImages}
+                  uploadLabel='Cargar Fotos de la Unidad'
+                  tabIndexs={{ upload: 4, change: 4, delete: 5 }}
+                  icons={{ placeholder: <IconTruck className='text-zinc-400 w-14 h-14' strokeWidth={1.5} /> }}
+                />
               </div>
+            </form>
 
-              <TextArea
-                id='description'
-                rows={5}
-                tabIndex={3}
-                label='Descripción'
-                register={formTruck.register}
-                placeholder='Lorem ipsum dolor sit amet consectetur adipisicing elit quo laudantium ipsum natus.'
-                messageErrors={formTruck.formState.errors}
-                inputErrors={truckRules.description}
-              />
-            </section>
+            <DialogFooter className='flex flex-col gap-y-4 mt-4'>
+              <Button
+                type='button'
+                variant='outline'
+                isLoading={loading.value}
+                onClick={() => handleOpenCreateTruckModal(false)}
+              >
+                Cancelar
+              </Button>
 
-            <div className='mt-4'>
-              <MultipleImages
-                zoom
-                label='Imagen del Unidad'
-                emptyClassName='h-[200px]'
-                onChange={onChangeMultipleImages}
-                imageToUpload={multipleImages}
-                uploadLabel='Cargar Fotos de la Unidad'
-                tabIndexs={{ upload: 4, change: 4, delete: 5 }}
-                icons={{ placeholder: <IconRouter className='text-zinc-400 w-14 h-14' strokeWidth={1.5} /> }}
-              />
-            </div>
-          </form>
-
-          <section>
-            <GenericSelect
-              id='type'
-              label='Tipo de Unidad'
-              placeholder='Seleccione un Estado'
-              defaultValue='pepito'
-              tabIndex={6}
-              fieldControlled={{ control: formTruck.control, rules: truckRules.status }}
-              items={[
-                {
-                  label: 'Pepito',
-                  value: 'pepito'
-                },
-                {
-                  label: 'Cocacola',
-                  value: 'cocacola'
-                }
-              ]}
-            />
-          </section>
-
-          <DialogFooter className='flex flex-col gap-y-4'>
-            <Button
-              type='button'
-              variant='outline'
-              isLoading={loading.value}
-              onClick={() => handleOpenCreateTruckModal(false)}
-            >
-              Cancelar
-            </Button>
-
-            <Button
-              type='button'
-              isLoading={loading.value}
-              onClick={formTruck.handleSubmit(onSubmitFormTruck)}
-            >
-              Crear Unidad
-            </Button>
-          </DialogFooter>
+              <Button
+                type='button'
+                isLoading={loading.value}
+                onClick={formTruck.handleSubmit(onSubmitFormTruck)}
+              >
+                Crear Unidad
+              </Button>
+            </DialogFooter>
+          </ScrollArea>
         </DialogContent>
       </Dialog>
 
@@ -344,7 +323,7 @@ export const FormCreateFleet = () => {
         </div>
 
         <div className='w-full pt-6'>
-          <form onSubmit={formFleet.handleSubmit(onSubmitFormMeterMark)} autoFocus className='w-full'>
+          <form onSubmit={formFleet.handleSubmit(onSubmitFormFleet)} autoFocus className='w-full'>
             <div className='w-full h-full flex flex-col xl:flex-row justify-start items-start gap-x-6 gap-y-6'>
               <Card className='p-4 w-full'>
                 <CardTitle>Informacion Basica</CardTitle>
@@ -365,7 +344,7 @@ export const FormCreateFleet = () => {
                     />
 
                     <GenericSelect
-                      id='isActive'
+                      id='status'
                       label='Estado'
                       placeholder='Seleccione un Estado'
                       defaultValue='Operativo'
@@ -438,7 +417,7 @@ export const FormCreateFleet = () => {
               tabIndex={16}
               className='w-full py-2 text-sm'
               isLoading={loading.value}
-              onClick={formFleet.handleSubmit(onSubmitFormMeterMark)}
+              onClick={formFleet.handleSubmit(onSubmitFormFleet)}
             >
               Crear Flota
             </Button>

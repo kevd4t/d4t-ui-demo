@@ -17,7 +17,7 @@ export interface ITruck {
 export interface IFormCreateTruck {
   title: string
   numberPlate: string
-  image: File
+  images: File | File[]
   type: string
   status: string
   fleetId: number

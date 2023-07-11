@@ -9,7 +9,7 @@ import { toast } from 'sonner'
 
 import { IFormEditTruck, IFormRules, ITruck } from '@/lib/types'
 
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, Badge, Button, Checkbox, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Label } from '@/components/ui'
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, Badge, Button, Checkbox, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Label, ScrollArea } from '@/components/ui'
 import { ImagesSlider } from '@/components/common/sliders/ImagesSlider'
 import { Input } from '@/components/common/inputs/Input'
 import { Spinner } from '@/components/common/loaders/Spinner'
@@ -20,6 +20,7 @@ import { convertBytes } from '../formaters'
 import { compressImage } from '../handleCompressionImage'
 import { simulateFetch } from '../simulateFetch'
 import { APP_CONFIG } from '@/config'
+import { MultipleImages } from '@/components/common/uploadImages/MultipleImages'
 
 type TMeterModelFields = 'title' | 'numberPlate' | 'status' | 'station' | 'gps'
 export const meterModelRules: IFormRules<TMeterModelFields> = {
@@ -71,6 +72,7 @@ export const TruckRowActions = ({ truck }: { truck: ITruck }) => {
   }
 
   const [loading, setLoading] = useState({ meessage: '', value: false })
+  const [multipleTruckImages, setMultipleTruckImages] = useState([{ data_url: truck.image, file: null }])
   const formEditTruck = useForm<IFormEditTruck>({ defaultValues })
   const [modelImage, setModelImage] = useState(initialImageValues)
   const [openViewTruck, setOpenViewTruck] = useState(false)
@@ -126,29 +128,9 @@ export const TruckRowActions = ({ truck }: { truck: ITruck }) => {
     // router.push('/ajustes/marcas-de-medidores')
   }
 
-  const onChangeImageMeterModel = async (imageList, addUpdateIndex) => {
-    const imageFile: File = imageList[0]?.file
-
-    if (!imageFile) {
-      setModelImage(prevState => ({
-        original: [{ ...prevState.original[0] }],
-        compressed: []
-      }))
-
-      return
-    }
-
-    const { data_url, file } = await compressImage({ imageFile, quality: 10, maxWidth: 200, maxHeight: 200 })
-
-    console.log({
-      original: convertBytes(imageList[0]?.file?.size),
-      compressed: convertBytes(file.size)
-    })
-
-    setModelImage(prevState => ({
-      original: [{ data_url: imageList[0]?.data_url, file: imageList[0]?.file }],
-      compressed: [{ data_url: data_url?.toString(), file }]
-    }))
+  const onChangeMultipleTruckImages = (imageList, addUpdateIndex) => {
+    console.log(imageList)
+    setMultipleTruckImages(imageList)
   }
 
   return (
@@ -284,117 +266,119 @@ export const TruckRowActions = ({ truck }: { truck: ITruck }) => {
       {/* Editar */}
       <Dialog open={openEditModel} onOpenChange={setOpenEditModal}>
         <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Editar Unidad</DialogTitle>
+          <ScrollArea className='h-[70vh] px-2'>
+            <DialogHeader>
+              <DialogTitle>Editar Unidad</DialogTitle>
 
-            <DialogDescription>
+              <DialogDescription>
               Editar la unidad de una flota.
-            </DialogDescription>
-          </DialogHeader>
+              </DialogDescription>
+            </DialogHeader>
 
-          <form onSubmit={formEditTruck.handleSubmit(onSubmitFormEditTruck)} autoFocus className='w-full'>
-            <section className='w-full space-y-4'>
-              <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
-                <Input
-                  id='title'
-                  type='text'
-                  value={truck.title}
-                  register={formEditTruck.register}
-                  label='Nombre'
-                  placeholder='Pekkin'
-                  messageErrors={formEditTruck.formState.errors}
-                  inputErrors={meterModelRules.title}
-                  tabIndex={1}
+            <form onSubmit={formEditTruck.handleSubmit(onSubmitFormEditTruck)} autoFocus className='w-full'>
+              <section className='w-full space-y-4'>
+                <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
+                  <Input
+                    id='title'
+                    type='text'
+                    value={truck.title}
+                    register={formEditTruck.register}
+                    label='Nombre'
+                    placeholder='Pekkin'
+                    messageErrors={formEditTruck.formState.errors}
+                    inputErrors={meterModelRules.title}
+                    tabIndex={1}
+                  />
+
+                  <Input
+                    type='text'
+                    tabIndex={2}
+                    id='numberPlate'
+                    label='Matrícula'
+                    value={truck.title}
+                    placeholder='Pekkin'
+                    register={formEditTruck.register}
+                    inputErrors={meterModelRules.numberPlate}
+                    messageErrors={formEditTruck.formState.errors}
+                  />
+                </div>
+              </section>
+
+              <section className='w-full space-y-4 mt-4'>
+                <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
+                  <GenericSelect
+                    id='status'
+                    label='Estatus'
+                    placeholder='Seleccione un Estatus'
+                    defaultValue={'operativo'}
+                    tabIndex={2}
+                    fieldControlled={{ control: formEditTruck.control, rules: meterModelRules.status }}
+                    items={[
+                      {
+                        label: 'Operativo',
+                        value: 'Operativo'
+                      },
+                      {
+                        label: 'En Mantenimiento',
+                        value: 'mantenimiento'
+                      }
+                    ]}
+                  />
+
+                  <GenericSelect
+                    id='gps'
+                    label='GPS'
+                    placeholder='Seleccione un Estado'
+                    defaultValue={'J-454NX2'}
+                    tabIndex={2}
+                    fieldControlled={{ control: formEditTruck.control, rules: meterModelRules.gps }}
+                    items={[
+                      {
+                        label: 'J-454NX2',
+                        value: 'J-454NX2'
+                      },
+                      {
+                        label: 'X-159AX7',
+                        value: 'X-159AX7'
+                      }
+                    ]}
+                  />
+                </div>
+              </section>
+
+              <section className='mt-4'>
+                <MultipleImages
+                  zoom
+                  label='Imagen del Unidad'
+                  emptyClassName='h-[200px]'
+                  onChange={onChangeMultipleTruckImages}
+                  imageToUpload={multipleTruckImages}
+                  uploadLabel='Cargar Fotos de la Unidad'
+                  tabIndexs={{ upload: 4, change: 4, delete: 5 }}
+                  icons={{ placeholder: <IconTruck className='text-zinc-400 w-14 h-14' strokeWidth={1.5} /> }}
                 />
+              </section>
+            </form>
 
-                <Input
-                  type='text'
-                  tabIndex={2}
-                  id='numberPlate'
-                  label='Matrícula'
-                  value={truck.title}
-                  placeholder='Pekkin'
-                  register={formEditTruck.register}
-                  inputErrors={meterModelRules.numberPlate}
-                  messageErrors={formEditTruck.formState.errors}
-                />
-              </div>
-            </section>
-
-            <section className='w-full space-y-4 mt-4'>
-              <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
-                <GenericSelect
-                  id='status'
-                  label='Estatus'
-                  placeholder='Seleccione un Estatus'
-                  defaultValue={'operativo'}
-                  tabIndex={2}
-                  fieldControlled={{ control: formEditTruck.control, rules: meterModelRules.status }}
-                  items={[
-                    {
-                      label: 'Operativo',
-                      value: 'Operativo'
-                    },
-                    {
-                      label: 'En Mantenimiento',
-                      value: 'mantenimiento'
-                    }
-                  ]}
-                />
-
-                <GenericSelect
-                  id='gps'
-                  label='GPS'
-                  placeholder='Seleccione un Estado'
-                  defaultValue={'J-454NX2'}
-                  tabIndex={2}
-                  fieldControlled={{ control: formEditTruck.control, rules: meterModelRules.gps }}
-                  items={[
-                    {
-                      label: 'J-454NX2',
-                      value: 'J-454NX2'
-                    },
-                    {
-                      label: 'X-159AX7',
-                      value: 'X-159AX7'
-                    }
-                  ]}
-                />
-              </div>
-            </section>
-
-            <section className='mt-4'>
-              <UploadImage
-                zoom
-                label='Imagen del Modelo'
-                emptyClassName='h-[200px]'
-                onChange={onChangeImageMeterModel}
-                imageToUpload={modelImage.compressed}
-                uploadLabel='Cargar Imagen de la Unidad'
-                tabIndexs={{ upload: 4, change: 4, delete: 5 }}
-                icons={{ placeholder: <IconTruck className='text-zinc-400 w-14 h-14' strokeWidth={1.5} /> }}
-              />
-            </section>
-          </form>
-
-          <DialogFooter className='flex flex-col gap-y-4'>
-            <Button
-              type='button'
-              variant='outline'
-              disabled={loading.value}
-              onClick={() => handleOpenCreateModelMarkModal(false)}
-            >
+            <DialogFooter className='flex flex-col gap-y-4'>
+              <Button
+                type='button'
+                variant='outline'
+                disabled={loading.value}
+                onClick={() => handleOpenCreateModelMarkModal(false)}
+              >
               Cancelar
-            </Button>
+              </Button>
 
-            <Button
-              type='button'
-              isLoading={loading.value}
-              onClick={formEditTruck.handleSubmit(onSubmitFormEditTruck)}
-            >
+              <Button
+                type='button'
+                isLoading={loading.value}
+                onClick={formEditTruck.handleSubmit(onSubmitFormEditTruck)}
+              >
               Editar Unidad
-            </Button>
-          </DialogFooter>
+              </Button>
+            </DialogFooter>
+          </ScrollArea>
         </DialogContent>
       </Dialog>
 
