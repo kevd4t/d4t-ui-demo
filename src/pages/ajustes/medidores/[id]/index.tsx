@@ -1,18 +1,19 @@
 import { useRouter } from 'next/router'
 
-import type { IFetchData, IUserDetail, ReactElement } from '@/lib/types'
+import type { IFetchData, IMeterDevice, ReactElement } from '@/lib/types'
 import { useFetch } from '@/lib/hooks/useFetch'
 import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
+import { DetailMeterDevice } from '@/components/page/ajustes/medidores/DetailMeterDevice'
 
 const { ROUTES } = siteConfig
 
 const DetailMeterDevicePage = () => {
   const router = useRouter()
-  const { error, isLoading } = useFetch<IFetchData<IUserDetail>>(`/api/users/${router.query.id}`)
+  const { data, error, isLoading } = useFetch<IFetchData<IMeterDevice>>(`/api/meter-devices/${router.query.id}`)
 
   if (error) {
     return (
@@ -34,7 +35,8 @@ const DetailMeterDevicePage = () => {
 
   return (
     <>
-      <HeaderPage title={`Detalle de Usuario ${router.query.id}`} />
+      <HeaderPage title={`Detalle de Medidor ${router.query.id}`} />
+      { data?.results && <DetailMeterDevice meterDevice={data?.results as IMeterDevice} /> }
     </>
   )
 }

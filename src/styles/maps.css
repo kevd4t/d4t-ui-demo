@@ -1,4 +1,8 @@
 /* Leaflet */
+.leaflet-container {
+  border-radius: 8px !important;
+}
+
 .leaflet-popup-content-wrapper {
   width: max-content;
   border-radius: 8px !important;

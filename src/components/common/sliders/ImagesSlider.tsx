@@ -8,6 +8,7 @@ interface IImagesSliderProps extends SwiperProps {
   images: string[]
   zoom?: boolean
   intoModal?: boolean
+  swiperSlideClassName?: string
 }
 
 export const ImagesSlider = ({
@@ -18,6 +19,8 @@ export const ImagesSlider = ({
   breakpoints = initialSliderOptions.breakpoints,
   spaceBetween = initialSliderOptions.spaceBetween,
   slidesPerView = initialSliderOptions.slidesPerView,
+  pagination = initialSliderOptions.pagination,
+  swiperSlideClassName,
   ...rest
 }: IImagesSliderProps) => {
   return (
@@ -25,20 +28,21 @@ export const ImagesSlider = ({
       modules={[Pagination]}
       spaceBetween={spaceBetween}
       slidesPerView={slidesPerView}
-      pagination={initialSliderOptions.pagination}
-      breakpoints={initialSliderOptions.breakpoints}
+      pagination={pagination}
+      breakpoints={breakpoints}
       className={cn('h-52 bg-transparent', className, intoModal ? 'swiper-modal' : '')}
       {...rest}
     >
       {
         images.map(image => {
           return (
-            <SwiperSlide key={image} className='w-full bg-transparent'>
+            <SwiperSlide key={image} className={cn('w-full bg-transparent', swiperSlideClassName)}>
               {
                 zoom
                   ? (
                     <Zoom>
                       <img
+                        className='rounded-md'
                         src={image}
                         alt={image}
                       />

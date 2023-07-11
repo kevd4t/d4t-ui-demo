@@ -473,7 +473,7 @@ export const stations: IStation[] = [
     status: 'Operativo',
     lat: '10.484595715655246',
     lng: '-66.86487300765505',
-    type: 'Gandola',
+    type: 'Surtido',
     city: cities[0],
     metersCount: 44,
     reference: 'Estación de Servicio Las Mercedes, ubicado en las Mercedes :D',
@@ -505,7 +505,7 @@ export const meterDevices: IMeterDevice[] = [
       'https://via.placeholder.com/200/ffed5f'
     ],
     status: 'Operativo',
-    type: 'Operativo',
+    type: 'Gasolina',
     meterModel: meterMarks[0].models[0],
     meterUnit: 'L',
     station: stations[0]

@@ -22,7 +22,7 @@ const DetailRouteMonitoringPage = () => {
   const { data, isLoading, error } = useFetch<IRoute>(`/api/routes/${router.query.id}`)
 
   const { isOpen } = useSidebarStore()
-  const BasicMapNoSSR = dynamic(() => import('@/components/common/gps/BasicMap'), { ssr: false })
+  const BasicMapNoSSR = dynamic(() => import('@/components/common/gps/MonitoringRoutesMap'), { ssr: false })
 
   if (error) {
     return (

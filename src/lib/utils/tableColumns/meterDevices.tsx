@@ -1,46 +1,94 @@
-import { IconClipboard, IconDots, IconEdit, IconEye, IconEyeOff, IconSortAscending, IconSortDescending } from '@tabler/icons-react'
+import { IconClipboard, IconDots, IconEdit, IconEye, IconEyeOff, IconRouterOff, IconSortAscending, IconSortDescending } from '@tabler/icons-react'
 import { Column, ColumnDef } from '@tanstack/react-table'
 import { ChevronsUpDown } from 'lucide-react'
 import { useRouter } from 'next/router'
 
 import { IMeterDevice } from '@/lib/types'
-import { Badge, Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Avatar, AvatarImage, AvatarFallback } from '@/components/ui'
+import { Badge, Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Avatar, AvatarImage, AvatarFallback, AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from '@/components/ui'
+import { useState } from 'react'
+import { useFetch } from '@/lib/hooks/useFetch'
+import { toast } from 'sonner'
+import { Spinner } from '@/components/common/loaders/Spinner'
 
 export const MeterDeviceRowActions = ({ meterDevice }: { meterDevice: IMeterDevice }) => {
+  const [openAlert, setOpenAlert] = useState(false)
+  const { isLoading, error, fetcher } = useFetch()
+
   const router = useRouter()
 
+  const blockUser = async () => {
+    const data: any = await fetcher(`/api/meter-devices/${meterDevice.id}/block`, { method: 'PUT' })
+
+    if (error) {
+      toast.error('Hubo un error')
+      return
+    }
+
+    console.log({ data })
+    toast.success(`El medidor ${meterDevice.serial} ha sido bloqueado`)
+    setOpenAlert(false)
+  }
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant='ghost' className='h-8 w-8 p-0'>
-          <span className='sr-only'>Abrir menu</span>
-          <IconDots className='h-4 w-4' />
-        </Button>
-      </DropdownMenuTrigger>
+    <>
+      <AlertDialog open={openAlert}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>¿Esta seguro de bloquear este modelo de medidor?</AlertDialogTitle>
+            <AlertDialogDescription>
+                Se bloqueara la marca de medidor {meterDevice.serial}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
 
-      <DropdownMenuContent align='end'>
-        <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isLoading} onClick={() => setOpenAlert(false)}>
+              Cancelar
+            </AlertDialogCancel>
 
-        <DropdownMenuSeparator />
+            <AlertDialogAction disabled={isLoading} onClick={blockUser} className='w-[89px]'>
+              { isLoading ? <Spinner /> : 'Bloquear' }
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
-        <DropdownMenuItem onClick={() => router.push(`/medidor/${meterDevice.id}`)}>
-          <IconEye className='mr-2 h-4 w-4' />
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant='ghost' className='h-8 w-8 p-0'>
+            <span className='sr-only'>Abrir menu</span>
+            <IconDots className='h-4 w-4' />
+          </Button>
+        </DropdownMenuTrigger>
+
+        <DropdownMenuContent align='end'>
+          <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+
+          <DropdownMenuSeparator />
+
+          <DropdownMenuItem onClick={() => router.push(`/ajustes/medidores/${meterDevice.id}`)}>
+            <IconEye className='mr-2 h-4 w-4' />
           Ver Medidor
-        </DropdownMenuItem>
+          </DropdownMenuItem>
 
-        <DropdownMenuItem onClick={() => router.push(`/medidor/${meterDevice.id}/editar`)}>
-          <IconEdit className='mr-2 h-4 w-4' />
+          <DropdownMenuItem onClick={() => router.push(`/ajustes/medidores/${meterDevice.id}/editar`)}>
+            <IconEdit className='mr-2 h-4 w-4' />
           Editar Medidor
-        </DropdownMenuItem>
+          </DropdownMenuItem>
 
-        <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={() => setOpenAlert(true)}>
+            <IconRouterOff className='mr-2 h-4 w-4' />
+            Bloquear Medidor
+          </DropdownMenuItem>
 
-        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(meterDevice.id.toString())}>
-          <IconClipboard className='h-4 w-4 mr-2' />
+          <DropdownMenuSeparator />
+
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(meterDevice.id.toString())}>
+            <IconClipboard className='h-4 w-4 mr-2' />
           Copiar ID
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
   )
 }
 

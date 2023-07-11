@@ -61,9 +61,7 @@ const DetailFleetPage = () => {
   return (
     <>
       <HeaderPage title={`Detalle de Flota ${router.query.id}`} />
-      {
-        fleet?.results && (<DetailFleet fleet={fleet.results} />)
-      }
+      { fleet?.results && (<DetailFleet fleet={fleet.results} />) }
     </>
   )
 }

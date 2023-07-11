@@ -4,7 +4,7 @@ import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 import 'leaflet-defaulticon-compatibility'
 import { Badge } from '@/components/ui'
 
-const BasicMap = () => {
+const MonitoringRoutesMap = () => {
   const initialPosition = { lat: 10.2951745, lng: -67.2647287 }
 
   const originMarkerPosition = { lat: 10.481458862889902, lng: -68.12522428434946 }
@@ -17,7 +17,7 @@ const BasicMap = () => {
   ]
 
   return (
-    <MapContainer center={initialPosition} zoom={10} scrollWheelZoom={true} className='w-full h-full' style={{ zIndex: 0 }}>
+    <MapContainer center={initialPosition} zoom={10} scrollWheelZoom={true} className='w-full h-full fixed top-0 right-0' style={{ zIndex: 0 }}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -70,4 +70,4 @@ const BasicMap = () => {
   )
 }
 
-export default BasicMap
+export default MonitoringRoutesMap
