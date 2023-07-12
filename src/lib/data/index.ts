@@ -507,7 +507,7 @@ export const meterDevices: IMeterDevice[] = [
     status: 'Operativo',
     type: 'Gasolina',
     meterModel: meterMarks[0].models[0],
-    meterUnit: 'L',
+    meterUnit: 'Litros',
     station: stations[0]
   }
 ]

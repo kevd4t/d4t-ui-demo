@@ -25,31 +25,31 @@ import { MultipleImages } from '@/components/common/uploadImages/MultipleImages'
 type TMeterModelFields = 'title' | 'numberPlate' | 'status' | 'station' | 'gps'
 export const meterModelRules: IFormRules<TMeterModelFields> = {
   title: {
-    minLength: { value: 2, message: 'Minimo 3 Caracteres' },
+    minLength: { value: 3, message: 'Minimo 3 Caracteres' },
     maxLength: { value: 50, message: 'Maximo 50 Caracteres' },
     required: { value: true, message: 'Requerido' }
   },
 
   numberPlate: {
-    minLength: { value: 2, message: 'Minimo 3 Caracteres' },
+    minLength: { value: 3, message: 'Minimo 3 Caracteres' },
     maxLength: { value: 50, message: 'Maximo 50 Caracteres' },
     required: { value: true, message: 'Requerido' }
   },
 
   status: {
-    minLength: { value: 2, message: 'Minimo 3 Caracteres' },
+    minLength: { value: 3, message: 'Minimo 3 Caracteres' },
     maxLength: { value: 50, message: 'Maximo 50 Caracteres' },
     required: { value: true, message: 'Requerido' }
   },
 
   station: {
-    minLength: { value: 2, message: 'Minimo 3 Caracteres' },
+    minLength: { value: 3, message: 'Minimo 3 Caracteres' },
     maxLength: { value: 50, message: 'Maximo 50 Caracteres' },
     required: { value: true, message: 'Requerido' }
   },
 
   gps: {
-    minLength: { value: 2, message: 'Minimo 3 Caracteres' },
+    minLength: { value: 3, message: 'Minimo 3 Caracteres' },
     maxLength: { value: 50, message: 'Maximo 50 Caracteres' },
     required: { value: true, message: 'Requerido' }
   }

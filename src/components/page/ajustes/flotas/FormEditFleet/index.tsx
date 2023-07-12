@@ -27,7 +27,7 @@ interface IModalState {
   open: boolean
   label: string
   illustration?: ReactNode
-  type: 'CREATE_TRUCK' | 'COMPARISON_TRUCK_IMAGE' | 'CREATING_FLEET' | 'FLEET_CREATED' | 'CREATING_TRUCK_MODEL' | 'TRUCK_CREATED'
+  type: 'CREATE_TRUCK' | 'COMPARISON_TRUCK_IMAGE' | 'CREATING_METER_DEVICE' | 'METER_DEVICE_CREATED' | 'CREATING_TRUCK_MODEL' | 'TRUCK_CREATED'
 }
 
 export const FormEditFleet = ({ fleet }: { fleet: IFleet }) => {
@@ -88,7 +88,7 @@ export const FormEditFleet = ({ fleet }: { fleet: IFleet }) => {
     }
 
     setLoading(({ meessage: 'Creando Flota', value: true }))
-    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Flota', open: true, type: 'CREATING_FLEET' }))
+    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Flota', open: true, type: 'CREATING_METER_DEVICE' }))
     await simulateFetch(3000)
 
     // console.log({
@@ -99,7 +99,7 @@ export const FormEditFleet = ({ fleet }: { fleet: IFleet }) => {
     //   }]
     // })
 
-    setModalInfo(prevState => ({ ...prevState, type: 'FLEET_CREATED', label: 'Flota Creada', illustration: <Congratulations className='h-72' /> }))
+    setModalInfo(prevState => ({ ...prevState, type: 'METER_DEVICE_CREATED', label: 'Flota Creada', illustration: <Congratulations className='h-72' /> }))
     toast.success('Flota Creada Exitosamente')
     setLoading({ meessage: '', value: false })
     const jsConfetti = new JSConfetti()

@@ -69,3 +69,8 @@ code {
     transform: translateY(5%);
   }
 }
+
+/*  Multiple Images */
+div.imagen-container.w-full div[data-rmiz]  {
+  width: 100%;
+}

@@ -1,4 +1,4 @@
-import type { ReactNode, ReactElement, HTMLAttributes } from 'react'
+import type { ReactNode, ReactElement, HTMLAttributes, Dispatch } from 'react'
 import type { Session } from 'next-auth'
 import type { AppProps } from 'next/app'
 import type { NextPage } from 'next'
@@ -19,5 +19,6 @@ export {
   NextPage,
   ReactElement,
   ReactNode,
-  HTMLAttributes
+  HTMLAttributes,
+  Dispatch
 }

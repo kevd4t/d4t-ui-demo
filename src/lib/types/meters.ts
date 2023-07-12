@@ -1,5 +1,4 @@
 import { IStation } from './stations'
-import { ITruck } from './trucks'
 
 export interface IMeterModel {
   id: number
@@ -30,18 +29,24 @@ export interface IMeterDevice {
   station: IStation
 }
 
-export interface IFormCreateMeterDevice {
+export interface ICreateMeterDevice {
   serial: string
   meterModel: string
   status: string
   type: string
   meterUnit: string
+  images: File[]
+  station: IStation
 }
 
-export interface IDataToEditMeterDevice extends IFormCreateMeterDevice {
-  meterMark: IMeterMark
-  meterModel: string
-  truck: ITruck
+export interface IEditMeterDevice {
+  serial: string
+  status: string
+  type: string
+  meterUnit: string
+  images: File[] | string[]
+  station: IStation
+  meterModel: IMeterModel
 }
 
 export interface ICreateMeterMark {

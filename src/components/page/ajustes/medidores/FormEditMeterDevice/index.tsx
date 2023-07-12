@@ -2,155 +2,162 @@ import { PaginationState, RowSelectionState, type Table as TableType } from '@ta
 import { IconTruck } from '@tabler/icons-react'
 import { useForm } from 'react-hook-form'
 import JSConfetti from 'js-confetti'
+import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { toast } from 'sonner'
+import Link from 'next/link'
 
-import type { IFetchDataTable, IFleet, IFormCreateTruck, IFormEditFleet, IFormEditTruck, ITruck, ReactNode } from '@/lib/types'
-import { compressImage } from '@/lib/utils/handleCompressionImage'
+import type { IFetchDataTable, ICreateMeterDevice, IMeterModel, IStation, ReactNode, IMeterDevice, IEditMeterDevice } from '@/lib/types'
+import { getMeterModelColumns } from '@/lib/utils/tableColumns/meterModels'
+// import { compressImage } from '@/lib/utils/handleCompressionImage'
+import { stationColumns } from '@/lib/utils/tableColumns/stations'
+import { handleFetchUrlStations } from '@/lib/services/stations'
 import { handleFetchUrlUserGroups } from '@/lib/services/users'
-import { truckRules, fleetRules } from './rules'
+import { simulateFetch } from '@/lib/utils/simulateFetch'
 import { useFetch } from '@/lib/hooks/useFetch'
+import { meterDeviceRules } from './rules'
 
-import { Badge, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, ScrollArea, Separator } from '@/components/ui'
+import { Badge, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Dialog, DialogContent, DialogHeader, Separator } from '@/components/ui'
 import { Congratulations } from '@/components/common/illustrations/Congratulations'
 import { MultipleImages } from '@/components/common/uploadImages/MultipleImages'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
 import { Table } from '@/components/common/tables/GenericTable'
-import { truckColumns } from '@/lib/utils/tableColumns/trucks'
 import { GenericSelect } from '@/components/common/selects'
-import { simulateFetch } from '@/lib/utils/simulateFetch'
 import { Input } from '@/components/common/inputs/Input'
-import { TextArea } from '@/components/common/textarea'
-import { ImagesSlider } from '@/components/common/sliders/ImagesSlider'
 
 interface IModalState {
   open: boolean
   label: string
   illustration?: ReactNode
-  type: 'CREATE_TRUCK' | 'COMPARISON_TRUCK_IMAGE' | 'CREATING_FLEET' | 'FLEET_CREATED' | 'CREATING_TRUCK_MODEL' | 'TRUCK_CREATED'
+  type: 'CREATE_TRUCK' | 'COMPARISON_TRUCK_IMAGE' | 'CREATING_METER_DEVICE' | 'METER_DEVICE_CREATED' | 'CREATING_TRUCK_MODEL' | 'TRUCK_CREATED'
 }
 
-export const FormEditFleet = ({ fleet }: { fleet: IFleet }) => {
-  const defaultValues: IFormEditFleet = {
-    title: fleet.title,
-    description: fleet.description,
-    status: fleet.status
+export const FormEditMeterDevice = ({ meterDevice }: { meterDevice: IMeterDevice }) => {
+  const BasicMapNoSSR = dynamic(() => import('@/components/common/gps/BasicMap'), { ssr: false })
+
+  const initialMultipleImages = meterDevice.images.map(image => ({ data_url: image, file: null }))
+
+  const initialFormValues: IEditMeterDevice = {
+    serial: meterDevice.serial,
+    station: meterDevice.station,
+    type: meterDevice.type,
+    status: meterDevice.status,
+    meterUnit: meterDevice.meterUnit,
+    meterModel: meterDevice.meterModel,
+    images: meterDevice.images
   }
 
   const [modalInfo, setModalInfo] = useState<IModalState>({ open: false, label: '', illustration: null, type: null })
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
+  const [tableStationsSelected, handleTableStationsSelected] = useState<RowSelectionState>({})
   const [tableTrucksSelected, HandleTableTrucksSelected] = useState<RowSelectionState>({})
-  const [fullDataTrucksSelected, setFullDataTrucksSelected] = useState(fleet.trucks)
+  const formMeterDevice = useForm<IEditMeterDevice>({ defaultValues: initialFormValues })
+  const [fullDataMeterModelsSelected, setFullDataMeterModelsSelected] = useState([meterDevice.meterModel])
+  const [multipleMeterDeviceImages, setMultipleMeterDeviceImages] = useState(initialMultipleImages)
+  const [fullDataStationsSelected, setFullDataStationsSelected] = useState([meterDevice.station])
+  const [showTableMeterModels, setShowTableMeterModels] = useState(false)
   const [loading, setLoading] = useState({ meessage: '', value: false })
-  const [multipleTruckImages, setMultipleTruckImages] = useState([])
-  const [showTableTrucks, setShowTableTrucks] = useState(false)
-  const formTruck = useForm<IFormEditTruck>({ defaultValues })
-  const formFleet = useForm<IFormEditFleet>({ defaultValues })
+  const [showTableStations, setShowTableStations] = useState(false)
 
-  const { data, error, isLoading: isLoadingTrucks, fetcher } = useFetch<IFetchDataTable<ITruck>>('/api/trucks')
+  const { data: meterModelData, error: meterModelError, isLoading: isLoadingMeterModels, fetcher: meterModelfetcher } = useFetch<IFetchDataTable<IMeterModel>>('/api/meter-models')
+  const { data: stationData, error: stationError, isLoading: isLoadingStation, fetcher: stationFetcher } = useFetch<IFetchDataTable<IStation>>('/api/stations')
 
-  const pagination = {
+  const meterModelpagination = {
     pageSize,
     pageIndex,
     setPagination,
-    labels: { pluralItem: 'Unidades', singularItem: 'Unidad' }
+    labels: { pluralItem: 'Modelos', singularItem: 'Modelo' }
   }
 
-  const handleSearchWithParams = async ({ search, filters }) => {
-    const url = handleFetchUrlUserGroups({ pageSize, pageIndex, search, filters })
-    fetcher(url)
-  }
-
-  const getFullDataSelection = (table: TableType<any>) => {
-    const fullDataSelection = table.getSelectedRowModel().flatRows
-    setFullDataTrucksSelected(fullDataSelection.map(dataSelected => dataSelected.original))
+  const stationsPagination = {
+    pageSize,
+    pageIndex,
+    setPagination,
+    labels: { pluralItem: 'Estaciones', singularItem: 'Estación' }
   }
 
   const onChangeMultipleTruckImages = (imageList, addUpdateIndex) => {
     console.log(imageList)
-    setMultipleTruckImages(imageList)
+    setMultipleMeterDeviceImages(imageList)
   }
 
-  const handleOpenCreateTruckModal = (value: boolean) => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_TRUCK', open: value }))
-  // const toggleOpenCreateTruckModal = () => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_TRUCK', open: !prevState.open }))
+  const handleSearchMeterModelsWithParams = async ({ search, filters }) => {
+    const url = handleFetchUrlUserGroups({ pageSize, pageIndex, search, filters })
+    meterModelfetcher(url)
+  }
 
-  const onSubmitFormFleet = async (data) => {
-    if (!fullDataTrucksSelected?.length) {
-      toast.error('La unidad es requerida')
+  const handleSearchStationsWithParams = async ({ search, filters }) => {
+    const url = handleFetchUrlStations({ pageSize, pageIndex, search, filters })
+    stationFetcher(url)
+  }
+
+  const getFullMeterModelDataSelection = (table: TableType<any>) => {
+    const fullDataSelection = table.getSelectedRowModel().flatRows
+    setFullDataMeterModelsSelected(fullDataSelection.map(dataSelected => dataSelected.original))
+  }
+
+  const getFullStationDataSelection = (table: TableType<any>) => {
+    const fullDataSelection = table.getSelectedRowModel().flatRows
+    setFullDataStationsSelected(fullDataSelection.map(dataSelected => dataSelected.original))
+  }
+
+  const onSubmitFormMeterDevice = async (data: ICreateMeterDevice) => {
+    if (!fullDataMeterModelsSelected?.length) {
+      toast.error('El modelo es requerido')
       setLoading({ meessage: '', value: false })
       return
     }
 
-    if (fullDataTrucksSelected?.length > 1) {
-      toast.error('Seleccione solo 1 unidad')
+    if (fullDataMeterModelsSelected?.length > 1) {
+      toast.error('Seleccione solo 1 modelo')
       setLoading({ meessage: '', value: false })
       return
     }
 
-    setLoading(({ meessage: 'Creando Flota', value: true }))
-    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Flota', open: true, type: 'CREATING_FLEET' }))
-    await simulateFetch(3000)
+    if (!fullDataStationsSelected?.length) {
+      toast.error('La estación es requerida')
+      setLoading({ meessage: '', value: false })
+      return
+    }
 
-    // console.log({
-    //   ...data,
-    //   trucks: [{
-    //     ...fullDataTrucksSelected[0].original,
-    //     image: null
-    //   }]
+    if (fullDataStationsSelected?.length > 1) {
+      toast.error('Seleccione solo 1 estación')
+      setLoading({ meessage: '', value: false })
+      return
+    }
+
+    if (!multipleMeterDeviceImages.length) {
+      toast.error('La imagen del medidor es requerida')
+      setLoading({ meessage: '', value: false })
+      return
+    }
+
+    // const allMultipleTruckImagesCompress = multipleMeterDeviceImages.map(image => {
+    //   return compressImage({ imageFile: image.file, quality: 10, maxWidth: 500, maxHeight: 500 })
     // })
 
-    setModalInfo(prevState => ({ ...prevState, type: 'FLEET_CREATED', label: 'Flota Creada', illustration: <Congratulations className='h-72' /> }))
-    toast.success('Flota Creada Exitosamente')
-    setLoading({ meessage: '', value: false })
-    const jsConfetti = new JSConfetti()
-    jsConfetti.addConfetti()
+    // const allPromisesMultipleTruckImagesCompress: any[] = await Promise.allSettled(allMultipleTruckImagesCompress)
+    // const multipleTruckImagesCompress = allPromisesMultipleTruckImagesCompress.map(promise => promise.value)
 
-    await simulateFetch(4000)
-    setModalInfo({ illustration: null, label: '', open: false, type: null })
-    setLoading({ meessage: '', value: false })
-
-    // router.push('/ajustes/flotas')
-  }
-
-  const onSubmitFormTruck = async (data: IFormCreateTruck) => {
-    if (!multipleTruckImages.length) {
-      toast.error('La imagen del unidad es requerida')
-      setLoading({ meessage: '', value: false })
-      return
-    }
-
-    const allMultipleTruckImagesCompress = multipleTruckImages.map(image => {
-      return compressImage({ imageFile: image.file, quality: 10, maxWidth: 500, maxHeight: 500 })
-    })
-
-    const allPromisesMultipleTruckImagesCompress: any[] = await Promise.allSettled(allMultipleTruckImagesCompress)
-    const multipleTruckImagesCompress = allPromisesMultipleTruckImagesCompress.map(promise => promise.value)
-
-    // if (truckImages.compressed[0].file?.size > APP_CONFIG.FILES_RULES.LIMIT_SIZE['4MB']) {
-    //   toast.error('Solo archivos menos de 4MB')
-    //   setLoading({ meessage: '', value: false })
-    //   return
-    // }
-
-    setLoading(({ meessage: 'Creando Unidad', value: true }))
-    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Unidad', open: true, type: 'CREATING_TRUCK_MODEL' }))
+    setLoading(({ meessage: 'Editando Medidor', value: true }))
+    setModalInfo((prevState) => ({ ...prevState, label: 'Editando Medidor', open: true, type: 'CREATING_METER_DEVICE' }))
     await simulateFetch(3000)
 
-    const truckToCreate: IFormCreateTruck = {
-      gpsId: 2,
-      type: '',
-      title: '',
-      fleetId: 1,
-      status: '',
-      stationId: 4,
-      numberPlate: '',
-      images: multipleTruckImagesCompress.map(imageCompress => imageCompress.file)
+    const meterDeviceToCreate: IEditMeterDevice = {
+      type: data.type,
+      serial: data.serial,
+      status: data.status,
+      meterUnit: data.meterUnit,
+      station: fullDataStationsSelected[0],
+      meterModel: fullDataMeterModelsSelected[0],
+      images: meterDevice.images
+      // images: multipleTruckImagesCompress.map(imageCompress => imageCompress.file)
     }
 
-    console.log({ truckToCreate })
+    console.log({ meterDeviceToCreate })
 
-    setModalInfo(prevState => ({ ...prevState, type: 'TRUCK_CREATED', label: 'Unidad Creada', illustration: <Congratulations className='h-72' /> }))
-    toast.success('Unidad Creada Exitosamente')
+    setModalInfo(prevState => ({ ...prevState, type: 'METER_DEVICE_CREATED', label: 'Medidor Editado', illustration: <Congratulations className='h-72' /> }))
+    toast.success('Medidor Editado Exitosamente')
     setLoading({ meessage: '', value: false })
     const jsConfetti = new JSConfetti()
     jsConfetti.addConfetti()
@@ -180,137 +187,29 @@ export const FormEditFleet = ({ fleet }: { fleet: IFleet }) => {
         </DialogContent>
       </Dialog>
 
-      {/* Crear Unidad */}
-      <Dialog open={modalInfo.type === 'CREATE_TRUCK' && modalInfo.open} onOpenChange={handleOpenCreateTruckModal}>
-        <DialogContent>
-          <ScrollArea className='h-[70vh] px-2'>
-            <DialogHeader>
-              <DialogTitle>Crear Unidad</DialogTitle>
-
-              <DialogDescription>
-                Crea una unidad para asignarlo a una flota
-              </DialogDescription>
-            </DialogHeader>
-
-            <form onSubmit={formTruck.handleSubmit(onSubmitFormTruck)} autoFocus className='w-full mt-4'>
-              <section className='w-full space-y-4'>
-                <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
-                  <Input
-                    id='title'
-                    type='text'
-                    tabIndex={1}
-                    label='Nombre'
-                    placeholder='Pekkin'
-                    register={formTruck.register}
-                    inputErrors={truckRules.title}
-                    messageErrors={formTruck.formState.errors}
-                  />
-
-                  <GenericSelect
-                    id='status'
-                    tabIndex={2}
-                    label='Estado'
-                    defaultValue='true'
-                    placeholder='Seleccione un Estado'
-                    fieldControlled={{ control: formTruck.control, rules: truckRules.status }}
-                    items={[
-                      {
-                        label: 'Operativo',
-                        value: 'Operativo'
-                      },
-                      {
-                        label: 'En Mantenimiento',
-                        value: 'Mantenimiento'
-                      }
-                    ]}
-                  />
-                </div>
-
-                <TextArea
-                  id='description'
-                  rows={5}
-                  tabIndex={3}
-                  label='Descripción'
-                  register={formTruck.register}
-                  placeholder='Lorem ipsum dolor sit amet consectetur adipisicing elit quo laudantium ipsum natus.'
-                  messageErrors={formTruck.formState.errors}
-                  inputErrors={truckRules.description}
-                />
-              </section>
-
-              <section className='mt-4'>
-                <GenericSelect
-                  id='type'
-                  label='Tipo de Unidad'
-                  placeholder='Seleccione un Estado'
-                  defaultValue='pepito'
-                  tabIndex={6}
-                  fieldControlled={{ control: formTruck.control, rules: truckRules.status }}
-                  items={[
-                    {
-                      label: 'Pepito',
-                      value: 'pepito'
-                    },
-                    {
-                      label: 'Cocacola',
-                      value: 'cocacola'
-                    }
-                  ]}
-                />
-              </section>
-
-              <div className='mt-4'>
-                <MultipleImages
-                  zoom
-                  label='Imagen del Unidad'
-                  emptyClassName='h-[200px]'
-                  onChange={onChangeMultipleTruckImages}
-                  imageToUpload={multipleTruckImages}
-                  uploadLabel='Cargar Fotos de la Unidad'
-                  tabIndexs={{ upload: 4, change: 4, delete: 5 }}
-                  icons={{ placeholder: <IconTruck className='text-zinc-400 w-14 h-14' strokeWidth={1.5} /> }}
-                />
-              </div>
-            </form>
-
-            <DialogFooter className='flex flex-col gap-y-4 mt-4'>
-              <Button
-                type='button'
-                variant='outline'
-                isLoading={loading.value}
-                onClick={() => handleOpenCreateTruckModal(false)}
-              >
-                Cancelar
-              </Button>
-
-              <Button
-                type='button'
-                isLoading={loading.value}
-                onClick={formTruck.handleSubmit(onSubmitFormTruck)}
-              >
-                Crear Unidad
-              </Button>
-            </DialogFooter>
-          </ScrollArea>
-        </DialogContent>
-      </Dialog>
-
       <div className='w-full h-full flex justify-start items-start gap-x-10'>
-        <div className='hidden max-w-xs w-full lg:flex flex-col justify-start items-start sticky pt-6 top-0 left-0'>
+        <div className='hidden min-w-xs max-w-xs w-full lg:flex flex-col justify-start items-start sticky pt-6 top-0 left-0'>
           <Card className='w-full sticky top-0 left-0'>
             <CardContent className='pt-6'>
               <h6 className='font-semibold'>Informacion Basica</h6>
 
               <ul className='mt-2'>
                 <li className='flex justify-start items-center text-sm text-primary-gray'>
-                  <span className='font-semibold dark:text-white'>Nombre:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{formFleet.watch('title')}</span>
+                  <span className='font-semibold dark:text-white'>Serial:</span> &nbsp;
+                  <span className='dark:text-gray-300'>{formMeterDevice.watch('serial')}</span>
                 </li>
 
                 <li className='flex justify-start items-center text-sm text-primary-gray'>
                   <p className='dark:text-gray-300'>
-                    <strong className='font-semibold dark:text-white'>Descripción:</strong>&nbsp;
-                    {formFleet.watch('description')}
+                    <strong className='font-semibold dark:text-white'>Tipo de Medición:</strong>&nbsp;
+                    {formMeterDevice.watch('type')}
+                  </p>
+                </li>
+
+                <li className='flex justify-start items-center text-sm text-primary-gray'>
+                  <p className='dark:text-gray-300'>
+                    <strong className='font-semibold dark:text-white'>Unidad de Medición:</strong>&nbsp;
+                    {formMeterDevice.watch('meterUnit')}
                   </p>
                 </li>
               </ul>
@@ -318,14 +217,14 @@ export const FormEditFleet = ({ fleet }: { fleet: IFleet }) => {
               <Separator className='my-2' />
 
               <Badge className={'w-full text-sm h-full py-1.5'}>
-                {formFleet.watch('status')}
+                {formMeterDevice.watch('status')}
               </Badge>
             </CardContent>
           </Card>
         </div>
 
         <div className='w-full pt-6'>
-          <form onSubmit={formFleet.handleSubmit(onSubmitFormFleet)} autoFocus className='w-full'>
+          <form onSubmit={formMeterDevice.handleSubmit(onSubmitFormMeterDevice)} autoFocus className='w-full'>
             <div className='w-full h-full flex flex-col xl:flex-row justify-start items-start gap-x-6 gap-y-6'>
               <Card className='p-4 w-full'>
                 <CardTitle>Informacion Basica</CardTitle>
@@ -335,13 +234,14 @@ export const FormEditFleet = ({ fleet }: { fleet: IFleet }) => {
                 <section className='w-full space-y-4'>
                   <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
                     <Input
-                      id='title'
+                      id='serial'
                       type='text'
-                      register={formFleet.register}
-                      label='Nombre'
+                      register={formMeterDevice.register}
+                      label='Serial'
                       placeholder='Pekkin'
-                      messageErrors={formFleet.formState.errors}
-                      inputErrors={fleetRules.title}
+                      value={meterDevice.serial}
+                      messageErrors={formMeterDevice.formState.errors}
+                      inputErrors={meterDeviceRules.serial}
                       tabIndex={1}
                     />
 
@@ -349,9 +249,9 @@ export const FormEditFleet = ({ fleet }: { fleet: IFleet }) => {
                       id='status'
                       label='Estado'
                       placeholder='Seleccione un Estado'
-                      defaultValue='Operativo'
+                      defaultValue={meterDevice.status}
                       tabIndex={2}
-                      fieldControlled={{ control: formFleet.control, rules: fleetRules.status }}
+                      fieldControlled={{ control: formMeterDevice.control, rules: meterDeviceRules.status }}
                       items={[
                         {
                           label: 'Operativo',
@@ -365,16 +265,41 @@ export const FormEditFleet = ({ fleet }: { fleet: IFleet }) => {
                     />
                   </div>
 
-                  <TextArea
-                    rows={5}
-                    tabIndex={3}
-                    id='description'
-                    label='Descripción'
-                    register={formFleet.register}
-                    inputErrors={fleetRules.description}
-                    messageErrors={formFleet.formState.errors}
-                    placeholder='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo laudantium ipsum natus possimus amet reprehenderit veritatis eum deserunt labore quidem.'
-                  />
+                  <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
+                    <GenericSelect
+                      id='type'
+                      label='Tipo de medición'
+                      placeholder='Seleccione un tipo de medición'
+                      defaultValue={meterDevice.status}
+                      tabIndex={3}
+                      fieldControlled={{ control: formMeterDevice.control, rules: meterDeviceRules.type }}
+                      items={[
+                        {
+                          label: 'Agua',
+                          value: 'Agua'
+                        },
+                        {
+                          label: 'Gasolina',
+                          value: 'Gasolina'
+                        }
+                      ]}
+                    />
+
+                    <GenericSelect
+                      id='meterUnit'
+                      label='Unidad de medición'
+                      placeholder='Seleccione una unidad de medición'
+                      defaultValue={meterDevice.meterUnit}
+                      tabIndex={4}
+                      fieldControlled={{ control: formMeterDevice.control, rules: meterDeviceRules.meterUnit }}
+                      items={[
+                        {
+                          label: 'Litros',
+                          value: 'Litros'
+                        }
+                      ]}
+                    />
+                  </div>
                 </section>
               </Card>
             </div>
@@ -382,68 +307,143 @@ export const FormEditFleet = ({ fleet }: { fleet: IFleet }) => {
 
           <Card className='p-4 mt-6 w-full'>
             <CardTitle className='w-full flex flex-row justify-between items-center'>
-              <div>Unidades</div>
+              <div>Modelo del Medidor</div>
 
-              <Button onClick={() => setShowTableTrucks(prevState => !prevState)}>
-                { showTableTrucks ? 'Cancelar' : 'Cambiar Unidades' }
+              <Button onClick={() => setShowTableMeterModels(prevState => !prevState)}>
+                { showTableMeterModels ? 'Cancelar' : 'Cambiar Modelo' }
               </Button>
             </CardTitle>
 
             <Separator className='my-4' />
 
             {
-              showTableTrucks
+              showTableMeterModels
                 ? (
                   <Table
                     visibilityColumns
-                    data={data?.results}
-                    pagination={pagination}
-                    columns={truckColumns}
-                    queryInfo={{ isFetching: isLoadingTrucks, error }}
-                    inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Unidad' }}
+                    data={meterModelData?.results}
+                    pagination={meterModelpagination}
+                    columns={getMeterModelColumns({ selection: true })}
+                    queryInfo={{ isFetching: isLoadingMeterModels, error: meterModelError }}
+                    inputSearch={{ handleSearchWithParams: handleSearchMeterModelsWithParams, placeholder: 'Buscar Modelo' }}
                     selection={{
                       rowSelection: tableTrucksSelected,
                       setRowSelection: HandleTableTrucksSelected,
-                      getFullDataSelection
+                      getFullDataSelection: getFullMeterModelDataSelection
                     }}
                   />
                 )
                 : (
-                  <ul className={`${fleet.trucks.length > 1 ? 'grid sm:grid-cols-2 grid-flow-row gap-4' : ''}`}>
-                    {
-                      fleet.trucks.map(truck => (
-                        <li key={truck.id}>
-                          <Card className='max-w-sm mx-auto'>
-                            <CardHeader>
-                              <CardTitle>Título: {truck.title}</CardTitle>
-                              <CardDescription>Matrícula: {truck.numberPlate}</CardDescription>
+                  <Card className='max-w-sm mx-auto'>
+                    <CardHeader>
+                      <CardTitle>Título: {meterDevice.meterModel.title}</CardTitle>
+                      <CardDescription>Descripción: {meterDevice.meterModel.description}</CardDescription>
 
-                              <section className='flex w-full justify-center items-end'>
-                                <Badge className='mr-4 w-full text-sm'>
-                                  {truck.status}
-                                </Badge>
+                      <section className='flex w-full justify-center items-end'>
+                        <Badge className='mr-4 w-full text-sm'>
+                          {meterDevice.meterModel.isActive ? 'Activo' : 'Bloqueado'}
+                        </Badge>
 
-                                <Badge className='w-full text-sm'>
-                                  {truck.type}
-                                </Badge>
-                              </section>
-                            </CardHeader>
+                        <Badge className='w-full text-sm'>
+                          {meterDevice.meterModel.type}
+                        </Badge>
+                      </section>
+                    </CardHeader>
 
-                            <CardContent>
-                              <ImagesSlider images={truck.images} />
-                            </CardContent>
-                          </Card>
-                        </li>
-                      ))
-                    }
-                  </ul>
+                    <CardContent>
+                      <img
+                        src={meterDevice.meterModel.image}
+                        alt='imagen'
+                        className='rounded-md mx-auto'
+                      />
+                    </CardContent>
+                  </Card>
                 )
             }
           </Card>
 
+          <Card className='p-4 mt-6 w-full'>
+            <CardTitle className='w-full flex flex-row justify-between items-center'>
+              <div>Estaciones</div>
+
+              <Button onClick={() => setShowTableStations(prevState => !prevState)}>
+                { showTableStations ? 'Cancelar' : 'Cambiar Estaciones' }
+              </Button>
+            </CardTitle>
+
+            <Separator className='my-4' />
+
+            {
+              showTableStations
+                ? (
+                  <Table
+                    visibilityColumns
+                    data={stationData?.results}
+                    pagination={stationsPagination}
+                    columns={stationColumns}
+                    queryInfo={{ isFetching: isLoadingStation, error: stationError }}
+                    inputSearch={{ handleSearchWithParams: handleSearchStationsWithParams, placeholder: 'Buscar Estación' }}
+                    selection={{
+                      rowSelection: tableStationsSelected,
+                      setRowSelection: handleTableStationsSelected,
+                      getFullDataSelection: getFullStationDataSelection
+                    }}
+                  />
+                )
+                : (
+                  <Card className='w-full'>
+                    <CardHeader>
+                      <CardTitle>Titulo: {meterDevice.station.title}</CardTitle>
+                      <CardDescription>Referencia: {meterDevice.station.reference}</CardDescription>
+
+                      <section className='flex w-full justify-center items-end'>
+                        <Badge className='mr-4 w-full text-sm'>
+                          {meterDevice.station.type}
+                        </Badge>
+
+                        <Badge className='w-full text-sm'>
+                          {meterDevice.station.status}
+                        </Badge>
+                      </section>
+                    </CardHeader>
+
+                    <CardContent>
+                      <div className='h-72 w-full'>
+                        <BasicMapNoSSR />
+                      </div>
+                    </CardContent>
+                  </Card>
+                )
+            }
+          </Card>
+
+          <Card className='p-4 mt-6 w-full'>
+            <CardTitle>Fotos del medidor</CardTitle>
+
+            <Separator className='my-4' />
+
+            <MultipleImages
+              zoom
+              emptyClassName='h-[300px]'
+              onChange={onChangeMultipleTruckImages}
+              imageToUpload={multipleMeterDeviceImages}
+              uploadLabel='Cargar Fotos del Medidor'
+              tabIndexs={{ upload: 4, change: 4, delete: 5 }}
+              icons={{ placeholder: <IconTruck className='text-zinc-400 w-14 h-14' strokeWidth={1.5} /> }}
+            />
+          </Card>
+
           <section className='w-full flex justify-between items-start mt-6 gap-x-6'>
-            <Button variant='outline' tabIndex={15} type='button' className='w-full py-2 text-sm'>
-              Cancelar
+            <Button
+              asChild
+              variant='outline'
+              tabIndex={15}
+              type='button'
+              className='w-full py-2 text-sm'
+            >
+              <Link href='/ajustes/medidores'>
+                Cancelar
+              </Link>
             </Button>
 
             <Button
@@ -451,9 +451,9 @@ export const FormEditFleet = ({ fleet }: { fleet: IFleet }) => {
               tabIndex={16}
               className='w-full py-2 text-sm'
               isLoading={loading.value}
-              onClick={formFleet.handleSubmit(onSubmitFormFleet)}
+              onClick={formMeterDevice.handleSubmit(onSubmitFormMeterDevice)}
             >
-              Crear Flota
+              Editar Medidor
             </Button>
           </section>
         </div>

@@ -1,40 +1,32 @@
 import { IFormRules } from '@/lib/types/forms'
 
-type TFleetFields = 'title' | 'description' | 'status'
-type TTruckFields = 'title' | 'description' | 'status'
+type TFleetFields =
+  'serial' |
+  'meterModel' |
+  'meterUnit' |
+  'status' |
+  'type'
 
-export const fleetRules: IFormRules<TFleetFields> = {
-  title: {
-    minLength: { value: 2, message: 'Minimo 3 Caracteres' },
+export const meterDeviceRules: IFormRules<TFleetFields> = {
+  serial: {
+    minLength: { value: 3, message: 'Minimo 3 Caracteres' },
     maxLength: { value: 50, message: 'Maximo 50 Caracteres' },
     required: { value: true, message: 'Requerido' }
   },
 
-  description: {
-    minLength: { value: 2, message: 'Minimo 3 Caracteres' },
-    maxLength: { value: 250, message: 'Maximo 250 Caracteres' },
+  meterModel: {
+    required: { value: true, message: 'Requerido' }
+  },
+
+  meterUnit: {
     required: { value: true, message: 'Requerido' }
   },
 
   status: {
     required: { value: true, message: 'Requerido' }
-  }
-}
-
-export const truckRules: IFormRules<TTruckFields> = {
-  title: {
-    minLength: { value: 2, message: 'Minimo 3 Caracteres' },
-    maxLength: { value: 50, message: 'Maximo 50 Caracteres' },
-    required: { value: true, message: 'Requerido' }
   },
 
-  description: {
-    minLength: { value: 2, message: 'Minimo 3 Caracteres' },
-    maxLength: { value: 250, message: 'Maximo 250 Caracteres' },
-    required: { value: true, message: 'Requerido' }
-  },
-
-  status: {
+  type: {
     required: { value: true, message: 'Requerido' }
   }
 }

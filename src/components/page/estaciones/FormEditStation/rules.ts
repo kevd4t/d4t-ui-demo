@@ -4,7 +4,7 @@ type TUserFields = 'names' | 'surnames' | 'username' | 'phoneCode' | 'phoneNumbe
 
 export const userRules: IFormRules<TUserFields> = {
   names: {
-    minLength: { value: 2, message: 'Minimo 3 Caracteres' },
+    minLength: { value: 3, message: 'Minimo 3 Caracteres' },
     maxLength: { value: 20, message: 'Maximo 20 Caracteres' },
     // pattern: { value: /^[A-Z]+$/i, message: 'Caracter no Permitido' }, // Only Letters
     pattern: { value: /^\w+(\s\w+)?$/i, message: 'Nombre Invalido' },
@@ -12,7 +12,7 @@ export const userRules: IFormRules<TUserFields> = {
   },
 
   surnames: {
-    minLength: { value: 2, message: 'Minimo 3 Caracteres' },
+    minLength: { value: 3, message: 'Minimo 3 Caracteres' },
     maxLength: { value: 20, message: 'Maximo 20 Caracteres' },
     pattern: { value: /^\w+(\s\w+)?$/i, message: 'Apellido Invalido' },
     required: { value: true, message: 'Requerido' }

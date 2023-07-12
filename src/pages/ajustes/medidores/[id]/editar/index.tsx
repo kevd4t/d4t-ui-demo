@@ -1,18 +1,44 @@
 import { useRouter } from 'next/router'
 
-import type { IFetchData, IUserDetail, ReactElement } from '@/lib/types'
-import { useFetch } from '@/lib/hooks/useFetch'
+import type { IMeterDevice, ReactElement } from '@/lib/types'
 import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
+import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
+import { FormEditMeterDevice } from '@/components/page/ajustes/medidores/FormEditMeterDevice'
 
 const { ROUTES } = siteConfig
 
 const EditMeterDevicePage = () => {
   const router = useRouter()
-  const { error, isLoading } = useFetch<IFetchData<IUserDetail>>(`/api/users/${router.query.id}`)
+  const [isLoading, setIsLoading] = useState(true)
+  const [meterDevice, setMeterDevice] = useState(null)
+  const [error, setError] = useState(null)
+
+  const getFleetDetail = async () => {
+    setIsLoading(true)
+
+    const res = await fetch(`/api/meter-devices/${router.query.id}`)
+
+    if (!res.ok) {
+      toast.error('Hubo un Error')
+      setError('Hubo un Error-')
+      setIsLoading(false)
+      return
+    }
+
+    const data: IMeterDevice = await res.json()
+    setMeterDevice(data)
+    setIsLoading(false)
+  }
+
+  useEffect(() => {
+    getFleetDetail()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.query.id])
 
   if (error) {
     return (
@@ -34,14 +60,15 @@ const EditMeterDevicePage = () => {
 
   return (
     <>
-      <HeaderPage title={`Editar Usuario ${router.query.id}`} />
+      <HeaderPage title={`Editar Medidor ${router.query.id}`} />
+      { meterDevice?.results && (<FormEditMeterDevice meterDevice={meterDevice.results as IMeterDevice} />) }
     </>
   )
 }
 
 EditMeterDevicePage.getLayout = function getLayout (page: ReactElement) {
   return (
-    <AuthenticatedLayout title={`${ROUTES.USERS.DETAIL.TITLE} | ${siteConfig.TITLE}`} >
+    <AuthenticatedLayout title={`${ROUTES.SETTINGS.METER_DEVICE.EDIT.TITLE} | ${siteConfig.TITLE}`} >
       {page}
     </AuthenticatedLayout>
   )
