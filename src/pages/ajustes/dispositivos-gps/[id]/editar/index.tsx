@@ -14,7 +14,7 @@ const { ROUTES } = siteConfig
 const EditGPSDevicePage = () => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(true)
-  const [gpsDevice, setGpsDevice] = useState(null)
+  const [, setGpsDevice] = useState(null)
   const [error, setError] = useState(null)
 
   const getMeterMarkDetail = async () => {

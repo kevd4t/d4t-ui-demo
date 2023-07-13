@@ -1,9 +1,7 @@
 import { Swiper, SwiperProps, SwiperSlide } from 'swiper/react'
 import { Grid, Pagination } from 'swiper/modules'
-import Zoom from 'react-medium-image-zoom'
 
 import { initialSliderOptions } from './initialValues'
-import { cn } from '@/lib/utils'
 import { ImageListType } from '@/lib/types'
 
 interface IImagesSliderProps extends SwiperProps {

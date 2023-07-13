@@ -2,7 +2,7 @@ import { IconClipboard, IconDots, IconEdit, IconEye, IconEyeOff, IconSortAscendi
 import { Column, ColumnDef } from '@tanstack/react-table'
 import { ChevronsUpDown } from 'lucide-react'
 import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 import JSConfetti from 'js-confetti'
 import { useState } from 'react'
 import { toast } from 'sonner'
@@ -71,12 +71,12 @@ export const TruckRowActions = ({ truck }: { truck: ITruck }) => {
   const [loading, setLoading] = useState({ meessage: '', value: false })
   const [multipleTruckImages, setMultipleTruckImages] = useState([{ data_url: truck.images, file: null }])
   const formEditTruck = useForm<IFormEditTruck>({ defaultValues })
-  const [modelImage, setModelImage] = useState(initialImageValues)
+  const [modelImage] = useState(initialImageValues)
   const [openViewTruck, setOpenViewTruck] = useState(false)
   const [openEditModel, setOpenEditModal] = useState(false)
   const [openAlert, setOpenAlert] = useState(false)
   const { isLoading, error, fetcher } = useFetch()
-  const router = useRouter()
+  // const router = useRouter()
 
   const blockUser = async () => {
     const data: any = await fetcher(`/api/users/${truck.id}/block`, { method: 'PUT' })

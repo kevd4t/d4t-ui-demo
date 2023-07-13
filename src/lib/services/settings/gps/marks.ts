@@ -1,4 +1,4 @@
-import { IGPSMark } from "@/lib/types"
+import { IGPSMark } from '@/lib/types'
 
 export const handleFetchUrlGpsMarks = ({ pageIndex, pageSize, search }) => {
   const searchText = search ? `&search=${search}` : ''
