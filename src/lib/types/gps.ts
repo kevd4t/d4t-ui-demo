@@ -19,13 +19,26 @@ export interface IGPSMark {
   gpsModels: IGPSModel[]
 }
 
+export interface ICreateGPSMark {
+  title: string
+  description: string
+  image: string
+  isActive: boolean | 'true' | 'false'
+  gpsModels: IGPSModel[]
+}
+
 export interface IGPSDevice {
   id: number
   serial: string
-  image: string
   status: string
   gpsMark: IGPSMark
   gpsModel: IGPSModel
-  fleet: IFleet
-  truck: ITruck
+  fleet?: IFleet
+  truck?: ITruck
+  images: string[]
+}
+
+export interface IFormCreateGPSDevice {
+  serial: string
+  status: string
 }

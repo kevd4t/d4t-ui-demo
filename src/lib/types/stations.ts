@@ -12,6 +12,7 @@ export interface IStation {
   status: string
   type: string
   trucks: ITruck[]
+  images: string[]
 }
 
 export interface IDataToCreateStation {

@@ -32,7 +32,7 @@ interface IModalState {
   open: boolean
   label: string
   illustration?: ReactNode
-  type: 'CREATE_TRUCK' | 'COMPARISON_TRUCK_IMAGE' | 'CREATING_METER_DEVICE' | 'METER_DEVICE_CREATED' | 'CREATING_TRUCK_MODEL' | 'TRUCK_CREATED'
+  type: 'CREATE_GPS_MODEL' | 'COMPARISON_GPS_MODEL_IMAGE' | 'CREATING_GPS_MARK' | 'GPS_MARK_CREATED' | 'CREATING_GPS_MODEL' | 'GPS_MARK_CREATED'
 }
 
 export const FormCreateFleet = () => {
@@ -69,8 +69,8 @@ export const FormCreateFleet = () => {
     setMultipleTruckImages(imageList)
   }
 
-  const handleOpenCreateTruckModal = (value: boolean) => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_TRUCK', open: value }))
-  const toggleOpenCreateTruckModal = () => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_TRUCK', open: !prevState.open }))
+  const handleOpenCreateTruckModal = (value: boolean) => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_GPS_MODEL', open: value }))
+  const toggleOpenCreateTruckModal = () => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_GPS_MODEL', open: !prevState.open }))
 
   const onSubmitFormFleet = async (data) => {
     if (!fullDataTrucksSelected?.length) {
@@ -86,7 +86,7 @@ export const FormCreateFleet = () => {
     }
 
     setLoading(({ meessage: 'Creando Flota', value: true }))
-    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Flota', open: true, type: 'CREATING_METER_DEVICE' }))
+    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Flota', open: true, type: 'CREATING_GPS_MARK' }))
     await simulateFetch(3000)
 
     // console.log({
@@ -97,7 +97,7 @@ export const FormCreateFleet = () => {
     //   }]
     // })
 
-    setModalInfo(prevState => ({ ...prevState, type: 'METER_DEVICE_CREATED', label: 'Flota Creada', illustration: <Congratulations className='h-72' /> }))
+    setModalInfo(prevState => ({ ...prevState, type: 'GPS_MARK_CREATED', label: 'Flota Creada', illustration: <Congratulations className='h-72' /> }))
     toast.success('Flota Creada Exitosamente')
     setLoading({ meessage: '', value: false })
     const jsConfetti = new JSConfetti()
@@ -131,7 +131,7 @@ export const FormCreateFleet = () => {
     // }
 
     setLoading(({ meessage: 'Creando Unidad', value: true }))
-    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Unidad', open: true, type: 'CREATING_TRUCK_MODEL' }))
+    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Unidad', open: true, type: 'CREATING_GPS_MODEL' }))
     await simulateFetch(3000)
 
     const truckToCreate: IFormCreateTruck = {
@@ -147,7 +147,7 @@ export const FormCreateFleet = () => {
 
     console.log({ truckToCreate })
 
-    setModalInfo(prevState => ({ ...prevState, type: 'TRUCK_CREATED', label: 'Unidad Creada', illustration: <Congratulations className='h-72' /> }))
+    setModalInfo(prevState => ({ ...prevState, type: 'GPS_MARK_CREATED', label: 'Unidad Creada', illustration: <Congratulations className='h-72' /> }))
     toast.success('Unidad Creada Exitosamente')
     setLoading({ meessage: '', value: false })
     const jsConfetti = new JSConfetti()
@@ -179,7 +179,7 @@ export const FormCreateFleet = () => {
       </Dialog>
 
       {/* Crear Unidad */}
-      <Dialog open={modalInfo.type === 'CREATE_TRUCK' && modalInfo.open} onOpenChange={handleOpenCreateTruckModal}>
+      <Dialog open={modalInfo.type === 'CREATE_GPS_MODEL' && modalInfo.open} onOpenChange={handleOpenCreateTruckModal}>
         <DialogContent>
           <ScrollArea className='h-[70vh] px-2'>
             <DialogHeader>
@@ -261,7 +261,7 @@ export const FormCreateFleet = () => {
                 <MultipleImages
                   zoom
                   label='Imagen del Unidad'
-                  emptyClassName='h-[200px]'
+                  emptyClassName='h-[300px]'
                   onChange={onChangeMultipleTruckImages}
                   imageToUpload={multipleTruckImages}
                   uploadLabel='Cargar Fotos de la Unidad'

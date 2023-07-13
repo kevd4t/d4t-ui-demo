@@ -37,6 +37,7 @@ const SubCategorySettingsPage = () => {
   return (
     <>
       <HeaderPage
+        allowGoBack
         title={`Detalle de Categoria ${router.query.id}`}
       />
 

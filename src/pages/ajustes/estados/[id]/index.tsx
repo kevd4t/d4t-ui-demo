@@ -12,7 +12,7 @@ const { ROUTES } = siteConfig
 const StatusTypeSettingsPage = () => {
   return (
     <>
-      <HeaderPage title='Tipo de Estado' />
+      <HeaderPage allowGoBack title='Tipo de Estado' />
 
       {/* <DataTable
         visibilityColumns

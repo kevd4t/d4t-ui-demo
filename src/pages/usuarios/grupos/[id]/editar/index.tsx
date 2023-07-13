@@ -34,7 +34,7 @@ const EditUserGroupPage = () => {
 
   return (
     <>
-      <HeaderPage title={`Editar Usuario ${router.query.id}`} />
+      <HeaderPage allowGoBack title={`Editar Usuario ${router.query.id}`} />
     </>
   )
 }

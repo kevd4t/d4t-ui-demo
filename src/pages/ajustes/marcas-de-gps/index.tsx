@@ -40,9 +40,9 @@ const GPSMarksSettingsPage = () => {
       <Table
         visibilityColumns
         data={data?.results}
+        pagination={pagination}
         columns={gpsMarkColumns}
         itemsToFilter={gpsMarkColumnsToFilter}
-        pagination={pagination}
         queryInfo={{ isFetching: isLoading, error }}
         inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Marca de GPS' }}
       />

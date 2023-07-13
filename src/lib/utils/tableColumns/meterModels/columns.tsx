@@ -1,7 +1,9 @@
 /* eslint-disable brace-style */
 import { ColumnDef } from '@tanstack/react-table'
+import { IconAd } from '@tabler/icons-react'
 
-import type { IMeterModel } from '@/lib/types'
+import { getAllGpsMarks } from '@/lib/services/settings/gps/marks'
+import type { IGPSMark, IItemToFilter, IMeterModel } from '@/lib/types'
 
 import { MeterModelColumnActions } from './ColumnActions'
 import { ColumnSortMeterModel } from './ColumnSort'
@@ -103,4 +105,42 @@ export const getMeterModelColumns = ({ selection, actions = initialActions }: IG
   }
 
   else return meterModelColumns
+}
+
+export const formatGpsMarksOptions = ({ gpsMarks }: { gpsMarks: IGPSMark[] }): IItemToFilter[] => {
+  console.log('gpsMarks', gpsMarks)
+
+  const gpsMarksOptionsFormated = gpsMarks.map(gpsMark => ({
+    label: gpsMark.title,
+    value: gpsMark.title
+  }))
+
+  return [
+    {
+      queryFilterColumnID: 'gpsMark',
+      columnID: 'Titulo',
+      label: 'Titulo',
+      icon: <IconAd className='h-4 w-4 mr-2' />,
+      options: gpsMarksOptionsFormated
+    }
+  ]
+}
+
+export const getGpsMarksToFilter = async (): Promise<IItemToFilter[]> => {
+  const gpsMarks = await getAllGpsMarks()
+
+  const gpsMarksOptionsFormated = gpsMarks.map(gpsMark => ({
+    label: gpsMark.title,
+    value: gpsMark.title
+  }))
+
+  return [
+    {
+      queryFilterColumnID: 'gpsMark',
+      columnID: 'Marca',
+      label: 'Marca',
+      icon: <IconAd className='h-4 w-4 mr-2' />,
+      options: gpsMarksOptionsFormated
+    }
+  ]
 }

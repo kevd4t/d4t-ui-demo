@@ -28,7 +28,7 @@ interface IModalState {
   open: boolean
   label: string
   illustration?: ReactNode
-  type: 'CREATE_TRUCK' | 'COMPARISON_TRUCK_IMAGE' | 'CREATING_METER_DEVICE' | 'METER_DEVICE_CREATED' | 'CREATING_TRUCK_MODEL' | 'TRUCK_CREATED'
+  type: 'CREATE_GPS_MODEL' | 'COMPARISON_GPS_MODEL_IMAGE' | 'CREATING_GPS_MARK' | 'GPS_MARK_CREATED' | 'CREATING_GPS_MODEL' | 'GPS_MARK_CREATED'
 }
 
 export const FormCreateMeterDevice = () => {
@@ -123,7 +123,7 @@ export const FormCreateMeterDevice = () => {
     const multipleTruckImagesCompress = allPromisesMultipleTruckImagesCompress.map(promise => promise.value)
 
     setLoading(({ meessage: 'Creando Medidor', value: true }))
-    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Medidor', open: true, type: 'CREATING_METER_DEVICE' }))
+    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Medidor', open: true, type: 'CREATING_GPS_MARK' }))
     await simulateFetch(3000)
 
     const meterDeviceToCreate: ICreateMeterDevice = {
@@ -138,7 +138,7 @@ export const FormCreateMeterDevice = () => {
 
     console.log({ meterDeviceToCreate })
 
-    setModalInfo(prevState => ({ ...prevState, type: 'METER_DEVICE_CREATED', label: 'Medidor Creado', illustration: <Congratulations className='h-72' /> }))
+    setModalInfo(prevState => ({ ...prevState, type: 'GPS_MARK_CREATED', label: 'Medidor Creado', illustration: <Congratulations className='h-72' /> }))
     toast.success('Medidor Creado Exitosamente')
     setLoading({ meessage: '', value: false })
     const jsConfetti = new JSConfetti()

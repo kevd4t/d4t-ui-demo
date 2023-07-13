@@ -60,7 +60,7 @@ const EditMeterDevicePage = () => {
 
   return (
     <>
-      <HeaderPage title={`Editar Medidor ${router.query.id}`} />
+      <HeaderPage allowGoBack title={`Editar Medidor ${router.query.id}`} />
       { meterDevice?.results && (<FormEditMeterDevice meterDevice={meterDevice.results as IMeterDevice} />) }
     </>
   )

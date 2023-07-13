@@ -60,7 +60,7 @@ const EditMeterMarkPage = () => {
 
   return (
     <>
-      <HeaderPage title={`Editar Usuario ${router.query.id}`} />
+      <HeaderPage allowGoBack title={`Editar Marca de GPS ${router.query.id}`} />
 
       <FormEditMeterMark meterMark={meterMark} />
     </>

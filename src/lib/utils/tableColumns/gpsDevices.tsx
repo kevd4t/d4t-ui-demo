@@ -1,46 +1,86 @@
-import { IconClipboard, IconDots, IconEdit, IconEye, IconEyeOff, IconSortAscending, IconSortDescending } from '@tabler/icons-react'
+import { IconDots, IconEdit, IconEye, IconEyeOff, IconSortAscending, IconSortDescending, IconX } from '@tabler/icons-react'
 import { Column, ColumnDef } from '@tanstack/react-table'
 import { ChevronsUpDown } from 'lucide-react'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { toast } from 'sonner'
 
+import { useFetch } from '@/lib/hooks/useFetch'
 import { IGPSDevice } from '@/lib/types'
-import { Badge, Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Avatar, AvatarImage, AvatarFallback } from '@/components/ui'
+
+import { Badge, Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Avatar, AvatarImage, AvatarFallback, AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle, AlertDialogDescription, AlertDialogFooter, AlertDialogCancel, AlertDialogAction } from '@/components/ui'
+import { Spinner } from '@/components/common/loaders/Spinner'
 
 export const GpsDeviceRowActions = ({ gpsDevice }: { gpsDevice: IGPSDevice }) => {
   const router = useRouter()
+  const [isOpenAlert, setOpenAlert] = useState(false)
+  const { isLoading, error, fetcher } = useFetch()
 
+  const blockGpsDevice = async () => {
+    const data: any = await fetcher(`/api/gps-devices/${gpsDevice.id}/block`, { method: 'PUT' })
+
+    if (error) {
+      toast.error('Hubo un error')
+      return
+    }
+
+    console.log({ data })
+    toast.success(`Dispositivo ${gpsDevice.serial} ha sido bloqueado`)
+    setOpenAlert(false)
+  }
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant='ghost' className='h-8 w-8 p-0'>
-          <span className='sr-only'>Abrir menu</span>
-          <IconDots className='h-4 w-4' />
-        </Button>
-      </DropdownMenuTrigger>
+    <>
+      <AlertDialog open={isOpenAlert}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>¿Esta seguro de bloquear este dispositivo?</AlertDialogTitle>
+            <AlertDialogDescription>
+                Se bloqueara el dispositivo {gpsDevice.serial}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
 
-      <DropdownMenuContent align='end'>
-        <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isLoading} onClick={() => setOpenAlert(false)}>
+              Cancelar
+            </AlertDialogCancel>
 
-        <DropdownMenuSeparator />
+            <AlertDialogAction disabled={isLoading} onClick={blockGpsDevice} className='w-[89px]'>
+              { isLoading ? <Spinner /> : 'Bloquear' }
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
-        <DropdownMenuItem onClick={() => router.push(`/categorias/${gpsDevice.id}`)}>
-          <IconEye className='mr-2 h-4 w-4' />
-          Ver Estación
-        </DropdownMenuItem>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant='ghost' className='h-8 w-8 p-0'>
+            <span className='sr-only'>Abrir menu</span>
+            <IconDots className='h-4 w-4' />
+          </Button>
+        </DropdownMenuTrigger>
 
-        <DropdownMenuItem onClick={() => router.push(`/categorias/${gpsDevice.id}/editar`)}>
-          <IconEdit className='mr-2 h-4 w-4' />
-          Editar Estación
-        </DropdownMenuItem>
+        <DropdownMenuContent align='end'>
+          <DropdownMenuLabel>Acciones</DropdownMenuLabel>
 
-        <DropdownMenuSeparator />
+          <DropdownMenuSeparator />
 
-        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(gpsDevice.id.toString())}>
-          <IconClipboard className='h-4 w-4 mr-2' />
-          Copiar ID
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+          <DropdownMenuItem onClick={() => router.push(`/ajustes/dispositivos-gps/${gpsDevice.id}`)}>
+            <IconEye className='mr-2 h-4 w-4' />
+            Ver Dispositivo
+          </DropdownMenuItem>
+
+          <DropdownMenuItem onClick={() => router.push(`/ajustes/dispositivos-gps/${gpsDevice.id}/editar`)}>
+            <IconEdit className='mr-2 h-4 w-4' />
+            Editar Dispositivo
+          </DropdownMenuItem>
+
+          <DropdownMenuItem onClick={() => setOpenAlert(true)}>
+            <IconX className='mr-2 h-4 w-4' />
+            Bloquear Modelo
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
   )
 }
 

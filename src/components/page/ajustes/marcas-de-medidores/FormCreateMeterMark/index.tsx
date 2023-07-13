@@ -311,7 +311,7 @@ export const FormCreateMeterMark = () => {
               <UploadImage
                 zoom
                 label='Imagen del Modelo'
-                emptyClassName='h-[200px]'
+                emptyClassName='h-[300px]'
                 onChange={onChangeImageMeterModel}
                 imageToUpload={modelImage.compressed}
                 uploadLabel='Cargar Imagen del Modelo'

@@ -10,7 +10,7 @@ const { ROUTES } = siteConfig
 const CreateMeterMarksSettingsPage = () => {
   return (
     <>
-      <HeaderPage title='Crear Marca de Medidor' containerClassName='pb-0' />
+      <HeaderPage allowGoBack title='Crear Marca de Medidor' containerClassName='pb-0' />
       <FormCreateMeterMark />
     </>
   )

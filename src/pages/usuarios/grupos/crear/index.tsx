@@ -9,7 +9,7 @@ const { ROUTES } = siteConfig
 const CreateUserGroupPage = () => {
   return (
     <>
-      <HeaderPage title='Crear Grupo de Usuarios' containerClassName='pb-0' />
+      <HeaderPage allowGoBack title='Crear Grupo de Usuarios' containerClassName='pb-0' />
     </>
   )
 }

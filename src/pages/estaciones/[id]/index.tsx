@@ -34,7 +34,7 @@ const DetailUserPage = () => {
 
   return (
     <>
-      <HeaderPage title={`Detalle de Estación ${router.query.id}`} />
+      <HeaderPage allowGoBack title={`Detalle de Estación ${router.query.id}`} />
     </>
   )
 }

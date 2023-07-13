@@ -1,46 +1,93 @@
-import { IconClipboard, IconDots, IconEdit, IconEye, IconEyeOff, IconSortAscending, IconSortDescending, IconStatusChange } from '@tabler/icons-react'
+import { IconAdOff, IconClipboard, IconDots, IconEdit, IconEye, IconEyeOff, IconFidgetSpinner, IconSortAscending, IconSortDescending, IconStatusChange } from '@tabler/icons-react'
 import { Column, ColumnDef } from '@tanstack/react-table'
 import { ChevronsUpDown } from 'lucide-react'
 import { useRouter } from 'next/router'
 
 import { IItemToFilter, IGPSMark } from '@/lib/types'
-import { Badge, Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui'
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, Badge, Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui'
+import { useFetch } from '@/lib/hooks/useFetch'
+import { useState } from 'react'
+import { toast } from 'sonner'
 
 export const GpsMarkRowActions = ({ gpsMark }: { gpsMark: IGPSMark }) => {
+  const [openAlert, setOpenAlert] = useState(false)
+  const { isLoading, error, fetcher } = useFetch()
   const router = useRouter()
 
+  const blockGpsMark = async () => {
+    const data: any = await fetcher(`/api/gps-mark/${gpsMark.id}/block`, { method: 'PUT' })
+
+    if (error) {
+      toast.error('Hubo un error')
+      return
+    }
+
+    console.log({ data })
+    toast.success(`${gpsMark.title} ha sido bloqueado`)
+    setOpenAlert(false)
+  }
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant='ghost' className='h-8 w-8 p-0'>
-          <span className='sr-only'>Abrir menu</span>
-          <IconDots className='h-4 w-4' />
-        </Button>
-      </DropdownMenuTrigger>
+    <>
+      <AlertDialog open={openAlert}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>¿Esta seguro de bloquear este usuario?</AlertDialogTitle>
 
-      <DropdownMenuContent align='end'>
-        <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+            <AlertDialogDescription>
+                Se bloqueara la unidad {gpsMark.title}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
 
-        <DropdownMenuSeparator />
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isLoading} onClick={() => setOpenAlert(false)}>
+              Cancelar
+            </AlertDialogCancel>
 
-        <DropdownMenuItem onClick={() => router.push(`/categorias/${gpsMark.id}`)}>
-          <IconEye className='mr-2 h-4 w-4' />
-          Ver Estación
-        </DropdownMenuItem>
+            <AlertDialogAction disabled={isLoading} onClick={blockGpsMark} className='w-[89px]'>
+              { isLoading ? <IconFidgetSpinner /> : 'Bloquear' }
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
-        <DropdownMenuItem onClick={() => router.push(`/categorias/${gpsMark.id}/editar`)}>
-          <IconEdit className='mr-2 h-4 w-4' />
-          Editar Estación
-        </DropdownMenuItem>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant='ghost' className='h-8 w-8 p-0'>
+            <span className='sr-only'>Abrir menu</span>
+            <IconDots className='h-4 w-4' />
+          </Button>
+        </DropdownMenuTrigger>
 
-        <DropdownMenuSeparator />
+        <DropdownMenuContent align='end'>
+          <DropdownMenuLabel>Acciones</DropdownMenuLabel>
 
-        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(gpsMark.id.toString())}>
-          <IconClipboard className='h-4 w-4 mr-2' />
-          Copiar ID
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+          <DropdownMenuSeparator />
+
+          <DropdownMenuItem onClick={() => router.push(`/ajustes/marcas-de-gps/${gpsMark.id}`)}>
+            <IconEye className='mr-2 h-4 w-4' />
+            Ver Marca de GPS
+          </DropdownMenuItem>
+
+          <DropdownMenuItem onClick={() => router.push(`/ajustes/marcas-de-gps/${gpsMark.id}/editar`)}>
+            <IconEdit className='mr-2 h-4 w-4' />
+            Editar Marca de GPS
+          </DropdownMenuItem>
+
+          <DropdownMenuItem onClick={() => setOpenAlert(true)}>
+            <IconAdOff className='mr-2 h-4 w-4' />
+            Bloquear Marca de GPS
+          </DropdownMenuItem>
+
+          <DropdownMenuSeparator />
+
+          <DropdownMenuItem onClick={() => navigator.clipboard.writeText(gpsMark.id.toString())}>
+            <IconClipboard className='h-4 w-4 mr-2' />
+            Copiar ID
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
   )
 }
 

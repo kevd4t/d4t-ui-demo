@@ -10,7 +10,7 @@ const { ROUTES } = siteConfig
 const CreateUserPage = () => {
   return (
     <>
-      <HeaderPage title='Crear Usuario' containerClassName='pb-0' />
+      <HeaderPage allowGoBack title='Crear Usuario' containerClassName='pb-0' />
       <FormCreateUser />
     </>
   )

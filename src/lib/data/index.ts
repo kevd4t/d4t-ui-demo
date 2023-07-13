@@ -357,7 +357,31 @@ const statusType = [
 const gpsModels: IGPSModel[] = [
   {
     id: 87,
-    title: 'VTS GT02',
+    title: 'VTS GT04',
+    description: 'lorem ipsu detniat',
+    image: 'https://via.placeholder.com/200/ff4d4d',
+    isActive: true,
+    type: 'Operativo'
+  },
+  {
+    id: 51,
+    title: 'VTS GT05',
+    description: 'lorem ipsu detniat',
+    image: 'https://via.placeholder.com/200/red',
+    isActive: true,
+    type: 'Operativo'
+  },
+  {
+    id: 23,
+    title: 'VTS GT07',
+    description: 'lorem ipsu detniat',
+    image: 'https://via.placeholder.com/200/ffed5f',
+    isActive: true,
+    type: 'Operativo'
+  },
+  {
+    id: 11,
+    title: 'VTS GT11',
     description: 'lorem ipsu detniat',
     image: 'https://via.placeholder.com/200/red',
     isActive: true,
@@ -373,6 +397,14 @@ const gpsMarks: IGPSMark[] = [
     image: 'https://via.placeholder.com/100/red',
     isActive: true,
     gpsModels
+  },
+  {
+    id: 631,
+    title: 'Digitel',
+    description: 'lorem ipsu detniat',
+    image: 'https://via.placeholder.com/100/00f46c',
+    isActive: false,
+    gpsModels: [gpsModels[0], gpsModels[2]]
   }
 ]
 
@@ -439,7 +471,12 @@ export const gpsDevices: IGPSDevice[] = [
   {
     id: 257,
     serial: 'J-454NX2',
-    image: 'https://via.placeholder.com/100/red',
+    images: [
+      'https://via.placeholder.com/200/ff4d4d',
+      'https://via.placeholder.com/200/blue',
+      'https://via.placeholder.com/200/00f46c',
+      'https://via.placeholder.com/200/ffed5f'
+    ],
     status: 'Operativo',
     fleet: fleets[0],
     gpsMark: gpsMarks[0],
@@ -477,7 +514,13 @@ export const stations: IStation[] = [
     city: cities[0],
     metersCount: 44,
     reference: 'Estación de Servicio Las Mercedes, ubicado en las Mercedes :D',
-    trucks
+    trucks,
+    images: [
+      'https://via.placeholder.com/200/ff4d4d',
+      'https://via.placeholder.com/200/blue',
+      'https://via.placeholder.com/200/00f46c',
+      'https://via.placeholder.com/200/ffed5f'
+    ]
   }
 ]
 

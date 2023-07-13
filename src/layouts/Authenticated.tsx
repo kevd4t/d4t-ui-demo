@@ -5,7 +5,7 @@ import { useSidebarStore } from '@/lib/store/sidebar'
 import type { ReactNode } from '@/lib/types'
 
 import { GlobalCommandMenu } from '@/components/layout/authenticated/GlobalCommandMenu'
-import { PageTransition } from '@/components/layout/common/PageTransition'
+// import { PageTransition } from '@/components/layout/common/PageTransition'
 // import DocslyClient from '@/components/layout/authenticated/DocslyClient'
 import { Sidebar } from '@/components/layout/authenticated'
 import { Button } from '@/components/ui'
@@ -44,7 +44,9 @@ export const AuthenticatedLayout = ({ children, title, mainClassName, noPageTran
         </Button>
 
         <main className={`p-6 sm:p-10 min-h-screen h-full w-full max-w-[1440px] mx-auto ${mainClassName}`}>
-          {
+          {children}
+
+          {/* {
             noPageTransition
               ? (<>{ children }</>)
               : (
@@ -52,7 +54,7 @@ export const AuthenticatedLayout = ({ children, title, mainClassName, noPageTran
                   {children}
                 </PageTransition>
               )
-          }
+          } */}
         </main>
       </div>
     </>

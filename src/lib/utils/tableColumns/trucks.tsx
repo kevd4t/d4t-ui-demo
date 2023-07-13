@@ -1,26 +1,23 @@
 import { IconClipboard, IconDots, IconEdit, IconEye, IconEyeOff, IconSortAscending, IconSortDescending, IconTruck, IconTruckOff } from '@tabler/icons-react'
 import { Column, ColumnDef } from '@tanstack/react-table'
 import { ChevronsUpDown } from 'lucide-react'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import JSConfetti from 'js-confetti'
+import { useState } from 'react'
 import { toast } from 'sonner'
 
 import { IFormEditTruck, IFormRules, ITruck } from '@/lib/types'
 
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, Badge, Button, Checkbox, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, Label, ScrollArea } from '@/components/ui'
-import { ImagesSlider } from '@/components/common/sliders/ImagesSlider'
-import { Input } from '@/components/common/inputs/Input'
-import { Spinner } from '@/components/common/loaders/Spinner'
-import { useFetch } from '@/lib/hooks/useFetch'
-import { GenericSelect } from '@/components/common/selects'
-import { UploadImage } from '@/components/common/uploadImages'
-import { convertBytes } from '../formaters'
-import { compressImage } from '../handleCompressionImage'
-import { simulateFetch } from '../simulateFetch'
-import { APP_CONFIG } from '@/config'
 import { MultipleImages } from '@/components/common/uploadImages/MultipleImages'
+import { ImagesSlider } from '@/components/common/sliders/ImagesSlider'
+import { Spinner } from '@/components/common/loaders/Spinner'
+import { GenericSelect } from '@/components/common/selects'
+import { Input } from '@/components/common/inputs/Input'
+import { simulateFetch } from '../simulateFetch'
+import { useFetch } from '@/lib/hooks/useFetch'
+import { APP_CONFIG } from '@/config'
 
 type TMeterModelFields = 'title' | 'numberPlate' | 'status' | 'station' | 'gps'
 export const meterModelRules: IFormRules<TMeterModelFields> = {
@@ -350,7 +347,7 @@ export const TruckRowActions = ({ truck }: { truck: ITruck }) => {
                 <MultipleImages
                   zoom
                   label='Imagen del Unidad'
-                  emptyClassName='h-[200px]'
+                  emptyClassName='h-[300px]'
                   onChange={onChangeMultipleTruckImages}
                   imageToUpload={multipleTruckImages.map(truckImage => truckImage.data_url)}
                   uploadLabel='Cargar Fotos de la Unidad'

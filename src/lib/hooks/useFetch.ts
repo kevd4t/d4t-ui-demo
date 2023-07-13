@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { RequestInit } from '../types'
 
-export function useFetch<IData = unknown> (initialUrl?: string) {
+export function useFetch<IData = unknown> (initialUrl?: string, noInitialFetch?: boolean) {
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState<IData>(null)
   const [error, setError] = useState(null)
@@ -35,12 +35,12 @@ export function useFetch<IData = unknown> (initialUrl?: string) {
     //   return
     // }
 
-    if (initialUrl) {
+    if (initialUrl && !noInitialFetch) {
       fetcher(initialUrl)
     }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialUrl])
+  }, [initialUrl, noInitialFetch])
 
   return { data, isLoading, error, fetcher }
 }

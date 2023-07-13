@@ -31,15 +31,15 @@ const GPSSettingsPage = () => {
   return (
     <>
       <HeaderPage
-        title='Marcas de GPS'
+        title='Dispositivos GPS'
         createItems={[{ href: '/ajustes/dispositivos-gps/crear', title: 'Crear Dispositivo GPS' }]}
       />
 
       <Table
         visibilityColumns
         data={data?.results}
-        columns={gpsDeviceColumns}
         pagination={pagination}
+        columns={gpsDeviceColumns}
         queryInfo={{ isFetching: isLoading, error }}
         inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Dispositivo GPS' }}
       />

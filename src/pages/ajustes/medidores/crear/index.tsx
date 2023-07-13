@@ -10,7 +10,7 @@ const { ROUTES } = siteConfig
 const CreateMeterDeviceSettingsPage = () => {
   return (
     <>
-      <HeaderPage title='Crear Medidor' containerClassName='pb-0' />
+      <HeaderPage allowGoBack title='Crear Medidor' containerClassName='pb-0' />
       <FormCreateMeterDevice />
     </>
   )

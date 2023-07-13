@@ -1,7 +1,6 @@
 import { PaginationState } from '@tanstack/react-table'
 import { useState } from 'react'
 
-import { meterMarkColumns, meterMarkColumnsToFilter } from '@/lib/utils/tableColumns/meterMarks'
 import { handleFetchUrlGpsMarks } from '@/lib/services/settings/gps/marks'
 import type { IFetchDataTable, ReactElement } from '@/lib/types'
 import { useFetch } from '@/lib/hooks/useFetch'
@@ -11,6 +10,7 @@ import { siteConfig } from '@/config'
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
 import { Table } from '@/components/common/tables/GenericTable'
+import { gpsMarkColumns, gpsMarkColumnsToFilter } from '@/lib/utils/tableColumns/gpsMarks'
 
 const { ROUTES } = siteConfig
 
@@ -40,11 +40,11 @@ const MetersMarksSettingsPage = () => {
       <Table
         visibilityColumns
         data={data?.results}
-        columns={meterMarkColumns}
-        itemsToFilter={meterMarkColumnsToFilter}
+        columns={gpsMarkColumns}
+        itemsToFilter={gpsMarkColumnsToFilter}
         pagination={pagination}
         queryInfo={{ isFetching: isLoading, error }}
-        inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Marca de Medidor' }}
+        inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Marca de GPS' }}
       />
     </>
   )

@@ -35,7 +35,7 @@ const DetailMeterDevicePage = () => {
 
   return (
     <>
-      <HeaderPage title={`Detalle de Medidor ${router.query.id}`} />
+      <HeaderPage allowGoBack title={`Detalle de Medidor ${router.query.id}`} />
       { data?.results && <DetailMeterDevice meterDevice={data?.results as IMeterDevice} /> }
     </>
   )

@@ -60,7 +60,7 @@ const EditUserPage = () => {
 
   return (
     <>
-      <HeaderPage title={`Editar Usuario ${router.query.id}`} />
+      <HeaderPage allowGoBack title={`Editar Usuario ${router.query.id}`} />
       <FormEditUser user={user} />
     </>
   )

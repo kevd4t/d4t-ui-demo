@@ -60,7 +60,7 @@ const DetailMeterMarkPage = () => {
 
   return (
     <>
-      <HeaderPage title={`Detalle de Marca de Medidor ${router.query.id}`} />
+      <HeaderPage allowGoBack title={`Detalle de Marca de Medidor ${router.query.id}`} />
       <DetailMeterMark meterMark={meterMark} />
     </>
   )

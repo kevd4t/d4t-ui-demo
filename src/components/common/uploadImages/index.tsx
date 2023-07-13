@@ -56,8 +56,6 @@ export const UploadImage = ({
         acceptType={['webp', 'png', 'jpg', 'jpeg']}
       >
         {({ imageList, onImageUpload, onImageUpdate, onImageRemove, isDragging, dragProps }) => {
-          console.log({ imageList })
-
           return (
             (
               <>

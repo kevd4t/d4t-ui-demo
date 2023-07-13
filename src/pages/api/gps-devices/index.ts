@@ -5,6 +5,7 @@ const handleApiGpsDevices = (req: NextApiRequest, res: NextApiResponse) => {
   const gpsDevices = getFakeData('GPS_DEVICES')
 
   return res.status(200).json({
+    code: 'GPD4651',
     info: {
       nextPage: 2,
       prevPage: null

@@ -34,7 +34,7 @@ const EditUserPage = () => {
 
   return (
     <>
-      <HeaderPage title={`Editar Estación ${router.query.id}`} />
+      <HeaderPage allowGoBack title={`Editar Estación ${router.query.id}`} />
     </>
   )
 }

@@ -60,7 +60,7 @@ const EditFleetPage = () => {
 
   return (
     <>
-      <HeaderPage title={`Editar Flota ${router.query.id}`} />
+      <HeaderPage allowGoBack title={`Editar Flota ${router.query.id}`} />
       {
         fleet?.results && (<FormEditFleet fleet={fleet.results} />)
       }

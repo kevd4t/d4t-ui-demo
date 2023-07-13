@@ -10,7 +10,7 @@ const { ROUTES } = siteConfig
 const CreateFleetsSettingsPage = () => {
   return (
     <>
-      <HeaderPage title='Crear Flota' containerClassName='pb-0' />
+      <HeaderPage allowGoBack title='Crear Flota' containerClassName='pb-0' />
       <FormCreateFleet />
     </>
   )
