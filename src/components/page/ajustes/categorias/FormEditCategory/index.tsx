@@ -23,7 +23,7 @@ interface IModalState {
   open: boolean
   label: string
   illustration?: ReactNode
-  type: 'CREATE_STATUS' | 'CREATING_TYPE_STATUS' | 'CREATING_STATUS' | 'TYPE_STATUS_CREATED' | 'STATUS_CREATED'
+  type: 'CREATE_CITY' | 'CREATING_STATE' | 'CREATING_CITY' | 'STATE_CREATED' | 'CITY_CREATED'
 }
 
 export const FormEditCategory = ({ category }: { category: ICategoryWithSubCategories }) => {
@@ -55,10 +55,10 @@ export const FormEditCategory = ({ category }: { category: ICategoryWithSubCateg
     }
 
     setLoading(({ meessage: 'Creando Categoria', value: true }))
-    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Categoria', open: true, type: 'CREATING_TYPE_STATUS' }))
+    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Categoria', open: true, type: 'CREATING_STATE' }))
     await simulateFetch(3000)
 
-    setModalInfo(prevState => ({ ...prevState, type: 'TYPE_STATUS_CREATED', label: 'Categoria Creada', illustration: <Congratulations className='h-72' /> }))
+    setModalInfo(prevState => ({ ...prevState, type: 'STATE_CREATED', label: 'Categoria Creada', illustration: <Congratulations className='h-72' /> }))
     toast.success('Categoria Creada Exitosamente')
     setLoading({ meessage: '', value: false })
     const jsConfetti = new JSConfetti()

@@ -79,8 +79,8 @@ export const SectionsCollapsable = ({ toggleSidebar, isOpen, logout }) => {
               icon={<IconSettings className='dark:text-white' />}
               subLinks={[
                 {
-                  label: 'Ciudades',
-                  to: '/ajustes/ciudades',
+                  label: 'Ubicaciones',
+                  to: '/ajustes/ubicaciones/estados',
                   icon: <IconBuildingSkyscraper className='dark:text-white' />
                 },
                 {

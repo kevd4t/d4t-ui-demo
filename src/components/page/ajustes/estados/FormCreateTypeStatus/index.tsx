@@ -25,7 +25,7 @@ interface IModalState {
   open: boolean
   label: string
   illustration?: ReactNode
-  type: 'CREATE_STATUS' | 'CREATING_TYPE_STATUS' | 'CREATING_STATUS' | 'TYPE_STATUS_CREATED' | 'STATUS_CREATED'
+  type: 'CREATE_CITY' | 'CREATING_STATE' | 'CREATING_CITY' | 'STATE_CREATED' | 'CITY_CREATED'
 }
 
 export const FormCreateTypeStatus = () => {
@@ -51,7 +51,7 @@ export const FormCreateTypeStatus = () => {
     setStatusToCreate(prevState => prevState.filter((_, subCategoryIdx) => (subCategoryIdx !== idx)))
   }
 
-  const handleOpenCreateStatusModal = (value: boolean) => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_STATUS', open: value }))
+  const handleOpenCreateStatusModal = (value: boolean) => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_CITY', open: value }))
 
   const onSubmitFormTypeStatus = async (data) => {
     if (!statusToCreate?.length) {
@@ -61,10 +61,10 @@ export const FormCreateTypeStatus = () => {
     }
 
     setLoading(({ meessage: 'Creando Tipo de Estado', value: true }))
-    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Tipo de Estado', open: true, type: 'CREATING_TYPE_STATUS' }))
+    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Tipo de Estado', open: true, type: 'CREATING_STATE' }))
     await simulateFetch(3000)
 
-    setModalInfo(prevState => ({ ...prevState, type: 'TYPE_STATUS_CREATED', label: 'Tipo de Estado Creado', illustration: <Congratulations className='h-72' /> }))
+    setModalInfo(prevState => ({ ...prevState, type: 'STATE_CREATED', label: 'Tipo de Estado Creado', illustration: <Congratulations className='h-72' /> }))
     toast.success('Tipo de Estado Creado Exitosamente')
     setLoading({ meessage: '', value: false })
     const jsConfetti = new JSConfetti()
@@ -119,7 +119,7 @@ export const FormCreateTypeStatus = () => {
       </Dialog>
 
       {/* Crear Estado */}
-      <Dialog open={modalInfo.type === 'CREATE_STATUS' && modalInfo.open} onOpenChange={handleOpenCreateStatusModal}>
+      <Dialog open={modalInfo.type === 'CREATE_CITY' && modalInfo.open} onOpenChange={handleOpenCreateStatusModal}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Crear Estado</DialogTitle>

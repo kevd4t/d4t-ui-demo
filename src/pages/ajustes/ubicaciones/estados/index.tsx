@@ -1,27 +1,27 @@
 import { PaginationState } from '@tanstack/react-table'
 import { useState } from 'react'
 
-import type { ICity, IFetchDataTable, ReactElement } from '@/lib/types'
-import { cityColumns } from '@/lib/utils/tableColumns/cities'
+import type { IFetchDataTable, IState, ReactElement } from '@/lib/types'
 import { handleFetchUrlCities } from '@/lib/services/cities'
 import { useFetch } from '@/lib/hooks/useFetch'
 import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
+import { getStateColumns } from '@/lib/utils/tableColumns/states'
 import { Table } from '@/components/common/tables/GenericTable'
 
 const { ROUTES } = siteConfig
 
-const CitiesSettingsPage = () => {
+const StatesSettingsPage = () => {
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
-  const { data, error, isLoading, fetcher } = useFetch<IFetchDataTable<ICity>>('/api/cities')
+  const { data, error, isLoading, fetcher } = useFetch<IFetchDataTable<IState>>('/api/states')
 
   const pagination = {
     pageSize,
     pageIndex,
     setPagination,
-    labels: { pluralItem: 'Ciudades', singularItem: 'Ciudad' }
+    labels: { pluralItem: 'Estados', singularItem: 'Estado' }
   }
 
   const handleSearchWithParams = async ({ search }) => {
@@ -32,23 +32,23 @@ const CitiesSettingsPage = () => {
   return (
     <>
       <HeaderPage
-        title='Ciudades'
-        createItems={[{ href: '/ajustes/ciudades/crear', title: 'Crear Ciudad' }]}
+        title='Estados'
+        createItems={[{ href: '/ajustes/ubicaciones/estados/crear', title: 'Crear Estado' }]}
       />
 
       <Table
         visibilityColumns
         data={data?.results}
-        columns={cityColumns}
         pagination={pagination}
         queryInfo={{ isFetching: isLoading, error }}
-        inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Ciudad' }}
+        columns={getStateColumns({ actions: { detail: true, delete: true } })}
+        inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Estado' }}
       />
     </>
   )
 }
 
-CitiesSettingsPage.getLayout = function getLayout (page: ReactElement) {
+StatesSettingsPage.getLayout = function getLayout (page: ReactElement) {
   return (
     <AuthenticatedLayout title={`${ROUTES.SETTINGS.CITIES.LIST.TITLE} | ${siteConfig.TITLE}`} >
       {page}
@@ -56,4 +56,4 @@ CitiesSettingsPage.getLayout = function getLayout (page: ReactElement) {
   )
 }
 
-export default CitiesSettingsPage
+export default StatesSettingsPage

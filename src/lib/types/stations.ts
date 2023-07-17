@@ -1,4 +1,4 @@
-import { ICity } from './cities'
+import { ICity } from './states-cities'
 import { ITruck } from './trucks'
 
 export interface IStation {

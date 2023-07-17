@@ -1,4 +1,4 @@
-import { ICity, IFleet, IMeterDevice, IMeterMark, IMeterModel, IState, IStation, ITruck, IUser, IUserGroup } from '../types/'
+import { ICity, IFleet, IMeterDevice, IMeterMark, IMeterModel, IStation, ITruck, IUser, IUserGroup } from '../types/'
 import { IGPSDevice, IGPSMark, IGPSModel } from '../types/gps'
 import { IRoute } from '../types/routes'
 
@@ -485,12 +485,11 @@ export const gpsDevices: IGPSDevice[] = [
   }
 ]
 
-export const states: IState[] = [
+export const states: any[] = [
   {
     id: 343,
-    latCenter: '10.475133262177959',
-    lngCenter: '-66.89036951713241',
-    title: 'Distrito Capital'
+    title: 'Distrito Capital',
+    isActive: true
   }
 ]
 
@@ -498,8 +497,7 @@ export const cities: ICity[] = [
   {
     id: 105,
     title: 'Caracas',
-    lat: '10.475133262177959',
-    lng: '-66.89036951713241'
+    isActive: true
   }
 ]
 
@@ -572,7 +570,9 @@ type TypeData =
   'STATIONS' |
   'GPS_DEVICES' |
   'METER_DEVICES' |
-  'ROUTES'
+  'ROUTES' |
+  'STATES' |
+  'CITIES'
 
 const FAKE_DATA_DIC = {
   USERS: () => fakeUsers,
@@ -590,7 +590,7 @@ const FAKE_DATA_DIC = {
     return fleets.trucks.map(truck => ({ ...truck, gps: gpsDevices[0], station: stations[0] }))
   }),
   STATIONS: () => stations,
-  STATES: () => states,
+  STATES: () => states.map(state => ({ ...state, cities })),
   CITIES: () => cities,
   GPS_DEVICES: () => gpsDevices,
   METER_DEVICES: () => meterDevices,
