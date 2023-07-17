@@ -364,10 +364,10 @@ export const FormEditMeterDevice = ({ meterDevice }: { meterDevice: IMeterDevice
 
           <Card className='p-4 mt-6 w-full'>
             <CardTitle className='w-full flex flex-row justify-between items-center'>
-              <div>Estaciones</div>
+              <div>Estación</div>
 
               <Button onClick={() => setShowTableStations(prevState => !prevState)}>
-                { showTableStations ? 'Cancelar' : 'Cambiar Estaciones' }
+                { showTableStations ? 'Cancelar' : 'Cambiar Estación' }
               </Button>
             </CardTitle>
 
