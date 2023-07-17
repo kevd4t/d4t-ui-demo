@@ -8,14 +8,11 @@ import { toast } from 'sonner'
 import type { IFormCreateStatus, IFormCreateStatusType, IFormCreateSubcategory, ReactNode } from '@/lib/types'
 import { getSubcategoryColumns } from '@/lib/utils/tableColumns/subcategories'
 import { simulateFetch } from '@/lib/utils/simulateFetch'
-import { convertHexToRGBA } from '@/lib/utils/hexToRGB'
 import { cityRules, stateRules } from './rules'
 
-import { Badge, Button, Card, CardContent, CardDescription, CardTitle, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, Label, Separator } from '@/components/ui'
+import { Badge, Button, Card, CardContent, CardDescription, CardTitle, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, Separator } from '@/components/ui'
 import { Congratulations } from '@/components/common/illustrations/Congratulations'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
-import { PopoverPicker } from '@/components/common/date-picker/PopoverPicker'
-import { ColorSquare } from '@/components/common/date-picker/ColorSquare'
 import { Table } from '@/components/common/tables/GenericTable'
 import { GenericSelect } from '@/components/common/selects'
 import { Input } from '@/components/common/inputs/Input'
@@ -34,10 +31,7 @@ export const FormCreateState = () => {
   const [statusToCreate, setStatusToCreate] = useState<any[]>([])
   const formTypeStatus = useForm<IFormCreateStatusType>()
   const formStatus = useForm<IFormCreateStatus>()
-  const [statusColor, setStatusColor] = useState('#b32aa9')
   const router = useRouter()
-
-  const presetStatusColors = ['#cd9323', '#1a53d8', '#9a2151', '#0d6416', '#8d2808']
 
   const pagination = {
     pageSize,
@@ -83,7 +77,6 @@ export const FormCreateState = () => {
       isActive: data.isActive
     }
 
-    console.log({ ...subcategoryToCreate, color: statusColor })
     setStatusToCreate(prevState => [...prevState, { ...subcategoryToCreate }])
 
     // setModalInfo(prevState => ({ ...prevState, type: 'CATEGORY_CREATED', label: 'Subcategoria Creada', illustration: <Congratulations className='h-72' /> }))
