@@ -15,7 +15,7 @@ import { useFetch } from '@/lib/hooks/useFetch'
 import { gpsDeviceRules } from './rules'
 // import { APP_CONFIG } from '@/config'
 
-import { AvatarFallback, AvatarImage, Badge, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Dialog, DialogContent, DialogHeader, Separator, Skeleton } from '@/components/ui'
+import { AvatarFallback, AvatarImage, Badge, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Dialog, DialogContent, DialogHeader, Separator, Skeleton } from '@/components/ui'
 import { Congratulations } from '@/components/common/illustrations/Congratulations'
 import { MultipleImages } from '@/components/common/uploadImages/MultipleImages'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
@@ -33,6 +33,7 @@ interface IModalState {
 }
 
 export const FormEditGpsDevice = ({ gpsDevice }: { gpsDevice: IGPSDevice }) => {
+  const [multipleGpsDeviceImages, setMultipleGpsDeviceImages] = useState(gpsDevice.images.map(imageSrc => ({ data_url: imageSrc, file: null })))
   const [modalInfo, setModalInfo] = useState<IModalState>({ open: false, label: '', illustration: null, type: null })
   const [gpsMarkPagitationPagesInfo, setGpsMarkPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
   const [stationPagitationPagesInfo, setStationPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
@@ -40,12 +41,13 @@ export const FormEditGpsDevice = ({ gpsDevice }: { gpsDevice: IGPSDevice }) => {
   const [tableTrucksSelected, setTableTrucksSelected] = useState<RowSelectionState>({})
   const [fullDataGpsModelsSelected, setFullDataGpsModelsSelected] = useState([])
   const [fullDataTrucksSelected, setFullDataTrucksSelected] = useState([])
-  const [multipleGpsDeviceImages, setMultipleGpsDeviceImages] = useState([])
   const [loading, setLoading] = useState({ meessage: '', value: false })
   const [showGpsModelsTable, setShowGpsModelsTable] = useState(false)
   const [showTrucksTable, setShowTrucksTable] = useState(false)
   const [isEditGpsModel, setIsEditGpsModel] = useState(false)
-  const formGpsDevice = useForm<IFormCreateGPSDevice>()
+  const formGpsDevice = useForm<IFormCreateGPSDevice>({
+    defaultValues: { serial: gpsDevice.serial, status: gpsDevice.status }
+  })
 
   const { data: gpsModelsData, error: gpsModelsError, isLoading: isLoadingGpsModels, fetcher: gpsModelsfetcher } = useFetch<IFetchDataTable<IGPSModel>>(null, true)
   const { data: trucksData, error: trucksError, isLoading: isLoadingTrucks, fetcher: trucksfetcher } = useFetch<IFetchDataTable<ITruck>>(null, true)
@@ -79,6 +81,15 @@ export const FormEditGpsDevice = ({ gpsDevice }: { gpsDevice: IGPSDevice }) => {
   const handleCancelSelectGpsModel = () => {
     setTableGpsModelsSelected({})
     setShowGpsModelsTable(false)
+    setIsEditGpsModel(false)
+  }
+
+  const toggleAllowSelectGpsModel = () => {
+    if (isEditGpsModel) {
+      setIsEditGpsModel(false)
+    }
+
+    setIsEditGpsModel(true)
   }
 
   const handleCancelSelectTruck = () => {
@@ -286,18 +297,21 @@ export const FormEditGpsDevice = ({ gpsDevice }: { gpsDevice: IGPSDevice }) => {
                 isEditGpsModel
                   ? (
                     <>
-                      {
+                      <Button onClick={handleCancelSelectGpsModel}>
+                        Regresar
+                      </Button>
+                      {/* {
                         showGpsModelsTable && (
                           <Button onClick={handleCancelSelectGpsModel}>
                             Regresar
                           </Button>
                         )
-                      }
+                      } */}
                     </>
                   )
                   : (
-                    <Button onClick={handleCancelSelectGpsModel}>
-                      Editar Modelos
+                    <Button onClick={toggleAllowSelectGpsModel}>
+                      Cambiar Modelo
                     </Button>
                   )
               }
@@ -388,17 +402,21 @@ export const FormEditGpsDevice = ({ gpsDevice }: { gpsDevice: IGPSDevice }) => {
                   </>
                 )
                 : (
-                  <Card key={gpsDevice.gpsModel.id} className={`w-full ${gpsMarksData?.results.length > 1 ? '' : 'mx-auto'}`}>
+                  <Card key={gpsDevice?.gpsModel?.id} className={`w-full ${gpsMarksData?.results.length > 1 ? '' : 'mx-auto'}`}>
                     <CardHeader>
                       <section className='flex w-full justify-between items-end'>
-                        <CardTitle>Marca: {gpsDevice.gpsModel.title}</CardTitle>
+                        <CardTitle>Marca: {gpsDevice?.gpsModel?.title}</CardTitle>
 
                         <Badge className=' wmin text-sm'>
-                          {gpsDevice.gpsModel.isActive ? 'Activo' : 'Bloqueado'}
+                          {gpsDevice?.gpsModel?.isActive ? 'Activo' : 'Bloqueado'}
                         </Badge>
                       </section>
 
-                      <CardDescription>Referencia: {gpsDevice.gpsModel.description}</CardDescription>
+                      <CardDescription>Referencia: {gpsDevice?.gpsModel?.description}</CardDescription>
+
+                      <Badge className='w-min'>
+                        {gpsDevice.gpsModel.type}
+                      </Badge>
                     </CardHeader>
 
                     <CardContent>
@@ -407,8 +425,8 @@ export const FormEditGpsDevice = ({ gpsDevice }: { gpsDevice: IGPSDevice }) => {
                           <AvatarImage
                             width={100}
                             height={100}
-                            src={gpsDevice.gpsModel.image}
-                            alt={gpsDevice.gpsModel.title}
+                            src={gpsDevice?.gpsModel?.image}
+                            alt={gpsDevice?.gpsModel?.title}
                             className='mx-auto rounded-md w-[100px] h-[100px]'
                           />
 
@@ -417,13 +435,6 @@ export const FormEditGpsDevice = ({ gpsDevice }: { gpsDevice: IGPSDevice }) => {
                           </AvatarFallback>
                         </Avatar>
                       </div>
-
-                      <Button
-                        onClick={() => handleFetchGpsModelsByGpsMarkId(gpsDevice.gpsModel.id)}
-                        className='w-full mt-4'
-                      >
-                        Editar
-                      </Button>
                     </CardContent>
                   </Card>
                 )
@@ -439,7 +450,7 @@ export const FormEditGpsDevice = ({ gpsDevice }: { gpsDevice: IGPSDevice }) => {
                   {
                     showTrucksTable
                       ? 'Seleccione una unidad'
-                      : 'Seleccione primero una flota y luego un unidad asociado a esa flota'
+                      : 'Seleccione primero una flota y luego una unidad asociado a esa flota'
                   }
                 </CardDescription>
               </div>

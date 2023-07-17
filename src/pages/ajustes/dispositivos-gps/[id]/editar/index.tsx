@@ -61,7 +61,7 @@ const EditGPSDevicePage = () => {
   return (
     <>
       <HeaderPage allowGoBack title={`Editar DIspositivo de GPS ${router.query.id}`} />
-      <FormEditGpsDevice gpsDevice={gpsDevice} />
+      { gpsDevice?.results && <FormEditGpsDevice gpsDevice={gpsDevice.results} /> }
     </>
   )
 }

@@ -16,7 +16,7 @@ const { ROUTES } = siteConfig
 
 const StatusTypeSettingsPage = () => {
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
-  const { data, error, isLoading, fetcher } = useFetch<IFetchDataTable<IStatusType>>('/api/categories')
+  const { data, error, isLoading, fetcher } = useFetch<IFetchDataTable<IStatusType>>('/api/status-type')
 
   const pagination = {
     pageSize,

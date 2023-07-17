@@ -52,7 +52,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {
           isLoading
-            ? (<Spinner className='border-white' />)
+            ? (<Spinner />)
             : children
         }
       </Comp>

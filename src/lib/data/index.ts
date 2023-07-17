@@ -336,7 +336,7 @@ const fakeCategories = [
 
 const status = [
   {
-    id: crypto.randomUUID(),
+    id: 612,
     title: 'Operativo',
     description: 'lorem ipsu detniat',
     isActive: true,
