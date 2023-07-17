@@ -1,11 +1,8 @@
-import { IFormRules } from '@/lib/types/forms'
+import { IFormRules } from '@/lib/types'
 
-type TGpsMarkFields =
-  'title' |
-  'description' |
-  'isActive'
+type TMeterModelFields = 'title' | 'description' | 'isActive'
 
-export const gpsMarkRules: IFormRules<TGpsMarkFields> = {
+export const subcategoryRules: IFormRules<TMeterModelFields> = {
   title: {
     minLength: { value: 3, message: 'Minimo 3 Caracteres' },
     maxLength: { value: 50, message: 'Maximo 50 Caracteres' },

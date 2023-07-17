@@ -5,24 +5,19 @@ import JSConfetti from 'js-confetti'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
-import type { IFormCreateCategory, IFormCreateFleet, IFormCreateSubcategory, ReactNode } from '@/lib/types'
+import type { ICategoryWithSubCategories, IFormEditCategory, ReactNode } from '@/lib/types'
 import { getSubcategoryColumns } from '@/lib/utils/tableColumns/subcategories'
 import { simulateFetch } from '@/lib/utils/simulateFetch'
-import { subcategoryRules, categoryRules } from './rules'
+import { categoryRules } from './rules'
 
-import { Badge, Button, Card, CardContent, CardDescription, CardTitle, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, Separator } from '@/components/ui'
+import { Badge, Button, Card, CardContent, CardTitle, Dialog, DialogContent, DialogHeader, Separator } from '@/components/ui'
 import { Congratulations } from '@/components/common/illustrations/Congratulations'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
 import { Table } from '@/components/common/tables/GenericTable'
 import { GenericSelect } from '@/components/common/selects'
 import { Input } from '@/components/common/inputs/Input'
 import { TextArea } from '@/components/common/textarea'
-
-const defaultValues: IFormCreateFleet = {
-  title: '',
-  description: '',
-  status: 'Operativo'
-}
+import Link from 'next/link'
 
 interface IModalState {
   open: boolean
@@ -31,13 +26,18 @@ interface IModalState {
   type: 'CREATE_SUBCATEGORY' | 'CREATING_CATEGORY' | 'CREATING_SUBCATEGORY' | 'CATEGORY_CREATED' | 'SUBCATEGORY_CREATED'
 }
 
-export const FormCreateCategory = () => {
+export const FormEditCategory = ({ category }: { category: ICategoryWithSubCategories }) => {
+  const defaultCategoryValues: IFormEditCategory = {
+    title: category.title,
+    description: category.description,
+    isActive: category.isActive ? 'true' : 'false'
+  }
+
   const [modalInfo, setModalInfo] = useState<IModalState>({ open: false, label: '', illustration: null, type: null })
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
+  const formCategory = useForm<IFormEditCategory>({ defaultValues: defaultCategoryValues })
+  const [subcategories, setSubcategories] = useState<any[]>(category.subcategories)
   const [loading, setLoading] = useState({ meessage: '', value: false })
-  const formSubcategory = useForm<IFormCreateSubcategory>({ defaultValues })
-  const [categoriesToCreate, setCategoriesToCreate] = useState<any[]>([])
-  const formCategory = useForm<IFormCreateCategory>({ defaultValues })
   const router = useRouter()
 
   const pagination = {
@@ -47,14 +47,8 @@ export const FormCreateCategory = () => {
     labels: { pluralItem: 'Subcategorias', singularItem: 'Subcategoria' }
   }
 
-  const removeLocalSubCategory = (idx: string|number) => {
-    setCategoriesToCreate(prevState => prevState.filter((_, subCategoryIdx) => (subCategoryIdx !== idx)))
-  }
-
-  const handleOpenCreateSubcategoryModal = (value: boolean) => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_SUBCATEGORY', open: value }))
-
   const onSubmitFormCategory = async (data) => {
-    if (!categoriesToCreate?.length) {
+    if (!subcategories?.length) {
       toast.error('Almenos 1 subcategoria debe ser agregada')
       setLoading({ meessage: '', value: false })
       return
@@ -74,30 +68,9 @@ export const FormCreateCategory = () => {
     setModalInfo({ illustration: null, label: '', open: false, type: null })
     setLoading({ meessage: '', value: false })
     formCategory.reset()
-    setCategoriesToCreate([])
+    setSubcategories([])
 
     router.push('/ajustes/categorias')
-  }
-
-  const onSubmitFormSubcategory = async (data: IFormCreateSubcategory) => {
-    setLoading(({ meessage: 'Agregando Subcategoria', value: true }))
-    // setModalInfo((prevState) => ({ ...prevState, label: 'Creando Subcategoria', open: true, type: 'CREATING_SUBCATEGORY' }))
-    // await simulateFetch(3000)
-
-    const subcategoryToCreate: IFormCreateSubcategory = {
-      title: data.title,
-      description: data.description,
-      isActive: data.isActive
-    }
-
-    console.log({ subcategoryToCreate })
-    setCategoriesToCreate(prevState => [...prevState, { ...subcategoryToCreate }])
-
-    // setModalInfo(prevState => ({ ...prevState, type: 'CATEGORY_CREATED', label: 'Subcategoria Creada', illustration: <Congratulations className='h-72' /> }))
-    toast.success('Subcategoria Agregada Exitosamente')
-    setLoading({ meessage: '', value: false })
-    setModalInfo({ illustration: null, label: '', open: false, type: null })
-    formSubcategory.reset()
   }
 
   return (
@@ -115,85 +88,6 @@ export const FormCreateCategory = () => {
               </div>
             </div>
           </DialogHeader>
-        </DialogContent>
-      </Dialog>
-
-      {/* Crear Unidad */}
-      <Dialog open={modalInfo.type === 'CREATE_SUBCATEGORY' && modalInfo.open} onOpenChange={handleOpenCreateSubcategoryModal}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Crear Subcategoria</DialogTitle>
-
-            <DialogDescription>
-              Crea una subcategoria para asignarlo a una categoria
-            </DialogDescription>
-          </DialogHeader>
-
-          <form onSubmit={formSubcategory.handleSubmit(onSubmitFormSubcategory)} autoFocus className='w-full mt-4'>
-            <section className='w-full space-y-4'>
-              <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
-                <Input
-                  id='title'
-                  type='text'
-                  tabIndex={4}
-                  label='Título'
-                  placeholder='Pekkin'
-                  register={formSubcategory.register}
-                  inputErrors={subcategoryRules.title}
-                  messageErrors={formSubcategory.formState.errors}
-                />
-
-                <GenericSelect
-                  id='isActive'
-                  tabIndex={5}
-                  label='Estado'
-                  defaultValue='true'
-                  placeholder='Seleccione un Estado'
-                  fieldControlled={{ control: formSubcategory.control, rules: subcategoryRules.isActive }}
-                  items={[
-                    {
-                      label: 'Activo',
-                      value: 'true'
-                    },
-                    {
-                      label: 'Bloqueado',
-                      value: 'false'
-                    }
-                  ]}
-                />
-              </div>
-
-              <TextArea
-                id='description'
-                rows={5}
-                tabIndex={6}
-                label='Descripción'
-                register={formSubcategory.register}
-                placeholder='Lorem ipsum dolor sit amet consectetur adipisicing elit quo laudantium ipsum natus.'
-                messageErrors={formSubcategory.formState.errors}
-                inputErrors={subcategoryRules.description}
-              />
-            </section>
-          </form>
-
-          <DialogFooter className='flex flex-col gap-y-4 mt-4'>
-            <Button
-              type='button'
-              variant='outline'
-              isLoading={loading.value}
-              onClick={() => handleOpenCreateSubcategoryModal(false)}
-            >
-                Cancelar
-            </Button>
-
-            <Button
-              type='button'
-              isLoading={loading.value}
-              onClick={formSubcategory.handleSubmit(onSubmitFormSubcategory)}
-            >
-                Crear Unidad
-            </Button>
-          </DialogFooter>
         </DialogContent>
       </Dialog>
 
@@ -239,20 +133,21 @@ export const FormCreateCategory = () => {
                     <Input
                       id='title'
                       type='text'
-                      register={formCategory.register}
+                      tabIndex={1}
                       label='Nombre'
                       placeholder='Pekkin'
-                      messageErrors={formCategory.formState.errors}
+                      defaultValue={category.title}
+                      register={formCategory.register}
                       inputErrors={categoryRules.title}
-                      tabIndex={1}
+                      messageErrors={formCategory.formState.errors}
                     />
 
                     <GenericSelect
+                      tabIndex={2}
                       id='isActive'
                       label='Estado'
                       placeholder='Seleccione un Estado'
-                      defaultValue='true'
-                      tabIndex={2}
+                      defaultValue={category.isActive ? 'true' : 'false'}
                       fieldControlled={{ control: formCategory.control, rules: categoryRules.isActive }}
                       items={[
                         {
@@ -273,6 +168,7 @@ export const FormCreateCategory = () => {
                     id='description'
                     label='Descripción'
                     register={formCategory.register}
+                    defaultValue={category.description}
                     inputErrors={categoryRules.description}
                     messageErrors={formCategory.formState.errors}
                     placeholder='Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo laudantium ipsum natus possimus amet reprehenderit veritatis labore quidem.'
@@ -283,31 +179,33 @@ export const FormCreateCategory = () => {
           </form>
 
           <Card className='p-4 mt-6 w-full'>
-            <section className='w-full flex flex-row justify-between items-center'>
-              <div>
-                <CardTitle>Subcategoria</CardTitle>
-                <CardDescription>Seleccione una subcategoria</CardDescription>
-              </div>
-
-              <Button onClick={() => handleOpenCreateSubcategoryModal(true)}>
-                Crear Subcategoria
-              </Button>
-            </section>
+            <CardTitle>Subcategoria</CardTitle>
 
             <Separator className='my-4' />
 
             <Table
-              visibilityColumns
+              data={subcategories}
               pagination={pagination}
-              data={categoriesToCreate}
-              columns={getSubcategoryColumns({ selection: false, id: false, actions: { removeLocalItem: removeLocalSubCategory } })}
               queryInfo={{ isFetching: false, error: null }}
+              columns={getSubcategoryColumns({
+                id: false,
+                selection: false,
+                actions: { edit: true, delete: true }
+              })}
             />
           </Card>
 
           <section className='w-full flex justify-between items-start mt-6 gap-x-6'>
-            <Button variant='outline' tabIndex={15} type='button' className='w-full py-2 text-sm'>
-              Cancelar
+            <Button
+              variant='outline'
+              tabIndex={15}
+              type='button'
+              className='w-full py-2 text-sm'
+              asChild
+            >
+              <Link href='/ajustes/categorias'>
+                Cancelar
+              </Link>
             </Button>
 
             <Button
@@ -317,7 +215,7 @@ export const FormCreateCategory = () => {
               isLoading={loading.value}
               onClick={formCategory.handleSubmit(onSubmitFormCategory)}
             >
-              Crear Categoria
+              Editar Categoria
             </Button>
           </section>
         </div>

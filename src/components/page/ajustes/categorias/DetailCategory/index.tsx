@@ -1,34 +1,22 @@
-import { PaginationState } from '@tanstack/react-table'
-import { useState } from 'react'
 
-import type { IFetchDataTable, IFleet, ITruck } from '@/lib/types'
-import { truckColumns } from '@/lib/utils/tableColumns/trucks'
-import { useFetch } from '@/lib/hooks/useFetch'
+import type { ICategoryWithSubCategories } from '@/lib/types'
 
-import { Badge, Card, CardContent, CardTitle, ScrollArea, Separator } from '@/components/ui'
-import { handleFetchUrlTruckByFleetId } from '@/lib/services/settings/fleets'
+import { Badge, Card, CardContent, CardTitle, Separator } from '@/components/ui'
 import { Table } from '@/components/common/tables/GenericTable'
 import { Input } from '@/components/common/inputs/Input'
 import { TextArea } from '@/components/common/textarea'
+import { getSubcategoryColumns } from '@/lib/utils/tableColumns/subcategories'
+import { PaginationState } from '@tanstack/react-table'
+import { useState } from 'react'
 
-const tags = Array.from({ length: 10 }).map(
-  (_, i, a) => `Camión ${a.length - i}`
-).reverse()
-
-export const DetailFleet = ({ fleet }: { fleet: IFleet }) => {
+export const DetailCategory = ({ category }: { category: ICategoryWithSubCategories }) => {
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
-  const { data, error, isLoading, fetcher } = useFetch<IFetchDataTable<ITruck>>(`/api/fleets/${fleet?.id}/trucks`)
 
   const pagination = {
     pageSize,
     pageIndex,
     setPagination,
-    labels: { pluralItem: 'Flotas', singularItem: 'Flota' }
-  }
-
-  const handleSearchWithParams = async ({ search }) => {
-    const url = handleFetchUrlTruckByFleetId({ pageSize, pageIndex, search, fleetId: fleet.id })
-    fetcher(url)
+    labels: { pluralItem: 'Subcategorias', singularItem: 'Subcategoria' }
   }
 
   return (
@@ -42,39 +30,22 @@ export const DetailFleet = ({ fleet }: { fleet: IFleet }) => {
               <ul className='mt-2'>
                 <li className='flex justify-start items-center text-sm text-primary-gray'>
                   <span className='font-semibold dark:text-white'>Nombre:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{ fleet.title }</span>
+                  <span className='dark:text-gray-300'>{ category.title }</span>
                 </li>
 
                 <li className='flex justify-start items-center text-sm text-primary-gray'>
                   <p className='dark:text-gray-300'>
                     <strong className='font-semibold dark:text-white'>Descripción:</strong>&nbsp;
-                    { fleet.description }
+                    { category.description }
                   </p>
                 </li>
               </ul>
 
               <Separator className='my-2' />
 
-              <Badge className='w-full text-sm'>
-                { fleet.status }
+              <Badge className={`w-full text-sm h-full py-1.5 ${category.isActive ? 'border-2 bg-green-100 border-green-500 text-green-500' : 'border-2 bg-red-100 border-red-500 text-red-500'}`}>
+                {category.isActive ? 'Activo' : 'Bloqueado'}
               </Badge>
-
-              <Separator className='my-2' />
-
-              <ScrollArea className='h-48 w-full rounded-md border'>
-                <div className='p-4'>
-                  <h6 className='mb-4 text-base font-medium leading-none'>Unidades</h6>
-
-                  {
-                    tags.map((tag) => (
-                      <>
-                        <div className='text-sm'>{tag}</div>
-                        <Separator className='my-2' />
-                      </>
-                    ))
-                  }
-                </div>
-              </ScrollArea>
             </CardContent>
           </Card>
         </div>
@@ -94,16 +65,16 @@ export const DetailFleet = ({ fleet }: { fleet: IFleet }) => {
                     type='text'
                     tabIndex={1}
                     label='Título'
-                    value={fleet.title}
+                    value={category.title}
                   />
 
                   <Input
                     readOnly
                     id='isActive'
                     type='text'
-                    tabIndex={1}
+                    tabIndex={2}
                     label='Estatus'
-                    value={fleet.status}
+                    value={category.isActive ? 'Activo' : 'Bloqueado'}
                   />
                 </div>
 
@@ -113,29 +84,24 @@ export const DetailFleet = ({ fleet }: { fleet: IFleet }) => {
                   tabIndex={3}
                   id='description'
                   label='Descripción'
-                  value={fleet.description}
+                  value={category.description}
                 />
               </section>
             </Card>
           </div>
 
           <Card className='p-4 mt-6 w-full'>
-            <CardTitle>Unidades</CardTitle>
+            <CardTitle>Subcategorias</CardTitle>
 
             <Separator className='my-4' />
 
-            {
-              data?.results && (
-                <Table
-                  visibilityColumns
-                  data={data.results}
-                  columns={truckColumns}
-                  pagination={pagination}
-                  queryInfo={{ isFetching: isLoading, error }}
-                  inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Unidad' }}
-                />
-              )
-            }
+            <Table
+              visibilityColumns
+              pagination={pagination}
+              data={category.subcategories}
+              queryInfo={{ error: null, isFetching: false }}
+              columns={getSubcategoryColumns({ selection: false, actions: { detail: true } })}
+            />
           </Card>
         </div>
       </div>

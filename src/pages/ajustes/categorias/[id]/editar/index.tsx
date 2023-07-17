@@ -1,42 +1,44 @@
-import { useEffect, useState } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { toast } from 'sonner'
 
-import type { IMeterMark, ReactElement } from '@/lib/types'
+import { ICategoryWithSubCategories, IFetchData } from '@/lib/types'
 import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
+import { FormEditCategory } from '@/components/page/ajustes/categorias/FormEditCategory'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
-import { FormEditGpsDevice } from '@/components/page/ajustes/dispositivos-gps/FormEditGpsDevice'
 
 const { ROUTES } = siteConfig
 
-const EditGPSDevicePage = () => {
-  const router = useRouter()
+const CategorySettingsPage = () => {
   const [isLoading, setIsLoading] = useState(true)
-  const [gpsDevice, setGpsDevice] = useState(null)
+  const [category, setCategory] = useState(null)
   const [error, setError] = useState(null)
+  const router = useRouter()
 
-  const getMeterMarkDetail = async () => {
+  const getCategoryDetail = async () => {
     setIsLoading(true)
 
-    const res = await fetch(`/api/gps-devices/${router.query.id}`)
+    const res = await fetch(`/api/categories/${router.query.id}`)
 
     if (!res.ok) {
       toast.error('Hubo un Error')
-      setError('Hubo un Error')
+      setError('Hubo un Error-')
       setIsLoading(false)
       return
     }
 
-    const data: IMeterMark = await res.json()
-    setGpsDevice(data)
+    const data: IFetchData<ICategoryWithSubCategories> = await res.json()
+    setCategory(data?.results)
     setIsLoading(false)
   }
 
   useEffect(() => {
-    getMeterMarkDetail()
+    if (router?.query?.id) {
+      getCategoryDetail()
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query.id])
 
@@ -60,18 +62,22 @@ const EditGPSDevicePage = () => {
 
   return (
     <>
-      <HeaderPage allowGoBack title={`Editar DIspositivo de GPS ${router.query.id}`} />
-      <FormEditGpsDevice gpsDevice={gpsDevice} />
+      <HeaderPage
+        allowGoBack
+        title={`Editar Categoria ${router.query.id}`}
+      />
+
+      { category && <FormEditCategory category={category} /> }
     </>
   )
 }
 
-EditGPSDevicePage.getLayout = function getLayout (page: ReactElement) {
+CategorySettingsPage.getLayout = function getLayout (page: ReactElement) {
   return (
-    <AuthenticatedLayout title={`${ROUTES.SETTINGS.GPS_DEVICE.EDIT.TITLE} | ${siteConfig.TITLE}`} >
+    <AuthenticatedLayout title={`${ROUTES.SETTINGS.CATEGORIES.DETAIL.TITLE} | ${siteConfig.TITLE}`} >
       {page}
     </AuthenticatedLayout>
   )
 }
 
-export default EditGPSDevicePage
+export default CategorySettingsPage

@@ -40,7 +40,7 @@ export const DialogDetailMeterModel = ({ meterModel, isOpenViewModel, setOpenVie
               id='isActive'
               type='text'
               value={meterModel.isActive ? 'Activo' : 'Bloqueado'}
-              label='EStado'
+              label='Estado'
               placeholder='Pekkin'
               readOnly
             />

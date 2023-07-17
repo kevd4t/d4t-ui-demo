@@ -113,13 +113,13 @@ export const DialogEditMeterModel = ({ meterModel, isOpenEditModel, setOpenEditM
               <Input
                 id='title'
                 type='text'
-                value={meterModel.title}
-                register={formMeterModel.register}
+                tabIndex={1}
                 label='Nombre'
                 placeholder='Pekkin'
+                value={meterModel.title}
+                register={formMeterModel.register}
                 messageErrors={formMeterModel.formState.errors}
                 inputErrors={meterModelRules.title}
-                tabIndex={1}
               />
 
               <GenericSelect

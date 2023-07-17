@@ -1,163 +1,173 @@
 import { PaginationState, RowSelectionState, type Table as TableType } from '@tanstack/react-table'
-import { IconTruck } from '@tabler/icons-react'
+import { IconDeviceIpadPin } from '@tabler/icons-react'
 import { useForm } from 'react-hook-form'
 import JSConfetti from 'js-confetti'
-import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import Link from 'next/link'
 
-import type { IFetchDataTable, ICreateMeterDevice, IMeterModel, IStation, ReactNode, IMeterDevice, IEditMeterDevice } from '@/lib/types'
-import { getMeterModelColumns } from '@/lib/utils/tableColumns/meterModels'
-// import { compressImage } from '@/lib/utils/handleCompressionImage'
-import { stationColumns } from '@/lib/utils/tableColumns/stations'
-import { handleFetchUrlStations } from '@/lib/services/stations'
+import type { IFetchDataTable, ReactNode, ICreateGPSMark, IGPSMark, IGPSModel, ITruck, IFormCreateGPSDevice, IFleet, IGPSDevice } from '@/lib/types'
+import { getGpsModelColumns } from '@/lib/utils/tableColumns/gpsModels'
 import { handleFetchUrlUserGroups } from '@/lib/services/users'
+import { truckColumns } from '@/lib/utils/tableColumns/trucks'
 import { simulateFetch } from '@/lib/utils/simulateFetch'
 import { useFetch } from '@/lib/hooks/useFetch'
-import { meterDeviceRules } from './rules'
+import { gpsDeviceRules } from './rules'
+// import { APP_CONFIG } from '@/config'
 
-import { Badge, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Dialog, DialogContent, DialogHeader, Separator } from '@/components/ui'
+import { AvatarFallback, AvatarImage, Badge, Button, Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, Dialog, DialogContent, DialogHeader, Separator, Skeleton } from '@/components/ui'
 import { Congratulations } from '@/components/common/illustrations/Congratulations'
 import { MultipleImages } from '@/components/common/uploadImages/MultipleImages'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
 import { Table } from '@/components/common/tables/GenericTable'
 import { GenericSelect } from '@/components/common/selects'
 import { Input } from '@/components/common/inputs/Input'
+import { Avatar } from '@radix-ui/react-avatar'
+import { CardSkeleton } from '@/components/common/skeletons/CardSkeleton'
 
 interface IModalState {
   open: boolean
   label: string
   illustration?: ReactNode
-  type: 'CREATE_GPS_MODEL' | 'COMPARISON_GPS_MODEL_IMAGE' | 'CREATING_GPS_MARK' | 'GPS_MARK_CREATED' | 'CREATING_GPS_MODEL' | 'GPS_MARK_CREATED'
+  type: 'CREATING_GPS_DEVICE' | 'GPS_DEVICE_CREATED' | 'GPS_DEVICE_CREATED'
 }
 
-export const FormEditGPSDevice = ({ meterDevice }: { meterDevice: IMeterDevice }) => {
-  const BasicMapNoSSR = dynamic(() => import('@/components/common/gps/BasicMap'), { ssr: false })
-
-  const initialMultipleImages = meterDevice.images.map(image => ({ data_url: image, file: null }))
-
-  const initialFormValues: IEditMeterDevice = {
-    serial: meterDevice.serial,
-    station: meterDevice.station,
-    type: meterDevice.type,
-    status: meterDevice.status,
-    meterUnit: meterDevice.meterUnit,
-    meterModel: meterDevice.meterModel,
-    images: meterDevice.images
-  }
-
+export const FormEditGpsDevice = ({ gpsDevice }: { gpsDevice: IGPSDevice }) => {
   const [modalInfo, setModalInfo] = useState<IModalState>({ open: false, label: '', illustration: null, type: null })
-  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
-  const [tableStationsSelected, handleTableStationsSelected] = useState<RowSelectionState>({})
-  const [tableTrucksSelected, HandleTableTrucksSelected] = useState<RowSelectionState>({})
-  const formMeterDevice = useForm<IEditMeterDevice>({ defaultValues: initialFormValues })
-  const [fullDataMeterModelsSelected, setFullDataMeterModelsSelected] = useState([meterDevice.meterModel])
-  const [multipleMeterDeviceImages, setMultipleMeterDeviceImages] = useState(initialMultipleImages)
-  const [fullDataStationsSelected, setFullDataStationsSelected] = useState([meterDevice.station])
-  const [showTableMeterModels, setShowTableMeterModels] = useState(false)
+  const [gpsMarkPagitationPagesInfo, setGpsMarkPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
+  const [stationPagitationPagesInfo, setStationPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
+  const [tableGpsModelsSelected, setTableGpsModelsSelected] = useState<RowSelectionState>({})
+  const [tableTrucksSelected, setTableTrucksSelected] = useState<RowSelectionState>({})
+  const [fullDataGpsModelsSelected, setFullDataGpsModelsSelected] = useState([])
+  const [fullDataTrucksSelected, setFullDataTrucksSelected] = useState([])
+  const [multipleGpsDeviceImages, setMultipleGpsDeviceImages] = useState([])
   const [loading, setLoading] = useState({ meessage: '', value: false })
-  const [showTableStations, setShowTableStations] = useState(false)
+  const [showGpsModelsTable, setShowGpsModelsTable] = useState(false)
+  const [showTrucksTable, setShowTrucksTable] = useState(false)
+  const [isEditGpsModel, setIsEditGpsModel] = useState(false)
+  const formGpsDevice = useForm<IFormCreateGPSDevice>()
 
-  const { data: meterModelData, error: meterModelError, isLoading: isLoadingMeterModels, fetcher: meterModelfetcher } = useFetch<IFetchDataTable<IMeterModel>>('/api/meter-models')
-  const { data: stationData, error: stationError, isLoading: isLoadingStation, fetcher: stationFetcher } = useFetch<IFetchDataTable<IStation>>('/api/stations')
+  const { data: gpsModelsData, error: gpsModelsError, isLoading: isLoadingGpsModels, fetcher: gpsModelsfetcher } = useFetch<IFetchDataTable<IGPSModel>>(null, true)
+  const { data: trucksData, error: trucksError, isLoading: isLoadingTrucks, fetcher: trucksfetcher } = useFetch<IFetchDataTable<ITruck>>(null, true)
+  const { data: gpsMarksData, isLoading: isLoadingGpsMarks } = useFetch<IFetchDataTable<IGPSMark>>('/api/gps-marks')
+  const { data: fleetsData, isLoading: isLoadingFleets } = useFetch<IFetchDataTable<IFleet>>('/api/fleets')
 
-  const meterModelpagination = {
-    pageSize,
-    pageIndex,
-    setPagination,
-    labels: { pluralItem: 'Modelos', singularItem: 'Modelo' }
+  const gpsMarkPagination = {
+    setPagination: setGpsMarkPagination,
+    pageSize: gpsMarkPagitationPagesInfo.pageSize,
+    pageIndex: gpsMarkPagitationPagesInfo.pageIndex,
+    labels: { pluralItem: 'Marcas', singularItem: 'Marca' }
   }
 
-  const stationsPagination = {
-    pageSize,
-    pageIndex,
-    setPagination,
+  const trucksPagination = {
+    pageSize: stationPagitationPagesInfo.pageSize,
+    pageIndex: stationPagitationPagesInfo.pageIndex,
+    setPagination: setStationPagination,
     labels: { pluralItem: 'Estaciones', singularItem: 'Estación' }
   }
 
-  const onChangeMultipleTruckImages = (imageList, addUpdateIndex) => {
+  const handleFetchGpsModelsByGpsMarkId = async (gpsMarkId: number) => {
+    setShowGpsModelsTable(true)
+    await gpsModelsfetcher(`/api/gps-marks/${gpsMarkId}/models`)
+  }
+
+  const handleFetchTrucksByStationId = async (stationId: number) => {
+    setShowTrucksTable(true)
+    await trucksfetcher(`/api/stations/${stationId}/trucks`)
+  }
+
+  const handleCancelSelectGpsModel = () => {
+    setTableGpsModelsSelected({})
+    setShowGpsModelsTable(false)
+  }
+
+  const handleCancelSelectTruck = () => {
+    setTableTrucksSelected({})
+    setShowTrucksTable(false)
+  }
+
+  const handleSearchGpsModelsWithParams = async ({ search, filters }) => {
+    const url = handleFetchUrlUserGroups({
+      search,
+      filters,
+      pageSize: gpsMarkPagitationPagesInfo.pageSize,
+      pageIndex: gpsMarkPagitationPagesInfo.pageIndex
+    })
+    gpsModelsfetcher(url)
+  }
+
+  const handleSearchTrucksWithParams = async ({ search, filters }) => {
+    const url = handleFetchUrlUserGroups({
+      search,
+      filters,
+      pageSize: gpsMarkPagitationPagesInfo.pageSize,
+      pageIndex: gpsMarkPagitationPagesInfo.pageIndex
+    })
+    trucksfetcher(url)
+  }
+
+  const getFullGpsModelDataSelection = (table: TableType<any>) => {
+    const fullDataSelection = table.getSelectedRowModel().flatRows
+    setFullDataGpsModelsSelected(fullDataSelection.map(dataSelected => dataSelected.original))
+  }
+
+  const getFullTruckDataSelection = (table: TableType<any>) => {
+    const fullDataSelection = table.getSelectedRowModel().flatRows
+    setFullDataTrucksSelected(fullDataSelection.map(dataSelected => dataSelected.original))
+  }
+
+  const onChangeMultipleGpsDeviceImages = (imageList, addUpdateIndex) => {
     console.log(imageList)
-    setMultipleMeterDeviceImages(imageList)
+    setMultipleGpsDeviceImages(imageList)
   }
 
-  const handleSearchMeterModelsWithParams = async ({ search, filters }) => {
-    const url = handleFetchUrlUserGroups({ pageSize, pageIndex, search, filters })
-    meterModelfetcher(url)
-  }
-
-  const handleSearchStationsWithParams = async ({ search, filters }) => {
-    const url = handleFetchUrlStations({ pageSize, pageIndex, search, filters })
-    stationFetcher(url)
-  }
-
-  const getFullMeterModelDataSelection = (table: TableType<any>) => {
-    const fullDataSelection = table.getSelectedRowModel().flatRows
-    setFullDataMeterModelsSelected(fullDataSelection.map(dataSelected => dataSelected.original))
-  }
-
-  const getFullStationDataSelection = (table: TableType<any>) => {
-    const fullDataSelection = table.getSelectedRowModel().flatRows
-    setFullDataStationsSelected(fullDataSelection.map(dataSelected => dataSelected.original))
-  }
-
-  const onSubmitFormMeterDevice = async (data: ICreateMeterDevice) => {
-    if (!fullDataMeterModelsSelected?.length) {
+  const onSubmitFormGpsDevice = async (data: ICreateGPSMark) => {
+    if (!fullDataGpsModelsSelected?.length) {
       toast.error('El modelo es requerido')
       setLoading({ meessage: '', value: false })
       return
     }
 
-    if (fullDataMeterModelsSelected?.length > 1) {
+    if (fullDataGpsModelsSelected?.length > 1) {
       toast.error('Seleccione solo 1 modelo')
       setLoading({ meessage: '', value: false })
       return
     }
 
-    if (!fullDataStationsSelected?.length) {
-      toast.error('La estación es requerida')
+    if (!fullDataTrucksSelected?.length) {
+      toast.error('La unidad es requerida')
       setLoading({ meessage: '', value: false })
       return
     }
 
-    if (fullDataStationsSelected?.length > 1) {
-      toast.error('Seleccione solo 1 estación')
+    if (fullDataTrucksSelected?.length > 1) {
+      toast.error('Seleccione solo 1 unidad')
       setLoading({ meessage: '', value: false })
       return
     }
 
-    if (!multipleMeterDeviceImages.length) {
-      toast.error('La imagen del medidor es requerida')
+    if (!multipleGpsDeviceImages.length) {
+      toast.error('La imagen del dispositivo es requerida')
       setLoading({ meessage: '', value: false })
       return
     }
 
-    // const allMultipleTruckImagesCompress = multipleMeterDeviceImages.map(image => {
-    //   return compressImage({ imageFile: image.file, quality: 10, maxWidth: 500, maxHeight: 500 })
-    // })
-
-    // const allPromisesMultipleTruckImagesCompress: any[] = await Promise.allSettled(allMultipleTruckImagesCompress)
-    // const multipleTruckImagesCompress = allPromisesMultipleTruckImagesCompress.map(promise => promise.value)
-
-    setLoading(({ meessage: 'Editando Medidor', value: true }))
-    setModalInfo((prevState) => ({ ...prevState, label: 'Editando Medidor', open: true, type: 'CREATING_GPS_MARK' }))
+    setLoading(({ meessage: 'Creando Dispositivo', value: true }))
+    setModalInfo((prevState) => ({ ...prevState, label: 'Creando Dispositivo', open: true, type: 'CREATING_GPS_DEVICE' }))
     await simulateFetch(3000)
 
-    const meterDeviceToCreate: IEditMeterDevice = {
-      type: data.type,
-      serial: data.serial,
-      status: data.status,
-      meterUnit: data.meterUnit,
-      station: fullDataStationsSelected[0],
-      meterModel: fullDataMeterModelsSelected[0],
-      images: meterDevice.images
-      // images: multipleTruckImagesCompress.map(imageCompress => imageCompress.file)
+    const gpsMarkToCreate: ICreateGPSMark = {
+      title: data.title,
+      description: data.title,
+      gpsModels: data.gpsModels,
+      image: '',
+      isActive: data.isActive
     }
 
-    console.log({ meterDeviceToCreate })
+    console.log({ meterDeviceToCreate: gpsMarkToCreate })
 
-    setModalInfo(prevState => ({ ...prevState, type: 'GPS_MARK_CREATED', label: 'Medidor Editado', illustration: <Congratulations className='h-72' /> }))
-    toast.success('Medidor Editado Exitosamente')
+    setModalInfo(prevState => ({ ...prevState, type: 'GPS_DEVICE_CREATED', label: 'Dispositivo Creado', illustration: <Congratulations className='h-72' /> }))
+    toast.success('Dispositivo Creado Exitosamente')
     setLoading({ meessage: '', value: false })
     const jsConfetti = new JSConfetti()
     jsConfetti.addConfetti()
@@ -188,7 +198,7 @@ export const FormEditGPSDevice = ({ meterDevice }: { meterDevice: IMeterDevice }
       </Dialog>
 
       <div className='w-full h-full flex justify-start items-start gap-x-10'>
-        <div className='hidden min-w-xs max-w-xs w-full lg:flex flex-col justify-start items-start sticky pt-6 top-0 left-0'>
+        <div className='hidden max-w-xs w-full lg:flex flex-col justify-start items-start sticky pt-6 top-0 left-0'>
           <Card className='w-full sticky top-0 left-0'>
             <CardContent className='pt-6'>
               <h6 className='font-semibold'>Informacion Basica</h6>
@@ -196,35 +206,20 @@ export const FormEditGPSDevice = ({ meterDevice }: { meterDevice: IMeterDevice }
               <ul className='mt-2'>
                 <li className='flex justify-start items-center text-sm text-primary-gray'>
                   <span className='font-semibold dark:text-white'>Serial:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{formMeterDevice.watch('serial')}</span>
-                </li>
-
-                <li className='flex justify-start items-center text-sm text-primary-gray'>
-                  <p className='dark:text-gray-300'>
-                    <strong className='font-semibold dark:text-white'>Tipo de Medición:</strong>&nbsp;
-                    {formMeterDevice.watch('type')}
-                  </p>
-                </li>
-
-                <li className='flex justify-start items-center text-sm text-primary-gray'>
-                  <p className='dark:text-gray-300'>
-                    <strong className='font-semibold dark:text-white'>Unidad de Medición:</strong>&nbsp;
-                    {formMeterDevice.watch('meterUnit')}
-                  </p>
+                  <span className='dark:text-gray-300'>{formGpsDevice.watch('serial')}</span>
                 </li>
               </ul>
 
               <Separator className='my-2' />
-
               <Badge className={'w-full text-sm h-full py-1.5'}>
-                {formMeterDevice.watch('status')}
+                {formGpsDevice.watch('status')}
               </Badge>
             </CardContent>
           </Card>
         </div>
 
         <div className='w-full pt-6'>
-          <form onSubmit={formMeterDevice.handleSubmit(onSubmitFormMeterDevice)} autoFocus className='w-full'>
+          <form onSubmit={formGpsDevice.handleSubmit(onSubmitFormGpsDevice)} autoFocus className='w-full'>
             <div className='w-full h-full flex flex-col xl:flex-row justify-start items-start gap-x-6 gap-y-6'>
               <Card className='p-4 w-full'>
                 <CardTitle>Informacion Basica</CardTitle>
@@ -236,12 +231,11 @@ export const FormEditGPSDevice = ({ meterDevice }: { meterDevice: IMeterDevice }
                     <Input
                       id='serial'
                       type='text'
-                      register={formMeterDevice.register}
+                      register={formGpsDevice.register}
                       label='Serial'
                       placeholder='Pekkin'
-                      value={meterDevice.serial}
-                      messageErrors={formMeterDevice.formState.errors}
-                      inputErrors={meterDeviceRules.serial}
+                      messageErrors={formGpsDevice.formState.errors}
+                      inputErrors={gpsDeviceRules.serial}
                       tabIndex={1}
                     />
 
@@ -249,9 +243,9 @@ export const FormEditGPSDevice = ({ meterDevice }: { meterDevice: IMeterDevice }
                       id='status'
                       label='Estado'
                       placeholder='Seleccione un Estado'
-                      defaultValue={meterDevice.status}
+                      defaultValue='Operativo'
                       tabIndex={2}
-                      fieldControlled={{ control: formMeterDevice.control, rules: meterDeviceRules.status }}
+                      fieldControlled={{ control: formGpsDevice.control, rules: gpsDeviceRules.status }}
                       items={[
                         {
                           label: 'Operativo',
@@ -264,173 +258,282 @@ export const FormEditGPSDevice = ({ meterDevice }: { meterDevice: IMeterDevice }
                       ]}
                     />
                   </div>
-
-                  <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
-                    <GenericSelect
-                      id='type'
-                      label='Tipo de medición'
-                      placeholder='Seleccione un tipo de medición'
-                      defaultValue={meterDevice.status}
-                      tabIndex={3}
-                      fieldControlled={{ control: formMeterDevice.control, rules: meterDeviceRules.type }}
-                      items={[
-                        {
-                          label: 'Agua',
-                          value: 'Agua'
-                        },
-                        {
-                          label: 'Gasolina',
-                          value: 'Gasolina'
-                        }
-                      ]}
-                    />
-
-                    <GenericSelect
-                      id='meterUnit'
-                      label='Unidad de medición'
-                      placeholder='Seleccione una unidad de medición'
-                      defaultValue={meterDevice.meterUnit}
-                      tabIndex={4}
-                      fieldControlled={{ control: formMeterDevice.control, rules: meterDeviceRules.meterUnit }}
-                      items={[
-                        {
-                          label: 'Litros',
-                          value: 'Litros'
-                        }
-                      ]}
-                    />
-                  </div>
                 </section>
               </Card>
             </div>
           </form>
 
           <Card className='p-4 mt-6 w-full'>
-            <CardTitle className='w-full flex flex-row justify-between items-center'>
-              <div>Modelo del Medidor</div>
+            <section className='w-full flex flex-row justify-between items-center'>
+              <div>
+                <CardTitle>
+                  {
+                    showGpsModelsTable
+                      ? 'Modelos de GPS'
+                      : 'Marcas de GPS'
+                  }
+                </CardTitle>
+                <CardDescription>
+                  {
+                    showGpsModelsTable
+                      ? 'Seleccione un modelo'
+                      : 'Seleccione primero una marca y luego un modelo asociado a esa marca'
+                  }
+                </CardDescription>
+              </div>
 
-              <Button onClick={() => setShowTableMeterModels(prevState => !prevState)}>
-                { showTableMeterModels ? 'Cancelar' : 'Cambiar Modelo' }
-              </Button>
-            </CardTitle>
+              {
+                isEditGpsModel
+                  ? (
+                    <>
+                      {
+                        showGpsModelsTable && (
+                          <Button onClick={handleCancelSelectGpsModel}>
+                            Regresar
+                          </Button>
+                        )
+                      }
+                    </>
+                  )
+                  : (
+                    <Button onClick={handleCancelSelectGpsModel}>
+                      Editar Modelos
+                    </Button>
+                  )
+              }
+            </section>
 
             <Separator className='my-4' />
 
             {
-              showTableMeterModels
+              isEditGpsModel
                 ? (
+                  <>
+                    {
+                      !showGpsModelsTable
+                        ? (
+                          <div className={(gpsMarksData?.results.length > 1 && !isLoadingGpsMarks) ? 'grid grid-cols-1 sm:grid-cols-2 grid-flow-row gap-4' : ''}>
+                            {
+                              isLoadingGpsMarks
+                                ? (
+                                  <div>
+                                    <CardSkeleton className='mx-auto' />
+                                  </div>
+                                )
+                                : (
+                                  <>
+                                    {
+                                      gpsMarksData?.results.map((gpsMark, idx) => (
+                                        <Card key={gpsMark.id} className={`w-full ${gpsMarksData.results.length > 1 ? '' : 'mx-auto'}`}>
+                                          <CardHeader>
+                                            <section className='flex w-full justify-between items-end'>
+                                              <CardTitle>Marca: {gpsMark.title}</CardTitle>
+
+                                              <Badge className=' wmin text-sm'>
+                                                {gpsMark.isActive ? 'Activo' : 'Bloqueado'}
+                                              </Badge>
+                                            </section>
+
+                                            <CardDescription>Referencia: {gpsMark.description}</CardDescription>
+                                          </CardHeader>
+
+                                          <CardContent>
+                                            <div className='w-full rounded-md p-4 bg-gray-100 dark:bg-slate-50 dark:bg-opacity-5'>
+                                              <Avatar>
+                                                <AvatarImage
+                                                  width={100}
+                                                  height={100}
+                                                  src={gpsMark.image}
+                                                  alt={gpsMark.title}
+                                                  className='mx-auto rounded-md w-[100px] h-[100px]'
+                                                />
+
+                                                <AvatarFallback className='rounded-md h-[100px] w-[100px] mx-auto'>
+                                                  <Skeleton className='h-[100px] w-[100px]' />
+                                                </AvatarFallback>
+                                              </Avatar>
+                                            </div>
+
+                                            <Button
+                                              onClick={() => handleFetchGpsModelsByGpsMarkId(gpsMark.id)}
+                                              className='w-full mt-4'
+                                            >
+                                              Seleccionar
+                                            </Button>
+                                          </CardContent>
+                                        </Card>
+                                      ))
+                                    }
+                                  </>
+                                )
+                            }
+                          </div>
+                        )
+                        : (
+                          <Table
+                            visibilityColumns
+                            data={gpsModelsData?.results}
+                            pagination={gpsMarkPagination}
+                            columns={getGpsModelColumns({ selection: true })}
+                            queryInfo={{ isFetching: isLoadingGpsModels, error: gpsModelsError }}
+                            inputSearch={{ handleSearchWithParams: handleSearchGpsModelsWithParams, placeholder: 'Buscar Modelo' }}
+                            selection={{
+                              rowSelection: tableGpsModelsSelected,
+                              setRowSelection: setTableGpsModelsSelected,
+                              getFullDataSelection: getFullGpsModelDataSelection
+                            }}
+                          />
+                        )
+                    }
+                  </>
+                )
+                : (
+                  <Card key={gpsDevice.gpsModel.id} className={`w-full ${gpsMarksData?.results.length > 1 ? '' : 'mx-auto'}`}>
+                    <CardHeader>
+                      <section className='flex w-full justify-between items-end'>
+                        <CardTitle>Marca: {gpsDevice.gpsModel.title}</CardTitle>
+
+                        <Badge className=' wmin text-sm'>
+                          {gpsDevice.gpsModel.isActive ? 'Activo' : 'Bloqueado'}
+                        </Badge>
+                      </section>
+
+                      <CardDescription>Referencia: {gpsDevice.gpsModel.description}</CardDescription>
+                    </CardHeader>
+
+                    <CardContent>
+                      <div className='w-full rounded-md p-4 bg-gray-100 dark:bg-slate-50 dark:bg-opacity-5'>
+                        <Avatar>
+                          <AvatarImage
+                            width={100}
+                            height={100}
+                            src={gpsDevice.gpsModel.image}
+                            alt={gpsDevice.gpsModel.title}
+                            className='mx-auto rounded-md w-[100px] h-[100px]'
+                          />
+
+                          <AvatarFallback className='rounded-md h-[100px] w-[100px] mx-auto'>
+                            <Skeleton className='h-[100px] w-[100px]' />
+                          </AvatarFallback>
+                        </Avatar>
+                      </div>
+
+                      <Button
+                        onClick={() => handleFetchGpsModelsByGpsMarkId(gpsDevice.gpsModel.id)}
+                        className='w-full mt-4'
+                      >
+                        Editar
+                      </Button>
+                    </CardContent>
+                  </Card>
+                )
+            }
+
+          </Card>
+
+          <Card className='p-4 mt-6 w-full'>
+            <section className='w-full flex flex-row justify-between items-center'>
+              <div>
+                <CardTitle>Unidades</CardTitle>
+                <CardDescription>
+                  {
+                    showTrucksTable
+                      ? 'Seleccione una unidad'
+                      : 'Seleccione primero una flota y luego un unidad asociado a esa flota'
+                  }
+                </CardDescription>
+              </div>
+
+              {
+                showTrucksTable && (
+                  <Button onClick={handleCancelSelectTruck}>
+                    Regresar
+                  </Button>
+                )
+              }
+            </section>
+
+            <Separator className='my-4' />
+
+            {
+              !showTrucksTable
+                ? (
+                  <>
+                    {
+                      isLoadingFleets
+                        ? (
+                          <div>
+                            <CardSkeleton className='mx-auto' image={false} />
+                          </div>
+                        )
+                        : (
+                          <>
+                            {
+                              fleetsData?.results.map((fleet, idx) => (
+                                <Card key={fleet.id} className={`w-full max-w-xs ${fleetsData.results.length > 1 ? '' : 'mx-auto'}`}>
+                                  <CardHeader className='pb-0'>
+                                    <section className='flex w-full justify-between items-end'>
+                                      <CardTitle>Flota: {fleet.title}</CardTitle>
+
+                                      <Badge className='w-min text-sm'>
+                                        {fleet.status}
+                                      </Badge>
+                                    </section>
+
+                                    <CardDescription>Descripción: {fleet.description}</CardDescription>
+                                  </CardHeader>
+
+                                  <CardContent>
+                                    <Button
+                                      className='w-full mt-4'
+                                      onClick={() => handleFetchTrucksByStationId(fleet.id)}
+                                    >
+                                      Seleccionar
+                                    </Button>
+                                  </CardContent>
+                                </Card>
+                              ))
+                            }
+                          </>
+                        )
+                    }
+                  </>
+                )
+                : (
                   <Table
                     visibilityColumns
-                    data={meterModelData?.results}
-                    pagination={meterModelpagination}
-                    columns={getMeterModelColumns({ selection: true })}
-                    queryInfo={{ isFetching: isLoadingMeterModels, error: meterModelError }}
-                    inputSearch={{ handleSearchWithParams: handleSearchMeterModelsWithParams, placeholder: 'Buscar Modelo' }}
+                    columns={truckColumns}
+                    data={trucksData?.results}
+                    pagination={trucksPagination}
+                    queryInfo={{ isFetching: isLoadingTrucks, error: trucksError }}
+                    inputSearch={{ handleSearchWithParams: handleSearchTrucksWithParams, placeholder: 'Buscar Unidad' }}
                     selection={{
                       rowSelection: tableTrucksSelected,
-                      setRowSelection: HandleTableTrucksSelected,
-                      getFullDataSelection: getFullMeterModelDataSelection
+                      setRowSelection: setTableTrucksSelected,
+                      getFullDataSelection: getFullTruckDataSelection
                     }}
                   />
-                )
-                : (
-                  <Card className='max-w-sm mx-auto'>
-                    <CardHeader>
-                      <CardTitle>Título: {meterDevice.meterModel.title}</CardTitle>
-                      <CardDescription>Descripción: {meterDevice.meterModel.description}</CardDescription>
-
-                      <section className='flex w-full justify-center items-end'>
-                        <Badge className='mr-4 w-full text-sm'>
-                          {meterDevice.meterModel.isActive ? 'Activo' : 'Bloqueado'}
-                        </Badge>
-
-                        <Badge className='w-full text-sm'>
-                          {meterDevice.meterModel.type}
-                        </Badge>
-                      </section>
-                    </CardHeader>
-
-                    <CardContent>
-                      <img
-                        src={meterDevice.meterModel.image}
-                        alt='imagen'
-                        className='rounded-md mx-auto'
-                      />
-                    </CardContent>
-                  </Card>
                 )
             }
           </Card>
 
-          <Card className='p-4 mt-6 w-full'>
-            <CardTitle className='w-full flex flex-row justify-between items-center'>
-              <div>Estaciones</div>
-
-              <Button onClick={() => setShowTableStations(prevState => !prevState)}>
-                { showTableStations ? 'Cancelar' : 'Cambiar Estaciones' }
-              </Button>
-            </CardTitle>
+          <Card className='p-4 w-full col-span-6 md:col-span-4 mt-6'>
+            <CardTitle>Imagenes del Dispositivo GPS</CardTitle>
 
             <Separator className='my-4' />
 
-            {
-              showTableStations
-                ? (
-                  <Table
-                    visibilityColumns
-                    data={stationData?.results}
-                    pagination={stationsPagination}
-                    columns={stationColumns}
-                    queryInfo={{ isFetching: isLoadingStation, error: stationError }}
-                    inputSearch={{ handleSearchWithParams: handleSearchStationsWithParams, placeholder: 'Buscar Estación' }}
-                    selection={{
-                      rowSelection: tableStationsSelected,
-                      setRowSelection: handleTableStationsSelected,
-                      getFullDataSelection: getFullStationDataSelection
-                    }}
-                  />
-                )
-                : (
-                  <Card className='w-full'>
-                    <CardHeader>
-                      <CardTitle>Titulo: {meterDevice.station.title}</CardTitle>
-                      <CardDescription>Referencia: {meterDevice.station.reference}</CardDescription>
+            <CardContent className='mt-0 pb-0'>
 
-                      <section className='flex w-full justify-center items-end'>
-                        <Badge className='mr-4 w-full text-sm'>
-                          {meterDevice.station.type}
-                        </Badge>
-
-                        <Badge className='w-full text-sm'>
-                          {meterDevice.station.status}
-                        </Badge>
-                      </section>
-                    </CardHeader>
-
-                    <CardContent>
-                      <div className='h-72 w-full'>
-                        <BasicMapNoSSR />
-                      </div>
-                    </CardContent>
-                  </Card>
-                )
-            }
-          </Card>
-
-          <Card className='p-4 mt-6 w-full'>
-            <CardTitle>Fotos del medidor</CardTitle>
-
-            <Separator className='my-4' />
-
-            <MultipleImages
-              zoom
-              emptyClassName='h-[300px]'
-              onChange={onChangeMultipleTruckImages}
-              imageToUpload={multipleMeterDeviceImages}
-              uploadLabel='Cargar Fotos del Medidor'
-              tabIndexs={{ upload: 4, change: 4, delete: 5 }}
-              icons={{ placeholder: <IconTruck className='text-zinc-400 w-14 h-14' strokeWidth={1.5} /> }}
-            />
+              <MultipleImages
+                zoom
+                emptyClassName='h-[300px]'
+                onChange={onChangeMultipleGpsDeviceImages}
+                imageToUpload={multipleGpsDeviceImages}
+                uploadLabel='Cargar Fotos del Dispositivo'
+                tabIndexs={{ upload: 4, change: 4, delete: 5 }}
+                icons={{ placeholder: <IconDeviceIpadPin className='text-zinc-400 w-14 h-14' strokeWidth={1.5} /> }}
+              />
+            </CardContent>
           </Card>
 
           <section className='w-full flex justify-between items-start mt-6 gap-x-6'>
@@ -441,7 +544,7 @@ export const FormEditGPSDevice = ({ meterDevice }: { meterDevice: IMeterDevice }
               type='button'
               className='w-full py-2 text-sm'
             >
-              <Link href='/ajustes/medidores'>
+              <Link href='/ajustes/marcas-de-gps'>
                 Cancelar
               </Link>
             </Button>
@@ -451,9 +554,9 @@ export const FormEditGPSDevice = ({ meterDevice }: { meterDevice: IMeterDevice }
               tabIndex={16}
               className='w-full py-2 text-sm'
               isLoading={loading.value}
-              onClick={formMeterDevice.handleSubmit(onSubmitFormMeterDevice)}
+              onClick={formGpsDevice.handleSubmit(onSubmitFormGpsDevice)}
             >
-              Editar Medidor
+              Crear Medidor
             </Button>
           </section>
         </div>

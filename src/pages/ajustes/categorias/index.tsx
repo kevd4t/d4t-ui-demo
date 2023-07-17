@@ -39,8 +39,8 @@ const CategorySettingsPage = () => {
       <Table
         visibilityColumns
         data={data?.results}
-        columns={categoryColumns}
         pagination={pagination}
+        columns={categoryColumns}
         itemsToFilter={categoryColumnsToFilter}
         queryInfo={{ isFetching: isLoading, error }}
         inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Categoria' }}
