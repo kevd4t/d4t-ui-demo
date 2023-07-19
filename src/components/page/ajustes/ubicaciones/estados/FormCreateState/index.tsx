@@ -37,7 +37,7 @@ export const FormCreateState = () => {
     pageSize,
     pageIndex,
     setPagination,
-    labels: { pluralItem: 'Estados', singularItem: 'Estados' }
+    labels: { pluralItem: 'Ciudades', singularItem: 'Ciudad' }
   }
 
   const removeLocalStatus = (idx: string|number) => {
@@ -262,10 +262,10 @@ export const FormCreateState = () => {
 
             <Table
               visibilityColumns
-              pagination={pagination}
               data={statusToCreate}
-              columns={getSubcategoryColumns({ selection: false, id: false, actions: { removeLocalItem: removeLocalStatus } })}
+              pagination={pagination}
               queryInfo={{ isFetching: false, error: null }}
+              columns={getSubcategoryColumns({ selection: false, id: false, actions: { removeLocalItem: removeLocalStatus } })}
             />
           </Card>
 

@@ -9,7 +9,7 @@ import { formatCI, formatPhone } from '@/lib/utils/formaters'
 
 const { ROLES_DIC: ROLES } = APP_CONFIG
 
-export const DetailUser = ({ user }: { user: IUserDetail }) => {
+export const DetailStation = ({ station }: { station: IUserDetail }) => {
   return (
     <>
       <div className='w-full h-full flex justify-start items-start gap-x-10'>
@@ -17,7 +17,7 @@ export const DetailUser = ({ user }: { user: IUserDetail }) => {
           <Card className='w-full sticky top-0 left-0'>
             <CardHeader>
               <Avatar className='w-32 h-32 rounded-sm mx-auto'>
-                <AvatarImage src={user.photo} className='object-contain' />
+                <AvatarImage src={station.photo} className='object-contain' />
                 <AvatarFallback className='rounded-md'>
                   <IconUser className='text-zinc-500 w-10 h-10' />
                 </AvatarFallback>
@@ -30,38 +30,38 @@ export const DetailUser = ({ user }: { user: IUserDetail }) => {
               <ul className='mt-2'>
                 <li className='flex justify-start items-center text-sm text-primary-gray'>
                   <span className='font-semibold dark:text-white'>Username:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{user.names} {user.surnames}</span>
+                  <span className='dark:text-gray-300'>{station.names} {station.surnames}</span>
                 </li>
 
                 <li className='flex justify-start items-center text-sm text-primary-gray'>
                   <span className='font-semibold dark:text-white'>Telefono:</span> &nbsp;
-                  <span className='dark:text-gray-300'>({formatPhone(user.phone).codeLine}) {formatPhone(user.phone).number}</span>
+                  <span className='dark:text-gray-300'>({formatPhone(station.phone).codeLine}) {formatPhone(station.phone).number}</span>
                 </li>
 
                 <li className='flex justify-start items-center text-sm text-primary-gray'>
                   <span className='font-semibold dark:text-white'>Email:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{user.email}</span>
+                  <span className='dark:text-gray-300'>{station.email}</span>
                 </li>
 
                 <li className='flex justify-start items-center text-sm text-primary-gray'>
                   <span className='font-semibold dark:text-white'>Cedula de Identidad:</span> &nbsp;
 
                   <span className='dark:text-gray-300'>
-                    {`${user?.ci?.type.toUpperCase()}-`}{user?.ci?.number}
+                    {`${station?.ci?.type.toUpperCase()}-`}{station?.ci?.number}
                   </span>
                 </li>
               </ul>
 
               <Separator className='my-2' />
 
-              <Badge className={`w-full text-sm h-full py-1.5 ${user.isActive ? 'border-2 bg-green-100 border-green-500 text-green-500' : 'border-2 bg-red-100 border-red-500 text-red-500'}`}>
-                {user.isActive ? 'Activo' : 'Bloqueado'}
+              <Badge className={`w-full text-sm h-full py-1.5 ${station.isActive ? 'border-2 bg-green-100 border-green-500 text-green-500' : 'border-2 bg-red-100 border-red-500 text-red-500'}`}>
+                {station.isActive ? 'Activo' : 'Bloqueado'}
               </Badge>
 
               <Separator className='my-2' />
 
               <Badge className='w-full text-sm h-full py-1.5'>
-                {ROLES[user.role].label}
+                {ROLES[station.role].label}
               </Badge>
             </CardContent>
           </Card>
@@ -73,10 +73,10 @@ export const DetailUser = ({ user }: { user: IUserDetail }) => {
 
             <CardContent className='mt-0'>
               {
-                user?.ci?.image
+                station?.ci?.image
                   ? (
                     <img
-                      src={user?.ci?.image}
+                      src={station?.ci?.image}
                       alt='image'
                       className='rounded-md w-140 max-h-[400px] object-contain mx-auto'
                     />
@@ -110,7 +110,7 @@ export const DetailUser = ({ user }: { user: IUserDetail }) => {
                       readOnly
                       tabIndex={1}
                       label='Nombres'
-                      value={user.names}
+                      value={station.names}
                       classNameContainer='w-full'
                     />
 
@@ -121,7 +121,7 @@ export const DetailUser = ({ user }: { user: IUserDetail }) => {
                       tabIndex={2}
                       label='Apellidos'
                       classNameContainer='w-full'
-                      value={user.surnames}
+                      value={station.surnames}
                     />
                   </div>
 
@@ -133,7 +133,7 @@ export const DetailUser = ({ user }: { user: IUserDetail }) => {
                       tabIndex={3}
                       label='Nombre de Usuario'
                       classNameContainer='w-full'
-                      value={user.username}
+                      value={station.username}
                     />
 
                     <div className='w-full flex justify-start items-end gap-x-2'>
@@ -144,7 +144,7 @@ export const DetailUser = ({ user }: { user: IUserDetail }) => {
                         tabIndex={4}
                         label='Telefono'
                         classNameContainer='w-[90px]'
-                        value={formatPhone(user.phone).codeLine}
+                        value={formatPhone(station.phone).codeLine}
                       />
 
                       <Input
@@ -153,7 +153,7 @@ export const DetailUser = ({ user }: { user: IUserDetail }) => {
                         readOnly
                         tabIndex={5}
                         classNameContainer='w-full'
-                        value={formatPhone(user.phone).number}
+                        value={formatPhone(station.phone).number}
                       />
                     </div>
                   </div>
@@ -167,7 +167,7 @@ export const DetailUser = ({ user }: { user: IUserDetail }) => {
                         tabIndex={6}
                         label='Cedula'
                         classNameContainer='w-[80px]'
-                        value={user.ci.type}
+                        value={station.ci.type}
                       />
 
                       <Input
@@ -176,7 +176,7 @@ export const DetailUser = ({ user }: { user: IUserDetail }) => {
                         readOnly
                         tabIndex={7}
                         classNameContainer='w-full'
-                        value={formatCI(user.ci.number)}
+                        value={formatCI(station.ci.number)}
                       />
                     </div>
 
@@ -185,7 +185,7 @@ export const DetailUser = ({ user }: { user: IUserDetail }) => {
                       type='text'
                       readOnly
                       tabIndex={8}
-                      value={user.email}
+                      value={station.email}
                       label='Correo Electronico'
                       classNameContainer='w-full'
                     />
@@ -207,7 +207,7 @@ export const DetailUser = ({ user }: { user: IUserDetail }) => {
                   readOnly
                   tabIndex={9}
                   classNameContainer='w-full'
-                  value={ROLES[user.role].label}
+                  value={ROLES[station.role].label}
                 />
 
                 <Input
@@ -217,7 +217,7 @@ export const DetailUser = ({ user }: { user: IUserDetail }) => {
                   readOnly
                   tabIndex={10}
                   classNameContainer='w-full'
-                  value={`${user.isActive ? 'Activo' : 'Bloqueado'}`}
+                  value={`${station.isActive ? 'Activo' : 'Bloqueado'}`}
                 />
               </section>
             </Card>
@@ -230,17 +230,17 @@ export const DetailUser = ({ user }: { user: IUserDetail }) => {
 
             <Card className='max-w-sm mx-auto'>
               <CardHeader>
-                <CardTitle>{user.group.title}</CardTitle>
-                <CardDescription>{user.group.description}</CardDescription>
+                <CardTitle>{station.group.title}</CardTitle>
+                <CardDescription>{station.group.description}</CardDescription>
               </CardHeader>
 
               <CardContent>
-                <Badge>{user.group.isActive ? 'Activo' : 'Bloqueado'}</Badge>
+                <Badge>{station.group.isActive ? 'Activo' : 'Bloqueado'}</Badge>
 
                 <br />
 
                 {
-                  user.group.moduleAccess.map(access => (
+                  station.group.moduleAccess.map(access => (
                     <Badge key={access}>
                       {access}
                     </Badge>
@@ -258,8 +258,8 @@ export const DetailUser = ({ user }: { user: IUserDetail }) => {
 
               <CardContent className='flex h-3/4 flex-col justify-center items-center pb-0'>
                 <img
-                  src={user.photo}
-                  alt={`${user.names} ${user.surnames}`}
+                  src={station.photo}
+                  alt={`${station.names} ${station.surnames}`}
                   tabIndex={12}
                   className='rounded-md'
                 />
@@ -273,8 +273,8 @@ export const DetailUser = ({ user }: { user: IUserDetail }) => {
 
               <CardContent className='mt-0 pb-0'>
                 <img
-                  src={user?.ci?.image}
-                  alt={`${user.names} ${user.surnames}`}
+                  src={station?.ci?.image}
+                  alt={`${station.names} ${station.surnames}`}
                   tabIndex={13}
                 />
               </CardContent>

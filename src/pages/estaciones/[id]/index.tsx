@@ -1,18 +1,46 @@
 import { useRouter } from 'next/router'
 
-import type { IFetchData, IUserDetail, ReactElement } from '@/lib/types'
+import type { IFetchData, IStation, ReactElement } from '@/lib/types'
 import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
-import { useFetch } from '@/lib/hooks/useFetch'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
+import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
+import { DetailStation } from '@/components/page/estaciones/DetailStation'
 
 const { ROUTES } = siteConfig
 
 const DetailUserPage = () => {
+  const [isLoading, setIsLoading] = useState(true)
+  const [station, setStation] = useState(null)
+  const [error, setError] = useState(null)
   const router = useRouter()
-  const { error, isLoading } = useFetch<IFetchData<IUserDetail>>(`/api/users/${router.query.id}`)
+
+  const getCategoryDetail = async () => {
+    setIsLoading(true)
+
+    const res = await fetch(`/api/stations/${router.query.id}`)
+
+    if (!res.ok) {
+      toast.error('Hubo un Error')
+      setError('Hubo un Error')
+      setIsLoading(false)
+      return
+    }
+
+    const data: IFetchData<IStation> = await res.json()
+    setStation(data?.results)
+    setIsLoading(false)
+  }
+
+  useEffect(() => {
+    if (router?.query?.id) {
+      getCategoryDetail()
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.query.id])
 
   if (error) {
     return (
@@ -34,14 +62,19 @@ const DetailUserPage = () => {
 
   return (
     <>
-      <HeaderPage allowGoBack title={`Detalle de Estación ${router.query.id}`} />
+      <HeaderPage
+        allowGoBack
+        title={`Detalle de Estación ${router.query.id}`}
+      />
+
+      <DetailStation station={station} />
     </>
   )
 }
 
 DetailUserPage.getLayout = function getLayout (page: ReactElement) {
   return (
-    <AuthenticatedLayout title={`${ROUTES.USERS.DETAIL.TITLE} | ${siteConfig.TITLE}`} >
+    <AuthenticatedLayout title={`${ROUTES.STATIONS.LIST.TITLE} | ${siteConfig.TITLE}`} >
       {page}
     </AuthenticatedLayout>
   )

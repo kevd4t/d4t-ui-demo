@@ -39,8 +39,8 @@ const StationsPage = () => {
       <Table
         visibilityColumns
         data={data?.results}
-        columns={stationColumns}
         pagination={pagination}
+        columns={stationColumns}
         itemsToFilter={stationColumnsToFilter}
         queryInfo={{ isFetching: isLoading, error }}
         inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Estación' }}

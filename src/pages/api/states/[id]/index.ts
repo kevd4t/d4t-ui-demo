@@ -6,8 +6,6 @@ const handleApiStatesById = (req: NextApiRequest, res: NextApiResponse) => {
   const states: IState[] = getFakeData('STATES')
   const stateFinded: IState = states.find(state => state.id.toString() === req?.query?.id)
 
-  console.log({ stateFinded })
-
   return res.status(200).json({
     code: 'EST6534',
     info: { prev: null, next: 3 },

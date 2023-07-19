@@ -1,5 +1,6 @@
-import { ICity, IFleet, IMeterDevice, IMeterMark, IMeterModel, IStation, ITruck, IUser, IUserGroup } from '../types/'
+import { ICity, IFleet, IMeterDevice, IMeterMark, IMeterModel, ITruck, IUser, IUserGroup } from '../types/'
 import { IGPSDevice, IGPSMark, IGPSModel } from '../types/gps'
+import { stationsData } from './stationsData'
 import { IRoute } from '../types/routes'
 
 const MODULES_DIC = {
@@ -501,27 +502,6 @@ export const cities: ICity[] = [
   }
 ]
 
-export const stations: IStation[] = [
-  {
-    id: 105,
-    title: 'Estación Las Mercedes',
-    status: 'Operativo',
-    lat: '10.484595715655246',
-    lng: '-66.86487300765505',
-    type: 'Surtido',
-    city: cities[0],
-    metersCount: 44,
-    reference: 'Estación de Servicio Las Mercedes, ubicado en las Mercedes :D',
-    trucks,
-    images: [
-      'https://via.placeholder.com/200/ff4d4d',
-      'https://via.placeholder.com/200/blue',
-      'https://via.placeholder.com/200/00f46c',
-      'https://via.placeholder.com/200/ffed5f'
-    ]
-  }
-]
-
 export const routes: IRoute[] = [
   {
     id: 3471,
@@ -549,7 +529,7 @@ export const meterDevices: IMeterDevice[] = [
     type: 'Gasolina',
     meterModel: meterMarks[0].models[0],
     meterUnit: 'Litros',
-    station: stations[0]
+    station: stationsData[0]
   }
 ]
 
@@ -587,9 +567,23 @@ const FAKE_DATA_DIC = {
   METER_MODELS: () => meterMarks.flatMap(meterMark => meterMark.models),
   FLEETS: () => fleets,
   TRUCKS: () => fleets.flatMap(fleets => {
-    return fleets.trucks.map(truck => ({ ...truck, gps: gpsDevices[0], station: stations[0] }))
+    return fleets.trucks.map(truck => ({ ...truck, gps: gpsDevices[0], station: stationsData[0] }))
   }),
-  STATIONS: () => stations,
+  STATIONS: () => {
+    return stationsData.map(station => ({
+      ...station,
+      status: 'Operativo',
+      type: 'Surtido',
+      metersCount: 44,
+      trucks,
+      images: [
+        'https://via.placeholder.com/200/ff4d4d',
+        'https://via.placeholder.com/200/blue',
+        'https://via.placeholder.com/200/00f46c',
+        'https://via.placeholder.com/200/ffed5f'
+      ]
+    }))
+  },
   STATES: () => states.map(state => ({ ...state, cities })),
   CITIES: () => cities,
   GPS_DEVICES: () => gpsDevices,

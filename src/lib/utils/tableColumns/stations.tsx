@@ -1,10 +1,10 @@
-import { IconClipboard, IconDots, IconEdit, IconEye, IconEyeOff, IconSortAscending, IconSortDescending, IconStatusChange } from '@tabler/icons-react'
+import { IconDots, IconEdit, IconEye, IconEyeOff, IconSortAscending, IconSortDescending, IconStatusChange } from '@tabler/icons-react'
 import { Column, ColumnDef } from '@tanstack/react-table'
 import { ChevronsUpDown } from 'lucide-react'
 import { useRouter } from 'next/router'
 
 import { Badge, Button, Checkbox, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui'
-import { IItemToFilter, IStation } from '@/lib/types'
+import { IStation, IItemToFilter } from '@/lib/types'
 
 export const StationRowActions = ({ station }: { station: IStation }) => {
   const router = useRouter()
@@ -23,21 +23,14 @@ export const StationRowActions = ({ station }: { station: IStation }) => {
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem onClick={() => router.push(`/categorias/${station.id}`)}>
+        <DropdownMenuItem onClick={() => router.push(`/estaciones/${station.id}`)}>
           <IconEye className='mr-2 h-4 w-4' />
           Ver Estación
         </DropdownMenuItem>
 
-        <DropdownMenuItem onClick={() => router.push(`/categorias/${station.id}/editar`)}>
+        <DropdownMenuItem onClick={() => router.push(`/estaciones/${station.id}/editar`)}>
           <IconEdit className='mr-2 h-4 w-4' />
           Editar Estación
-        </DropdownMenuItem>
-
-        <DropdownMenuSeparator />
-
-        <DropdownMenuItem onClick={() => navigator.clipboard.writeText(station.id.toString())}>
-          <IconClipboard className='h-4 w-4 mr-2' />
-          Copiar ID
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -126,7 +119,7 @@ export const stationColumns: ColumnDef<IStation>[] = [
     id: 'Ubicacion',
     accessorKey: 'direction',
     header: 'Ubicacion (latitud, longitud)',
-    cell: ({ row: { original } }) => `${original.lat}, ${original.lng}`
+    cell: ({ row: { original } }) => `${original.coordinates.lat}, ${original.coordinates.lng}`
   },
   {
     id: 'Ciudad',
@@ -134,7 +127,7 @@ export const stationColumns: ColumnDef<IStation>[] = [
     header: ({ column }) => <ColumnSort column={column} columnLabel='Ciudad' />,
     cell: ({ row }) => (
       <div className='w-full pl-4'>
-        {row.original.city.title}
+        {row.original.direction.city}
       </div>
     )
   },
