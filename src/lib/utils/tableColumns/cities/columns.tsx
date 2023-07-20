@@ -1,7 +1,7 @@
 /* eslint-disable brace-style */
 import { ColumnDef } from '@tanstack/react-table'
 
-import type { ICity, IGetSubcategoryColumnsParams, TColumnActions } from '@/lib/types'
+import type { ICity, IGetEntityColumnsParams, TColumnActions } from '@/lib/types'
 
 import { CityColumnActions } from './ColumnActions'
 import { CityColumnSort } from './ColumnSort'
@@ -72,7 +72,7 @@ export const getCityColumns = ({
   selection = false,
   actions = initialActions,
   id = true
-}: IGetSubcategoryColumnsParams): ColumnDef<ICity>[] => {
+}: IGetEntityColumnsParams): ColumnDef<ICity>[] => {
   const cityColumnsAcum: ColumnDef<ICity>[] = []
 
   if (id && !cityColumnsAcum.includes(idColumn)) {

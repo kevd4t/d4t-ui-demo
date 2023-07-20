@@ -2,8 +2,8 @@ import type { ReactElement } from '@/lib/types'
 import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
+import { FormCreateStation } from '@/components/page/estaciones/FormCreateStation'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
-import { FormCreateUser } from '@/components/page/usuarios/FormCreateUser'
 
 const { ROUTES } = siteConfig
 
@@ -11,8 +11,7 @@ const CreateStationPage = () => {
   return (
     <>
       <HeaderPage allowGoBack title='Crear Estación' containerClassName='pb-0' />
-
-      <FormCreateUser />
+      <FormCreateStation />
     </>
   )
 }

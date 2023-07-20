@@ -51,19 +51,3 @@ export interface IFormEditCategory {
 }
 
 export interface ITableCategoryWithSubCategories extends IFetchDataTable<ICategoryWithSubCategories> {}
-
-// Columns
-
-export type TColumnActions = {
-  edit?: boolean
-  detail?: boolean
-  create?: boolean
-  delete?: boolean
-  removeLocalItem?: (id: string|number) => void
-}
-
-export interface IGetSubcategoryColumnsParams {
-  selection?: boolean
-  id?: boolean
-  actions?: TColumnActions
-}

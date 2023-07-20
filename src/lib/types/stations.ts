@@ -4,25 +4,25 @@ import { ITruck } from './trucks'
 /* eslint-disable no-use-before-define */
 export interface IStationDataOriginal {
   id: string
-  title: string
+  rif: string
   type: string
+  title: string
   modality: string
   isActive: boolean
-  socialReason: string
-  rif: string
-  direction: IDirection
-  coordinates: ICoordinates
-  contacts: IStationContact[]
-  tanks: ITank[]
-  islands: IIsland[]
-  infoTanks: IInfoTanks
-  infoIslands: IInfoIslands
-  infoSupplies: IInfoSupplies
-  infoDispensers: IInfoDispensers
-  isGasolineDispatch: boolean
-  isDiselDispatch: boolean
   nbBandera: string
   cadenaSum: string
+  socialReason: string
+  isDiselDispatch: boolean
+  isGasolineDispatch: boolean
+  tanks: ITank[]
+  islands: IIsland[]
+  direction: IDirection
+  infoTanks: IInfoTanks
+  infoIslands: IInfoIslands
+  coordinates: ICoordinates
+  contacts: IStationContact[]
+  infoSupplies: IInfoSupplies
+  infoDispensers: IInfoDispensers
 }
 
 export interface IStation extends IStationDataOriginal {
@@ -117,19 +117,44 @@ export interface ITank {
   capacity?: number
 }
 
-export interface IDataToCreateStation {
+export interface IFormCreateStation {
   title: string
-  lat: string
-  lng: string
-  city: ICity
-  metersCount: string
-  reference: string
-  status: string
+  rifType: string
+  rifNumber: string
+
+  modality: string
   type: string
-  truck: ITruck
+
+  nbBandera: string
+  cadenaSum: string
+
+  socialReason: string
+
+  isDiselDispatch: boolean
+  isGasolineDispatch: boolean
+
+  metersCount: number
+
+  status: string
+  isActive: 'true' | 'false'
+
+  directionState: string
+  directionCity: string
+  directionReference: string
+
+  // images: string[]
+  // tanks: ITank[]
+  // islands: IIsland[]
+  // direction: IDirection
+  // infoTanks: IInfoTanks
+  // infoIslands: IInfoIslands
+  // coordinates: ICoordinates
+  // contacts: IStationContact[]
+  // infoSupplies: IInfoSupplies
+  // infoDispensers: IInfoDispensers
 }
 
 export interface IStationDetail extends IStation {}
-export interface IDataToEditStation extends IDataToCreateStation {
+export interface IDataToEditStation extends IFormCreateStation {
   trucks: ITruck[]
 }

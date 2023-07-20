@@ -162,7 +162,7 @@ export const DetailMeterDevice = ({ meterDevice }: { meterDevice: IMeterDevice }
                   type='text'
                   tabIndex={8}
                   label='Ciudad'
-                  value={meterDevice.station.city.title}
+                  value={meterDevice.station.direction.city}
                 />
 
                 <div className='w-full flex justify-between items-start gap-4'>
@@ -188,7 +188,7 @@ export const DetailMeterDevice = ({ meterDevice }: { meterDevice: IMeterDevice }
                   rows={5}
                   tabIndex={9}
                   label='Referencia'
-                  value={meterDevice.station.reference}
+                  value={meterDevice.station.direction.reference}
                   readOnly
                 />
               </div>

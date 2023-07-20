@@ -10,11 +10,11 @@ const handleApiCategories = (req: NextApiRequest, res: NextApiResponse) => {
       prevPage: null
     },
     results: [
-      ...stations[0],
-      ...stations[1],
-      ...stations[2],
-      ...stations[3],
-      ...stations[4]
+      stations[0],
+      stations[1],
+      stations[2],
+      stations[3],
+      stations[4]
     ]
   })
 }
