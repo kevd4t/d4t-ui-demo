@@ -67,7 +67,7 @@ const DetailUserPage = () => {
         title={`Detalle de Estación ${router.query.id}`}
       />
 
-      <DetailStation station={station} />
+      {station && <DetailStation station={station as IStation} />}
     </>
   )
 }

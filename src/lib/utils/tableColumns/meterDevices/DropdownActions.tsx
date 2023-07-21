@@ -27,8 +27,6 @@ export const MeterDeviceDropdownActions = ({ actions, itemIdx, handleDialogsOpen
       <DropdownMenuContent align='end'>
         <DropdownMenuLabel>Acciones</DropdownMenuLabel>
 
-        <DropdownMenuSeparator />
-
         {
           actions?.detail && (
             <>

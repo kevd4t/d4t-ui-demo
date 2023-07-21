@@ -1,5 +1,5 @@
 import { PaginationState, RowSelectionState, type Table as TableType } from '@tanstack/react-table'
-import { IconBusStop } from '@tabler/icons-react'
+import { IconBusStop, IconUser, IconUserPlus } from '@tabler/icons-react'
 // import ReactCompareImage from 'react-compare-image'
 import { useForm } from 'react-hook-form'
 // import { useRouter } from 'next/router'
@@ -8,17 +8,17 @@ import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
-import type { IFetchDataTable, IFormCreateStation, IMeterDevice } from '@/lib/types'
+import type { IFetchDataTable, IFormCreateStation, IFormCreateStationContact, IMeterDevice } from '@/lib/types'
 import { getMeterDeviceColumns } from '@/lib/utils/tableColumns/meterDevices'
 import { handleOnlyNumbers } from '@/lib/utils/handleOnlyNumbers'
 import { handleFetchUrlUserGroups } from '@/lib/services/users'
 import { simulateFetch } from '@/lib/utils/simulateFetch'
-import { formatRIF } from '@/lib/utils/formaters'
+import { formatCI, formatPhoneNumber, formatRIF } from '@/lib/utils/formaters'
 import { useFetch } from '@/lib/hooks/useFetch'
-import { stationRules } from './rules'
+import { stationContactRules, stationRules } from './rules'
 import { APP_CONFIG } from '@/config'
 
-import { Avatar, AvatarFallback, AvatarImage, Badge, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Dialog, DialogContent, DialogHeader, Separator } from '@/components/ui'
+import { Avatar, AvatarFallback, AvatarImage, Badge, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, ScrollArea, Separator } from '@/components/ui'
 import { Congratulations } from '@/components/common/illustrations/Congratulations'
 import { MultipleImages } from '@/components/common/uploadImages/MultipleImages'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
@@ -27,8 +27,9 @@ import { GenericCombobox } from '@/components/common/combox'
 import { GenericSelect } from '@/components/common/selects'
 import { Input } from '@/components/common/inputs/Input'
 import { TextArea } from '@/components/common/textarea'
+import { UploadImage } from '@/components/common/uploadImages'
 
-const { CI_TYPES, IS_ACTIVE } = APP_CONFIG
+const { CI_TYPES, IS_ACTIVE, PHONE_LINE_CODES } = APP_CONFIG
 const BasicMapNoSSR = dynamic(() => import('@/components/common/gps/BasicMap'), { ssr: false })
 
 export const FormCreateStation = () => {
@@ -36,11 +37,14 @@ export const FormCreateStation = () => {
   const [tableStationIslandsSelected, setTableStationIslandsSelected] = useState<RowSelectionState>({})
   const [tableMeterDevicesSelected, setTableMeterDevicesSelected] = useState<RowSelectionState>({})
   // const [showComparisons, setShowComparisons] = useState({ userPhoto: false, ciImage: false })
-  const [modalInfo, setModalInfo] = useState({ open: false, label: '', illustration: null })
+  const [modalInfo, setModalInfo] = useState({ open: false, label: '', illustration: null, type: '' })
   const [fullDataStationIslandsSelected, setFullDataStationIslandsSelected] = useState([])
   const [fullDataMeterDevicesSelected, setFullDataMeterDevicesSelected] = useState([])
   const [multipleStationImages, setMultipleStationImages] = useState([])
   const [loading, setLoading] = useState({ meessage: '', value: false })
+  const [stationContactImage, setStationContactImage] = useState([])
+  const formStationContact = useForm<IFormCreateStationContact>()
+  const [contactsCreated, setContactsCreated] = useState([])
   const formStation = useForm<IFormCreateStation>()
   // const router = useRouter()
 
@@ -53,7 +57,28 @@ export const FormCreateStation = () => {
     labels: { pluralItem: 'Medidores', singularItem: 'Medidor' }
   }
 
-  const onChangeMultipleTruckImages = (imageList, addUpdateIndex) => {
+  const handleOnKeyUpCI = (event) => {
+    const { value } = event.target
+
+    const ciFormmated = formatCI(value)
+
+    formStationContact.setValue('ciNumber', ciFormmated)
+  }
+
+  const handleOnKeyUpPhoneNumber = (event) => {
+    const { value } = event.target
+
+    const phoneNumberFormated = formatPhoneNumber(value)
+
+    formStationContact.setValue('phone', phoneNumberFormated)
+  }
+
+  const onChangeStationContactImage = (imageList, addUpdateIndex) => {
+    console.log(imageList)
+    setStationContactImage(imageList)
+  }
+
+  const onChangeStationImages = (imageList, addUpdateIndex) => {
     console.log(imageList)
     setMultipleStationImages(imageList)
   }
@@ -97,7 +122,21 @@ export const FormCreateStation = () => {
   //   }
   // }
 
-  const onSubmit = async (data: IFormCreateStation) => {
+  const formatCodePhoneLines = () => {
+    const allCodeLines = [...PHONE_LINE_CODES.DIGITAL, ...PHONE_LINE_CODES.MOVILNET, ...PHONE_LINE_CODES.MOVISTAR]
+    return allCodeLines
+  }
+
+  const handleColsGrid = () => {
+    let colCount = Math.min(3, contactsCreated.length + 1) // Limitar a un máximo de 3 columnas
+    if (contactsCreated.length > 3) {
+      colCount = 3 // Mostrar siempre 3 columnas si hay más elementos que la cantidad permitida
+    }
+
+    return colCount
+  }
+
+  const onSubmitStation = async (data: IFormCreateStation) => {
     if (!fullDataMeterDevicesSelected?.length) {
       toast.error('Los medidores son requeridos')
       setLoading({ meessage: '', value: false })
@@ -143,17 +182,38 @@ export const FormCreateStation = () => {
       meterDevice: { ...fullDataMeterDevicesSelected[0].original }
     })
 
-    setModalInfo(prevState => ({ label: 'Estación Creada', open: true, illustration: <Congratulations className='h-72' /> }))
+    setModalInfo(prevState => ({ label: 'Estación Creada', open: true, illustration: <Congratulations className='h-72' />, type: '' }))
     setLoading({ meessage: '', value: false })
     const jsConfetti = new JSConfetti()
     jsConfetti.addConfetti()
 
     await simulateFetch(4000)
-    setModalInfo({ illustration: null, label: '', open: false })
+    setModalInfo({ illustration: null, label: '', open: false, type: '' })
     setLoading({ meessage: '', value: false })
 
     // router.push('/estaciones')
   }
+
+  const onSubmitStationContact = async (data: IFormCreateStationContact) => {
+    setModalInfo({ illustration: null, label: '', open: false, type: '' })
+    setLoading(({ meessage: 'Creando Contacto', value: true }))
+    setModalInfo(prevState => ({ ...prevState, label: 'Creando Contacto', open: true }))
+    await simulateFetch(3000)
+
+    setContactsCreated(prevState => ([...prevState, { ...data, phone: `(${data.phoneCode}) ${data.phoneNumber}` }]))
+
+    setModalInfo({ label: 'Contacto Creado', open: true, illustration: <Congratulations className='h-72' />, type: '' })
+    setLoading({ meessage: '', value: false })
+    const jsConfetti = new JSConfetti()
+    jsConfetti.addConfetti()
+
+    await simulateFetch(4000)
+    setModalInfo({ illustration: null, label: '', open: false, type: '' })
+    setLoading({ meessage: '', value: false })
+    formStationContact.reset()
+  }
+
+  const handleOpenCreateTruckModal = (value: boolean) => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_STATION_CONTACT', open: value }))
 
   return (
     <>
@@ -173,31 +233,141 @@ export const FormCreateStation = () => {
         </DialogContent>
       </Dialog>
 
-      {/* <Dialog modal open={showComparisons.ciImage} onOpenChange={handleCloseComparisons}>
-        <DialogContent aria-modal>
-          <div className='w-full h-full flex flex-col justify-center items-center'>
-            <ReactCompareImage
-              leftImage={ciImage.compressed[0]?.data_url}
-              leftImageLabel='Comprimido'
-              rightImage={ciImage.original[0]?.data_url}
-              rightImageLabel='Original'
-            />
-          </div>
-        </DialogContent>
-      </Dialog> */}
+      {/* Crear Contacto de la Estacion */}
+      <Dialog open={modalInfo.type === 'CREATE_STATION_CONTACT' && modalInfo.open} onOpenChange={handleOpenCreateTruckModal}>
+        <DialogContent>
+          <ScrollArea className='px-2'>
+            <DialogHeader>
+              <DialogTitle>Crear Contacto</DialogTitle>
 
-      {/* <Dialog modal open={showComparisons.userPhoto} onOpenChange={handleCloseComparisons}>
-        <DialogContent aria-modal>
-          <div className='w-full h-full flex flex-col justify-center items-center'>
-            <ReactCompareImage
-              leftImage={userPhoto.compressed[0]?.data_url}
-              leftImageLabel='Comprimido'
-              rightImage={userPhoto.original[0]?.data_url}
-              rightImageLabel='Original'
-            />
-          </div>
+              <DialogDescription>
+                Crea contacto para asignarlo a una estación
+              </DialogDescription>
+            </DialogHeader>
+
+            <form onSubmit={formStationContact.handleSubmit(onSubmitStationContact)} autoFocus className='w-full mt-4'>
+              <section className='w-full space-y-4'>
+                <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
+                  <Input
+                    id='names'
+                    type='text'
+                    tabIndex={1}
+                    label='Nombres'
+                    placeholder='Kevin Daniel'
+                    register={formStationContact.register}
+                    inputErrors={stationContactRules.names}
+                    messageErrors={formStationContact.formState.errors}
+                  />
+
+                  <Input
+                    id='surnames'
+                    type='text'
+                    tabIndex={1}
+                    label='Apellidos'
+                    placeholder='Blanco Ortiz'
+                    register={formStationContact.register}
+                    inputErrors={stationContactRules.surnames}
+                    messageErrors={formStationContact.formState.errors}
+                  />
+                </div>
+
+                <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
+                  <div className='w-full flex justify-start items-end gap-x-2'>
+                    <GenericCombobox
+                      id='ciType'
+                      form={formStationContact}
+                      tabIndex={6}
+                      label='Cedula'
+                      defaultValue='v'
+                      placeholder='Buscar...'
+                      ctaPlaceholder='Tipo'
+                      buttonClassName='w-[80px]'
+                      popoverClassName='w-[90px]'
+                      notFoundLabel='Codigo No Encontrado'
+                      items={formatCITypes()}
+                    />
+
+                    <Input
+                      id='ciNumber'
+                      type='text'
+                      tabIndex={7}
+                      maxLength={10}
+                      placeholder='00.000.000'
+                      onKeyUp={handleOnKeyUpCI}
+                      onKeyPress={handleOnlyNumbers}
+                      register={formStationContact.register}
+                      inputErrors={stationContactRules.ciNumber}
+                      messageErrors={formStationContact.formState.errors}
+                    />
+                  </div>
+
+                  <div className='w-full flex justify-start items-end gap-x-2'>
+                    <GenericCombobox
+                      id='phoneCode'
+                      tabIndex={4}
+                      label='Telefono'
+                      defaultValue='0412'
+                      placeholder='Buscar...'
+                      ctaPlaceholder='Codigo'
+                      form={formStationContact}
+                      buttonClassName='w-[90px]'
+                      popoverClassName='w-[130px]'
+                      items={formatCodePhoneLines()}
+                      notFoundLabel='Codigo No Encontrado'
+                    />
+
+                    <Input
+                      id='phoneNumber'
+                      prefix='+58'
+                      type='text'
+                      tabIndex={5}
+                      maxLength={7}
+                      placeholder='0000000'
+                      onKeyPress={handleOnlyNumbers}
+                      onKeyUp={handleOnKeyUpPhoneNumber}
+                      register={formStationContact.register}
+                      inputErrors={stationContactRules.phoneNumber}
+                      messageErrors={formStationContact.formState.errors}
+                    />
+                  </div>
+                </div>
+              </section>
+
+              <div className='mt-4'>
+                <UploadImage
+                  zoom
+                  label='Imagen del Unidad'
+                  emptyClassName='h-[200px]'
+                  onChange={onChangeStationContactImage}
+                  imageToUpload={stationContactImage}
+                  uploadLabel='Cargar Foto'
+                  tabIndexs={{ upload: 4, change: 4, delete: 5 }}
+                  icons={{ placeholder: <IconUserPlus className='text-zinc-400 w-10 h-10' strokeWidth={1.5} /> }}
+                />
+              </div>
+            </form>
+
+            <DialogFooter className='flex flex-col gap-y-4 mt-4'>
+              <Button
+                type='button'
+                variant='outline'
+                isLoading={loading.value}
+                onClick={() => handleOpenCreateTruckModal(false)}
+              >
+                Cancelar
+              </Button>
+
+              <Button
+                type='button'
+                isLoading={loading.value}
+                onClick={formStationContact.handleSubmit(onSubmitStationContact)}
+              >
+                Crear Contacto
+              </Button>
+            </DialogFooter>
+          </ScrollArea>
         </DialogContent>
-      </Dialog> */}
+      </Dialog>
 
       <div className='w-full h-full flex justify-start items-start gap-x-10'>
         <div className='hidden max-w-xs w-full lg:flex flex-col justify-start items-start sticky pt-6 top-0 left-0'>
@@ -239,11 +409,6 @@ export const FormCreateStation = () => {
                   <span className='font-semibold dark:text-white'>Despacha Disel:</span> &nbsp;
                   <span className='dark:text-gray-300'>{formStation.watch('isDiselDispatch') ? 'Si' : 'No'}</span>
                 </li>
-
-                <li className='flex justify-start items-center text-sm text-primary-gray'>
-                  <span className='font-semibold dark:text-white'>Razon Social:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{formStation.watch('socialReason')}</span>
-                </li>
               </ul>
 
               <Separator className='my-2' />
@@ -264,7 +429,7 @@ export const FormCreateStation = () => {
         </div>
 
         <div className='w-full pt-6'>
-          <form onSubmit={formStation.handleSubmit(onSubmit)} autoFocus className='w-full'>
+          <form onSubmit={formStation.handleSubmit(onSubmitStation)} autoFocus className='w-full'>
             <div className='w-full h-full flex flex-col xl:flex-row justify-start items-start gap-x-6 gap-y-6'>
               <Card className='p-4 w-full'>
                 <CardTitle>Informacion Basica</CardTitle>
@@ -450,6 +615,89 @@ export const FormCreateStation = () => {
             </div>
 
             <Card className='p-4 mt-6 w-full'>
+              <CardTitle>Contactos</CardTitle>
+
+              <Separator className='my-4' />
+              <div className={
+                `w-full grid grid-cols-1 grid-rows-2 sm:grid-rows-1 gap-y-3 gap-x-5 sm:grid-cols-${handleColsGrid()}`
+              }>
+                {
+                  contactsCreated.map(contact => (
+                    <Card key={contact.id}>
+                      <CardHeader>
+                        <Avatar className='w-16 h-16 rounded-full mx-auto'>
+                          <AvatarImage src={contact.photo || 'https://via.placeholder.com/200/ff4d4d'} className='object-contain' />
+
+                          <AvatarFallback className='rounded-full'>
+                            <IconUser className='text-zinc-500 w-6 h-6' />
+                          </AvatarFallback>
+                        </Avatar>
+                      </CardHeader>
+
+                      <Separator />
+
+                      <CardContent className='pt-4'>
+                        <Input
+                          id='name'
+                          type='text'
+                          tabIndex={14}
+                          label='Nombre'
+                          readOnly
+                          value={contact.name || 'Sin Nombre'}
+                        />
+
+                        <div className='space-y-2 mt-4'>
+                          <Input
+                            id='email'
+                            type='text'
+                            tabIndex={14}
+                            label='Correo Electrónico'
+                            readOnly
+                            value={contact.email || 'Sin Correo'}
+                          />
+
+                          <Input
+                            id='phone'
+                            type='text'
+                            tabIndex={14}
+                            label='Teléfono'
+                            readOnly
+                            value={contact.phone || 'Sin Teléfono'}
+                          />
+
+                          <Input
+                            id='ci'
+                            type='text'
+                            tabIndex={14}
+                            label='Cedula de Identidad'
+                            readOnly
+                            value={contact.ci || 'Sin Cedula'}
+                          />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))
+                }
+
+                <div className ='imagen-container h-full'>
+                  <div
+                    className={`w-full ${!contactsCreated.length ? 'h-64' : 'h-full'} border-slate-50 flex flex-col justify-center items-center border-dashed border-2 bg-slate-50 bg-opacity-5 rounded-md p-2`}>
+                    <Button
+                      type='button'
+                      variant='outline'
+                      className='p-2 h-min'
+                      onClick={() => setModalInfo(prevState => ({ ...prevState, open: true, type: 'CREATE_STATION_CONTACT' }))}
+                    >
+                      <IconUserPlus className='w-6 h-6 mr-2'/>
+                      Crear Contacto
+                    </Button>
+                  </div>
+                </div>
+
+              </div>
+            </Card>
+
+            <Card className='p-4 mt-6 w-full'>
               <CardTitle>Estados</CardTitle>
 
               <Separator className='my-4' />
@@ -613,7 +861,7 @@ export const FormCreateStation = () => {
             <MultipleImages
               zoom
               emptyClassName='h-[300px]'
-              onChange={onChangeMultipleTruckImages}
+              onChange={onChangeStationImages}
               imageToUpload={multipleStationImages}
               uploadLabel='Cargar Fotos de la Estación'
               tabIndexs={{ upload: 16, change: 17, delete: 18 }}
@@ -631,7 +879,7 @@ export const FormCreateStation = () => {
               tabIndex={20}
               className='w-full py-2 text-base'
               isLoading={loading.value}
-              onClick={formStation.handleSubmit(onSubmit)}
+              onClick={formStation.handleSubmit(onSubmitStation)}
             >
               Crear Estación
             </Button>

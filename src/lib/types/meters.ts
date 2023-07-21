@@ -26,7 +26,7 @@ export interface IMeterDevice {
   type: string
   meterUnit: string
   images: string[]
-  station: IStation
+  station?: IStation
 }
 
 export interface ICreateMeterDevice {

@@ -1,8 +1,7 @@
-import { ICity } from './states-cities'
-import { ITruck } from './trucks'
-
 /* eslint-disable no-use-before-define */
-export interface IStationDataOriginal {
+import { IMeterDevice } from './meters'
+import { ITruck } from './trucks'
+export interface IStation {
   id: string
   rif: string
   type: string
@@ -14,22 +13,20 @@ export interface IStationDataOriginal {
   socialReason: string
   isDiselDispatch: boolean
   isGasolineDispatch: boolean
+  metersCount: number
+  status: string
+  images: string[]
   tanks: ITank[]
+  trucks: ITruck[]
   islands: IIsland[]
   direction: IDirection
   infoTanks: IInfoTanks
+  meters: IMeterDevice[]
   infoIslands: IInfoIslands
   coordinates: ICoordinates
   contacts: IStationContact[]
   infoSupplies: IInfoSupplies
   infoDispensers: IInfoDispensers
-}
-
-export interface IStation extends IStationDataOriginal {
-  metersCount: number
-  status: string
-  trucks: ITruck[]
-  images: string[]
 }
 
 export interface IStationContact {
@@ -38,6 +35,7 @@ export interface IStationContact {
   email: null | string
   ci: null | string
   phone: null | string
+  photo?: null | string
 }
 
 export interface ICoordinates {
@@ -157,4 +155,15 @@ export interface IFormCreateStation {
 export interface IStationDetail extends IStation {}
 export interface IDataToEditStation extends IFormCreateStation {
   trucks: ITruck[]
+}
+
+export interface IFormCreateStationContact {
+  name: string
+  email: null | string
+  ciType: null | string
+  ciNumber: null | string
+  phone: null | string
+  phoneNumber: string
+  phoneCode: string
+  photo?: null | string
 }

@@ -77,12 +77,12 @@ export const meterDeviceColumns: ColumnDef<IMeterDevice>[] = [
     header: 'Unidad de Medición',
     cell: ({ row }) => row.original.meterUnit
   },
-  {
-    id: 'Estación',
-    accessorKey: 'station',
-    header: 'Estación',
-    cell: ({ row }) => row.original.station.title
-  },
+  // {
+  //   id: 'Estación',
+  //   accessorKey: 'station',
+  //   header: 'Estación',
+  //   cell: ({ row }) => row.original.station.title
+  // },
   {
     id: 'Estatus',
     accessorKey: 'status',

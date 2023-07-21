@@ -1,18 +1,44 @@
 import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
 
-import type { IFetchData, IUserDetail, ReactElement } from '@/lib/types'
-import { useFetch } from '@/lib/hooks/useFetch'
+import type { IStation, ReactElement } from '@/lib/types'
 import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
-import { HeaderPage } from '@/components/common/headers/HeaderPage'
+import { FormEditStation } from '@/components/page/estaciones/FormEditStation'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
+import { HeaderPage } from '@/components/common/headers/HeaderPage'
 
 const { ROUTES } = siteConfig
 
 const EditUserPage = () => {
   const router = useRouter()
-  const { error, isLoading } = useFetch<IFetchData<IUserDetail>>(`/api/stations/${router.query.id}`)
+  const [isLoading, setIsLoading] = useState(true)
+  const [station, setStation] = useState(null)
+  const [error, setError] = useState(null)
+
+  const getStationDetail = async () => {
+    setIsLoading(true)
+
+    const res = await fetch(`/api/stations/${router.query.id}`)
+
+    if (!res.ok) {
+      toast.error('Hubo un Error')
+      setError('Hubo un Error-')
+      setIsLoading(false)
+      return
+    }
+
+    const data = await res.json()
+    setStation(data.results)
+    setIsLoading(false)
+  }
+
+  useEffect(() => {
+    getStationDetail()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.query.id])
 
   if (error) {
     return (
@@ -34,7 +60,8 @@ const EditUserPage = () => {
 
   return (
     <>
-      <HeaderPage allowGoBack title={`Editar Estación ${router.query.id}`} />
+      <HeaderPage allowGoBack title={`Detalle de Marca de Medidor ${router.query.id}`} />
+      { station && (<FormEditStation station={station as IStation} />) }
     </>
   )
 }
