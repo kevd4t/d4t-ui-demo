@@ -25,7 +25,7 @@ const EditTypeStatusSettingsPage = () => {
 
     if (!res.ok) {
       toast.error('Hubo un Error')
-      setError('Hubo un Error-')
+      setError('Hubo un Error')
       setIsLoading(false)
       return
     }
@@ -74,7 +74,7 @@ const EditTypeStatusSettingsPage = () => {
 
 EditTypeStatusSettingsPage.getLayout = function getLayout (page: ReactElement) {
   return (
-    <AuthenticatedLayout title={`${ROUTES.SETTINGS.CATEGORIES.DETAIL.TITLE} | ${siteConfig.TITLE}`} >
+    <AuthenticatedLayout title={`${ROUTES.SETTINGS.CATEGORIES.DETAIL.TITLE} | ${siteConfig.TITLE}`}>
       {page}
     </AuthenticatedLayout>
   )

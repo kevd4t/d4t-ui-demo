@@ -20,7 +20,7 @@ const DistributionPage = () => {
 
 DistributionPage.getLayout = function getLayout (page: ReactElement) {
   return (
-    <AuthenticatedLayout title={`${ROUTES.DISTRIBUTION.LIST.TITLE} | ${siteConfig.TITLE}`} >
+    <AuthenticatedLayout title={`${ROUTES.DISTRIBUTION.LIST.TITLE} | ${siteConfig.TITLE}`}>
       {page}
     </AuthenticatedLayout>
   )

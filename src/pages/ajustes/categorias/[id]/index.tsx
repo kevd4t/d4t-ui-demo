@@ -25,7 +25,7 @@ const CategorySettingsPage = () => {
 
     if (!res.ok) {
       toast.error('Hubo un Error')
-      setError('Hubo un Error-')
+      setError('Hubo un Error')
       setIsLoading(false)
       return
     }
@@ -74,7 +74,7 @@ const CategorySettingsPage = () => {
 
 CategorySettingsPage.getLayout = function getLayout (page: ReactElement) {
   return (
-    <AuthenticatedLayout title={`${ROUTES.SETTINGS.CATEGORIES.EDIT.TITLE} | ${siteConfig.TITLE}`} >
+    <AuthenticatedLayout title={`${ROUTES.SETTINGS.CATEGORIES.EDIT.TITLE} | ${siteConfig.TITLE}`}>
       {page}
     </AuthenticatedLayout>
   )

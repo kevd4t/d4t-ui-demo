@@ -25,7 +25,7 @@ const EditFleetPage = () => {
 
     if (!res.ok) {
       toast.error('Hubo un Error')
-      setError('Hubo un Error-')
+      setError('Hubo un Error')
       setIsLoading(false)
       return
     }
@@ -70,7 +70,7 @@ const EditFleetPage = () => {
 
 EditFleetPage.getLayout = function getLayout (page: ReactElement) {
   return (
-    <AuthenticatedLayout title={`${ROUTES.USERS.DETAIL.TITLE} | ${siteConfig.TITLE}`} >
+    <AuthenticatedLayout title={`${ROUTES.USERS.DETAIL.TITLE} | ${siteConfig.TITLE}`}>
       {page}
     </AuthenticatedLayout>
   )

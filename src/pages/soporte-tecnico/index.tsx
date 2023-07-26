@@ -20,7 +20,7 @@ const TechnicalSupportPage = () => {
 
 TechnicalSupportPage.getLayout = function getLayout (page: ReactElement) {
   return (
-    <AuthenticatedLayout title={`${ROUTES.TECHNICAL_SUPPORT.TITLE} | ${siteConfig.TITLE}`} >
+    <AuthenticatedLayout title={`${ROUTES.TECHNICAL_SUPPORT.TITLE} | ${siteConfig.TITLE}`}>
       {page}
     </AuthenticatedLayout>
   )

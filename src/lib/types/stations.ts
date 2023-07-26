@@ -1,6 +1,7 @@
 /* eslint-disable no-use-before-define */
-import { IMeterDevice } from './meters'
-import { ITruck } from './trucks'
+import type { IMeterDevice } from './meters'
+import type { ReactNode } from './next-react'
+import type { ITruck } from './trucks'
 export interface IStation {
   id: string
   rif: string
@@ -166,4 +167,17 @@ export interface IFormCreateStationContact {
   phoneNumber: string
   phoneCode: string
   photo?: null | string
+}
+
+export type TAccountTabKey = 'BASIC_INFO' | 'ISLANDS' | 'TANKS' | 'DISPENSERS' | 'METERS'
+
+export interface IContentTabs {
+  label: string
+  tabKey: TAccountTabKey
+  content: ReactNode
+  icon: ReactNode
+  isDisabled: boolean
+  isCompleted: boolean
+  isActive: boolean
+  route: '/islas' | '/tanques' | '/info' | '/dispensadores' | '/medidores'
 }

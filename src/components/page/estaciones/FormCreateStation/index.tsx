@@ -2,7 +2,7 @@ import { PaginationState, RowSelectionState, type Table as TableType } from '@ta
 import { IconBusStop, IconUser, IconUserPlus } from '@tabler/icons-react'
 // import ReactCompareImage from 'react-compare-image'
 import { useForm } from 'react-hook-form'
-// import { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import JSConfetti from 'js-confetti'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
@@ -13,7 +13,7 @@ import { getMeterDeviceColumns } from '@/lib/utils/tableColumns/meterDevices'
 import { handleOnlyNumbers } from '@/lib/utils/handleOnlyNumbers'
 import { handleFetchUrlUserGroups } from '@/lib/services/users'
 import { simulateFetch } from '@/lib/utils/simulateFetch'
-import { formatCI, formatPhoneNumber, formatRIF } from '@/lib/utils/formaters'
+import { formatCI, formatCITypes, formatPhoneNumber, formatRIF } from '@/lib/utils/formaters'
 import { useFetch } from '@/lib/hooks/useFetch'
 import { stationContactRules, stationRules } from './rules'
 import { APP_CONFIG } from '@/config'
@@ -28,6 +28,7 @@ import { GenericSelect } from '@/components/common/selects'
 import { Input } from '@/components/common/inputs/Input'
 import { TextArea } from '@/components/common/textarea'
 import { UploadImage } from '@/components/common/uploadImages'
+import { useStationFlow } from '@/lib/store/stationFlow'
 
 const { CI_TYPES, IS_ACTIVE, PHONE_LINE_CODES } = APP_CONFIG
 const BasicMapNoSSR = dynamic(() => import('@/components/common/gps/BasicMap'), { ssr: false })
@@ -46,7 +47,7 @@ export const FormCreateStation = () => {
   const formStationContact = useForm<IFormCreateStationContact>()
   const [contactsCreated, setContactsCreated] = useState([])
   const formStation = useForm<IFormCreateStation>()
-  // const router = useRouter()
+  const router = useRouter()
 
   const { data, error, isLoading: isLoadingMeterModels, fetcher } = useFetch<IFetchDataTable<IMeterDevice>>('/api/meter-devices')
 
@@ -106,12 +107,6 @@ export const FormCreateStation = () => {
     formStation.setValue('rifNumber', rifFormmated)
   }
 
-  const formatCITypes = () => {
-    const allCITypes = [CI_TYPES.VENEZUELAN, CI_TYPES.JURIDICAL, CI_TYPES.FOREIGN, CI_TYPES.PASSPORT, CI_TYPES.GOVERNMENTAL]
-    const allTypesCIFormated = allCITypes.map(ciType => ({ label: ciType.key, value: ciType.key.toLowerCase() }))
-    return allTypesCIFormated
-  }
-
   // const handleCloseComparisons = () => {
   //   if (showComparisons.ciImage === true) {
   //     setShowComparisons(prevState => ({ ...prevState, ciImage: false }))
@@ -137,29 +132,29 @@ export const FormCreateStation = () => {
   }
 
   const onSubmitStation = async (data: IFormCreateStation) => {
-    if (!fullDataMeterDevicesSelected?.length) {
-      toast.error('Los medidores son requeridos')
-      setLoading({ meessage: '', value: false })
-      return
-    }
+    // if (!fullDataMeterDevicesSelected?.length) {
+    //   toast.error('Los medidores son requeridos')
+    //   setLoading({ meessage: '', value: false })
+    //   return
+    // }
 
-    if (fullDataMeterDevicesSelected?.length > 50) {
-      toast.error('Seleccione solo hasta 50 medidores')
-      setLoading({ meessage: '', value: false })
-      return
-    }
+    // if (fullDataMeterDevicesSelected?.length > 50) {
+    //   toast.error('Seleccione solo hasta 50 medidores')
+    //   setLoading({ meessage: '', value: false })
+    //   return
+    // }
 
-    if (!fullDataStationIslandsSelected?.length) {
-      toast.error('Las islas son requerida')
-      setLoading({ meessage: '', value: false })
-      return
-    }
+    // if (!fullDataStationIslandsSelected?.length) {
+    //   toast.error('Las islas son requerida')
+    //   setLoading({ meessage: '', value: false })
+    //   return
+    // }
 
-    if (fullDataStationIslandsSelected?.length > 20) {
-      toast.error('Seleccione solo hasta 20 islas')
-      setLoading({ meessage: '', value: false })
-      return
-    }
+    // if (fullDataStationIslandsSelected?.length > 20) {
+    //   toast.error('Seleccione solo hasta 20 islas')
+    //   setLoading({ meessage: '', value: false })
+    //   return
+    // }
 
     if (!multipleStationImages.length) {
       toast.error('Las fotos de la estación son requeridas')
@@ -178,8 +173,8 @@ export const FormCreateStation = () => {
         city: data.directionCity,
         state: data.directionState,
         reference: data.directionReference
-      },
-      meterDevice: { ...fullDataMeterDevicesSelected[0].original }
+      }
+      // meterDevice: { ...fullDataMeterDevicesSelected[0].original }
     })
 
     setModalInfo(prevState => ({ label: 'Estación Creada', open: true, illustration: <Congratulations className='h-72' />, type: '' }))
@@ -190,8 +185,9 @@ export const FormCreateStation = () => {
     await simulateFetch(4000)
     setModalInfo({ illustration: null, label: '', open: false, type: '' })
     setLoading({ meessage: '', value: false })
+    // allowTabsToComplete()
 
-    // router.push('/estaciones')
+    router.push('/estaciones/37a6ccc8-2bd4-43a8-8970-181ba60e1282/islas/editar')
   }
 
   const onSubmitStationContact = async (data: IFormCreateStationContact) => {
@@ -369,250 +365,272 @@ export const FormCreateStation = () => {
         </DialogContent>
       </Dialog>
 
-      <div className='w-full h-full flex justify-start items-start gap-x-10'>
-        <div className='hidden max-w-xs w-full lg:flex flex-col justify-start items-start sticky pt-6 top-0 left-0'>
-          <Card className='w-full sticky top-0 left-0'>
-            <CardHeader>
-              <Avatar className='w-full h-32 rounded-sm mx-auto'>
-                <AvatarImage src={multipleStationImages[0]?.data_url} className='object-contain w-full h-full' />
-                <AvatarFallback className='rounded-md'>
-                  <IconBusStop className='text-zinc-500 w-10 h-10' />
-                </AvatarFallback>
-              </Avatar>
-            </CardHeader>
-
-            <CardContent>
-              <h6 className='font-semibold'>Informacion Basica</h6>
-
-              <ul className='mt-2'>
-                <li className='flex justify-start items-center text-sm text-primary-gray'>
-                  <span className='font-semibold dark:text-white'>Título:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{formStation.watch('title')}</span>
-                </li>
-
-                <li className='flex justify-start items-center text-sm text-primary-gray'>
-                  <span className='font-semibold dark:text-white'>RIF:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{formStation.watch('rifType')?.toUpperCase()}-{formStation.watch('rifNumber')}</span>
-                </li>
-
-                <li className='flex justify-start items-center text-sm text-primary-gray'>
-                  <span className='font-semibold dark:text-white'>Modalidad:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{formStation.watch('modality')}</span>
-                </li>
-
-                <li className='flex justify-start items-center text-sm text-primary-gray'>
-                  <span className='font-semibold dark:text-white'>Despacha Gasolina:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{formStation.watch('isGasolineDispatch') ? 'Si' : 'No'}</span>
-                </li>
-
-                <li className='flex justify-start items-center text-sm text-primary-gray'>
-                  <span className='font-semibold dark:text-white'>Despacha Disel:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{formStation.watch('isDiselDispatch') ? 'Si' : 'No'}</span>
-                </li>
-              </ul>
-
-              <Separator className='my-2' />
-
-              <Badge
-                className={`w-full text-sm h-full py-1.5 ${IS_ACTIVE[formStation.watch('isActive')]?.value ? 'border-2 bg-green-100 border-green-500 text-green-500' : 'border-2 bg-red-100 border-red-500 text-red-500'}`}
-              >
-                {formStation.watch('isActive') === 'true' ? 'Activo' : 'Bloqueado'}
-              </Badge>
-
-              <Separator className='my-2' />
-
-              <Badge className='w-full text-sm h-full py-1.5'>
-                {formStation.watch('status') || 'Vacio'}
-              </Badge>
-            </CardContent>
-          </Card>
-        </div>
-
+      <div className='w-full h-full flex justify-start items-start'>
         <div className='w-full pt-6'>
           <form onSubmit={formStation.handleSubmit(onSubmitStation)} autoFocus className='w-full'>
-            <div className='w-full h-full flex flex-col xl:flex-row justify-start items-start gap-x-6 gap-y-6'>
-              <Card className='p-4 w-full'>
-                <CardTitle>Informacion Basica</CardTitle>
+            <Card className='p-4 w-full'>
+              <CardTitle>Informacion Basica</CardTitle>
 
-                <Separator className='my-4' />
+              <Separator className='my-4' />
 
-                <section className='w-full space-y-4'>
-                  <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
+              <section className='w-full space-y-4'>
+                <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
+                  <Input
+                    id='title'
+                    type='text'
+                    tabIndex={1}
+                    label='Título'
+                    placeholder='Estacion Pepito'
+                    register={formStation.register}
+                    inputErrors={stationRules.title}
+                    messageErrors={formStation.formState.errors}
+                  />
+
+                  <div className='w-full flex justify-start items-end gap-x-2'>
+                    <GenericCombobox
+                      id='rifType'
+                      form={formStation}
+                      tabIndex={2}
+                      label='RIF'
+                      defaultValue='v'
+                      placeholder='Buscar...'
+                      ctaPlaceholder='Tipo'
+                      buttonClassName='w-[80px]'
+                      popoverClassName='w-[90px]'
+                      notFoundLabel='Codigo No Encontrado'
+                      items={formatCITypes()}
+                    />
+
                     <Input
-                      id='title'
+                      id='rifNumber'
                       type='text'
-                      tabIndex={1}
-                      label='Título'
-                      placeholder='Estacion Pepito'
+                      tabIndex={3}
+                      maxLength={10}
+                      placeholder='00.000.000'
                       register={formStation.register}
-                      inputErrors={stationRules.title}
+                      onKeyUp={handleOnKeyUpRIF}
+                      inputErrors={stationRules.rifNumber}
+                      onKeyPress={handleOnlyNumbers}
                       messageErrors={formStation.formState.errors}
                     />
-
-                    <div className='w-full flex justify-start items-end gap-x-2'>
-                      <GenericCombobox
-                        id='rifType'
-                        form={formStation}
-                        tabIndex={2}
-                        label='RIF'
-                        defaultValue='v'
-                        placeholder='Buscar...'
-                        ctaPlaceholder='Tipo'
-                        buttonClassName='w-[80px]'
-                        popoverClassName='w-[90px]'
-                        notFoundLabel='Codigo No Encontrado'
-                        items={formatCITypes()}
-                      />
-
-                      <Input
-                        id='rifNumber'
-                        type='text'
-                        tabIndex={3}
-                        maxLength={10}
-                        placeholder='00.000.000'
-                        register={formStation.register}
-                        onKeyUp={handleOnKeyUpRIF}
-                        inputErrors={stationRules.rifNumber}
-                        onKeyPress={handleOnlyNumbers}
-                        messageErrors={formStation.formState.errors}
-                      />
-                    </div>
                   </div>
+                </div>
 
-                  <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
-                    <GenericSelect
-                      id='modality'
-                      label='Modalidad'
-                      placeholder='Seleccione un Modalidad'
-                      defaultValue='Subsidiada'
-                      tabIndex={4}
-                      fieldControlled={{ control: formStation.control, rules: stationRules.modality }}
-                      items={[
-                        {
-                          label: 'Subsidiada',
-                          value: 'Subsidiada'
-                        },
-                        {
-                          label: 'Internacional',
-                          value: 'Internacional'
-                        }
-                      ]}
-                    />
-
-                    <GenericSelect
-                      id='type'
-                      label='Tipo'
-                      placeholder='Seleccione un Tipo'
-                      defaultValue='Tercero'
-                      tabIndex={5}
-                      fieldControlled={{ control: formStation.control, rules: stationRules.type }}
-                      items={[
-                        {
-                          label: 'Tercero',
-                          value: 'Tercero'
-                        },
-                        {
-                          label: 'Propio',
-                          value: 'Propio'
-                        }
-                      ]}
-                    />
-                  </div>
-
-                  <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
-                    <GenericSelect
-                      id='nbBandera'
-                      label='Bandera'
-                      placeholder='PDV'
-                      defaultValue='PDV'
-                      tabIndex={6}
-                      fieldControlled={{ control: formStation.control, rules: stationRules.nbBandera }}
-                      items={[
-                        {
-                          label: 'PDV',
-                          value: 'PDV'
-                        },
-                        {
-                          label: 'Otro',
-                          value: 'Otro'
-                        }
-                      ]}
-                    />
-
-                    <GenericSelect
-                      id='cadenaSum'
-                      label='Cadena de Suministros'
-                      placeholder='SAAM'
-                      defaultValue='SAAM'
-                      tabIndex={7}
-                      fieldControlled={{ control: formStation.control, rules: stationRules.cadenaSum }}
-                      items={[
-                        {
-                          label: 'SAAM',
-                          value: 'SAAM'
-                        },
-                        {
-                          label: 'Otro',
-                          value: 'Otro'
-                        }
-                      ]}
-                    />
-                  </div>
-
-                  <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
-                    <GenericSelect
-                      id='isDiselDispatch'
-                      label='Despacha Disel'
-                      placeholder='Si o No'
-                      defaultValue='true'
-                      tabIndex={8}
-                      fieldControlled={{ control: formStation.control, rules: stationRules.isDiselDispatch }}
-                      items={[
-                        {
-                          label: 'Si',
-                          value: 'true'
-                        },
-                        {
-                          label: 'No',
-                          value: 'false'
-                        }
-                      ]}
-                    />
-
-                    <GenericSelect
-                      id='isGasolineDispatch'
-                      label='Despacha Gasolina'
-                      placeholder='Si o No'
-                      defaultValue='true'
-                      tabIndex={9}
-                      fieldControlled={{ control: formStation.control, rules: stationRules.isGasolineDispatch }}
-                      items={[
-                        {
-                          label: 'Si',
-                          value: 'true'
-                        },
-                        {
-                          label: 'No',
-                          value: 'false'
-                        }
-                      ]}
-                    />
-
-                  </div>
-
-                  <TextArea
-                    id='socialReason'
-                    rows={5}
-                    tabIndex={10}
-                    label='Razón Social'
-                    register={formStation.register}
-                    inputErrors={stationRules.socialReason}
-                    messageErrors={formStation.formState.errors}
-                    placeholder='Lorem ipsum dolor sit amet consectetur adipisicing elit quo laudantium ipsum natus.'
+                <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
+                  <GenericSelect
+                    id='modality'
+                    label='Modalidad'
+                    placeholder='Seleccione un Modalidad'
+                    defaultValue='Subsidiada'
+                    tabIndex={4}
+                    fieldControlled={{ control: formStation.control, rules: stationRules.modality }}
+                    items={[
+                      {
+                        label: 'Subsidiada',
+                        value: 'Subsidiada'
+                      },
+                      {
+                        label: 'Internacional',
+                        value: 'Internacional'
+                      }
+                    ]}
                   />
-                </section>
-              </Card>
-            </div>
+
+                  <GenericSelect
+                    id='type'
+                    label='Tipo'
+                    placeholder='Seleccione un Tipo'
+                    defaultValue='Tercero'
+                    tabIndex={5}
+                    fieldControlled={{ control: formStation.control, rules: stationRules.type }}
+                    items={[
+                      {
+                        label: 'Tercero',
+                        value: 'Tercero'
+                      },
+                      {
+                        label: 'Propio',
+                        value: 'Propio'
+                      }
+                    ]}
+                  />
+                </div>
+
+                <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
+                  <GenericSelect
+                    id='nbBandera'
+                    label='Bandera'
+                    placeholder='PDV'
+                    defaultValue='PDV'
+                    tabIndex={6}
+                    fieldControlled={{ control: formStation.control, rules: stationRules.nbBandera }}
+                    items={[
+                      {
+                        label: 'PDV',
+                        value: 'PDV'
+                      },
+                      {
+                        label: 'Otro',
+                        value: 'Otro'
+                      }
+                    ]}
+                  />
+
+                  <GenericSelect
+                    id='cadenaSum'
+                    label='Cadena de Suministros'
+                    placeholder='SAAM'
+                    defaultValue='SAAM'
+                    tabIndex={7}
+                    fieldControlled={{ control: formStation.control, rules: stationRules.cadenaSum }}
+                    items={[
+                      {
+                        label: 'SAAM',
+                        value: 'SAAM'
+                      },
+                      {
+                        label: 'Otro',
+                        value: 'Otro'
+                      }
+                    ]}
+                  />
+                </div>
+
+                <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
+                  <GenericSelect
+                    id='isDiselDispatch'
+                    label='Despacha Disel'
+                    placeholder='Si o No'
+                    defaultValue='true'
+                    tabIndex={8}
+                    fieldControlled={{ control: formStation.control, rules: stationRules.isDiselDispatch }}
+                    items={[
+                      {
+                        label: 'Si',
+                        value: 'true'
+                      },
+                      {
+                        label: 'No',
+                        value: 'false'
+                      }
+                    ]}
+                  />
+
+                  <GenericSelect
+                    id='isGasolineDispatch'
+                    label='Despacha Gasolina'
+                    placeholder='Si o No'
+                    defaultValue='true'
+                    tabIndex={9}
+                    fieldControlled={{ control: formStation.control, rules: stationRules.isGasolineDispatch }}
+                    items={[
+                      {
+                        label: 'Si',
+                        value: 'true'
+                      },
+                      {
+                        label: 'No',
+                        value: 'false'
+                      }
+                    ]}
+                  />
+
+                </div>
+
+                <TextArea
+                  id='socialReason'
+                  rows={5}
+                  tabIndex={10}
+                  label='Razón Social'
+                  register={formStation.register}
+                  inputErrors={stationRules.socialReason}
+                  messageErrors={formStation.formState.errors}
+                  placeholder='Lorem ipsum dolor sit amet consectetur adipisicing elit quo laudantium ipsum natus.'
+                />
+              </section>
+            </Card>
+
+            <Card className='p-4 mt-6 w-full'>
+              <CardTitle>Estados</CardTitle>
+
+              <Separator className='my-4' />
+              <GenericSelect
+                id='status'
+                label='Estatus'
+                placeholder='Seleccione un Estado'
+                defaultValue='Operativo'
+                tabIndex={12}
+                fieldControlled={{ control: formStation.control, rules: stationRules.status }}
+                items={[
+                  {
+                    label: 'Operativo',
+                    value: 'Operativo'
+                  },
+                  {
+                    label: 'En Mantenimiento',
+                    value: 'En Mantenimiento'
+                  }
+                ]}
+              />
+            </Card>
+
+            <Card className='p-4 mt-6 w-full'>
+              <CardTitle>Dirección</CardTitle>
+
+              <Separator className='my-4' />
+
+              <section className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
+                <GenericSelect
+                  id='directionState'
+                  label='Estado'
+                  placeholder='Caracas'
+                  defaultValue='Distrito Capital'
+                  tabIndex={13}
+                  fieldControlled={{ control: formStation.control, rules: stationRules.directionState }}
+                  items={[
+                    {
+                      label: 'Distrito Capital',
+                      value: 'Distrito Capital'
+                    },
+                    {
+                      label: 'Carabobo',
+                      value: 'Carabobo'
+                    }
+                  ]}
+                />
+
+                <GenericSelect
+                  id='directionCity'
+                  label='Ciudad'
+                  placeholder='Caracas'
+                  defaultValue='Caracas'
+                  tabIndex={14}
+                  fieldControlled={{ control: formStation.control, rules: stationRules.directionCity }}
+                  items={[
+                    {
+                      label: 'Caracas',
+                      value: 'Caracas'
+                    },
+                    {
+                      label: 'Valencia',
+                      value: 'Valencia'
+                    }
+                  ]}
+                />
+              </section>
+
+              <TextArea
+                id='directionReference'
+                rows={5}
+                tabIndex={15}
+                label='Referencia'
+                classNameContainer='mt-4'
+                register={formStation.register}
+                inputErrors={stationRules.directionReference}
+                messageErrors={formStation.formState.errors}
+                placeholder='Lorem ipsum dolor sit amet consectetur adipisicing elit quo laudantium ipsum natus.'
+              />
+            </Card>
 
             <Card className='p-4 mt-6 w-full'>
               <CardTitle>Contactos</CardTitle>
@@ -626,7 +644,7 @@ export const FormCreateStation = () => {
                     <Card key={contact.id}>
                       <CardHeader>
                         <Avatar className='w-16 h-16 rounded-full mx-auto'>
-                          <AvatarImage src={contact.photo || 'https://via.placeholder.com/200/ff4d4d'} className='object-contain' />
+                          <AvatarImage src={contact?.photo || 'https://via.placeholder.com/200/ff4d4d'} className='object-contain' />
 
                           <AvatarFallback className='rounded-full'>
                             <IconUser className='text-zinc-500 w-6 h-6' />
@@ -689,119 +707,16 @@ export const FormCreateStation = () => {
                       onClick={() => setModalInfo(prevState => ({ ...prevState, open: true, type: 'CREATE_STATION_CONTACT' }))}
                     >
                       <IconUserPlus className='w-6 h-6 mr-2'/>
-                      Crear Contacto
+                      Agregar Contacto
                     </Button>
                   </div>
                 </div>
 
               </div>
             </Card>
-
-            <Card className='p-4 mt-6 w-full'>
-              <CardTitle>Estados</CardTitle>
-
-              <Separator className='my-4' />
-              <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
-                <GenericSelect
-                  id='isActive'
-                  label='Estado'
-                  placeholder='Seleccione un Estado'
-                  defaultValue='true'
-                  tabIndex={11}
-                  fieldControlled={{ control: formStation.control, rules: stationRules.isActive }}
-                  items={[
-                    {
-                      label: 'Activo',
-                      value: true
-                    },
-                    {
-                      label: 'Bloqueado',
-                      value: false
-                    }
-                  ]}
-                />
-
-                <GenericSelect
-                  id='status'
-                  label='Estatus'
-                  placeholder='Seleccione un Estado'
-                  defaultValue='Operativo'
-                  tabIndex={12}
-                  fieldControlled={{ control: formStation.control, rules: stationRules.status }}
-                  items={[
-                    {
-                      label: 'Operativo',
-                      value: 'Operativo'
-                    },
-                    {
-                      label: 'En Mantenimiento',
-                      value: 'En Mantenimiento'
-                    }
-                  ]}
-                />
-              </div>
-            </Card>
-
-            <Card className='p-4 mt-6 w-full'>
-              <CardTitle>Dirección</CardTitle>
-
-              <Separator className='my-4' />
-
-              <section className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
-                <GenericSelect
-                  id='directionState'
-                  label='Estado'
-                  placeholder='Caracas'
-                  defaultValue='Distrito Capital'
-                  tabIndex={13}
-                  fieldControlled={{ control: formStation.control, rules: stationRules.directionState }}
-                  items={[
-                    {
-                      label: 'Distrito Capital',
-                      value: 'Distrito Capital'
-                    },
-                    {
-                      label: 'Carabobo',
-                      value: 'Carabobo'
-                    }
-                  ]}
-                />
-
-                <GenericSelect
-                  id='directionCity'
-                  label='Ciudad'
-                  placeholder='Caracas'
-                  defaultValue='Caracas'
-                  tabIndex={14}
-                  fieldControlled={{ control: formStation.control, rules: stationRules.directionCity }}
-                  items={[
-                    {
-                      label: 'Caracas',
-                      value: 'Caracas'
-                    },
-                    {
-                      label: 'Valencia',
-                      value: 'Valencia'
-                    }
-                  ]}
-                />
-              </section>
-
-              <TextArea
-                id='directionReference'
-                rows={5}
-                tabIndex={15}
-                label='Referencia'
-                classNameContainer='mt-4'
-                register={formStation.register}
-                inputErrors={stationRules.directionReference}
-                messageErrors={formStation.formState.errors}
-                placeholder='Lorem ipsum dolor sit amet consectetur adipisicing elit quo laudantium ipsum natus.'
-              />
-            </Card>
           </form>
 
-          <Card className='p-4 mt-6 w-full'>
+          {/* <Card className='p-4 mt-6 w-full'>
             <CardTitle>Medidores</CardTitle>
             <CardDescription>Seleccione un medidor</CardDescription>
 
@@ -841,7 +756,7 @@ export const FormCreateStation = () => {
                 getFullDataSelection: getFullDataStationIslandsSelection
               }}
             />
-          </Card>
+          </Card> */}
 
           <Card className='p-4 mt-6 w-full'>
             <CardTitle>Coordenadas</CardTitle>
@@ -885,6 +800,66 @@ export const FormCreateStation = () => {
             </Button>
           </section>
         </div>
+
+        {/* <div className='mx-7'></div>
+
+        <div className='hidden max-w-xs w-full lg:flex flex-col justify-start items-start sticky pt-6 top-0 left-0'>
+          <Card className='w-full sticky top-0 left-0'>
+            <CardHeader>
+              <Avatar className='w-full h-32 rounded-sm mx-auto'>
+                <AvatarImage src={multipleStationImages[0]?.data_url} className='object-contain w-full h-full' />
+                <AvatarFallback className='rounded-md'>
+                  <IconBusStop className='text-zinc-500 w-10 h-10' />
+                </AvatarFallback>
+              </Avatar>
+            </CardHeader>
+
+            <CardContent>
+              <h6 className='font-semibold'>Informacion Basica</h6>
+
+              <ul className='mt-2'>
+                <li className='flex justify-start items-center text-sm text-primary-gray'>
+                  <span className='font-semibold dark:text-white'>Título:</span> &nbsp;
+                  <span className='dark:text-gray-300'>{formStation.watch('title')}</span>
+                </li>
+
+                <li className='flex justify-start items-center text-sm text-primary-gray'>
+                  <span className='font-semibold dark:text-white'>RIF:</span> &nbsp;
+                  <span className='dark:text-gray-300'>{formStation.watch('rifType')?.toUpperCase()}-{formStation.watch('rifNumber')}</span>
+                </li>
+
+                <li className='flex justify-start items-center text-sm text-primary-gray'>
+                  <span className='font-semibold dark:text-white'>Modalidad:</span> &nbsp;
+                  <span className='dark:text-gray-300'>{formStation.watch('modality')}</span>
+                </li>
+
+                <li className='flex justify-start items-center text-sm text-primary-gray'>
+                  <span className='font-semibold dark:text-white'>Despacha Gasolina:</span> &nbsp;
+                  <span className='dark:text-gray-300'>{formStation.watch('isGasolineDispatch') ? 'Si' : 'No'}</span>
+                </li>
+
+                <li className='flex justify-start items-center text-sm text-primary-gray'>
+                  <span className='font-semibold dark:text-white'>Despacha Disel:</span> &nbsp;
+                  <span className='dark:text-gray-300'>{formStation.watch('isDiselDispatch') ? 'Si' : 'No'}</span>
+                </li>
+              </ul>
+
+              <Separator className='my-2' />
+
+              <Badge
+                className={`w-full text-sm h-full py-1.5 ${IS_ACTIVE[formStation.watch('isActive')]?.value ? 'border-2 bg-green-100 border-green-500 text-green-500' : 'border-2 bg-red-100 border-red-500 text-red-500'}`}
+              >
+                {formStation.watch('isActive') === 'true' ? 'Activo' : 'Bloqueado'}
+              </Badge>
+
+              <Separator className='my-2' />
+
+              <Badge className='w-full text-sm h-full py-1.5'>
+                {formStation.watch('status') || 'Vacio'}
+              </Badge>
+            </CardContent>
+          </Card>
+        </div> */}
       </div>
     </>
   )

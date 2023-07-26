@@ -19,7 +19,7 @@ const CreateGPSMonitoringPage = () => {
 
 CreateGPSMonitoringPage.getLayout = function getLayout (page: ReactElement) {
   return (
-    <AuthenticatedLayout title={`${ROUTES.MONITORING.ROUTES.CREATE.TITLE} | ${siteConfig.TITLE}`} >
+    <AuthenticatedLayout title={`${ROUTES.MONITORING.ROUTES.CREATE.TITLE} | ${siteConfig.TITLE}`}>
       {page}
     </AuthenticatedLayout>
   )

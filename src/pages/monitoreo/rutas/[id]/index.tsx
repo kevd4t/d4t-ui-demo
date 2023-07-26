@@ -62,7 +62,7 @@ const DetailRouteMonitoringPage = () => {
 
 DetailRouteMonitoringPage.getLayout = function getLayout (page: ReactElement) {
   return (
-    <AuthenticatedLayout noPageTransition title={`${ROUTES.MONITORING.ROUTES.LIST.TITLE} | ${siteConfig.TITLE}`} >
+    <AuthenticatedLayout noPageTransition title={`${ROUTES.MONITORING.ROUTES.LIST.TITLE} | ${siteConfig.TITLE}`}>
       {page}
     </AuthenticatedLayout>
   )

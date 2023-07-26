@@ -68,7 +68,7 @@ const EditGPSDevicePage = () => {
 
 EditGPSDevicePage.getLayout = function getLayout (page: ReactElement) {
   return (
-    <AuthenticatedLayout title={`${ROUTES.SETTINGS.GPS_DEVICE.EDIT.TITLE} | ${siteConfig.TITLE}`} >
+    <AuthenticatedLayout title={`${ROUTES.SETTINGS.GPS_DEVICE.EDIT.TITLE} | ${siteConfig.TITLE}`}>
       {page}
     </AuthenticatedLayout>
   )

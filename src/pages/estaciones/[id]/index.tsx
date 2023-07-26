@@ -12,13 +12,13 @@ import { DetailStation } from '@/components/page/estaciones/DetailStation'
 
 const { ROUTES } = siteConfig
 
-const DetailUserPage = () => {
+const DetailStationPage = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [station, setStation] = useState(null)
   const [error, setError] = useState(null)
   const router = useRouter()
 
-  const getCategoryDetail = async () => {
+  const getStationDetail = async () => {
     setIsLoading(true)
 
     const res = await fetch(`/api/stations/${router.query.id}`)
@@ -37,7 +37,7 @@ const DetailUserPage = () => {
 
   useEffect(() => {
     if (router?.query?.id) {
-      getCategoryDetail()
+      getStationDetail()
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query.id])
@@ -72,12 +72,12 @@ const DetailUserPage = () => {
   )
 }
 
-DetailUserPage.getLayout = function getLayout (page: ReactElement) {
+DetailStationPage.getLayout = function getLayout (page: ReactElement) {
   return (
-    <AuthenticatedLayout title={`${ROUTES.STATIONS.LIST.TITLE} | ${siteConfig.TITLE}`} >
+    <AuthenticatedLayout title={`${ROUTES.STATIONS.LIST.TITLE} | ${siteConfig.TITLE}`}>
       {page}
     </AuthenticatedLayout>
   )
 }
 
-export default DetailUserPage
+export default DetailStationPage

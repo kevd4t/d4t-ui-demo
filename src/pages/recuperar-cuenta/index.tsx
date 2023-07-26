@@ -27,7 +27,7 @@ const RecoverAccountPage = () => {
 
 RecoverAccountPage.getLayout = function getLayout (page: ReactElement) {
   return (
-    <PublicLayout title={`${ROUTES.RECOVER_ACCOUNT.TITLE} | ${siteConfig.TITLE}`} >
+    <PublicLayout title={`${ROUTES.RECOVER_ACCOUNT.TITLE} | ${siteConfig.TITLE}`}>
       {page}
     </PublicLayout>
   )

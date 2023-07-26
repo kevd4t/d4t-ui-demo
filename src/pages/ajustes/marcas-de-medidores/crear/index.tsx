@@ -18,7 +18,7 @@ const CreateMeterMarksSettingsPage = () => {
 
 CreateMeterMarksSettingsPage.getLayout = function getLayout (page: ReactElement) {
   return (
-    <AuthenticatedLayout title={`${ROUTES.SETTINGS.METER_MARKS.CREATE.TITLE} | ${siteConfig.TITLE}`} >
+    <AuthenticatedLayout title={`${ROUTES.SETTINGS.METER_MARKS.CREATE.TITLE} | ${siteConfig.TITLE}`}>
       {page}
     </AuthenticatedLayout>
   )

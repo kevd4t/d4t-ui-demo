@@ -51,7 +51,7 @@ const RoutesMonitoringPage = () => {
 
 RoutesMonitoringPage.getLayout = function getLayout (page: ReactElement) {
   return (
-    <AuthenticatedLayout title={`${ROUTES.MONITORING.ROUTES.LIST.TITLE} | ${siteConfig.TITLE}`} >
+    <AuthenticatedLayout title={`${ROUTES.MONITORING.ROUTES.LIST.TITLE} | ${siteConfig.TITLE}`}>
       {page}
     </AuthenticatedLayout>
   )

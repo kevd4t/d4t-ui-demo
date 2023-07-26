@@ -1,3 +1,7 @@
+import { APP_CONFIG } from '@/config'
+
+const { CI_TYPES } = APP_CONFIG
+
 export const formatCI = (value: string) => {
   // Eliminar todos los puntos y espacios en blanco del valor actual del campo de entrada
   // eslint-disable-next-line no-useless-escape
@@ -46,4 +50,26 @@ export const convertBytes = (bytes: number): string => {
     const formattedMB = megabytes.toFixed(1)
     return `${formattedMB} MB`
   }
+}
+
+type TCITypesKeys = 'VENEZUELAN' | 'JURIDICAL' | 'FOREIGN' | 'PASSPORT' | 'GOVERNMENTAL'
+
+export const formatCITypes = (selectedTypes?: TCITypesKeys) => {
+  const allCITypes = [
+    CI_TYPES.VENEZUELAN,
+    CI_TYPES.JURIDICAL,
+    CI_TYPES.FOREIGN,
+    CI_TYPES.PASSPORT,
+    CI_TYPES.GOVERNMENTAL
+  ]
+
+  if (!selectedTypes) {
+    return allCITypes.map(ciType => ({ label: ciType.key, value: ciType.key.toLowerCase() }))
+  }
+
+  const selectedCITypes = allCITypes.filter(ciType => selectedTypes.includes(ciType.key))
+
+  const selectedTypesCIFormated = selectedCITypes.map(ciType => ({ label: ciType.key, value: ciType.key.toLowerCase() }))
+
+  return selectedTypesCIFormated
 }

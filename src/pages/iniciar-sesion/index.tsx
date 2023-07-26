@@ -35,7 +35,7 @@ const SignInPage = () => {
 
 SignInPage.getLayout = function getLayout (page: ReactElement) {
   return (
-    <PublicLayout title={`${ROUTES.SIGN_IN.TITLE} | ${siteConfig.TITLE}`} >
+    <PublicLayout title={`${ROUTES.SIGN_IN.TITLE} | ${siteConfig.TITLE}`}>
       {page}
     </PublicLayout>
   )
