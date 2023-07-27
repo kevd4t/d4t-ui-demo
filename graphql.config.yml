@@ -1,0 +1,14 @@
+schema: 'http://localhost:3001/graphql'
+schemaPath": ./src/lib/graphql/generated/schema.json
+extensions:
+  codegen:
+    generates:
+      ./src/lib/graphql/generated/types.ts:
+        documents: './src/lib/graphql/actions/**/*.graphql'
+        plugins:
+          - 'typescript'
+          - 'typescript-operations'
+          - 'typescript-react-apollo'
+      ./src/lib/graphql/generated/schema.json:
+        plugins:
+          - 'introspection'
