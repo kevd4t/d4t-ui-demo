@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { toast } from 'sonner'
 
-import { IIsland, TColumnActions } from '@/lib/types'
+import { IPumpIsland, TColumnActions } from '@/lib/types'
 import { useFetch } from '@/lib/hooks/useFetch'
 
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui'
@@ -10,7 +10,7 @@ import { IslandDialogDetail } from './DialogDetail'
 import { IslandDropdownActions } from './DropdownActions'
 
 interface IIslandColumnActionsProps {
-  island: IIsland
+  island: IPumpIsland
   actions?: TColumnActions
   itemIdx?: number
 }

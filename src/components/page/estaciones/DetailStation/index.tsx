@@ -3,9 +3,8 @@ import { PaginationState } from '@tanstack/react-table'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
 
-import { getMeterDeviceColumns } from '@/lib/utils/tableColumns/meterDevices'
 import { getIslandColumns } from '@/lib/utils/tableColumns/islands'
-import type { IStation } from '@/lib/types'
+import { EHydrocarbon, type IStation } from '@/lib/types'
 
 import { Avatar, AvatarFallback, AvatarImage, Badge, Card, CardContent, CardHeader, CardTitle, Separator } from '@/components/ui'
 import { Table } from '@/components/common/tables/GenericTable'
@@ -32,7 +31,7 @@ export const DetailStation = ({ station }: { station: IStation }) => {
           <Card className='w-full sticky top-0 left-0'>
             <CardHeader>
               <Avatar className='w-full h-32 rounded-sm mx-auto'>
-                <AvatarImage src={station.images[0]} className='object-contain w-full h-full' />
+                <AvatarImage src={station.images[0].url} className='object-contain w-full h-full' />
                 <AvatarFallback className='rounded-md'>
                   <IconBusStop className='text-zinc-500 w-10 h-10' />
                 </AvatarFallback>
@@ -45,7 +44,7 @@ export const DetailStation = ({ station }: { station: IStation }) => {
               <ul className='mt-2'>
                 <li className='flex justify-start items-center text-sm text-primary-gray'>
                   <span className='font-semibold dark:text-white'>Título:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{station.title}</span>
+                  <span className='dark:text-gray-300'>{station.name}</span>
                 </li>
 
                 <li className='flex justify-start items-center text-sm text-primary-gray'>
@@ -60,27 +59,19 @@ export const DetailStation = ({ station }: { station: IStation }) => {
 
                 <li className='flex justify-start items-center text-sm text-primary-gray'>
                   <span className='font-semibold dark:text-white'>Despacha Gasolina:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{station.title ? 'Si' : 'No'}</span>
+                  <span className='dark:text-gray-300'>{station.provider_services.includes(EHydrocarbon.GASOLINE) ? 'Si' : 'No'}</span>
                 </li>
 
                 <li className='flex justify-start items-center text-sm text-primary-gray'>
                   <span className='font-semibold dark:text-white'>Despacha Disel:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{station.isDiselDispatch ? 'Si' : 'No'}</span>
+                  <span className='dark:text-gray-300'>{station.provider_services.includes(EHydrocarbon.DIESEL) ? 'Si' : 'No'}</span>
                 </li>
               </ul>
 
               <Separator className='my-2' />
 
-              <Badge
-                className={`w-full text-sm h-full py-1.5 ${station.isActive ? 'border-2 bg-green-100 border-green-500 text-green-500' : 'border-2 bg-red-100 border-red-500 text-red-500'}`}
-              >
-                {station.isActive ? 'Activo' : 'Bloqueado'}
-              </Badge>
-
-              <Separator className='my-2' />
-
               <Badge className='w-full text-sm h-full py-1.5'>
-                {station.status}
+                {station.state}
               </Badge>
             </CardContent>
           </Card>
@@ -102,7 +93,7 @@ export const DetailStation = ({ station }: { station: IStation }) => {
                     label='Título'
                     placeholder='Estacion Pepito'
                     readOnly
-                    value={station.title}
+                    value={station.name}
                   />
 
                   <Input
@@ -154,7 +145,7 @@ export const DetailStation = ({ station }: { station: IStation }) => {
                     tabIndex={6}
                     label='Cadena de Suministros'
                     readOnly
-                    value={station.cadenaSum}
+                    value={station.chain_supply}
                   />
                 </div>
 
@@ -165,7 +156,7 @@ export const DetailStation = ({ station }: { station: IStation }) => {
                     tabIndex={7}
                     label='Despacha Disel'
                     readOnly
-                    value={station.isDiselDispatch ? 'Si' : 'No'}
+                    value={station.provider_services.includes(EHydrocarbon.DIESEL) ? 'Si' : 'No'}
                   />
 
                   <Input
@@ -174,7 +165,7 @@ export const DetailStation = ({ station }: { station: IStation }) => {
                     tabIndex={8}
                     label='Despacha Gasolina'
                     readOnly
-                    value={station.isGasolineDispatch ? 'Si' : 'No'}
+                    value={station.provider_services.includes(EHydrocarbon.GASOLINE) ? 'Si' : 'No'}
                   />
                 </div>
 
@@ -183,7 +174,7 @@ export const DetailStation = ({ station }: { station: IStation }) => {
                   rows={5}
                   tabIndex={9}
                   label='Razón Social'
-                  value={station.socialReason}
+                  value={station.social_reason}
                 />
               </section>
             </Card>
@@ -195,21 +186,12 @@ export const DetailStation = ({ station }: { station: IStation }) => {
             <Separator className='my-4' />
             <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
               <Input
-                id='isActive'
-                type='text'
-                tabIndex={10}
-                label='Estado'
-                readOnly
-                value={station.isActive ? 'Activo' : 'Bloqueado'}
-              />
-
-              <Input
                 id='status'
                 type='text'
                 tabIndex={11}
                 label='Estatus'
                 readOnly
-                value={station.status}
+                value={station.state}
               />
             </div>
           </Card>
@@ -226,7 +208,7 @@ export const DetailStation = ({ station }: { station: IStation }) => {
                 tabIndex={12}
                 label='Estado'
                 readOnly
-                value={station.direction.state}
+                value={station.location.state}
               />
 
               <Input
@@ -235,7 +217,7 @@ export const DetailStation = ({ station }: { station: IStation }) => {
                 tabIndex={13}
                 label='Ciudad'
                 readOnly
-                value={station.direction.city}
+                value={station.location.city}
               />
             </section>
 
@@ -245,7 +227,7 @@ export const DetailStation = ({ station }: { station: IStation }) => {
               tabIndex={14}
               label='Referencia'
               classNameContainer='mt-4'
-              value={station.direction.reference}
+              value={station.location.address}
             />
           </Card>
 
@@ -306,7 +288,7 @@ export const DetailStation = ({ station }: { station: IStation }) => {
                             tabIndex={14}
                             label='Cedula de Identidad'
                             readOnly
-                            value={contact.ci || 'Sin Cedula'}
+                            value={contact.identity_card_number || 'Sin Cedula'}
                           />
                         </div>
                       </CardContent>
@@ -317,7 +299,7 @@ export const DetailStation = ({ station }: { station: IStation }) => {
             </ul>
           </Card>
 
-          <Card className='p-4 mt-6 w-full'>
+          {/* <Card className='p-4 mt-6 w-full'>
             <CardTitle>Medidores</CardTitle>
 
             <Separator className='my-4' />
@@ -329,7 +311,7 @@ export const DetailStation = ({ station }: { station: IStation }) => {
               queryInfo={{ error: null, isFetching: false }}
               columns={getMeterDeviceColumns({ actions: { detail: true } })}
             />
-          </Card>
+          </Card> */}
 
           <Card className='p-4 mt-6 w-full'>
             <CardTitle>Islas</CardTitle>
@@ -338,8 +320,8 @@ export const DetailStation = ({ station }: { station: IStation }) => {
 
             <Table
               visibilityColumns
-              data={station.islands}
               pagination={pagination}
+              data={station.attributes.pump_islands}
               queryInfo={{ error: null, isFetching: false }}
               columns={getIslandColumns({ actions: { detail: true } })}
             />
@@ -360,7 +342,7 @@ export const DetailStation = ({ station }: { station: IStation }) => {
 
             <Separator className='my-4' />
 
-            <GridImages images={station.images} />
+            <GridImages images={station.images.map(image => image.url)} />
           </Card>
         </div>
       </div>

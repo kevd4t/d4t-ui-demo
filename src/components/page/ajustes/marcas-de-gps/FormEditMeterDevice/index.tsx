@@ -393,8 +393,8 @@ export const FormEditMeterDevice = ({ meterDevice }: { meterDevice: IMeterDevice
                 : (
                   <Card className='w-full'>
                     <CardHeader>
-                      <CardTitle>Titulo: {meterDevice.station.title}</CardTitle>
-                      <CardDescription>Referencia: {meterDevice.station.direction.reference}</CardDescription>
+                      <CardTitle>Titulo: {meterDevice.station.name}</CardTitle>
+                      <CardDescription>Referencia: {meterDevice.station.location.address}</CardDescription>
 
                       <section className='flex w-full justify-center items-end'>
                         <Badge className='mr-4 w-full text-sm'>
@@ -402,7 +402,7 @@ export const FormEditMeterDevice = ({ meterDevice }: { meterDevice: IMeterDevice
                         </Badge>
 
                         <Badge className='w-full text-sm'>
-                          {meterDevice.station.status}
+                          {meterDevice.station.state}
                         </Badge>
                       </section>
                     </CardHeader>

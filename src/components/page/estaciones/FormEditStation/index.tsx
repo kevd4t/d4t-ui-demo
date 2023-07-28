@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
-import type { IFetchDataTable, IFormCreateStation, IFormCreateStationContact, IMeterDevice, IStation } from '@/lib/types'
+import { EHydrocarbon, type IFetchDataTable, type IFormCreateStation, type IFormCreateStationContact, type IMeterDevice, type IStation } from '@/lib/types'
 import { getMeterDeviceColumns } from '@/lib/utils/tableColumns/meterDevices'
 import { handleOnlyNumbers } from '@/lib/utils/handleOnlyNumbers'
 import { handleFetchUrlUserGroups } from '@/lib/services/users'
@@ -557,7 +557,7 @@ export const FormEditStation = ({ station }: { station: IStation }) => {
                       tabIndex={8}
                       placeholder='Si o No'
                       label='Despacha Disel'
-                      defaultValue={station.provider_services.includes('') ? 'true' : 'false'}
+                      defaultValue={station.provider_services.includes(EHydrocarbon.DIESEL) ? 'true' : 'false'}
                       fieldControlled={{ control: formStation.control, rules: stationRules.isDiselDispatch }}
                       items={[
                         {
@@ -576,7 +576,7 @@ export const FormEditStation = ({ station }: { station: IStation }) => {
                       tabIndex={9}
                       placeholder='Si o No'
                       label='Despacha Gasolina'
-                      defaultValue={station.isGasolineDispatch ? 'true' : 'false'}
+                      defaultValue={station.provider_services.includes(EHydrocarbon.GASOLINE) ? 'true' : 'false'}
                       fieldControlled={{ control: formStation.control, rules: stationRules.isGasolineDispatch }}
                       items={[
                         {
@@ -598,7 +598,7 @@ export const FormEditStation = ({ station }: { station: IStation }) => {
                     tabIndex={10}
                     label='Razón Social'
                     register={formStation.register}
-                    defaultValue={station.socialReason}
+                    defaultValue={station.social_reason}
                     inputErrors={stationRules.socialReason}
                     messageErrors={formStation.formState.errors}
                     placeholder='Lorem ipsum dolor sit amet consectetur adipisicing elit quo laudantium ipsum natus.'
@@ -664,7 +664,7 @@ export const FormEditStation = ({ station }: { station: IStation }) => {
                             tabIndex={14}
                             label='Cedula de Identidad'
                             readOnly
-                            value={contact.ci || 'Sin Cedula'}
+                            value={contact.identity_card_number || 'Sin Cedula'}
                           />
                         </div>
                       </CardContent>
@@ -696,29 +696,10 @@ export const FormEditStation = ({ station }: { station: IStation }) => {
               <Separator className='my-4' />
               <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
                 <GenericSelect
-                  id='isActive'
-                  label='Estado'
-                  tabIndex={11}
-                  placeholder='Seleccione un Estado'
-                  defaultValue={station.isActive ? 'true' : 'false'}
-                  fieldControlled={{ control: formStation.control, rules: stationRules.isActive }}
-                  items={[
-                    {
-                      label: 'Activo',
-                      value: 'true'
-                    },
-                    {
-                      label: 'Bloqueado',
-                      value: 'false'
-                    }
-                  ]}
-                />
-
-                <GenericSelect
                   id='status'
                   label='Estatus'
                   tabIndex={12}
-                  defaultValue={station.status}
+                  defaultValue={station.state}
                   placeholder='Seleccione un Estado'
                   fieldControlled={{ control: formStation.control, rules: stationRules.status }}
                   items={[
@@ -746,7 +727,7 @@ export const FormEditStation = ({ station }: { station: IStation }) => {
                   label='Estado'
                   tabIndex={13}
                   placeholder='Caracas'
-                  defaultValue={station.direction.state}
+                  defaultValue={station.location.state}
                   fieldControlled={{ control: formStation.control, rules: stationRules.directionState }}
                   items={[
                     {
@@ -765,7 +746,7 @@ export const FormEditStation = ({ station }: { station: IStation }) => {
                   label='Ciudad'
                   tabIndex={14}
                   placeholder='Caracas'
-                  defaultValue={station.direction.city}
+                  defaultValue={station.location.city}
                   fieldControlled={{ control: formStation.control, rules: stationRules.directionCity }}
                   items={[
                     {
@@ -787,7 +768,7 @@ export const FormEditStation = ({ station }: { station: IStation }) => {
                 label='Referencia'
                 classNameContainer='mt-4'
                 register={formStation.register}
-                defaultValue={station.direction.reference}
+                defaultValue={station.location.address}
                 messageErrors={formStation.formState.errors}
                 inputErrors={stationRules.directionReference}
                 placeholder='Lorem ipsum dolor sit amet consectetur adipisicing elit quo laudantium ipsum natus.'

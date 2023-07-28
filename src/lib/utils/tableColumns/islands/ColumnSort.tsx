@@ -3,9 +3,9 @@ import { Column } from '@tanstack/react-table'
 import { ChevronsUpDown } from 'lucide-react'
 
 import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui'
-import { IIsland } from '@/lib/types'
+import { IPumpIsland } from '@/lib/types'
 
-export const IslandColumnSort = ({ column, columnLabel }: { column: Column<IIsland>, columnLabel: string }) => {
+export const IslandColumnSort = ({ column, columnLabel }: { column: Column<IPumpIsland>, columnLabel: string }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

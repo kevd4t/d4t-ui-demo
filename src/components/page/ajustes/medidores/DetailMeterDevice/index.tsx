@@ -144,7 +144,7 @@ export const DetailMeterDevice = ({ meterDevice }: { meterDevice: IMeterDevice }
                   type='text'
                   tabIndex={6}
                   label='Nombre'
-                  value={meterDevice.station.title}
+                  value={meterDevice.station.name}
                 />
 
                 <Input
@@ -153,7 +153,7 @@ export const DetailMeterDevice = ({ meterDevice }: { meterDevice: IMeterDevice }
                   type='text'
                   tabIndex={7}
                   label='Estado'
-                  value={meterDevice.station.title}
+                  value={meterDevice.station.name}
                 />
 
                 <Input
@@ -162,7 +162,7 @@ export const DetailMeterDevice = ({ meterDevice }: { meterDevice: IMeterDevice }
                   type='text'
                   tabIndex={8}
                   label='Ciudad'
-                  value={meterDevice.station.direction.city}
+                  value={meterDevice.station.location.city}
                 />
 
                 <div className='w-full flex justify-between items-start gap-4'>
@@ -178,7 +178,7 @@ export const DetailMeterDevice = ({ meterDevice }: { meterDevice: IMeterDevice }
                     <Label>Estatus</Label>
 
                     <Badge className='mt-2 text-sm w-full'>
-                      {meterDevice.station.status}
+                      {meterDevice.station.state}
                     </Badge>
                   </div>
                 </div>
@@ -188,7 +188,7 @@ export const DetailMeterDevice = ({ meterDevice }: { meterDevice: IMeterDevice }
                   rows={5}
                   tabIndex={9}
                   label='Referencia'
-                  value={meterDevice.station.direction.reference}
+                  value={meterDevice.station.location.address}
                   readOnly
                 />
               </div>

@@ -1,12 +1,12 @@
 import React, { Dispatch } from 'react'
 
-import { IIsland } from '@/lib/types'
+import { IPumpIsland } from '@/lib/types'
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui'
 import { Input } from '@/components/common/inputs/Input'
 
 interface IDialogDetailCityProps {
-  island: IIsland
+  island: IPumpIsland
   isOpenViewModel: boolean
   setOpenViewModel: Dispatch<boolean>
 }
@@ -30,15 +30,6 @@ export const IslandDialogDetail = ({ island: station, isOpenViewModel, setOpenVi
               tabIndex={1}
               label='ID'
               value={station.id}
-            />
-
-            <Input
-              readOnly
-              id='status'
-              type='text'
-              tabIndex={2}
-              label='Estatus'
-              value={station.status}
             />
           </div>
         </section>

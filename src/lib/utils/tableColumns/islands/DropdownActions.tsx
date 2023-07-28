@@ -1,10 +1,10 @@
 import { IconDots, IconEdit, IconEye, IconTrash, IconX } from '@tabler/icons-react'
 
 import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui'
-import { IIsland, TColumnActions } from '@/lib/types'
+import { IPumpIsland, TColumnActions } from '@/lib/types'
 
 interface ICityColumnActionsProps {
-  island: IIsland
+  island: IPumpIsland
   actions?: TColumnActions
   itemIdx?: number
   handleDialogsOpen?: {

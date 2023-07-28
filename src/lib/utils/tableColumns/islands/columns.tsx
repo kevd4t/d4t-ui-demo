@@ -1,7 +1,7 @@
 /* eslint-disable brace-style */
 import { ColumnDef } from '@tanstack/react-table'
 
-import type { IIsland, IGetEntityColumnsParams, TColumnActions } from '@/lib/types'
+import type { IGetEntityColumnsParams, IPumpIsland, TColumnActions } from '@/lib/types'
 
 import { IslandColumnActions } from './ColumnActions'
 import { IslandColumnSort } from './ColumnSort'
@@ -29,14 +29,14 @@ const idColumn = {
   )
 }
 
-export const islandColumns: ColumnDef<IIsland>[] = [
+export const islandColumns: ColumnDef<IPumpIsland>[] = [
   {
     id: 'Estatus',
     accessorKey: 'status',
     header: ({ column }) => <IslandColumnSort column={column} columnLabel='Estatus' />,
     cell: ({ row }) => (
       <div className='text-center w-full'>
-        <Badge>{row.original.status}</Badge>
+        <Badge>{row.original.id}</Badge>
       </div>
     )
   }
@@ -74,8 +74,8 @@ export const getIslandColumns = ({
   selection = false,
   actions = initialActions,
   id = true
-}: IGetEntityColumnsParams): ColumnDef<IIsland>[] => {
-  const islandsColumnsAcum: ColumnDef<IIsland>[] = []
+}: IGetEntityColumnsParams): ColumnDef<IPumpIsland>[] => {
+  const islandsColumnsAcum: ColumnDef<IPumpIsland>[] = []
 
   if (id && !islandsColumnsAcum.includes(idColumn)) {
     islandsColumnsAcum.push(idColumn)
