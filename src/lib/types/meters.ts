@@ -1,4 +1,4 @@
-import { IStation } from './stations'
+import { IStation, IStation } from './stations'
 
 export interface IMeterModel {
   id: number

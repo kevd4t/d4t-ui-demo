@@ -1,48 +1,18 @@
-import { useRouter } from 'next/router'
-
-import type { IFetchData, IStation, ReactElement } from '@/lib/types'
+import type { ReactElement } from '@/lib/types'
 import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
 import { HeaderPage } from '@/components/common/headers/HeaderPage'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
-import { useEffect, useState } from 'react'
-import { toast } from 'sonner'
-import { DetailStation } from '@/components/page/estaciones/DetailStation'
+import { StationsLayout } from '@/layouts/Stations'
+import { useStationFlow } from '@/lib/store/stationFlow'
 
 const { ROUTES } = siteConfig
 
 const DetailStationPage = () => {
-  const [isLoading, setIsLoading] = useState(true)
-  const [station, setStation] = useState(null)
-  const [error, setError] = useState(null)
-  const router = useRouter()
+  const { currentStation, isLoading } = useStationFlow()
 
-  const getStationDetail = async () => {
-    setIsLoading(true)
-
-    const res = await fetch(`/api/stations/${router.query.id}`)
-
-    if (!res.ok) {
-      toast.error('Hubo un Error')
-      setError('Hubo un Error')
-      setIsLoading(false)
-      return
-    }
-
-    const data: IFetchData<IStation> = await res.json()
-    setStation(data?.results)
-    setIsLoading(false)
-  }
-
-  useEffect(() => {
-    if (router?.query?.id) {
-      getStationDetail()
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.query.id])
-
-  if (error) {
+  if (!currentStation && !isLoading) {
     return (
       <div className='w-full h-[80vh] flex flex-col justify-center items-center'>
         <WomanLoading className='w-96' />
@@ -51,7 +21,7 @@ const DetailStationPage = () => {
     )
   }
 
-  if (isLoading) {
+  if (isLoading && !currentStation) {
     return (
       <div className='w-full h-[80vh] flex flex-col justify-center items-center'>
         <WomanLoading className='w-96' />
@@ -64,10 +34,11 @@ const DetailStationPage = () => {
     <>
       <HeaderPage
         allowGoBack
-        title={`Detalle de Estación ${router.query.id}`}
+        title={`Detalle de Estación ${currentStation.name}`}
       />
 
-      {station && <DetailStation station={station as IStation} />}
+      fino
+      {/* {station && <DetailStation station={station as IStation} /> */}
     </>
   )
 }
@@ -75,7 +46,9 @@ const DetailStationPage = () => {
 DetailStationPage.getLayout = function getLayout (page: ReactElement) {
   return (
     <AuthenticatedLayout title={`${ROUTES.STATIONS.LIST.TITLE} | ${siteConfig.TITLE}`}>
-      {page}
+      <StationsLayout>
+        {page}
+      </StationsLayout>
     </AuthenticatedLayout>
   )
 }

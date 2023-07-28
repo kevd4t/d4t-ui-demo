@@ -364,7 +364,7 @@ export const FormEditStation = ({ station }: { station: IStation }) => {
           <Card className='w-full sticky top-0 left-0'>
             <CardHeader>
               <Avatar className='w-full h-32 rounded-sm mx-auto'>
-                <AvatarImage src={station?.images[0]} className='object-contain w-full h-full' />
+                <AvatarImage src={station?.images[0].url} className='object-contain w-full h-full' />
                 <AvatarFallback className='rounded-md'>
                   <IconBusStop className='text-zinc-500 w-10 h-10' />
                 </AvatarFallback>
@@ -437,7 +437,7 @@ export const FormEditStation = ({ station }: { station: IStation }) => {
                       register={formStation.register}
                       inputErrors={stationRules.title}
                       messageErrors={formStation.formState.errors}
-                      defaultValue={station.title}
+                      defaultValue={station.name}
                     />
 
                     <div className='w-full flex justify-start items-end gap-x-2'>
@@ -517,7 +517,7 @@ export const FormEditStation = ({ station }: { station: IStation }) => {
                       tabIndex={6}
                       label='Bandera'
                       placeholder='PDV'
-                      defaultValue={station.nbBandera}
+                      defaultValue={station.logo}
                       fieldControlled={{ control: formStation.control, rules: stationRules.nbBandera }}
                       items={[
                         {
@@ -536,7 +536,7 @@ export const FormEditStation = ({ station }: { station: IStation }) => {
                       tabIndex={7}
                       placeholder='SAAM'
                       label='Cadena de Suministros'
-                      defaultValue={station.cadenaSum}
+                      defaultValue={station.chain_supply}
                       fieldControlled={{ control: formStation.control, rules: stationRules.cadenaSum }}
                       items={[
                         {
@@ -557,7 +557,7 @@ export const FormEditStation = ({ station }: { station: IStation }) => {
                       tabIndex={8}
                       placeholder='Si o No'
                       label='Despacha Disel'
-                      defaultValue={station.isDiselDispatch ? 'true' : 'false'}
+                      defaultValue={station.provider_services.includes('') ? 'true' : 'false'}
                       fieldControlled={{ control: formStation.control, rules: stationRules.isDiselDispatch }}
                       items={[
                         {

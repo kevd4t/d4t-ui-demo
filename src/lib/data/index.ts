@@ -569,21 +569,7 @@ const FAKE_DATA_DIC = {
   TRUCKS: () => fleets.flatMap(fleets => {
     return fleets.trucks.map(truck => ({ ...truck, gps: gpsDevices[0], station: stationsData[0] }))
   }),
-  STATIONS: () => {
-    return stationsData.map(station => ({
-      ...station,
-      status: 'Operativo',
-      type: 'Surtido',
-      metersCount: 44,
-      trucks,
-      images: [
-        'https://via.placeholder.com/200/ff4d4d',
-        'https://via.placeholder.com/200/blue',
-        'https://via.placeholder.com/200/00f46c',
-        'https://via.placeholder.com/200/ffed5f'
-      ]
-    }))
-  },
+  STATIONS: () => stationsData,
   STATES: () => states.map(state => ({ ...state, cities })),
   CITIES: () => cities,
   GPS_DEVICES: () => gpsDevices,

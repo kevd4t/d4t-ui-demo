@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { toast } from 'sonner'
 
-import type { IContentTabs, ReactElement } from '@/lib/types'
+import type { IPumpStationContentTab, ReactElement } from '@/lib/types'
 import { siteConfig } from '@/config'
 
 import { AuthenticatedLayout } from '@/layouts/Authenticated'
@@ -21,7 +21,7 @@ const EditUserPage = () => {
   const [station, setStation] = useState(null)
   const [error, setError] = useState(null)
 
-  const initialContentTabs: IContentTabs[] = [
+  const initialContentTabs: IPumpStationContentTab[] = [
     {
       tabKey: 'BASIC_INFO',
       label: 'Información Básica',
@@ -66,8 +66,8 @@ const EditUserPage = () => {
 
   const initialTabActivated = initialContentTabs[0]
 
-  const [tabActive, setTabActive] = useState<IContentTabs>(initialTabActivated)
-  const [contentTabs] = useState<IContentTabs[]>(initialContentTabs)
+  const [tabActive, setTabActive] = useState<IPumpStationContentTab>(initialTabActivated)
+  const [contentTabs] = useState<IPumpStationContentTab[]>(initialContentTabs)
 
   const handleButtonTab = ({ ...tabContent }) => setTabActive({
     label: tabContent.label,
