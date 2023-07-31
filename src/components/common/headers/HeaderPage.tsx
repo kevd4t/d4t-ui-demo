@@ -14,7 +14,7 @@ interface IHeaderPageProps {
   allowGoBack?: boolean
 }
 
-export const HeaderPage = ({ title, createItems, containerClassName, allowGoBack = false }: IHeaderPageProps) => {
+export const HeaderPage = ({ title, createItems, containerClassName, allowGoBack = null }: IHeaderPageProps) => {
   const router = useRouter()
 
   return (

@@ -1,19 +1,21 @@
-import { FormCreateStation } from '@/components/page/estaciones/FormCreateStation'
 import { IconGasStation } from '@tabler/icons-react'
 import { create } from 'zustand'
-import { EStationType, IPumpStationContentTab, IStation, IStockageStationContentTab, TPumpStationFlowTabKey, TStockageStationFlowTabKey } from '../types'
+
+import { EStationType, IPumpStationContentTab, IStation, IStockageStationContentTab, TPumpStationFlowTabKey, TStockageStationFlowTabKey } from '@/lib/types'
 
 type TTabToActive = TPumpStationFlowTabKey | TStockageStationFlowTabKey
 type TStationType = EStationType.PUMP | EStationType.STOCKAGE
 
 interface IUseStationFlow {
-  currentStation: IStation
   stationTabs: {
     PUMP: IPumpStationContentTab[]
     STOCKAGE: IStockageStationContentTab[]
   }
   isLoading: boolean
+  currentStation: IStation
+  typeStationToCreate: EStationType.PUMP | EStationType.STOCKAGE
   setIsLoading: (value: boolean) => void
+  setTypeStationToCreate: (value: EStationType) => void
   setStation: (station: IStation) => void
   allowAttributeTabsToComplete: (stationType: TStationType) => void
   getAttributeTabActive: () => IPumpStationContentTab | IStockageStationContentTab
@@ -22,6 +24,8 @@ interface IUseStationFlow {
 }
 
 export const useStationFlow = create<IUseStationFlow>((set, get) => ({
+  typeStationToCreate: EStationType.PUMP,
+
   currentStation: null,
 
   isLoading: true,
@@ -35,8 +39,7 @@ export const useStationFlow = create<IUseStationFlow>((set, get) => ({
         isActive: true,
         isCompleted: true,
         icon: <IconGasStation />,
-        route: '/info',
-        content: <FormCreateStation />
+        route: '/info'
       },
       {
         tabKey: 'ISLANDS',
@@ -45,8 +48,7 @@ export const useStationFlow = create<IUseStationFlow>((set, get) => ({
         isActive: false,
         isCompleted: false,
         route: '/islas',
-        icon: <IconGasStation />,
-        content: <div>Islas</div>
+        icon: <IconGasStation />
       },
       {
         tabKey: 'TANKS',
@@ -55,8 +57,7 @@ export const useStationFlow = create<IUseStationFlow>((set, get) => ({
         isActive: false,
         isCompleted: false,
         route: '/tanques',
-        icon: <IconGasStation />,
-        content: <div>Tanques</div>
+        icon: <IconGasStation />
       },
       {
         tabKey: 'DISPENSERS',
@@ -65,20 +66,10 @@ export const useStationFlow = create<IUseStationFlow>((set, get) => ({
         isActive: false,
         isCompleted: false,
         route: '/dispensadores',
-        icon: <IconGasStation />,
-        content: <div>Dispensadores</div>
-      },
-      {
-        tabKey: 'METERS',
-        label: 'Medidores',
-        isDisabled: true,
-        isActive: false,
-        isCompleted: false,
-        route: '/medidores',
-        icon: <IconGasStation />,
-        content: <div>Medidores</div>
+        icon: <IconGasStation />
       }
     ],
+
     STOCKAGE: [
       {
         tabKey: 'ANOTHER',
@@ -92,6 +83,8 @@ export const useStationFlow = create<IUseStationFlow>((set, get) => ({
       }
     ]
   },
+
+  setTypeStationToCreate: (value) => set(() => ({ typeStationToCreate: value })),
 
   setIsLoading: (value) => set(() => ({ isLoading: value })),
 

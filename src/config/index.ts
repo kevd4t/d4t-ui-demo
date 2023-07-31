@@ -1,3 +1,4 @@
+import { EStationType } from '@/lib/types'
 import 'dotenv/config'
 
 export const siteConfig = {
@@ -204,5 +205,17 @@ export const APP_CONFIG = {
     JURIDICAL: { label: 'Jurídico', value: 'JURIDICAL', key: 'J' },
     FOREIGN: { label: 'Extranjero', value: 'FOREIGN', key: 'E' },
     GOVERNMENTAL: { label: 'Gubernamental', value: 'GOVERNMENTAL', key: 'G' }
+  },
+
+  STATION_TYPE: {
+    [EStationType.PUMP]: {
+      label: 'Bomba',
+      value: EStationType.PUMP
+    },
+
+    [EStationType.STOCKAGE]: {
+      label: 'Almacenamiento',
+      value: EStationType.STOCKAGE
+    }
   }
 }

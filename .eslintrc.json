@@ -33,6 +33,7 @@
     "no-trailing-spaces": "warn",
     "space-before-function-paren": "warn",
     "camelcase": "off",
-    "brace-style": "warn"
+    "brace-style": "warn",
+    "padded-blocks": "warn"
   }
 }

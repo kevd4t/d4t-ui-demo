@@ -6,6 +6,7 @@ import { HeaderPage } from '@/components/common/headers/HeaderPage'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
 import { StationsLayout } from '@/layouts/Stations'
 import { useStationFlow } from '@/lib/store/stationFlow'
+import { DetailStation } from '@/components/page/estaciones/DetailStation'
 
 const { ROUTES } = siteConfig
 
@@ -37,8 +38,7 @@ const DetailStationPage = () => {
         title={`Detalle de Estación ${currentStation.name}`}
       />
 
-      fino
-      {/* {station && <DetailStation station={station as IStation} /> */}
+      {currentStation && <DetailStation station={currentStation} />}
     </>
   )
 }

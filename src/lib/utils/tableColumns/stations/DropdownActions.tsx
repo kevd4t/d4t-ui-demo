@@ -35,7 +35,7 @@ export const StationDropdownActions = ({ station, actions, itemIdx, handleDialog
               <DropdownMenuSeparator />
 
               <DropdownMenuItem asChild>
-                <Link href={`/estaciones/${station.id}`}>
+                <Link href={`/estaciones/${station.id}/info`}>
                   <IconEye className='mr-2 h-4 w-4' />
                   Ver Estación
                 </Link>

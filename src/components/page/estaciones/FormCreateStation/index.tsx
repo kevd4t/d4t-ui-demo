@@ -5,11 +5,10 @@ import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import JSConfetti from 'js-confetti'
 import dynamic from 'next/dynamic'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
-import type { IFetchDataTable, IFormCreateStation, IFormCreateStationContact, IMeterDevice } from '@/lib/types'
-import { getMeterDeviceColumns } from '@/lib/utils/tableColumns/meterDevices'
+import { EStationType, type IFetchDataTable, type IFormCreateStation, type IFormCreateStationContact, type IMeterDevice } from '@/lib/types'
 import { handleOnlyNumbers } from '@/lib/utils/handleOnlyNumbers'
 import { handleFetchUrlUserGroups } from '@/lib/services/users'
 import { simulateFetch } from '@/lib/utils/simulateFetch'
@@ -18,11 +17,27 @@ import { useFetch } from '@/lib/hooks/useFetch'
 import { stationContactRules, stationRules } from './rules'
 import { APP_CONFIG } from '@/config'
 
-import { Avatar, AvatarFallback, AvatarImage, Badge, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, ScrollArea, Separator } from '@/components/ui'
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  ScrollArea,
+  Separator
+} from '@/components/ui'
 import { Congratulations } from '@/components/common/illustrations/Congratulations'
 import { MultipleImages } from '@/components/common/uploadImages/MultipleImages'
 import { WomanLoading } from '@/components/common/illustrations/WomanLoading'
-import { Table } from '@/components/common/tables/GenericTable'
 import { GenericCombobox } from '@/components/common/combox'
 import { GenericSelect } from '@/components/common/selects'
 import { Input } from '@/components/common/inputs/Input'
@@ -46,6 +61,7 @@ export const FormCreateStation = () => {
   const [stationContactImage, setStationContactImage] = useState([])
   const formStationContact = useForm<IFormCreateStationContact>()
   const [contactsCreated, setContactsCreated] = useState([])
+  const { setTypeStationToCreate } = useStationFlow()
   const formStation = useForm<IFormCreateStation>()
   const router = useRouter()
 
@@ -187,7 +203,13 @@ export const FormCreateStation = () => {
     setLoading({ meessage: '', value: false })
     // allowTabsToComplete()
 
-    router.push('/estaciones/37a6ccc8-2bd4-43a8-8970-181ba60e1282/islas/editar')
+    if (data.type === EStationType.PUMP) {
+      router.push('/estaciones/e190f96d-d703-4c6d-816f-1fafee68273b/islas/crear')
+    }
+
+    if (data.type === EStationType.STOCKAGE) {
+      router.push('/estaciones/e190f96d-d703-4c6d-816f-1fafee68273b/another/crear')
+    }
   }
 
   const onSubmitStationContact = async (data: IFormCreateStationContact) => {
@@ -210,6 +232,17 @@ export const FormCreateStation = () => {
   }
 
   const handleOpenCreateTruckModal = (value: boolean) => setModalInfo(prevState => ({ ...prevState, type: 'CREATE_STATION_CONTACT', open: value }))
+
+  useEffect(() => {
+    const subscription = formStation.watch((value, { name, type }) => {
+      console.log(value, name, type)
+      if (name === 'type') {
+        setTypeStationToCreate(value.type as EStationType)
+      }
+    })
+    return () => subscription.unsubscribe()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formStation.watch])
 
   return (
     <>
@@ -366,7 +399,7 @@ export const FormCreateStation = () => {
       </Dialog>
 
       <div className='w-full h-full flex justify-start items-start'>
-        <div className='w-full pt-6'>
+        <div className='w-full'>
           <form onSubmit={formStation.handleSubmit(onSubmitStation)} autoFocus className='w-full'>
             <Card className='p-4 w-full'>
               <CardTitle>Informacion Basica</CardTitle>
@@ -376,13 +409,13 @@ export const FormCreateStation = () => {
               <section className='w-full space-y-4'>
                 <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
                   <Input
-                    id='title'
+                    id='name'
                     type='text'
                     tabIndex={1}
-                    label='Título'
+                    label='Nombre'
                     placeholder='Estacion Pepito'
                     register={formStation.register}
-                    inputErrors={stationRules.title}
+                    inputErrors={stationRules.name}
                     messageErrors={formStation.formState.errors}
                   />
 
@@ -392,13 +425,22 @@ export const FormCreateStation = () => {
                       form={formStation}
                       tabIndex={2}
                       label='RIF'
-                      defaultValue='v'
+                      defaultValue='J'
                       placeholder='Buscar...'
                       ctaPlaceholder='Tipo'
                       buttonClassName='w-[80px]'
                       popoverClassName='w-[90px]'
                       notFoundLabel='Codigo No Encontrado'
-                      items={formatCITypes()}
+                      items={[
+                        {
+                          label: 'J',
+                          value: 'J'
+                        },
+                        {
+                          label: 'G',
+                          value: 'G'
+                        }
+                      ]}
                     />
 
                     <Input
@@ -440,17 +482,17 @@ export const FormCreateStation = () => {
                     id='type'
                     label='Tipo'
                     placeholder='Seleccione un Tipo'
-                    defaultValue='Tercero'
+                    defaultValue='PUMP'
                     tabIndex={5}
                     fieldControlled={{ control: formStation.control, rules: stationRules.type }}
                     items={[
                       {
-                        label: 'Tercero',
-                        value: 'Tercero'
+                        label: 'Bomba',
+                        value: EStationType.PUMP
                       },
                       {
-                        label: 'Propio',
-                        value: 'Propio'
+                        label: 'Almacenamiento',
+                        value: EStationType.STOCKAGE
                       }
                     ]}
                   />
@@ -800,66 +842,6 @@ export const FormCreateStation = () => {
             </Button>
           </section>
         </div>
-
-        {/* <div className='mx-7'></div>
-
-        <div className='hidden max-w-xs w-full lg:flex flex-col justify-start items-start sticky pt-6 top-0 left-0'>
-          <Card className='w-full sticky top-0 left-0'>
-            <CardHeader>
-              <Avatar className='w-full h-32 rounded-sm mx-auto'>
-                <AvatarImage src={multipleStationImages[0]?.data_url} className='object-contain w-full h-full' />
-                <AvatarFallback className='rounded-md'>
-                  <IconBusStop className='text-zinc-500 w-10 h-10' />
-                </AvatarFallback>
-              </Avatar>
-            </CardHeader>
-
-            <CardContent>
-              <h6 className='font-semibold'>Informacion Basica</h6>
-
-              <ul className='mt-2'>
-                <li className='flex justify-start items-center text-sm text-primary-gray'>
-                  <span className='font-semibold dark:text-white'>Título:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{formStation.watch('title')}</span>
-                </li>
-
-                <li className='flex justify-start items-center text-sm text-primary-gray'>
-                  <span className='font-semibold dark:text-white'>RIF:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{formStation.watch('rifType')?.toUpperCase()}-{formStation.watch('rifNumber')}</span>
-                </li>
-
-                <li className='flex justify-start items-center text-sm text-primary-gray'>
-                  <span className='font-semibold dark:text-white'>Modalidad:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{formStation.watch('modality')}</span>
-                </li>
-
-                <li className='flex justify-start items-center text-sm text-primary-gray'>
-                  <span className='font-semibold dark:text-white'>Despacha Gasolina:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{formStation.watch('isGasolineDispatch') ? 'Si' : 'No'}</span>
-                </li>
-
-                <li className='flex justify-start items-center text-sm text-primary-gray'>
-                  <span className='font-semibold dark:text-white'>Despacha Disel:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{formStation.watch('isDiselDispatch') ? 'Si' : 'No'}</span>
-                </li>
-              </ul>
-
-              <Separator className='my-2' />
-
-              <Badge
-                className={`w-full text-sm h-full py-1.5 ${IS_ACTIVE[formStation.watch('isActive')]?.value ? 'border-2 bg-green-100 border-green-500 text-green-500' : 'border-2 bg-red-100 border-red-500 text-red-500'}`}
-              >
-                {formStation.watch('isActive') === 'true' ? 'Activo' : 'Bloqueado'}
-              </Badge>
-
-              <Separator className='my-2' />
-
-              <Badge className='w-full text-sm h-full py-1.5'>
-                {formStation.watch('status') || 'Vacio'}
-              </Badge>
-            </CardContent>
-          </Card>
-        </div> */}
       </div>
     </>
   )

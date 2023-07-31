@@ -4,7 +4,7 @@ type TStationFields =
   'rifNumber' |
   'rifType' |
   'type' |
-  'title' |
+  'name' |
   'modality' |
   'isActive' |
   'nbBandera' |
@@ -42,7 +42,7 @@ export const stationRules: IFormRules<TStationFields> = {
     required: { value: true, message: 'Requerido' }
   },
 
-  title: {
+  name: {
     minLength: { value: 3, message: 'Minimo 3 Caracteres' },
     maxLength: { value: 50, message: 'Maximo 50 Caracteres' },
     required: { value: true, message: 'Requerido' }

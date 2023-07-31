@@ -6,6 +6,7 @@ import type { IStation, IGetEntityColumnsParams, TColumnActions } from '@/lib/ty
 import { StationColumnActions } from './ColumnActions'
 import { StationColumnSort } from './ColumnSort'
 import { Badge, Checkbox } from '@/components/ui'
+import { APP_CONFIG } from '@/config'
 
 const actionsColumn = {
   id: 'Acciones',
@@ -39,18 +40,34 @@ export const stationColumns: ColumnDef<IStation>[] = [
     }
   },
   {
-    id: 'Ubicacion',
-    accessorKey: 'direction',
-    header: 'Ubicacion (latitud, longitud)',
-    cell: ({ row: { original } }) => `${original.location.coords.lat}, ${original.location.coords.lng}`
+    id: 'Estado',
+    accessorKey: 'state',
+    header: ({ column }) => <StationColumnSort column={column} columnLabel='Estado' />,
+    cell: ({ row }) => (
+      <div>
+        {row.original.location.state}
+      </div>
+    )
   },
   {
     id: 'Ciudad',
     accessorKey: 'city',
-    header: ({ column }) => <StationColumnSort column={column} columnLabel='Ciudad' />,
+    header: 'Ciudad',
+    cell: ({ row: { original } }) => `${original.location.city}`
+  },
+  {
+    id: 'Modalidad',
+    accessorKey: 'modality',
+    header: 'Modalidad',
+    cell: ({ row: { original } }) => `${original.modality}`
+  },
+  {
+    id: 'Tipo',
+    accessorKey: 'type',
+    header: ({ column }) => <StationColumnSort column={column} columnLabel='Tipo' />,
     cell: ({ row }) => (
-      <div className='w-full pl-4'>
-        {row.original.location.city}
+      <div>
+        <Badge>{APP_CONFIG.STATION_TYPE[row.original.type].label}</Badge>
       </div>
     )
   },
@@ -59,7 +76,7 @@ export const stationColumns: ColumnDef<IStation>[] = [
     accessorKey: 'status',
     header: ({ column }) => <StationColumnSort column={column} columnLabel='Estatus' />,
     cell: ({ row }) => (
-      <div className='text-center w-full'>
+      <div>
         <Badge>{row.original.state}</Badge>
       </div>
     )

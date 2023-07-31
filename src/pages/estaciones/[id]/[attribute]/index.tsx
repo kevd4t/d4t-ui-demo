@@ -4,6 +4,7 @@ import { AuthenticatedLayout } from '@/layouts/Authenticated'
 import { StationsLayout } from '@/layouts/Stations'
 import { useStationFlow } from '@/lib/store/stationFlow'
 import { useRouter } from 'next/router'
+import { DetailStation } from '@/components/page/estaciones/DetailStation'
 
 const { ROUTES } = siteConfig
 
@@ -16,6 +17,7 @@ export const DetailAttributeByStationPage = () => {
   if (currentStation?.type.includes(EStationType.PUMP)) {
     return (
       <>
+        { router.asPath.includes('/info') && (<DetailStation station={currentStation} />) }
         { router.asPath.includes('/islas') && (<div>Islas</div>) }
         { router.asPath.includes('/tanques') && (<div>Tanques</div>) }
         { router.asPath.includes('/dispensadores') && (<div>Dispensadores</div>) }

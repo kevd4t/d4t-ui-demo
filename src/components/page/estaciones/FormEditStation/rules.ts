@@ -4,10 +4,10 @@ type TStationFields =
   'rifNumber' |
   'rifType' |
   'type' |
-  'title' |
+  'name' |
   'modality' |
   'isActive' |
-  'nbBandera' |
+  'logo' |
   'cadenaSum' |
   'socialReason' |
   'isDiselDispatch' |
@@ -42,7 +42,7 @@ export const stationRules: IFormRules<TStationFields> = {
     required: { value: true, message: 'Requerido' }
   },
 
-  title: {
+  name: {
     minLength: { value: 3, message: 'Minimo 3 Caracteres' },
     maxLength: { value: 50, message: 'Maximo 50 Caracteres' },
     required: { value: true, message: 'Requerido' }
@@ -56,7 +56,7 @@ export const stationRules: IFormRules<TStationFields> = {
     required: { value: true, message: 'Requerido' }
   },
 
-  nbBandera: {
+  logo: {
     minLength: { value: 3, message: 'Minimo 3 Caracteres' },
     maxLength: { value: 20, message: 'Maximo 20 Caracteres' },
     pattern: { value: /^\w+(\s\w+)?$/i, message: 'Nombre Invalido' },

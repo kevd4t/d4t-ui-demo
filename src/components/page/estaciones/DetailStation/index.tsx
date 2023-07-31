@@ -1,82 +1,20 @@
-import { IconBusStop, IconUser } from '@tabler/icons-react'
-import { PaginationState } from '@tanstack/react-table'
+import { IconUser } from '@tabler/icons-react'
 import dynamic from 'next/dynamic'
-import { useState } from 'react'
 
-import { getIslandColumns } from '@/lib/utils/tableColumns/islands'
 import { EHydrocarbon, type IStation } from '@/lib/types'
 
-import { Avatar, AvatarFallback, AvatarImage, Badge, Card, CardContent, CardHeader, CardTitle, Separator } from '@/components/ui'
-import { Table } from '@/components/common/tables/GenericTable'
+import { Avatar, AvatarFallback, AvatarImage, Card, CardContent, CardHeader, CardTitle, Separator } from '@/components/ui'
 import { GridImages } from '@/components/common/grid-images'
 import { Input } from '@/components/common/inputs/Input'
 import { TextArea } from '@/components/common/textarea'
+import { APP_CONFIG } from '@/config'
 
 const BasicMapNoSSR = dynamic(() => import('@/components/common/gps/BasicMap'), { ssr: false })
 
 export const DetailStation = ({ station }: { station: IStation }) => {
-  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
-
-  const pagination = {
-    pageSize,
-    pageIndex,
-    setPagination,
-    labels: { pluralItem: 'Subcategorias', singularItem: 'Subcategoria' }
-  }
-
   return (
     <>
       <div className='w-full h-full flex justify-start items-start gap-x-10'>
-        <div className='hidden max-w-xs w-full lg:flex flex-col justify-start items-start sticky pt-6 top-0 left-0'>
-          <Card className='w-full sticky top-0 left-0'>
-            <CardHeader>
-              <Avatar className='w-full h-32 rounded-sm mx-auto'>
-                <AvatarImage src={station.images[0].url} className='object-contain w-full h-full' />
-                <AvatarFallback className='rounded-md'>
-                  <IconBusStop className='text-zinc-500 w-10 h-10' />
-                </AvatarFallback>
-              </Avatar>
-            </CardHeader>
-
-            <CardContent>
-              <h6 className='font-semibold'>Informacion Basica</h6>
-
-              <ul className='mt-2'>
-                <li className='flex justify-start items-center text-sm text-primary-gray'>
-                  <span className='font-semibold dark:text-white'>Título:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{station.name}</span>
-                </li>
-
-                <li className='flex justify-start items-center text-sm text-primary-gray'>
-                  <span className='font-semibold dark:text-white'>RIF:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{station.rif}</span>
-                </li>
-
-                <li className='flex justify-start items-center text-sm text-primary-gray'>
-                  <span className='font-semibold dark:text-white'>Modalidad:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{station.modality}</span>
-                </li>
-
-                <li className='flex justify-start items-center text-sm text-primary-gray'>
-                  <span className='font-semibold dark:text-white'>Despacha Gasolina:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{station.provider_services.includes(EHydrocarbon.GASOLINE) ? 'Si' : 'No'}</span>
-                </li>
-
-                <li className='flex justify-start items-center text-sm text-primary-gray'>
-                  <span className='font-semibold dark:text-white'>Despacha Disel:</span> &nbsp;
-                  <span className='dark:text-gray-300'>{station.provider_services.includes(EHydrocarbon.DIESEL) ? 'Si' : 'No'}</span>
-                </li>
-              </ul>
-
-              <Separator className='my-2' />
-
-              <Badge className='w-full text-sm h-full py-1.5'>
-                {station.state}
-              </Badge>
-            </CardContent>
-          </Card>
-        </div>
-
         <div className='w-full pt-6'>
           <div className='w-full h-full flex flex-col xl:flex-row justify-start items-start gap-x-6 gap-y-6'>
             <Card className='p-4 w-full'>
@@ -125,7 +63,7 @@ export const DetailStation = ({ station }: { station: IStation }) => {
                     label='Tipo'
                     placeholder='Estacion Pepito'
                     readOnly
-                    value={station.type}
+                    value={APP_CONFIG.STATION_TYPE[station.type].label}
                   />
                 </div>
 
@@ -184,16 +122,15 @@ export const DetailStation = ({ station }: { station: IStation }) => {
             <CardTitle>Estados</CardTitle>
 
             <Separator className='my-4' />
-            <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
-              <Input
-                id='status'
-                type='text'
-                tabIndex={11}
-                label='Estatus'
-                readOnly
-                value={station.state}
-              />
-            </div>
+
+            <Input
+              id='status'
+              type='text'
+              tabIndex={11}
+              label='Estatus'
+              readOnly
+              value={station.state}
+            />
           </Card>
 
           <Card className='p-4 mt-6 w-full'>
@@ -297,34 +234,6 @@ export const DetailStation = ({ station }: { station: IStation }) => {
                 ))
               }
             </ul>
-          </Card>
-
-          {/* <Card className='p-4 mt-6 w-full'>
-            <CardTitle>Medidores</CardTitle>
-
-            <Separator className='my-4' />
-
-            <Table
-              visibilityColumns
-              data={station.meters}
-              pagination={pagination}
-              queryInfo={{ error: null, isFetching: false }}
-              columns={getMeterDeviceColumns({ actions: { detail: true } })}
-            />
-          </Card> */}
-
-          <Card className='p-4 mt-6 w-full'>
-            <CardTitle>Islas</CardTitle>
-
-            <Separator className='my-4' />
-
-            <Table
-              visibilityColumns
-              pagination={pagination}
-              data={station.attributes.pump_islands}
-              queryInfo={{ error: null, isFetching: false }}
-              columns={getIslandColumns({ actions: { detail: true } })}
-            />
           </Card>
 
           <Card className='p-4 mt-6 w-full'>

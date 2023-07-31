@@ -2,91 +2,49 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { IconBusStop } from '@tabler/icons-react'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
 
-import { EHydrocarbon, type IStation, type ReactNode } from '@/lib/types'
+import { EHydrocarbon, type ReactNode } from '@/lib/types'
 import { useStationFlow } from '@/lib/store/stationFlow'
 
 import { Card, Button, CardContent, CardHeader, Avatar, AvatarImage, AvatarFallback, Badge, Separator, Skeleton } from '@/components/ui'
-import { getStationByID } from '@/lib/services/stations'
 
-export const StationsLayout = ({ children }: { children: ReactNode }) => {
-  const { stationTabs, isLoading, setStation, currentStation, setActiveAttributeTab, allowAttributeTabsToComplete, getAttributeTabActive, setIsLoading } = useStationFlow()
-  const { asPath, push, query } = useRouter()
+export const CreateStationLayout = ({ children }: { children: ReactNode }) => {
+  const { stationTabs, typeStationToCreate, isLoading, currentStation, getAttributeTabActive } = useStationFlow()
+  const { push, query } = useRouter()
 
   const handleClick = (contentTab) => {
     push(`/estaciones/${query.id}/${contentTab.route}`)
   }
 
-  useEffect(() => {
-    setIsLoading(true)
-
-    if (query.id && !currentStation) {
-      (async () => {
-        const station = await getStationByID({ id: query.id })
-        setStation(station.results as IStation)
-        setIsLoading(false)
-      })()
-    }
-
-    if (currentStation) {
-      setIsLoading(false)
-    }
-  }, [query, currentStation])
-
-  useEffect(() => {
-    if (currentStation) {
-      stationTabs.PUMP.forEach((stationTab) => {
-        if (asPath.includes(stationTab.route)) {
-          setActiveAttributeTab(currentStation.type, stationTab.tabKey)
-        }
-      })
-
-      stationTabs.STOCKAGE.forEach((stationTab) => {
-        if (asPath.includes(stationTab.route)) {
-          setActiveAttributeTab(currentStation.type, stationTab.tabKey)
-        }
-      })
-    }
-  }, [asPath, currentStation])
-
-  useEffect(() => {
-    if (currentStation) {
-      if (!asPath.includes('/estaciones/crear')) {
-        allowAttributeTabsToComplete(currentStation.type)
-      }
-    }
-  }, [asPath, currentStation])
+  if (!isLoading && !currentStation) {
+    return (
+      <div className='h-[85vh] w-full flex flex-col justify-center items-center text-xl font-bold'>
+        Estación no Encontrada
+      </div>
+    )
+  }
 
   return (
     <>
       <Card className='border-none'>
         <CardContent className='p-0'>
           <div className='w-full h-full flex justify-start'>
+
             <section className='w-min flex relative'>
               <div className='flex flex-col justify-start items-start gap-y-4 h-min sticky top-0 left-0 pt-6'>
                 {
-                  (isLoading && !currentStation && !asPath.includes('/crear'))
+                  typeStationToCreate
                     ? (
                       <>
-                        <Skeleton className='w-44 h-12 justify-start whitespace-nowrap gap-x-2' />
-                        <Skeleton className='w-44 h-12 justify-start whitespace-nowrap gap-x-2' />
-                        <Skeleton className='w-44 h-12 justify-start whitespace-nowrap gap-x-2' />
-                        <Skeleton className='w-44 h-12 justify-start whitespace-nowrap gap-x-2' />
-                        <Skeleton className='w-44 h-12 justify-start whitespace-nowrap gap-x-2' />
-                      </>
-                    )
-                    : (
-                      <>
                         {
-                          stationTabs[currentStation.type].map((contentTab, idx) => (
+                          stationTabs[typeStationToCreate].map((contentTab, idx) => (
                             <Button
                               tabIndex={idx}
                               variant='outline'
                               key={contentTab.tabKey}
                               disabled={contentTab.isDisabled}
                               onClick={() => handleClick(contentTab)}
-                              className={`relative w-full py-6 justify-start whitespace-nowrap gap-x-2 ${query?.attribute?.includes(contentTab.route.replace('/', '')) ? 'bg-accent' : ''}`}
+                              className={`w-[186px] relative py-6 justify-start whitespace-nowrap gap-x-2 ${query?.attribute?.includes(contentTab.route.replace('/', '')) ? 'bg-accent' : ''}`}
                             >
                               {
                                 !contentTab.isCompleted && (
@@ -99,6 +57,15 @@ export const StationsLayout = ({ children }: { children: ReactNode }) => {
                             </Button>
                           ))
                         }
+                      </>
+                    )
+                    : (
+                      <>
+                        <Skeleton className='w-44 h-12 justify-start whitespace-nowrap gap-x-2' />
+                        <Skeleton className='w-44 h-12 justify-start whitespace-nowrap gap-x-2' />
+                        <Skeleton className='w-44 h-12 justify-start whitespace-nowrap gap-x-2' />
+                        <Skeleton className='w-44 h-12 justify-start whitespace-nowrap gap-x-2' />
+                        <Skeleton className='w-44 h-12 justify-start whitespace-nowrap gap-x-2' />
                       </>
                     )
                 }

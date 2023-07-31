@@ -1,6 +1,7 @@
 import { PaginationState } from '@tanstack/react-table'
 import { useState } from 'react'
 
+import { newStationColumnsToFilter } from '@/lib/utils/tableColumns/stations/Filters'
 import type { IFetchDataTable, IStation, ReactElement } from '@/lib/types'
 import { getStationColumns } from '@/lib/utils/tableColumns/stations'
 import { handleFetchUrlStations } from '@/lib/services/stations'
@@ -40,9 +41,10 @@ const StationsPage = () => {
         visibilityColumns
         data={data?.results}
         pagination={pagination}
+        itemsToFilter={newStationColumnsToFilter}
         queryInfo={{ isFetching: isLoading, error }}
         columns={getStationColumns({ actions: { detail: true, delete: true, edit: true } })}
-        inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Estación' }}
+        inputSearch={{ handleSearchWithParams, placeholder: 'Buscar por Nombre / RIF / Razon Social' }}
       />
     </>
   )

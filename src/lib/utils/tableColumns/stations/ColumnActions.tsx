@@ -38,7 +38,7 @@ export const StationColumnActions = ({ station, actions, itemIdx }: ISubCategory
     }
 
     console.log({ data })
-    toast.success(`${station.title} ha sido bloqueado`)
+    toast.success(`${station.name} ha sido bloqueado`)
     setOpenAlert(false)
   }
 
@@ -49,7 +49,7 @@ export const StationColumnActions = ({ station, actions, itemIdx }: ISubCategory
           <AlertDialogHeader>
             <AlertDialogTitle>¿Esta seguro de bloquear esta subcategoria?</AlertDialogTitle>
             <AlertDialogDescription>
-                Se bloqueara la subcategoria {station.title}
+                Se bloqueara la subcategoria {station.name}
             </AlertDialogDescription>
           </AlertDialogHeader>
 

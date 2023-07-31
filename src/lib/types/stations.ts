@@ -326,18 +326,18 @@ export type TStockageStationFlowTabKey = 'BASIC_INFO' | 'ANOTHER'
 export interface IPumpStationContentTab {
   label: string
   tabKey: TPumpStationFlowTabKey
-  content: ReactNode
+  // content: ReactNode
   icon: ReactNode
   isDisabled: boolean
   isCompleted: boolean
   isActive: boolean
-  route: '/islas' | '/tanques' | '/info' | '/dispensadores' | '/medidores' | '/another'
+  route: '/islas' | '/tanques' | '/info' | '/dispensadores' | '/another'
 }
 
 export interface IStockageStationContentTab {
   label: string
   tabKey: TStockageStationFlowTabKey
-  content: ReactNode
+  // content: ReactNode
   icon: ReactNode
   isDisabled: boolean
   isCompleted: boolean
