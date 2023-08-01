@@ -10,11 +10,7 @@ import { Card, Button, CardContent, CardHeader, Avatar, AvatarImage, AvatarFallb
 
 export const CreateStationLayout = ({ children }: { children: ReactNode }) => {
   const { stationTabs, typeStationToCreate, isLoading, currentStation, getAttributeTabActive } = useStationFlow()
-  const { push, query } = useRouter()
-
-  const handleClick = (contentTab) => {
-    push(`/estaciones/${query.id}/${contentTab.route}`)
-  }
+  const { query } = useRouter()
 
   if (!isLoading && !currentStation) {
     return (
@@ -43,7 +39,6 @@ export const CreateStationLayout = ({ children }: { children: ReactNode }) => {
                               variant='outline'
                               key={contentTab.tabKey}
                               disabled={contentTab.isDisabled}
-                              onClick={() => handleClick(contentTab)}
                               className={`w-[186px] relative py-6 justify-start whitespace-nowrap gap-x-2 ${query?.attribute?.includes(contentTab.route.replace('/', '')) ? 'bg-accent' : ''}`}
                             >
                               {

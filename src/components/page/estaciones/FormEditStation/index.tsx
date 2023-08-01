@@ -476,6 +476,10 @@ export const FormEditStation = ({ station }: { station: IStation }) => {
                       {
                         label: 'Internacional',
                         value: 'Internacional'
+                      },
+                      {
+                        label: 'Integral',
+                        value: 'Integral'
                       }
                     ]}
                   />
@@ -484,7 +488,7 @@ export const FormEditStation = ({ station }: { station: IStation }) => {
                     id='type'
                     label='Tipo'
                     placeholder='Seleccione un Tipo'
-                    defaultValue={APP_CONFIG.STATION_TYPE.PUMP.label === station.type ? APP_CONFIG.STATION_TYPE.PUMP.label : APP_CONFIG.STATION_TYPE.STOCKAGE.label}
+                    defaultValue={APP_CONFIG.STATION_TYPE.PUMP.value === station.type ? APP_CONFIG.STATION_TYPE.PUMP.value : APP_CONFIG.STATION_TYPE.STOCKAGE.value}
                     tabIndex={5}
                     fieldControlled={{ control: formStation.control, rules: stationRules.type }}
                     items={[
@@ -511,11 +515,11 @@ export const FormEditStation = ({ station }: { station: IStation }) => {
                     items={[
                       {
                         label: 'PDV',
-                        value: 'PDV'
+                        value: 'Pdv'
                       },
                       {
-                        label: 'Otro',
-                        value: 'Otro'
+                        label: 'Exmayoristas Blancas',
+                        value: 'Exmayoristas Blancas'
                       }
                     ]}
                   />
@@ -653,8 +657,8 @@ export const FormEditStation = ({ station }: { station: IStation }) => {
                   fieldControlled={{ control: formStation.control, rules: stationRules.directionCity }}
                   items={[
                     {
-                      label: 'Caracas',
-                      value: 'Caracas'
+                      label: 'Gran Caracas',
+                      value: 'Gran Caracas'
                     },
                     {
                       label: 'Valencia',

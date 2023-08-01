@@ -51,21 +51,21 @@ export const useStationFlow = create<IUseStationFlow>((set, get) => ({
         icon: <IconGasStation />
       },
       {
-        tabKey: 'TANKS',
-        label: 'Tanques',
-        isDisabled: true,
-        isActive: false,
-        isCompleted: false,
-        route: '/tanques',
-        icon: <IconGasStation />
-      },
-      {
         tabKey: 'DISPENSERS',
         label: 'Dispensadores',
         isDisabled: true,
         isActive: false,
         isCompleted: false,
         route: '/dispensadores',
+        icon: <IconGasStation />
+      },
+      {
+        tabKey: 'TANKS',
+        label: 'Tanques',
+        isDisabled: true,
+        isActive: false,
+        isCompleted: false,
+        route: '/tanques',
         icon: <IconGasStation />
       }
     ],

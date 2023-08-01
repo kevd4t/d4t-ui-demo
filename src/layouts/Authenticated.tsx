@@ -4,7 +4,7 @@ import { useSidebarStore } from '@/lib/store/sidebar'
 import type { ReactNode } from '@/lib/types'
 
 import { GlobalCommandMenu } from '@/components/layout/authenticated/GlobalCommandMenu'
-import { BottomNavigation } from '@/components/layout/authenticated/BottomNavigation'
+// import { BottomNavigation } from '@/components/layout/authenticated/BottomNavigation'
 import { Sidebar } from '@/components/layout/authenticated'
 
 export const AuthenticatedLayout = ({ children, title, mainClassName, noPageTransition = false }: { children: ReactNode, title: string, mainClassName?: string, noPageTransition?: boolean }) => {
@@ -27,7 +27,7 @@ export const AuthenticatedLayout = ({ children, title, mainClassName, noPageTran
       }
       >
         <Sidebar />
-        <BottomNavigation />
+        {/* <BottomNavigation /> */}
 
         <div className='md:hidden fixed top-0 rounded-l-md right-0 h-[90vh] w-20 bg-white z-[60]'>
           EPALE

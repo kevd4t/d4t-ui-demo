@@ -38,6 +38,8 @@ export const GenericSelect = ({ id, value, label, defaultValue, onValueChange, p
           <FormItem className={cn('w-full', fieldControlled.formItemClassName)}>
             <Label>{label}</Label>
 
+            <div className='my-2'></div>
+
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <SelectTrigger tabIndex={tabIndex} className={cn('w-full', fieldControlled.formSelectClassName)}>
                 <SelectValue placeholder={placeholder} />
@@ -71,7 +73,9 @@ export const GenericSelect = ({ id, value, label, defaultValue, onValueChange, p
 
   return (
     <div {...rest}>
-      <Label htmlFor={id}>{ label }</Label> <br />
+      <Label htmlFor={id}>{ label }</Label>
+
+      <div className='my-2'></div>
 
       <Select value={value} defaultValue={defaultValue} onValueChange={onValueChange}>
         <SelectTrigger className='w-[190px]'>

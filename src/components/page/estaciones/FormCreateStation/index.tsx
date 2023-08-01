@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
-import { EStationType, type IFetchDataTable, type IFormCreateStation, type IFormCreateStationContact, type IMeterDevice } from '@/lib/types'
+import { EStationType, IStation, type IFetchDataTable, type IFormCreateStation, type IFormCreateStationContact, type IMeterDevice } from '@/lib/types'
 import { handleOnlyNumbers } from '@/lib/utils/handleOnlyNumbers'
 import { handleFetchUrlUserGroups } from '@/lib/services/users'
 import { simulateFetch } from '@/lib/utils/simulateFetch'
@@ -44,6 +44,7 @@ import { Input } from '@/components/common/inputs/Input'
 import { TextArea } from '@/components/common/textarea'
 import { UploadImage } from '@/components/common/uploadImages'
 import { useStationFlow } from '@/lib/store/stationFlow'
+import { randomUUID } from 'crypto'
 
 const { CI_TYPES, IS_ACTIVE, PHONE_LINE_CODES } = APP_CONFIG
 const BasicMapNoSSR = dynamic(() => import('@/components/common/gps/BasicMap'), { ssr: false })
@@ -51,17 +52,17 @@ const BasicMapNoSSR = dynamic(() => import('@/components/common/gps/BasicMap'), 
 export const FormCreateStation = () => {
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
   const [tableStationIslandsSelected, setTableStationIslandsSelected] = useState<RowSelectionState>({})
+  const [modalInfo, setModalInfo] = useState({ open: false, label: '', illustration: null, type: '' })
   const [tableMeterDevicesSelected, setTableMeterDevicesSelected] = useState<RowSelectionState>({})
   // const [showComparisons, setShowComparisons] = useState({ userPhoto: false, ciImage: false })
-  const [modalInfo, setModalInfo] = useState({ open: false, label: '', illustration: null, type: '' })
   const [fullDataStationIslandsSelected, setFullDataStationIslandsSelected] = useState([])
   const [fullDataMeterDevicesSelected, setFullDataMeterDevicesSelected] = useState([])
   const [multipleStationImages, setMultipleStationImages] = useState([])
   const [loading, setLoading] = useState({ meessage: '', value: false })
   const [stationContactImage, setStationContactImage] = useState([])
   const formStationContact = useForm<IFormCreateStationContact>()
+  const { setTypeStationToCreate, setStation } = useStationFlow()
   const [contactsCreated, setContactsCreated] = useState([])
-  const { setTypeStationToCreate } = useStationFlow()
   const formStation = useForm<IFormCreateStation>()
   const router = useRouter()
 
@@ -203,12 +204,30 @@ export const FormCreateStation = () => {
     setLoading({ meessage: '', value: false })
     // allowTabsToComplete()
 
+    const station = {
+      ...data,
+      id: 'c94f1ecc-cde3-4465-bfe9-b6a18ab78cd0',
+      rif: `${data.rifType.toUpperCase()}-${data.rifNumber}`.replaceAll('.', ''),
+      location: {
+        city: data.directionCity,
+        state: data.directionState,
+        address: data.directionReference,
+        coords: {
+          lat: '434234234.424',
+          lng: '-4535345.43'
+        }
+      }
+      // meterDevice: { ...fullDataMeterDevicesSelected[0].original }
+    }
+
+    // setStation(station as any)
+
     if (data.type === EStationType.PUMP) {
-      router.push('/estaciones/e190f96d-d703-4c6d-816f-1fafee68273b/islas/crear')
+      router.push('/estaciones/c94f1ecc-cde3-4465-bfe9-b6a18ab78cd0/islas/crear')
     }
 
     if (data.type === EStationType.STOCKAGE) {
-      router.push('/estaciones/e190f96d-d703-4c6d-816f-1fafee68273b/another/crear')
+      router.push('/estaciones/c94f1ecc-cde3-4465-bfe9-b6a18ab78cd0/another/crear')
     }
   }
 

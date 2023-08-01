@@ -139,10 +139,10 @@ const SkeletonStationAttributes = () => {
 }
 
 const StationAttributes = ({ stationTabs, stationType }) => {
-  const { push, query } = useRouter()
+  const { push, query, asPath } = useRouter()
 
   const handleClick = (contentTab) => {
-    push(`/estaciones/${query.id}/${contentTab.route}`)
+    push(`/estaciones/${query.id}/${contentTab.route}${asPath.includes('/crear') ? '/crear' : ''}`)
   }
 
   return (
