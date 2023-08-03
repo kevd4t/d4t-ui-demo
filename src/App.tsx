@@ -1,12 +1,10 @@
-import "./App.css";
-import { Button } from "./components/";
+import './App.css'
+import { Button } from './components/'
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
+    <div>
       <Button>Epa</Button>
     </div>
-  );
+  )
 }
-
-export default App;
