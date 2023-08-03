@@ -1,9 +1,16 @@
-import { Button } from '@/components'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import "./App.css";
+import { Button } from "./components/Button";
 
-export default function Home() {
+function App() {
+  const [count, setCount] = useState(0);
+
   return (
-    <div className='w-full h-screen flex justify-center items-center'>
-      <Button>Click me</Button>
+    <div className="App">
+      <Button />
     </div>
-  )
+  );
 }
+
+export default App;
