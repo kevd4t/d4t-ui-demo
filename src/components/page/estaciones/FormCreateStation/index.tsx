@@ -468,6 +468,7 @@ export const FormCreateStation = () => {
                       tabIndex={3}
                       maxLength={10}
                       placeholder='00.000.000'
+                      classNameContainer='w-full'
                       register={formStation.register}
                       onKeyUp={handleOnKeyUpRIF}
                       inputErrors={stationRules.rifNumber}

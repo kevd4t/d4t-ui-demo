@@ -12,7 +12,7 @@ import { FormCreateTank } from '@/components/page/estaciones/atributos/tanques/F
 
 const { ROUTES } = siteConfig
 
-const CreateAttributeByStationPage = () => {
+const EditAttributeByStationPage = () => {
   const { currentStation } = useStationFlow()
   const pathname = usePathname()
 
@@ -52,7 +52,7 @@ const CreateAttributeByStationPage = () => {
   )
 }
 
-CreateAttributeByStationPage.getLayout = function getLayout (page: ReactElement) {
+EditAttributeByStationPage.getLayout = function getLayout (page: ReactElement) {
   return (
     <AuthenticatedLayout title={`${ROUTES.STATIONS.LIST.TITLE} | ${siteConfig.TITLE}`}>
       <StationsLayout>
@@ -62,4 +62,4 @@ CreateAttributeByStationPage.getLayout = function getLayout (page: ReactElement)
   )
 }
 
-export default CreateAttributeByStationPage
+export default EditAttributeByStationPage

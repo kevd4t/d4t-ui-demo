@@ -59,7 +59,7 @@ export function GenericCombobox ({
         defaultValue={defaultValue}
         rules={rules}
         render={({ field }) => (
-          <FormItem className='flex flex-col w-full'>
+          <FormItem className='flex flex-col'>
             <Label>{label}</Label>
 
             <Popover open={open} onOpenChange={setOpen}>

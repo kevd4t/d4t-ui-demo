@@ -10,7 +10,7 @@ import { ListIsland } from '@/components/page/estaciones/atributos/islas/ListIsl
 
 const { ROUTES } = siteConfig
 
-const AttributesByStationPage = () => {
+const DetailAttributeByStationPage = () => {
   const { currentStation, isLoading } = useStationFlow()
   const router = useRouter()
 
@@ -62,7 +62,7 @@ const AttributesByStationPage = () => {
   return (<div>NOPE</div>)
 }
 
-AttributesByStationPage.getLayout = function getLayout (page: ReactElement) {
+DetailAttributeByStationPage.getLayout = function getLayout (page: ReactElement) {
   return (
     <AuthenticatedLayout title={`${ROUTES.STATIONS.LIST.TITLE} | ${siteConfig.TITLE}`}>
       <StationsLayout>
@@ -72,4 +72,4 @@ AttributesByStationPage.getLayout = function getLayout (page: ReactElement) {
   )
 }
 
-export default AttributesByStationPage
+export default DetailAttributeByStationPage

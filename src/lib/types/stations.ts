@@ -35,6 +35,7 @@ export interface IPumpIsland {
   id: string
   identifier: string
   maxDispensersAllowed: number
+  status: string
   dispensers: IPumpIslandDispenser[]
   gas_station_attributes: IStationAttributes
 }

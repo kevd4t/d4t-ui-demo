@@ -93,7 +93,7 @@ export function TableFacetedFilter<TData, TValue> ({ queryFilterColumnID, column
           <CommandInput placeholder={title} />
 
           <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandEmpty>Sin Resultados</CommandEmpty>
 
             <CommandGroup>
               {options.map((option) => {

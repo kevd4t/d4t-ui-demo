@@ -7,6 +7,7 @@ import { stationIslandSchema } from '@/lib/schemas/stations'
 import { GenericSelect } from '@/components/common/selects'
 import { Input } from '@/components/common/inputs/Input'
 import { Button } from '@/components/ui'
+import { TextArea } from '@/components/common/textarea'
 
 export const FormCreateIsland = () => {
   const form = useForm<z.infer<typeof stationIslandSchema>>()
@@ -43,7 +44,7 @@ export const FormCreateIsland = () => {
           id='maxDispensersAllowed'
           type='number'
           tabIndex={2}
-          label='Cantidad Maxima de Dispensadores'
+          label='Limite de dispensadores'
           className='w-full'
           placeholder='0-6 '
           register={form.register}
@@ -54,7 +55,37 @@ export const FormCreateIsland = () => {
           messageErrors={form.formState.errors}
           inputErrors={{ required: { value: true, message: 'Requerido' } }}
         />
+
+        <GenericSelect
+          id='status'
+          tabIndex={5}
+          label='Estatus'
+          defaultValue='OPERATIVE'
+          placeholder='Seleccione un Estado'
+          fieldControlled={{ control: form.control, rules: { required: { value: true, message: 'Requerido' } } }}
+          items={[
+            {
+              label: 'Operativo',
+              value: 'OPERATIVE'
+            },
+            {
+              label: 'En Mantenimiento',
+              value: 'IN_MAINTENANCE'
+            }
+          ]}
+        />
       </div>
+
+      {
+        form.watch('status')?.includes('IN_MAINTENANCE') && (
+          <TextArea
+            id='islandIssue'
+            rows={3}
+            tabIndex={6}
+            label='Incidencia'
+          />
+        )
+      }
 
       <Button>
         Crear Isla

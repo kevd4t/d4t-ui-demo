@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { z } from 'zod'
 
 import { getGpsModelColumns } from '@/lib/utils/tableColumns/gpsModels'
-import { IFetchDataTable, IGPSMark, IGPSModel } from '@/lib/types'
+import { EHydrocarbon, IFetchDataTable, IGPSMark, IGPSModel } from '@/lib/types'
 import { handleFetchUrlUserGroups } from '@/lib/services/users'
 import { stationIslandSchema } from '@/lib/schemas/stations'
 import { useFetch } from '@/lib/hooks/useFetch'
@@ -121,13 +121,69 @@ export const FormCreateDispenser = () => {
               <Input
                 id='damaged_beak'
                 type='number'
-                tabIndex={2}
+                tabIndex={3}
                 label='Picos Dañados'
                 className='w-full'
                 placeholder='0-6'
                 register={form.register}
                 messageErrors={form.formState.errors}
                 inputErrors={{ required: { value: true, message: 'Requerido' } }}
+              />
+            </div>
+
+            <div className='w-full flex justify-between items-end gap-x-4'>
+              <GenericSelect
+                id='combustibleType'
+                tabIndex={4}
+                label='Tipo de Combustible'
+                className='w-full'
+                placeholder='Seleccione tipo de combustible'
+                defaultValue={EHydrocarbon.GASOLINE}
+                fieldControlled={{
+                  control: form.control,
+                  formSelectClassName: 'w-full',
+                  rules: { required: { value: true, message: 'Requerido' } }
+                }}
+                items={[
+                  {
+                    label: 'Gasolina',
+                    value: EHydrocarbon.GASOLINE
+                  },
+                  {
+                    label: 'Disel',
+                    value: EHydrocarbon.DIESEL
+                  },
+                  {
+                    label: 'Gas',
+                    value: EHydrocarbon.GAS
+                  }
+                ]}
+              />
+
+              <GenericSelect
+                id='status'
+                tabIndex={5}
+                label='Estatus'
+                className='w-full'
+                placeholder='Seleccione una isla'
+                defaultValue='OPERATIVE'
+                fieldControlled={{
+                  control: form.control,
+                  formSelectClassName: 'w-full',
+                  rules: {
+                    required: { value: true, message: 'Requerido' }
+                  }
+                }}
+                items={[
+                  {
+                    label: 'Operativo',
+                    value: 'OPERATIVE'
+                  },
+                  {
+                    label: 'En Mantenimiento',
+                    value: 'IN_MAINTENANCE'
+                  }
+                ]}
               />
             </div>
           </form>

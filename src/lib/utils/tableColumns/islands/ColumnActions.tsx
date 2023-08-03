@@ -30,7 +30,7 @@ export const IslandColumnActions = ({ island, actions, itemIdx }: IIslandColumnA
   }
 
   const blockIsland = async () => {
-    const data: any = await fetcher(`/api/cities/${island.id}/block`, { method: 'PUT' })
+    const data: any = await fetcher(`/api/islands/${island.id}/block`, { method: 'PUT' })
 
     if (error) {
       toast.error('Hubo un error')
