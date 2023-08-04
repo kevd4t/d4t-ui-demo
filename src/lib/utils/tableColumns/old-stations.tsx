@@ -112,14 +112,14 @@ export const stationColumns: ColumnDef<IStation>[] = [
     accessorKey: 'title',
     header: 'Titulo',
     cell: ({ row: { original } }) => {
-      return <div className='w-full'>{original.title}</div>
+      return <div className='w-full'>{original.name}</div>
     }
   },
   {
     id: 'Ubicacion',
     accessorKey: 'direction',
     header: 'Ubicacion (latitud, longitud)',
-    cell: ({ row: { original } }) => `${original.coordinates.lat}, ${original.coordinates.lng}`
+    cell: ({ row: { original } }) => `${original.location.coords.lat}, ${original.location.coords.lng}`
   },
   {
     id: 'Ciudad',
@@ -127,7 +127,7 @@ export const stationColumns: ColumnDef<IStation>[] = [
     header: ({ column }) => <ColumnSort column={column} columnLabel='Ciudad' />,
     cell: ({ row }) => (
       <div className='w-full pl-4'>
-        {row.original.direction.city}
+        {row.original.location.city}
       </div>
     )
   },
@@ -135,7 +135,7 @@ export const stationColumns: ColumnDef<IStation>[] = [
     id: 'N. Medidores',
     accessorKey: 'meters',
     header: 'N. Medidores',
-    cell: ({ row }) => row.original.metersCount
+    cell: ({ row }) => 0
   },
   {
     id: 'Estatus',
@@ -143,7 +143,7 @@ export const stationColumns: ColumnDef<IStation>[] = [
     header: ({ column }) => <ColumnSort column={column} columnLabel='Estatus' />,
     cell: ({ row }) => (
       <div className='text-center w-full'>
-        <Badge>{row.original.status}</Badge>
+        <Badge>{row.original.state}</Badge>
       </div>
     )
   },

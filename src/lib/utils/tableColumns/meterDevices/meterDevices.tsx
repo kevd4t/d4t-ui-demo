@@ -175,7 +175,7 @@ export const meterDeviceColumns: ColumnDef<IMeterDevice>[] = [
     id: 'Estación',
     accessorKey: 'station',
     header: 'Estación',
-    cell: ({ row }) => row.original.station.title
+    cell: ({ row }) => row.original.station.name
   },
   {
     id: 'Estatus',
