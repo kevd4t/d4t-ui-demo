@@ -7,7 +7,6 @@ const handleApiGpsMarks = (req: NextApiRequest, res: NextApiResponse) => {
   const gpsMarkId = req?.query?.id
 
   const gpsMarksFinded = gpsMarks.find(gpsMark => gpsMark.id.toString() === gpsMarkId)
-  console.log({ gpsMarksFinded })
 
   return res.status(200).json({
     code: 'GPM45034',

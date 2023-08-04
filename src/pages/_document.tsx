@@ -10,7 +10,6 @@ export default function Document () {
         <meta name='author' content='D4T Technologies' />
         <meta name='copyright' content='D4T Technologies' />
         <meta httpEquiv='Content-Security-Policy' content='upgrade-insecure-requests' />
-
       </Head>
 
       <body className='overflow-x-hidden'>

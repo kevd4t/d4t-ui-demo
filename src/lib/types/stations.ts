@@ -43,8 +43,11 @@ export interface IPumpIsland {
 export interface IPumpIslandDispenser {
   id: string
   serial: string
+  combustibleType: EHydrocarbon.GASOLINE | EHydrocarbon.DIESEL
+  identifier: string
   model: IPumpIslandDispenserModel
   damaged_beak: number
+  status: string
   pump_island: IPumpIsland
   brand: IPumpIslandDispenserBrand
 }
@@ -66,7 +69,7 @@ export interface IPumpIslandDispenserModel {
   pump_island_dispenser: IPumpIslandDispenser
 }
 
-export enum EStationTanksState {
+export enum EStationTanksStatus {
   DAMAGED = 'DAMAGED', // dañado
   UNDER_CONSTRUCTION = 'UNDER_CONSTRUCTION', // en_construcción
   OPERATIVE = 'OPERATIVE', // operativo
@@ -77,10 +80,12 @@ export enum EStationTanksState {
 export interface IStationTanks {
   id: string
   capacity: number
+  identifier: string
+  type: string
   measurement_unit: EMesurementUnit
   hydrocarbon: EHydrocarbon
   gas_station_attributes: IStationAttributes
-  state: EStationTanksState
+  status: EStationTanksStatus
 }
 
 export enum EMesurementUnit {
