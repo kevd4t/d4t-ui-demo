@@ -1,4 +1,4 @@
-import { ICity, IFleet, IMeterDevice, IMeterMark, IMeterModel, ITruck, IUser, IUserGroup } from '../types/'
+import { ICity, IDriver, IFleet, IMeterDevice, IMeterMark, IMeterModel, ITruck, IUser, IUserGroup } from '../types/'
 import { IGPSDevice, IGPSMark, IGPSModel } from '../types/gps'
 import { stationsData } from './stationsData'
 import { IRoute } from '../types/routes'
@@ -18,6 +18,7 @@ const MODULES_DIC = {
   CATEGORIES: 'CATEGORIES',
   GPS_MARKS: 'GPS_MARKS',
   STATIONS: 'STATIONS',
+  DRIVERS: 'DRIVERS',
   STATUS: 'STATUS',
   FLEETS: 'FLEETS',
   TRUCKS: 'TRUCKS',
@@ -335,6 +336,25 @@ const fakeCategories = [
   }
 ]
 
+const drivers: IDriver[] = [
+  {
+    id: '7404a2eb-f5ca-4d3b-9e9b-96f8e07758ea',
+    names: 'Kevin Daniel',
+    surnames: 'Blanco Ortiz',
+    phone: '0412-5544458',
+    status: 'OPERATIVE',
+    licenseType: 'SECOND_GRADE',
+    licenseImage: 'https://via.placeholder.com/200/ff4d4d',
+    securityCertificateImage: 'https://via.placeholder.com/200/ff4d4d',
+    photo: 'https://via.placeholder.com/200/ff4d4d',
+    ci: {
+      image: 'https://via.placeholder.com/200/ff4d4d',
+      number: '24045484',
+      type: 'E'
+    }
+  }
+]
+
 const status = [
   {
     id: 612,
@@ -552,7 +572,8 @@ type TypeData =
   'METER_DEVICES' |
   'ROUTES' |
   'STATES' |
-  'CITIES'
+  'CITIES' |
+  'DRIVERS'
 
 const FAKE_DATA_DIC = {
   USERS: () => fakeUsers,
@@ -572,6 +593,7 @@ const FAKE_DATA_DIC = {
   STATIONS: () => stationsData,
   STATES: () => states.map(state => ({ ...state, cities })),
   CITIES: () => cities,
+  DRIVERS: () => drivers,
   GPS_DEVICES: () => gpsDevices,
   METER_DEVICES: () => meterDevices,
   ROUTES: () => routes

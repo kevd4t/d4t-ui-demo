@@ -42,7 +42,7 @@ const EditStationPage = () => {
 
 EditStationPage.getLayout = function getLayout (page: ReactElement) {
   return (
-    <AuthenticatedLayout title={`${ROUTES.STATIONS.CREATE.TITLE} | ${siteConfig.TITLE}`}>
+    <AuthenticatedLayout title={`${ROUTES.STATIONS.EDIT.TITLE} | ${siteConfig.TITLE}`}>
       <StationsLayout>
         {page}
       </StationsLayout>

@@ -23,6 +23,13 @@ export const siteConfig = {
       }
     },
 
+    DRIVERS: {
+      LIST: { TITLE: 'Choferes' },
+      CREATE: { TITLE: 'Crear Chofer' },
+      EDIT: { TITLE: 'Editar Chofer' },
+      DETAIL: { TITLE: 'Detalle de Chofer' }
+    },
+
     ASSORTMENT: {
       LIST: { TITLE: 'Surtido' },
       CREATE: { TITLE: 'Crear Surtido' },
@@ -184,6 +191,33 @@ export const APP_CONFIG = {
       value: 'ADMINISTRATOR'
     }
   ],
+
+  DRIVER_LICENSE_TYPE: {
+    SECOND_GRADE: {
+      label: 'Segundo Grado',
+      value: 'SECOND_GRADE'
+    },
+
+    THIRD_DEGREE: {
+      label: 'Tercer Grado',
+      value: 'THIRD_DEGREE'
+    },
+
+    FOURTH_GRADE: {
+      label: 'Cuarto Grado',
+      value: 'FOURTH_GRADE'
+    },
+
+    FIFTH_GRADE: {
+      label: 'Quinto Grado',
+      value: 'FIFTH_GRADE'
+    },
+
+    TSP: {
+      label: 'Título Superior Profesional',
+      value: 'TSP'
+    }
+  },
 
   PHONE_LINE_CODES: {
     DIGITAL: [

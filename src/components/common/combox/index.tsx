@@ -93,6 +93,7 @@ export function GenericCombobox ({
                           value={item.value}
                           key={item.value}
                           onSelect={(value) => {
+                            console.log('epa', id, value)
                             form.setValue(id, value)
                             setOpen(false)
                           }}
@@ -131,7 +132,7 @@ export function GenericCombobox ({
           variant='outline'
           role='combobox'
           aria-expanded={open}
-          className='w-[200px] justify-between'
+          className='w-full justify-between'
         >
           {
             value
@@ -143,7 +144,7 @@ export function GenericCombobox ({
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent className='w-[200px] p-0'>
+      <PopoverContent className='w-full p-0'>
         <Command>
           <CommandInput placeholder={placeholder} className='h-9' />
           <CommandEmpty>{notFoundLabel}</CommandEmpty>

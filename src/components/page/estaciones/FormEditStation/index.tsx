@@ -846,7 +846,7 @@ export const FormEditStation = ({ station }: { station: IStation }) => {
               isLoading={loading.value}
               onClick={formStation.handleSubmit(onSubmitStation)}
             >
-              Crear Estación
+              Actualizar Estación
             </Button>
           </section>
         </div>

@@ -94,6 +94,11 @@ export const SectionsCollapsable = ({ toggleSidebar, isOpen, logout }) => {
                   icon: <IconChartDots className='dark:text-white' />
                 },
                 {
+                  label: 'Choferes',
+                  to: '/ajustes/choferes',
+                  icon: <IconTruckDelivery className='dark:text-white' />
+                },
+                {
                   label: 'Flotas',
                   to: '/ajustes/flotas',
                   icon: <IconBusStop className='dark:text-white' />
