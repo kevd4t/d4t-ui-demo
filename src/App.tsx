@@ -1,10 +1,9 @@
-import './App.css'
-import { Button } from './components/'
+import { FormLogin } from "./examples/FormLogin";
 
-export default function App() {
+function App() {
   return (
-    <div>
-      <Button>Epa</Button>
-    </div>
+    <FormLogin />
   )
 }
+
+export default App;
