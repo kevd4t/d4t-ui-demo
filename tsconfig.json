@@ -4,17 +4,16 @@
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "skipLibCheck": true,
-    "esModuleInterop": false,
-    "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "ESNext",
-    "moduleResolution": "Node",
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "declaration": true,
     "typeRoots": ["./dist/index.d.ts", "node_modules/@types"],
-    "noEmit": true,
     "noImplicitAny": false,
     "baseUrl": ".",
     "allowJs": true,
@@ -25,6 +24,14 @@
       "@": ["./src/*"]
     },
   },
-  "include": ["src", "./index.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "next-env.d.ts",
+    "node_modules/**/*.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
