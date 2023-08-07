@@ -1,4 +1,4 @@
-import { PaginationState, RowSelectionState, type Table as TableType } from '@tanstack/react-table'
+// import { PaginationState, RowSelectionState, type Table as TableType } from '@tanstack/react-table'
 import { IconBusStop, IconUser, IconUserPlus } from '@tabler/icons-react'
 // import ReactCompareImage from 'react-compare-image'
 import { useForm } from 'react-hook-form'
@@ -8,12 +8,12 @@ import dynamic from 'next/dynamic'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
-import { EStationType, IStation, type IFetchDataTable, type IFormCreateStation, type IFormCreateStationContact, type IMeterDevice, EHydrocarbon } from '@/lib/types'
+import { EStationType, IStation, type IFormCreateStation, type IFormCreateStationContact, EHydrocarbon } from '@/lib/types'
 import { handleOnlyNumbers } from '@/lib/utils/handleOnlyNumbers'
-import { handleFetchUrlUserGroups } from '@/lib/services/users'
+// import { handleFetchUrlUserGroups } from '@/lib/services/users'
 import { simulateFetch } from '@/lib/utils/simulateFetch'
 import { formatCI, formatCITypes, formatPhoneNumber, formatRIF } from '@/lib/utils/formaters'
-import { useFetch } from '@/lib/hooks/useFetch'
+// import { useFetch } from '@/lib/hooks/useFetch'
 import { stationContactRules, stationRules } from './rules'
 import { APP_CONFIG } from '@/config'
 
@@ -45,17 +45,13 @@ import { TextArea } from '@/components/common/textarea'
 import { UploadImage } from '@/components/common/uploadImages'
 import { useStationFlow } from '@/lib/store/stationFlow'
 
-const { CI_TYPES, IS_ACTIVE, PHONE_LINE_CODES } = APP_CONFIG
+const { PHONE_LINE_CODES } = APP_CONFIG
 const BasicMapNoSSR = dynamic(() => import('@/components/common/gps/BasicMap'), { ssr: false })
 
 export const FormEditStation = ({ station }: { station: IStation }) => {
-  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
-  const [tableStationIslandsSelected, setTableStationIslandsSelected] = useState<RowSelectionState>({})
-  const [tableMeterDevicesSelected, setTableMeterDevicesSelected] = useState<RowSelectionState>({})
+  // const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
   // const [showComparisons, setShowComparisons] = useState({ userPhoto: false, ciImage: false })
   const [modalInfo, setModalInfo] = useState({ open: false, label: '', illustration: null, type: '' })
-  const [fullDataStationIslandsSelected, setFullDataStationIslandsSelected] = useState([])
-  const [fullDataMeterDevicesSelected, setFullDataMeterDevicesSelected] = useState([])
   const [multipleStationImages, setMultipleStationImages] = useState([])
   const [loading, setLoading] = useState({ meessage: '', value: false })
   const [stationContactImage, setStationContactImage] = useState([])
@@ -64,15 +60,6 @@ export const FormEditStation = ({ station }: { station: IStation }) => {
   const { setTypeStationToCreate } = useStationFlow()
   const formStation = useForm<IFormCreateStation>()
   const router = useRouter()
-
-  const { data, error, isLoading: isLoadingMeterModels, fetcher } = useFetch<IFetchDataTable<IMeterDevice>>('/api/meter-devices')
-
-  const pagination = {
-    pageSize,
-    pageIndex,
-    setPagination,
-    labels: { pluralItem: 'Medidores', singularItem: 'Medidor' }
-  }
 
   const handleOnKeyUpCI = (event) => {
     const { value } = event.target
@@ -100,20 +87,20 @@ export const FormEditStation = ({ station }: { station: IStation }) => {
     setMultipleStationImages(imageList)
   }
 
-  const handleSearchWithParams = async ({ search, filters }) => {
-    const url = handleFetchUrlUserGroups({ pageSize, pageIndex, search, filters })
-    fetcher(url)
-  }
+  // const handleSearchWithParams = async ({ search, filters }) => {
+  //   const url = handleFetchUrlUserGroups({ pageSize, pageIndex, search, filters })
+  //   fetcher(url)
+  // }
 
-  const getFullDataMeterDevicesSelection = (table: TableType<any>) => {
-    const fullDataSelection = table.getSelectedRowModel().flatRows
-    setFullDataMeterDevicesSelected(fullDataSelection)
-  }
+  // const getFullDataMeterDevicesSelection = (table: TableType<any>) => {
+  //   const fullDataSelection = table.getSelectedRowModel().flatRows
+  //   setFullDataMeterDevicesSelected(fullDataSelection)
+  // }
 
-  const getFullDataStationIslandsSelection = (table: TableType<any>) => {
-    const fullDataSelection = table.getSelectedRowModel().flatRows
-    setFullDataStationIslandsSelected(fullDataSelection)
-  }
+  // const getFullDataStationIslandsSelection = (table: TableType<any>) => {
+  //   const fullDataSelection = table.getSelectedRowModel().flatRows
+  //   setFullDataStationIslandsSelected(fullDataSelection)
+  // }
 
   const handleOnKeyUpRIF = (event) => {
     const { value } = event.target

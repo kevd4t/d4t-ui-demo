@@ -218,7 +218,7 @@ export const TruckRowActions = ({ truck }: { truck: ITruck }) => {
                 tabIndex={5}
                 id='station'
                 type='text'
-                value={truck.station.title}
+                value={truck.station.name}
                 label='Estación'
                 placeholder='Estación'
                 readOnly

@@ -25,20 +25,20 @@ export const DialogDetailStation = ({ station, isOpenViewModel, setOpenViewModel
           <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
             <Input
               readOnly
-              id='title'
+              id='name'
               type='text'
               tabIndex={4}
               label='Titulo'
-              value={station.title}
+              value={station.name}
             />
 
             <Input
               readOnly
-              id='isActive'
+              id='status'
               type='text'
               tabIndex={5}
               label='Estado'
-              value={station.isActive ? 'Activo' : 'Bloqueado'}
+              value={station.state}
             />
           </div>
         </section>

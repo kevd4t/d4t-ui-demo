@@ -30,8 +30,8 @@ export interface IFormEditTruck {
   numberPlate: string
   type: string
   status: string
-  fleetId: number
-  stationId: number
-  gpsId: number
+  fleetId: number | string
+  stationId: number | string
+  gpsId: number | string
   image?: File
 }

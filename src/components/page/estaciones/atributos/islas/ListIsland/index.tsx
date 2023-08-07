@@ -9,9 +9,9 @@ import { useState } from 'react'
 export const ListIsland = ({ islands }: { islands: IPumpIsland[] }) => {
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
   const [tableUserGroupsSelected, handleTableUserGroupsSelected] = useState<RowSelectionState>({})
-  const [fullDataUserGroupsSelected, setFullDataUserGroupsSelected] = useState([])
+  const [, setFullDataUserGroupsSelected] = useState([])
 
-  const { data, error, isLoading: isLoadingUserGroups, fetcher } = useFetch<IFetchDataTable<IUserGroup>>('/api/users/groups')
+  const { error, isLoading: isLoadingUserGroups, fetcher } = useFetch<IFetchDataTable<IUserGroup>>('/api/users/groups')
 
   const pagination = {
     pageSize,

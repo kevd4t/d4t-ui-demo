@@ -1,7 +1,7 @@
 /* eslint-disable brace-style */
 import { ColumnDef } from '@tanstack/react-table'
 
-import type { IGetSubcategoryColumnsParams, IStatus, TColumnActions } from '@/lib/types'
+import type { IGetEntityColumnsParams, IStatus, TColumnActions } from '@/lib/types'
 
 import { StatusColumnActions } from './ColumnActions'
 import { Badge, Checkbox } from '@/components/ui'
@@ -95,7 +95,7 @@ export const getStatusColumns = ({
   selection = false,
   actions = initialActions,
   id = true
-}: IGetSubcategoryColumnsParams): ColumnDef<IStatus>[] => {
+}: IGetEntityColumnsParams): ColumnDef<IStatus>[] => {
   const subcategoryColumnsAcum: ColumnDef<IStatus>[] = []
 
   if (id && !subcategoryColumnsAcum.includes(idColumn)) {

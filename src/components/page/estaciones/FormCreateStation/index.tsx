@@ -1,4 +1,4 @@
-import { PaginationState, RowSelectionState, type Table as TableType } from '@tanstack/react-table'
+// import { PaginationState, RowSelectionState, type Table as TableType } from '@tanstack/react-table'
 import { IconBusStop, IconUser, IconUserPlus } from '@tabler/icons-react'
 // import ReactCompareImage from 'react-compare-image'
 import { useForm } from 'react-hook-form'
@@ -8,12 +8,12 @@ import dynamic from 'next/dynamic'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
-import { EStationType, IStation, type IFetchDataTable, type IFormCreateStation, type IFormCreateStationContact, type IMeterDevice } from '@/lib/types'
+import { EStationType, type IFormCreateStation, type IFormCreateStationContact } from '@/lib/types'
 import { handleOnlyNumbers } from '@/lib/utils/handleOnlyNumbers'
-import { handleFetchUrlUserGroups } from '@/lib/services/users'
+// import { handleFetchUrlUserGroups } from '@/lib/services/users'
 import { simulateFetch } from '@/lib/utils/simulateFetch'
 import { formatCI, formatCITypes, formatPhoneNumber, formatRIF } from '@/lib/utils/formaters'
-import { useFetch } from '@/lib/hooks/useFetch'
+// import { useFetch } from '@/lib/hooks/useFetch'
 import { stationContactRules, stationRules } from './rules'
 import { APP_CONFIG } from '@/config'
 
@@ -44,36 +44,33 @@ import { Input } from '@/components/common/inputs/Input'
 import { TextArea } from '@/components/common/textarea'
 import { UploadImage } from '@/components/common/uploadImages'
 import { useStationFlow } from '@/lib/store/stationFlow'
-import { randomUUID } from 'crypto'
 
-const { CI_TYPES, IS_ACTIVE, PHONE_LINE_CODES } = APP_CONFIG
+const { PHONE_LINE_CODES } = APP_CONFIG
 const BasicMapNoSSR = dynamic(() => import('@/components/common/gps/BasicMap'), { ssr: false })
 
 export const FormCreateStation = () => {
-  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
-  const [tableStationIslandsSelected, setTableStationIslandsSelected] = useState<RowSelectionState>({})
+  // const [{ pageIndex, pageSize }] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
   const [modalInfo, setModalInfo] = useState({ open: false, label: '', illustration: null, type: '' })
-  const [tableMeterDevicesSelected, setTableMeterDevicesSelected] = useState<RowSelectionState>({})
   // const [showComparisons, setShowComparisons] = useState({ userPhoto: false, ciImage: false })
-  const [fullDataStationIslandsSelected, setFullDataStationIslandsSelected] = useState([])
-  const [fullDataMeterDevicesSelected, setFullDataMeterDevicesSelected] = useState([])
+  // const [, setFullDataStationIslandsSelected] = useState([])
+  // const [, setFullDataMeterDevicesSelected] = useState([])
   const [multipleStationImages, setMultipleStationImages] = useState([])
   const [loading, setLoading] = useState({ meessage: '', value: false })
   const [stationContactImage, setStationContactImage] = useState([])
   const formStationContact = useForm<IFormCreateStationContact>()
-  const { setTypeStationToCreate, setStation } = useStationFlow()
+  const { setTypeStationToCreate } = useStationFlow()
   const [contactsCreated, setContactsCreated] = useState([])
   const formStation = useForm<IFormCreateStation>()
   const router = useRouter()
 
-  const { data, error, isLoading: isLoadingMeterModels, fetcher } = useFetch<IFetchDataTable<IMeterDevice>>('/api/meter-devices')
+  // const { fetcher } = useFetch<IFetchDataTable<IMeterDevice>>('/api/meter-devices')
 
-  const pagination = {
-    pageSize,
-    pageIndex,
-    setPagination,
-    labels: { pluralItem: 'Medidores', singularItem: 'Medidor' }
-  }
+  // const pagination = {
+  //   pageSize,
+  //   pageIndex,
+  //   setPagination,
+  //   labels: { pluralItem: 'Medidores', singularItem: 'Medidor' }
+  // }
 
   const handleOnKeyUpCI = (event) => {
     const { value } = event.target
@@ -101,20 +98,20 @@ export const FormCreateStation = () => {
     setMultipleStationImages(imageList)
   }
 
-  const handleSearchWithParams = async ({ search, filters }) => {
-    const url = handleFetchUrlUserGroups({ pageSize, pageIndex, search, filters })
-    fetcher(url)
-  }
+  // const handleSearchWithParams = async ({ search, filters }) => {
+  //   const url = handleFetchUrlUserGroups({ pageSize, pageIndex, search, filters })
+  //   fetcher(url)
+  // }
 
-  const getFullDataMeterDevicesSelection = (table: TableType<any>) => {
-    const fullDataSelection = table.getSelectedRowModel().flatRows
-    setFullDataMeterDevicesSelected(fullDataSelection)
-  }
+  // const getFullDataMeterDevicesSelection = (table: TableType<any>) => {
+  //   const fullDataSelection = table.getSelectedRowModel().flatRows
+  //   setFullDataMeterDevicesSelected(fullDataSelection)
+  // }
 
-  const getFullDataStationIslandsSelection = (table: TableType<any>) => {
-    const fullDataSelection = table.getSelectedRowModel().flatRows
-    setFullDataStationIslandsSelected(fullDataSelection)
-  }
+  // const getFullDataStationIslandsSelection = (table: TableType<any>) => {
+  //   const fullDataSelection = table.getSelectedRowModel().flatRows
+  //   setFullDataStationIslandsSelected(fullDataSelection)
+  // }
 
   const handleOnKeyUpRIF = (event) => {
     const { value } = event.target
@@ -221,6 +218,8 @@ export const FormCreateStation = () => {
     }
 
     // setStation(station as any)
+
+    console.log({ station })
 
     if (data.type === EStationType.PUMP) {
       router.push('/estaciones/c94f1ecc-cde3-4465-bfe9-b6a18ab78cd0/islas/crear')

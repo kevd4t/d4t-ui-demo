@@ -1,7 +1,7 @@
 /* eslint-disable brace-style */
 import { ColumnDef } from '@tanstack/react-table'
 
-import type { IGetSubcategoryColumnsParams, IState, TColumnActions } from '@/lib/types'
+import type { IGetEntityColumnsParams, IState, TColumnActions } from '@/lib/types'
 
 import { StateColumnActions } from './ColumnActions'
 import { SubcategoryColumnSort } from './ColumnSort'
@@ -72,7 +72,7 @@ export const getStateColumns = ({
   selection = false,
   actions = initialActions,
   id = true
-}: IGetSubcategoryColumnsParams): ColumnDef<IState>[] => {
+}: IGetEntityColumnsParams): ColumnDef<IState>[] => {
   const stateColumnsAcum: ColumnDef<IState>[] = []
 
   if (id && !stateColumnsAcum.includes(idColumn)) {
