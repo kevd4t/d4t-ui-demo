@@ -5,7 +5,7 @@ import { ReactNode, useState } from 'react'
 
 import { cn } from '../lib/utils'
 
-import { FormField, FormItem, Label, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Popover, PopoverContent, PopoverTrigger } from './'
+import { FormField, FormItem, Label, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Popover, PopoverContent, PopoverTrigger, FormLabel } from './'
 
 type TComboxItem = {
   value: string
@@ -58,10 +58,24 @@ export function ComboBox ({
         name={id}
         defaultValue={defaultValue}
         rules={rules}
-        render={({ field }) => (
+        render={({ field, formState }) => (
           <FormItem className='flex flex-col'>
-            <Label>{label}</Label>
+            {
+              label && (
+                <FormLabel className='flex'>
+                  { label }&nbsp;
 
+                  {
+                    formState.errors?.identifierNumber?.message && (
+                      <span className='text-xs font-light'>
+                        * {formState.errors.identifierNumber.message as string}
+                      </span>
+                    )
+                  }
+                </FormLabel>
+              )
+            }
+            
             <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger asChild>
                 <Button
@@ -93,7 +107,6 @@ export function ComboBox ({
                           value={item.value}
                           key={item.value}
                           onSelect={(value) => {
-                            console.log('epa', id, value)
                             form.setValue(id, value)
                             setOpen(false)
                           }}
