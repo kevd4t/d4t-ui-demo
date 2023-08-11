@@ -5,6 +5,8 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
+    --background-sidebar: var(--background);
+
     --foreground: 240 10% 3.9%;
  
     --muted: 240 4.8% 95.9%;
@@ -37,9 +39,11 @@
   }
  
   .dark {
-    --background-hover: 240deg 3.05% 16.21%;
-
     --background: 240 10% 3.9%;
+
+    --background-hover: 240deg 3.05% 16.21%;
+    --background-sidebar: var(--background);
+
     --foreground: 0 0% 98%;
  
     --muted: 240 3.7% 15.9%;
@@ -92,6 +96,7 @@
   transition-duration: 300ms;
   z-index: 10;
   border-radius: 0px 12px 12px 0px;
+  background: hsl(var(--background-sidebar));
   /* @apply w-full h-screen overflow-y-auto hidden transform top-0 left-0 overflow-auto ease-in-out transition-all duration-300 text-gray-700 z-10 xl:flex flex-col justify-start items-center md:rounded-r-xl pt-5 pb-10 border-r-2 border-gray-100; */
 }
 

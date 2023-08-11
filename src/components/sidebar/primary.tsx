@@ -36,7 +36,7 @@ export const Sidebar = ({ children, className, profile, logout, theme }: Sidebar
       tabIndex={-1}
       className={
         cn(
-          'sidebar bg-slate-500 dark:border-transparent overflow-hidden',
+          'sidebar dark:border-transparent overflow-hidden',
           className,
           `${isExpanded ? 'max-w-[240px]' : 'max-w-[100px]'}`
         )
