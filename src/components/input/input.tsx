@@ -48,7 +48,6 @@ export function Input ({ children, id, form, label, classNameContainer, descript
     form.setValue('identifier', { dni: { number: identifierNumberFormmated } })
   }
 
-
   if (rest.type === 'password') {
     return (
       <FormField
@@ -86,8 +85,8 @@ export function Input ({ children, id, form, label, classNameContainer, descript
                 >
                   {
                     showPassword
-                      ? <EyeOff className='text-slate-700' size={22} />
-                      : <Eye className='text-slate-700' size={22} />
+                      ? <Eye className='text-zinc-700' size={22} />
+                      : <EyeOff className='text-zinc-700' size={22} />
                   }
                 </button>
               </div>

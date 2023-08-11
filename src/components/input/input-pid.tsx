@@ -5,9 +5,15 @@ import { CI_TYPES } from "../../lib/utils/CI_TYPES"
 
 import { ComboBox, Input } from '..'
 
-type TCITypesKeys = 'VENEZUELAN' | 'JURIDICAL' | 'FOREIGN' | 'PASSPORT' | 'GOVERNMENTAL'
+type TPIDTypesKeys = 'VENEZUELAN' | 'JURIDICAL' | 'FOREIGN' | 'PASSPORT' | 'GOVERNMENTAL'
+export type PIDValue = 'v' | 'e' | 'j' | 'g' | 'p'
 
-export const formatCITypes = (selectedTypes?: TCITypesKeys[]) => {
+interface FormatCITypesResult {
+  label: string
+  value: PIDValue
+}
+
+export const formatCITypes = (selectedTypes?: TPIDTypesKeys[]): FormatCITypesResult[] => {
   const allCITypes = [
     CI_TYPES.VENEZUELAN,
     CI_TYPES.JURIDICAL,
@@ -17,12 +23,18 @@ export const formatCITypes = (selectedTypes?: TCITypesKeys[]) => {
   ]
 
   if (!selectedTypes || selectedTypes.length === 0) {
-    return allCITypes.map(ciType => ({ label: ciType.key, value: ciType.key }))
+    return allCITypes.map(ciType => ({
+      label: ciType.key,
+      value: ciType.key.toLowerCase() as PIDValue
+    }))
   }
 
-  const selectedCITypes = allCITypes.filter(ciType => selectedTypes.includes(ciType.value as TCITypesKeys))
+  const selectedCITypes = allCITypes.filter(ciType => selectedTypes.includes(ciType.value as TPIDTypesKeys))
 
-  const selectedTypesCIFormatted = selectedCITypes.map(ciType => ({ label: ciType.key, value: ciType.key.toLowerCase() }))
+  const selectedTypesCIFormatted = selectedCITypes.map(ciType => ({
+    label: ciType.key,
+    value: ciType.key.toLowerCase() as PIDValue
+  }))
 
   return selectedTypesCIFormatted
 }
@@ -44,7 +56,7 @@ export interface PIDType {
   ctaPlaceholder?: string
   placeholder?: string
   label?: string
-  defaultValue?: 'v' | 'e' | 'j' | 'g' | 'p'
+  defaultValue?: PIDValue
   items?: TComboxItem[]
   disabled?: boolean
 }
@@ -77,7 +89,7 @@ const dniDefaultValues: PID = {
     notFoundLabel: 'Codigo No Encontrado',
     ctaPlaceholder: 'Tipo',
     placeholder: 'Buscar...',
-    defaultValue: formatCITypes(['VENEZUELAN'])[0].value as 'v',
+    defaultValue: formatCITypes(['VENEZUELAN'])[0].value,
     label: 'Cedula',
     items: formatCITypes(['VENEZUELAN', 'FOREIGN', 'PASSPORT'])
   },

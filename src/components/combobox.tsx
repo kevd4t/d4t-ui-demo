@@ -1,11 +1,11 @@
 import { RegisterOptions, UseFormReturn } from 'react-hook-form'
-import { Check } from 'lucide-react'
 import { ChevronsUpDown } from 'lucide-react'
 import { ReactNode, useState } from 'react'
+import { Check } from 'lucide-react'
 
 import { cn } from '../lib/utils'
 
-import { FormField, FormItem, Label, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Popover, PopoverContent, PopoverTrigger, FormLabel } from './'
+import { FormField, FormItem, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Popover, PopoverContent, PopoverTrigger, FormLabel } from './'
 
 type TComboxItem = {
   value: string

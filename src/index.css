@@ -37,6 +37,8 @@
   }
  
   .dark {
+    --background-hover: 240deg 3.05% 16.21%;
+
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
  
@@ -67,7 +69,7 @@
     --ring: 240 3.7% 15.9%;
   }
 }
- 
+
 @layer base {
   * {
     @apply border-border;
@@ -76,6 +78,59 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+/* SIDEBAR */
+.sidebar {
+  position: sticky;
+  height: 100vh;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+  z-index: 10;
+  border-radius: 0px 12px 12px 0px;
+  /* @apply w-full h-screen overflow-y-auto hidden transform top-0 left-0 overflow-auto ease-in-out transition-all duration-300 text-gray-700 z-10 xl:flex flex-col justify-start items-center md:rounded-r-xl pt-5 pb-10 border-r-2 border-gray-100; */
+}
+
+/* reset css data-radix */
+.sidebar div[data-radix-scroll-area-viewport] > div {
+  height: 100%;
+  display: contents !important;
+}
+
+.sidebar .scroll-content {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+}
+
+.sidebar .scroll-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar .scroll-content::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 100px;
+}
+
+.sidebar .scroll-content::-webkit-scrollbar-thumb {
+  background-color: #09090b;
+  border-radius: 100px;
+}
+
+/* Layout */
+
+.root-layout {
+  display: flex;
+  height: 100%;
+  position: relative;
+  grid-area: content / content / content / content;
+}
+
+/* Loaders */
 
 .loader-fade-dot {
   width: 48px;
@@ -97,8 +152,6 @@
     opacity: 0;
   }
 }
-
-/* Loaders */
 
 .spinner {
   border: 3px solid white;
@@ -167,31 +220,6 @@
   50%, 100% {
     background-color: rgba(152, 128, 255, 0.2);
   }
-}
-
-/* SIDEBAR */
-.sidebar {
-  position: sticky;
-  height: 100vh;
-  max-width: 250px;
-  width: 100%;
-  top: 0px;
-  left: 0px;
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
-  z-index: 10;
-  border-radius: 0px 12px 12px 0px;
-  background-color: rgb(255, 150, 150);
-
-  /* @apply w-full h-screen overflow-y-auto hidden transform top-0 left-0 overflow-auto ease-in-out transition-all duration-300 text-gray-700 z-10 xl:flex flex-col justify-start items-center md:rounded-r-xl pt-5 pb-10 border-r-2 border-gray-100; */
-}
-
-.root-layout {
-  display: flex;
-  height: 100%;
-  position: relative;
-  grid-area: content / content / content / content;
 }
 
 /* @media screen and (min-width: 1040px) {

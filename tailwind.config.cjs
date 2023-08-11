@@ -14,10 +14,6 @@ module.exports = {
       }
     },
     extend: {
-      gridTemplateColumns: {
-        sidebar: '250px minmax(0,1fr)',
-        'sidebar-collapsed': '106px auto'
-      },
       screens: {
         lg: '1040px'
       },

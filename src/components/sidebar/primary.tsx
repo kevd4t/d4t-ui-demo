@@ -1,41 +1,59 @@
 'use client'
 
 import { useState } from 'react'
+import { create } from 'zustand'
 
 import { cn } from '../../lib/utils'
-import { ScrollArea } from '../'
 import { SidebarHeader, SidebarProfile } from './header'
 import { SidebarFooter } from './footer'
+import { SidebarTheme } from './toggle-theme'
 
-interface SidebarProps  extends React.InputHTMLAttributes<HTMLInputElement> {
+interface SidebarProps  extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode
   profile?: SidebarProfile
-  logout?: () => void
+  logout: () => void
+  theme: SidebarTheme
 }
 
-export const Sidebar = ({ children, className, profile, logout }: SidebarProps) => {
-  const [isExpanded, setIsExpanded] = useState(true)
+interface SidebarStore {
+  isExpanded: boolean
+  setIsExpanded: (value: boolean) => void
+  toggleExpandSidebar: () => void
+}
 
-  const toggleSidebar = () => setIsExpanded(!isExpanded)
+export const useSidebar = create<SidebarStore>((set) => ({
+  isExpanded: true,
+  setIsExpanded: (value) => set(({ isExpanded: value })),
+  toggleExpandSidebar: () => set((state) => ({ isExpanded: !state.isExpanded })),
+}))
+
+
+export const Sidebar = ({ children, className, profile, logout, theme }: SidebarProps) => {
+  const { isExpanded, toggleExpandSidebar } = useSidebar()
 
   return (
     <aside
       tabIndex={-1}
-      className={cn('sidebar bg-main dark:border-transparent', className)}
+      className={
+        cn(
+          'sidebar bg-slate-500 dark:border-transparent overflow-hidden',
+          className,
+          `${isExpanded ? 'max-w-[240px]' : 'max-w-[100px]'}`
+        )
+      }
     >
-      <ScrollArea className='w-full h-full p-4'>
-        {/* <div className='grid grid-rows-[10%_70%_20%] h-full'> */}
-          <SidebarHeader profile={profile} />
+      <div className='w-full py-8 grid grid-rows-[56px_1fr_160px] h-full gap-y-3 px-3'>
+        <SidebarHeader isExpanded={isExpanded} profile={profile} />
 
-          {children}
+        {children}
 
-          <SidebarFooter
-            logout={logout}
-            toggleSidebar={toggleSidebar}
-            isExpanded={isExpanded}
-          />
-        {/* </div> */}
-      </ScrollArea>
+        <SidebarFooter
+          theme={theme}
+          logout={logout}
+          isExpanded={isExpanded}
+          toggleExpandSidebar={toggleExpandSidebar}
+        />
+      </div>
     </aside>
   )
 }
