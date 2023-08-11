@@ -5,6 +5,8 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
+    --background-scroll: 240deg 3.05% 16.21%;
+    --background-hover: 240deg 3.05% 16.21%;
     --background-sidebar: var(--background);
 
     --foreground: 240 10% 3.9%;
@@ -42,6 +44,7 @@
     --background: 240 10% 3.9%;
 
     --background-hover: 240deg 3.05% 16.21%;
+    --background-scroll: 240deg 3.05% 16.21%;
     --background-sidebar: var(--background);
 
     --foreground: 0 0% 98%;
@@ -97,7 +100,6 @@
   z-index: 10;
   border-radius: 0px 12px 12px 0px;
   background: hsl(var(--background-sidebar));
-  /* @apply w-full h-screen overflow-y-auto hidden transform top-0 left-0 overflow-auto ease-in-out transition-all duration-300 text-gray-700 z-10 xl:flex flex-col justify-start items-center md:rounded-r-xl pt-5 pb-10 border-r-2 border-gray-100; */
 }
 
 /* reset css data-radix */
@@ -122,20 +124,20 @@
 }
 
 .sidebar .scroll-content::-webkit-scrollbar-thumb {
-  background-color: #09090b;
+  background-color: hsl(var(--background-scroll));
   border-radius: 100px;
 }
 
-/* Layout */
+/* LAYOUTS */
 
-.root-layout {
+.app-layout {
   display: flex;
   height: 100%;
   position: relative;
   grid-area: content / content / content / content;
 }
 
-/* Loaders */
+/* LOADERS */
 
 .loader-fade-dot {
   width: 48px;
@@ -226,13 +228,3 @@
     background-color: rgba(152, 128, 255, 0.2);
   }
 }
-
-/* @media screen and (min-width: 1040px) {
-  .authLayout-container {
-    display: grid;
-  }
-
-  .sidebar {
-    position: sticky;
-  }
-} */

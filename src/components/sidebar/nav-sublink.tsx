@@ -1,3 +1,5 @@
+'use client'
+
 import React, { ReactNode, useEffect, useRef, useState } from 'react'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../'
 

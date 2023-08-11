@@ -1,3 +1,5 @@
+'use client'
+
 import { User } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage, Badge } from '../'
 
@@ -15,7 +17,7 @@ export interface SidebarHeaderProps {
 
 export const SidebarHeader = ({ profile, isExpanded }: SidebarHeaderProps) => {
   return (
-    <header className={`${isExpanded ? 'w-full' : 'w-full'} h-14 flex justify-start items-start gap-x-3`}>
+    <header className={`${isExpanded ? 'justify-start' : 'justify-center'} w-full h-14 flex items-start gap-x-3`}>
       <Avatar className='w-16 h-full border border-gray-200 shadow-sm rounded-md'>
         <AvatarImage
           className='h-full border border-gray-200 object-cover rounded-md'

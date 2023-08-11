@@ -1,16 +1,16 @@
-import { Settings, User } from 'lucide-react'
+import { Badge, BarChart, Building, DivideCircle, HelpCircle, LucideTruck, Router, Settings, StopCircle, Truck, User } from 'lucide-react'
 
 import { SidebarContent } from './components/sidebar/content'
 import { NavLink } from './components/sidebar/nav-link'
-import { RootLayout } from './layouts/RootLayout'
+import { AppLayout } from './layouts/Application'
 import { FormLogin } from './examples/FormLogin'
 import { NavLinkNested, Sidebar } from './components/sidebar'
 
 function App() {
-  const profile = {role: 'Administrador', name: 'Kevin', lastname: 'blanco', photo: 'https://github.com/shadcn.png' }
+  const profile = {role: 'Administrador', name: 'Kevin', lastname: 'blanco' }
 
   return (
-    <RootLayout>
+    <AppLayout>
       <Sidebar
         logout={() => {}}
         profile={profile}
@@ -78,7 +78,7 @@ function App() {
             label='Lo que sea2'
             icon={<Settings className='dark:text-white' size={20} />}
           />
-{/*  
+
           <NavLinkNested
             pathname='/fino'
             label='Epa'
@@ -111,7 +111,6 @@ function App() {
               },
             ]}
           />
-
           <NavLink
             to='/xd3'
             pathname='/'
@@ -177,12 +176,12 @@ function App() {
             pathname='/'
             label='Almacenamiento'
             icon={<Settings className='dark:text-white' size={20} />}
-          /> */}
+          /> 
         </SidebarContent>
       </Sidebar>
 
       <FormLogin />
-    </RootLayout>
+    </AppLayout>
   )
 }
 

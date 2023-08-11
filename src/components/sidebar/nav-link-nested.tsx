@@ -6,7 +6,6 @@ import { ChevronDown, ChevronUp } from 'lucide-react'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../'
 import { NavSubLink, SublinksItem } from './nav-sublink'
 import { useSidebar } from './primary'
-import { NavLink } from './nav-link'
 
 type LinkNavigationNestedProps = {
   label: string
@@ -48,45 +47,49 @@ export const NavLinkNested = ({ label, icon, sublinks, pathname, Link }: LinkNav
         <div
           ref={containerRef}
           onClick={toggleShow}
-          className={`cursor-pointer border-2 border-transparent flex ${isExpanded ? 'justify-start h-[42px]' : 'justify-center'} items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 hover:dark:bg-main-hover select-none`}
+          className={`cursor-pointer border-2 border-transparent grid grid-rows-1 ${isExpanded ? 'grid-cols-8 justify-center h-[42px]' : 'grid-cols-1 justify-center'} items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 hover:dark:bg-main-hover select-none`}
         >
-          <div>{icon}</div>
+          <div className='flex w-full justify-start items-center col-span-7'>
+            <div>{icon}</div>
 
-          {
-            (!showTooltip && isExpanded) && (
-              <span
-                id={labelReplaced}
-                className='pl-2 mt-0.5 dark:text-white text-sm whitespace-nowrap truncate block'
-              >
-                {label}
-              </span>
-            )
-          }
+            {
+              (!showTooltip && isExpanded) && (
+                <span
+                  id={labelReplaced}
+                  className='pl-2 mt-0.5 dark:text-white text-sm whitespace-nowrap truncate block'
+                >
+                  {label}
+                </span>
+              )
+            }
 
-          {
-            (showTooltip && isExpanded) && (
-                <Tooltip>
-                  <TooltipTrigger className='truncate'>
-                    <span
-                      id={labelReplaced}
-                      className='pl-2 mt-0.5 dark:text-white text-sm whitespace-nowrap truncate block'
-                    >
-                      {label}
-                    </span>
-                  </TooltipTrigger>
+            {
+              (showTooltip && isExpanded) && (
+                  <Tooltip>
+                    <TooltipTrigger className='truncate'>
+                      <span
+                        id={labelReplaced}
+                        className='pl-2 mt-0.5 dark:text-white text-sm whitespace-nowrap truncate block'
+                      >
+                        {label}
+                      </span>
+                    </TooltipTrigger>
 
-                  <TooltipContent>
-                    <p>{label}</p>
-                  </TooltipContent>
-                </Tooltip>
-            )
-          }
+                    <TooltipContent>
+                      <p>{label}</p>
+                    </TooltipContent>
+                  </Tooltip>
+              )
+            }
+          </div>
 
-          {
-            show
-              ? (<ChevronUp className='justify-self-end dark:text-white' size={32} />)
-              : (<ChevronDown className='justify-self-end dark:text-white' size={32} />)
-          }
+          <div className='col-span-1 w-fit'>
+            {
+              show
+                ? (<ChevronUp className='justify-self-end dark:text-white' size={20} />)
+                : (<ChevronDown className='justify-self-end dark:text-white' size={20} />)
+            }
+          </div>
         </div>
 
 

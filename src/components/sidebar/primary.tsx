@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { create } from 'zustand'
 
 import { cn } from '../../lib/utils'
@@ -36,7 +35,7 @@ export const Sidebar = ({ children, className, profile, logout, theme }: Sidebar
       tabIndex={-1}
       className={
         cn(
-          'sidebar dark:border-transparent overflow-hidden',
+          'sidebar dark:border-transparent overflow-hidden hidden lg:block',
           className,
           `${isExpanded ? 'max-w-[240px]' : 'max-w-[100px]'}`
         )
