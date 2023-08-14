@@ -32,27 +32,27 @@ function App() {
               {
                 label: 'Ajaaaaa aaaaaaa aaaaa aaaaaaaaaaaaa asd asfsdf sdf sdgfds',
                 to: '/fino',
-                icon: <User className='text-white' />
+                icon: <User className='dark:text-white' />
               },
               {
                 label: 'ecole x 2',
                 to: '/ecole',
-                icon: <User className='text-white' />
+                icon: <User className='dark:text-white' />
               },
               {
                 label: 'ecole x 3',
                 to: '/ecol3',
-                icon: <User className='text-white' />
+                icon: <User className='dark:text-white' />
               },
               {
                 label: 'ecole x 4',
                 to: '/ecol4',
-                icon: <User className='text-white' />
+                icon: <User className='dark:text-white' />
               },
               {
                 label: 'ecole x 5',
                 to: '/ecol5',
-                icon: <User className='text-white' />
+                icon: <User className='dark:text-white' />
               },
             ]}
           />
@@ -87,27 +87,27 @@ function App() {
               {
                 label: 'Aja',
                 to: '/fino',
-                icon: <User className='text-white' />
+                icon: <User className='dark:text-white' />
               },
               {
                 label: 'ecole x 2',
                 to: '/ecole',
-                icon: <User className='text-white' />
+                icon: <User className='dark:text-white' />
               },
               {
                 label: 'ecole x 3',
                 to: '/ecol3',
-                icon: <User className='text-white' />
+                icon: <User className='dark:text-white' />
               },
               {
                 label: 'ecole x 4',
                 to: '/ecol4',
-                icon: <User className='text-white' />
+                icon: <User className='dark:text-white' />
               },
               {
                 label: 'ecole x 5',
                 to: '/ecol5',
-                icon: <User className='text-white' />
+                icon: <User className='dark:text-white' />
               },
             ]}
           />
