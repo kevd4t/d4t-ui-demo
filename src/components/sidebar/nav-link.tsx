@@ -83,6 +83,7 @@ export const NavLink = ({ to, label, icon, pathname, Link }: LinkNavigationProps
   return (
     <TooltipProvider delayDuration={180}>
       <Link
+        href={to}
         ref={navLinkContainer}
         className={
           `cursor-pointer border-2 border-transparent flex ${isExpanded ? 'justify-start h-[42px]' : 'justify-center'} items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 hover:dark:bg-main-hover 

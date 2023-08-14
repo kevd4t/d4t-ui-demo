@@ -84,6 +84,7 @@ export const NavSubLink = ({ isExpanded, pathname, to, icon, label, Link }: NavS
   return (
     <TooltipProvider delayDuration={180}>
       <Link
+        href={to}
         ref={containerRef}
         className={
           `cursor-pointer border-2 border-transparent flex ${isExpanded ? 'pl-4 justify-start h-[42px]' : 'justify-center'} items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 hover:dark:bg-main-hover 
