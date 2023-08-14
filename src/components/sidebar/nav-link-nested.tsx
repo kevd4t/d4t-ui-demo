@@ -47,9 +47,9 @@ export const NavLinkNested = ({ label, icon, sublinks, pathname, Link }: LinkNav
         <div
           ref={containerRef}
           onClick={toggleShow}
-          className={`cursor-pointer border-2 border-transparent grid grid-rows-1 ${isExpanded ? 'grid-cols-8 justify-center h-[42px]' : 'grid-cols-1 justify-center'} items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 hover:dark:bg-main-hover select-none`}
+          className={`cursor-pointer border-2 border-transparent grid grid-rows-1 ${isExpanded ? 'grid-cols-8 justify-center h-[42px]' : 'grid-cols-2 justify-center'} items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 hover:dark:bg-main-hover select-none`}
         >
-          <div className='flex w-full justify-start items-center col-span-7'>
+          <div className={`flex w-full justify-start items-center ${isExpanded ? 'col-span-7' : 'col-span-1'}`}>
             <div>{icon}</div>
 
             {
@@ -117,9 +117,9 @@ export const NavLinkNested = ({ label, icon, sublinks, pathname, Link }: LinkNav
       <div
         ref={containerRef}
         onClick={toggleShow}
-        className={`cursor-pointer border-2 border-transparent grid grid-rows-1 ${isExpanded ? 'grid-cols-8 justify-center h-[42px]' : 'grid-cols-1 justify-center'} items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 hover:dark:bg-main-hover select-none`}
+        className={`cursor-pointer border-2 border-transparent grid grid-rows-1 ${isExpanded ? 'grid-cols-8 justify-center h-[42px]' : 'grid-cols-2 justify-center'} items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 hover:dark:bg-main-hover select-none`}
       >
-        <div className='flex w-full justify-start items-center col-span-7'>
+        <div className={`flex w-full justify-start items-center ${isExpanded ? 'col-span-7' : 'col-span-1'}`}>
           <div>{icon}</div>
 
           {
