@@ -10,9 +10,59 @@ import { useState } from 'react'
 import { PaginationState } from '@tanstack/react-table'
 import { getStatusColumns } from './status-table'
 
+import { RowSelectionState } from '@tanstack/react-table'
+import { useFetch } from './lib/hooks'
+import { IFetchDataTable, IUser } from './lib/types'
+
+interface HandleTableItemsSelectedParams {
+  itemsTableSelected: RowSelectionState
+  dataItems: any[]
+}
+
+export const handleTableItemsSelected = ({ itemsTableSelected, dataItems }: HandleTableItemsSelectedParams) => {
+  const itemsIdx = Object.keys(itemsTableSelected)
+
+  const usersSelectedFullData = itemsIdx.flatMap(itemIdx => {
+    const itemsFiltred = dataItems.filter((_, idx) => itemIdx === idx.toString())
+    return itemsFiltred
+  })
+
+  return usersSelectedFullData
+}
+
+export const handleFetchUrlUsers = ({ pageIndex, pageSize, search, filters }) => {
+  const status = (filters?.status?.length) ? filters?.status : null
+  const role = (filters?.role?.length) ? filters?.role : null
+
+  const filterStatus = status ? `&status=${status}` : ''
+  const filterRoles = role ? `&role=${role}` : ''
+  const searchText = search ? `&search=${search}` : ''
+
+  const url = `/api/users?page=${pageIndex}&limit=${pageSize}${filterRoles}${filterStatus}${searchText}`
+
+  return url
+}
+
+export const handleFetchUrlUserGroups = ({ pageIndex, pageSize, search, filters }) => {
+  const status = (filters?.status?.length) ? filters?.status : null
+
+  const filterStatus = status ? `&status=${status}` : ''
+  const searchText = search ? `&search=${search}` : ''
+
+  const url = `/api/users/groups?page=${pageIndex}&limit=${pageSize}${searchText}${filterStatus}`
+
+  return url
+}
+
+type GetUsers = () => Promise<any>
+
+const getUsers: GetUsers = async () => fetch('/api/users')
+
 function App() {
   const profile = {role: 'Administrador', name: 'Kevin', lastname: 'blanco' }
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
+  const { data, error, loading, fetcher } = useFetch<IFetchDataTable<IUser>>(getUsers)
+  const [usersSelected, setUsersSelected] = useState<RowSelectionState>({})
 
   const pagination = {
     pageSize,
@@ -21,6 +71,13 @@ function App() {
     labels: { pluralItem: 'Estados', singularItem: 'Estado' }
   }
 
+  const handleSearchWithParams = async ({ search, filters }) => {
+    const usersSelectedFullData = handleTableItemsSelected({ itemsTableSelected: usersSelected, dataItems: data.results })
+    console.log({ usersSelectedFullData })
+
+    const url = handleFetchUrlUsers({ pageSize, pageIndex, search, filters })
+    fetcher(getUsers)
+  }
 
   return (
     <AppLayout>
@@ -204,12 +261,13 @@ function App() {
               id: 345,
               title: 'Epale',
               color: '#eeeeee',
-              description: 'Descripcion',
+              description: 'Descripción',
               isActive: true
             }
           ]}
           queryInfo={{ error: null, isFetching: false }}
-          columns={getStatusColumns({ selection: false, actions: { detail: true } })}
+          inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Usuario' }}
+          columns={getStatusColumns({ selection: true, actions: { detail: true } })}
         />
       </div>
     </AppLayout>

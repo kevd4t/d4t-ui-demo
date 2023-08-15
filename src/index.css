@@ -135,6 +135,11 @@
   height: 100%;
   position: relative;
   grid-area: content / content / content / content;
+  @apply px-10;
+}
+
+.app-layout > div {
+  width: 100%;
 }
 
 /* LOADERS */

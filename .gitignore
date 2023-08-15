@@ -12,9 +12,6 @@
 /.next/
 /out/
 
-# production
-/build
-
 # misc
 .DS_Store
 *.pem
@@ -26,7 +23,6 @@ yarn-error.log*
 
 node_modules
 pnpm-lock.yaml
-dist
 dist-ssr
 *.local
 
