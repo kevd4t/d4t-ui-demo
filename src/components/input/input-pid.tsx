@@ -1,3 +1,5 @@
+'use client'
+
 import type { UseFormReturn } from 'react-hook-form'
 
 import { handleOnlyNumbers, formatCI } from '../../lib/utils/keyUpCI'

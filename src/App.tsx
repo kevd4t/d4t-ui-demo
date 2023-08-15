@@ -5,9 +5,22 @@ import { NavLink } from './components/sidebar/nav-link'
 import { AppLayout } from './layouts/Application'
 import { FormLogin } from './examples/FormLogin'
 import { NavLinkNested, Sidebar } from './components/sidebar'
+import { Table } from './components/data-table/GenericTable'
+import { useState } from 'react'
+import { PaginationState } from '@tanstack/react-table'
+import { getStatusColumns } from './status-table'
 
 function App() {
   const profile = {role: 'Administrador', name: 'Kevin', lastname: 'blanco' }
+  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
+
+  const pagination = {
+    pageSize,
+    pageIndex,
+    setPagination,
+    labels: { pluralItem: 'Estados', singularItem: 'Estado' }
+  }
+
 
   return (
     <AppLayout>
@@ -180,7 +193,25 @@ function App() {
         </SidebarContent>
       </Sidebar>
 
-      <FormLogin />
+      <div>
+        <FormLogin />
+
+        <Table
+          visibilityColumns
+          pagination={pagination}
+          data={[
+            {
+              id: 345,
+              title: 'Epale',
+              color: '#eeeeee',
+              description: 'Descripcion',
+              isActive: true
+            }
+          ]}
+          queryInfo={{ error: null, isFetching: false }}
+          columns={getStatusColumns({ selection: false, actions: { detail: true } })}
+        />
+      </div>
     </AppLayout>
   )
 }
