@@ -55,13 +55,10 @@ export function Input ({ children, id, form, label, classNameContainer, descript
         name={id}
         render={({ field, formState }) => (
           <FormItem className={cn('w-full', classNameContainer)}>
-            {
-              label && (
-                <FormLabel className='flex'>
-                  { label }&nbsp; { formState?.errors[id]?.message && <span className='text-xs font-light text-destructive'>* {formState.errors[id].message as any}</span> }
-                </FormLabel>
-              )
-            }
+            <div className='flex justify-start items-end'>
+              { label && <FormLabel className='flex'>{ label }&nbsp;</FormLabel> }
+              { formState?.errors[id]?.message && <span className='text-xs font-light text-destructive'>* {formState.errors[id].message as any}</span> }
+            </div>
 
             { description && (<FormDescription className='text-xs'>{description}</FormDescription>) }
 
@@ -137,13 +134,10 @@ export function Input ({ children, id, form, label, classNameContainer, descript
       name={id}
       render={({ field, formState }) => (
         <FormItem className={cn('w-full', classNameContainer)}>
-          {
-            label && (
-              <FormLabel className='flex'>
-                { label }&nbsp; { formState?.errors[id]?.message && <span className='text-xs font-light text-destructive'>* {formState.errors[id].message as any}</span> }
-              </FormLabel>
-            )
-          }
+          <div className='flex justify-start items-end'>
+            { label && <FormLabel className='flex'>{ label }&nbsp;</FormLabel> }
+            { formState?.errors[id]?.message && <span className='text-xs font-light text-destructive'>* {formState.errors[id].message as any}</span> }
+          </div>
 
           { description && (<FormDescription className='text-xs'>{description}</FormDescription>) }
 

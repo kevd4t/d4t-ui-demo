@@ -10205,9 +10205,11 @@ function Nu({ children: e, id: t, form: n, label: r, classNameContainer: o, desc
       render: ({ field: u, formState: d }) => {
         var f;
         return /* @__PURE__ */ b.exports.jsxs(mn, { className: R("w-full", o), children: [
-          r && /* @__PURE__ */ b.exports.jsxs(qn, { className: "flex", children: [
-            r,
-            "  ",
+          /* @__PURE__ */ b.exports.jsxs("div", { className: "flex justify-start items-end", children: [
+            r && /* @__PURE__ */ b.exports.jsxs(qn, { className: "flex", children: [
+              r,
+              " "
+            ] }),
             ((f = d == null ? void 0 : d.errors[t]) == null ? void 0 : f.message) && /* @__PURE__ */ b.exports.jsxs("span", { className: "text-xs font-light text-destructive", children: [
               "* ",
               d.errors[t].message
@@ -10283,9 +10285,11 @@ function Nu({ children: e, id: t, form: n, label: r, classNameContainer: o, desc
       render: ({ field: u, formState: d }) => {
         var f;
         return /* @__PURE__ */ b.exports.jsxs(mn, { className: R("w-full", o), children: [
-          r && /* @__PURE__ */ b.exports.jsxs(qn, { className: "flex", children: [
-            r,
-            "  ",
+          /* @__PURE__ */ b.exports.jsxs("div", { className: "flex justify-start items-end", children: [
+            r && /* @__PURE__ */ b.exports.jsxs(qn, { className: "flex", children: [
+              r,
+              " "
+            ] }),
             ((f = d == null ? void 0 : d.errors[t]) == null ? void 0 : f.message) && /* @__PURE__ */ b.exports.jsxs("span", { className: "text-xs font-light text-destructive", children: [
               "* ",
               d.errors[t].message
