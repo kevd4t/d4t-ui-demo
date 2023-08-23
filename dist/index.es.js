@@ -10376,7 +10376,7 @@ function G7({
       {
         id: "pidNumber",
         form: e,
-        type: "pidNumber",
+        type: "text",
         onKeyPress: Eu,
         onKeyUp: n,
         tabIndex: ((p = t == null ? void 0 : t.number) == null ? void 0 : p.tabIndex) || He.number.tabIndex,
