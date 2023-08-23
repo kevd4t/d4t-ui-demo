@@ -1,106 +1,87 @@
 'use client'
 
-import { Control, RegisterOptions } from 'react-hook-form'
+import { UseFormReturn } from 'react-hook-form'
 import type { ReactNode, HTMLAttributes } from 'react'
 
-import { FormField, FormItem, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '..'
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '..'
 import { cn } from '../../lib/utils'
 
-interface IGenericSelectItems {
+export interface IGenericSelectItems {
   label: string
   icon?: ReactNode
   value: boolean | string | number
 }
 
-interface IGenericSelectProps extends HTMLAttributes<HTMLDivElement> {
-  id: string
-  value?: string
-  label: string
+export interface IGenericSelectProps extends HTMLAttributes<HTMLDivElement> {
   defaultValue?: string
-  onValueChange?: (value: string) => void
   placeholder?: string
-  items?: IGenericSelectItems[]
   tabIndex?: number
-  fieldControlled?: {
-    rules?: RegisterOptions<any>
-    control: Control<any, any>
-    formItemClassName?: string
-    formSelectClassName?: string
-  }
+  items: IGenericSelectItems[]
+  id: string
+  form: UseFormReturn<any, any, any>
+  label?: string
+  classNameContainer?: string
+  classNameSelect?: string
+  description?: string
 }
 
-export const GenericSelect = ({ id, value, label, defaultValue, onValueChange, placeholder, items, fieldControlled, tabIndex, ...rest }: IGenericSelectProps) => {
-  if (fieldControlled) {
+export const GenericSelect = ({
+  id,
+  label,
+  defaultValue,
+  placeholder,
+  description,
+  items,
+  form,
+  tabIndex,
+  classNameContainer,
+  classNameSelect
+}: IGenericSelectProps) => {
     return (
       <FormField
-        control={fieldControlled.control}
+        control={form.control}
         name={id}
         defaultValue={defaultValue}
-        rules={fieldControlled?.rules || {}}
-        render={({ field }) => (
-          <FormItem className={cn('w-full', fieldControlled.formItemClassName)}>
-            <Label>{label}</Label>
+        render={({ field, formState }) => (
+        <FormItem className={cn('w-full', classNameContainer)}>
+          <div className='flex justify-start items-end'>
+            { label && <FormLabel className='flex'>{ label }&nbsp;</FormLabel> }
+            { formState?.errors[id]?.message && <span className='text-xs font-light text-destructive'>* {formState.errors[id].message as any}</span> }
+          </div>
 
-            <div className='my-2'></div>
+          { description && (<FormDescription className='text-xs'>{description}</FormDescription>) }
+
+          <div className='my-2'></div>
 
             <Select onValueChange={field.onChange} defaultValue={field.value}>
-              <SelectTrigger tabIndex={tabIndex} className={cn('w-full', fieldControlled.formSelectClassName)}>
-                <SelectValue placeholder={placeholder} />
-              </SelectTrigger>
+              <FormControl>
+                <SelectTrigger tabIndex={tabIndex} className={cn('w-full', classNameSelect)}>
+                  <SelectValue placeholder={placeholder} />
+                </SelectTrigger>
+              </FormControl>
 
               <SelectContent>
-                {
-                  items.map(item => (
-                    <SelectItem key={item.value?.toString()} value={item.value?.toString()}>
-                      <div className='flex justify-center items-center'>
-                        {
-                          item?.icon && (
-                            <div className='dark:text-white mr-2 h-5'>
-                              {item.icon}
-                            </div>
-                          )
-                        }
+              {
+                items.map(item => (
+                  <SelectItem key={item.value?.toString()} value={item.value?.toString()}>
+                    <div className='flex justify-center items-center'>
+                      {
+                        item?.icon && (
+                          <div className='dark:text-white mr-2 h-5'>
+                            {item.icon}
+                          </div>
+                        )
+                      }
 
-                        {item.label}
-                      </div>
-                    </SelectItem>
-                  ))
-                }
-              </SelectContent>
-            </Select>
-          </FormItem>
-        )}
-      />
-    )
-  }
-
-  return (
-    <div {...rest}>
-      <Label htmlFor={id}>{ label }</Label>
-
-      <div className='my-2'></div>
-
-      <Select value={value} defaultValue={defaultValue} onValueChange={onValueChange}>
-        <SelectTrigger className='w-[190px]'>
-          <SelectValue placeholder={placeholder} />
-        </SelectTrigger>
-
-        <SelectContent>
-          {
-            items.map(item => (
-              <SelectItem key={item.value?.toString()} value={item.value?.toString()}>
-                <div className='flex justify-center items-center'>
-                  <div className='dark:text-white mr-2 h-5'>
-                    {item.icon}
-                  </div>
-
-                  {item.label}
-                </div>
-              </SelectItem>
-            ))
-          }
-        </SelectContent>
-      </Select>
-    </div>
+                      {item.label}
+                    </div>
+                  </SelectItem>
+                ))
+              }
+            </SelectContent>
+          </Select>
+        </FormItem>
+      )}
+    />
   )
 }

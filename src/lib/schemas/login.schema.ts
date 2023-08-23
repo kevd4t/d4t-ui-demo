@@ -13,7 +13,8 @@ export const LOGIN_WITH_EMAIL = z.object({
 export const LOGIN_WITH_DNI = z.object({
   pidType: DNI_TYPES,
   pidNumber: STRING,
-  password: PASSWORD
+  password: PASSWORD,
+  some: STRING
 })
 
 export const loginSchema = z.object({

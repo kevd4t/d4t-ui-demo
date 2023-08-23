@@ -6,7 +6,7 @@ import { ILoginWithDNI, LOGIN_WITH_DNI, loginSchema } from '../../lib/schemas/lo
 import { UserAuthenticated } from '../../lib/types'
 import { useFetch } from '../../lib/hooks'
 
-import { Button, Form, Input, InputPID, PIDValue, formatCITypes } from '../../components'
+import { Button, Form, GenericSelect, Input, InputPID, PIDValue, formatCITypes } from '../../components'
 
 export const LoginWithPID = () => {
   const form = useForm<ILoginWithDNI>({ resolver: zodResolver(LOGIN_WITH_DNI) })
@@ -45,6 +45,20 @@ export const LoginWithPID = () => {
               defaultValue: formatCITypes(['VENEZUELAN'])[0].value
             }
           }}
+        />
+
+        <GenericSelect
+          id='some'
+          form={form}
+          label='Algo nuevo'
+          placeholder='Seleccione'
+          defaultValue='FINO'
+          items={[
+            {
+              label: 'Finoo',
+              value: 'FINO'
+            }
+          ]}
         />
 
         <Input
