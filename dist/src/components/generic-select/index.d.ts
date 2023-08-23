@@ -1,25 +1,20 @@
-import { Control, RegisterOptions } from 'react-hook-form';
+import { UseFormReturn } from 'react-hook-form';
 import type { ReactNode, HTMLAttributes } from 'react';
-interface IGenericSelectItems {
+export interface IGenericSelectItems {
     label: string;
     icon?: ReactNode;
     value: boolean | string | number;
 }
-interface IGenericSelectProps extends HTMLAttributes<HTMLDivElement> {
-    id: string;
-    value?: string;
-    label: string;
+export interface IGenericSelectProps extends HTMLAttributes<HTMLDivElement> {
     defaultValue?: string;
-    onValueChange?: (value: string) => void;
     placeholder?: string;
-    items?: IGenericSelectItems[];
     tabIndex?: number;
-    fieldControlled?: {
-        rules?: RegisterOptions<any>;
-        control: Control<any, any>;
-        formItemClassName?: string;
-        formSelectClassName?: string;
-    };
+    items: IGenericSelectItems[];
+    id: string;
+    form: UseFormReturn<any, any, any>;
+    label?: string;
+    classNameContainer?: string;
+    classNameSelect?: string;
+    description?: string;
 }
-export declare const GenericSelect: ({ id, value, label, defaultValue, onValueChange, placeholder, items, fieldControlled, tabIndex, ...rest }: IGenericSelectProps) => JSX.Element;
-export {};
+export declare const GenericSelect: ({ id, label, defaultValue, placeholder, description, items, form, tabIndex, classNameContainer, classNameSelect }: IGenericSelectProps) => JSX.Element;

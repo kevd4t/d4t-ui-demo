@@ -56,11 +56,11 @@ export const DialogEditStatus = ({ status, isOpenEdit, setOpenEdit }: IDialogDet
 
             <GenericSelect
               tabIndex={5}
+              form={formEditStatus}
               id='isActive'
               label='Estado'
               placeholder='Seleccione un Estado'
               defaultValue={String(status.isActive)}
-              fieldControlled={{ control: formEditStatus.control, rules: subcategoryRules.isActive }}
               items={[
                 {
                   label: 'Activo',
