@@ -58,8 +58,7 @@ export function Input ({ children, id, form, label, classNameContainer, descript
             {
               label && (
                 <FormLabel className='flex'>
-                  { label }&nbsp;
-                  { formState?.errors[id]?.message && <span className='text-xs font-light'>* {formState.errors[id].message as any}</span> }
+                  { label }&nbsp; { formState?.errors[id]?.message && <span className='text-xs font-light text-destructive'>* {formState.errors[id].message as any}</span> }
                 </FormLabel>
               )
             }
@@ -102,36 +101,32 @@ export function Input ({ children, id, form, label, classNameContainer, descript
       <FormField
         control={form.control}
         name={id}
-        render={({ field, formState }) => (
-          <FormItem className={cn('w-full', classNameContainer)}>
-            {
-              label && (
-                <FormLabel className='flex'>
-                  { label }&nbsp;
-                  { formState?.errors[id]?.message && <span className='text-xs font-light'>* {formState.errors[id].message as any}</span> }
-                </FormLabel>
-              )
-            }
+        render={({ field, formState }) => {
+          return (
+            <FormItem className={cn('w-full', classNameContainer)}>
+              <div className='flex justify-start items-end'>
+                { label && <FormLabel className='flex'>{ label }&nbsp;</FormLabel> }
+                { formState?.errors[id]?.message && <span className='text-xs font-light text-destructive'>* {formState.errors[id].message as any}</span> }
+              </div>
 
-            { description && (<FormDescription className='text-xs'>{description}</FormDescription>) }
+              <div className='my-2'></div>
 
-            <div className='my-2'></div>
-
-            <FormControl>
-              <Input
-                {...field}
-                {...rest}
-                form={form}
-                id='pidNumber'
-                type='text'
-                maxLength={10}
-                placeholder='00.000.000'
-                onKeyUp={handleOnKeyUppidNumber}
-                onKeyPress={handleOnlyNumbers}
-              />
-            </FormControl>
-          </FormItem>
-        )}
+              <FormControl>
+                <Input
+                  {...field}
+                  {...rest}
+                  form={form}
+                  id='pidNumber'
+                  type='text'
+                  maxLength={10}
+                  placeholder='00.000.000'
+                  onKeyUp={handleOnKeyUppidNumber}
+                  onKeyPress={handleOnlyNumbers}
+                />
+              </FormControl>
+            </FormItem>
+          )
+        }}
       />
     )
   }
@@ -145,8 +140,7 @@ export function Input ({ children, id, form, label, classNameContainer, descript
           {
             label && (
               <FormLabel className='flex'>
-                { label }&nbsp;
-                { formState?.errors[id]?.message && <span className='text-xs font-light'>* {formState.errors[id].message as any}</span> }
+                { label }&nbsp; { formState?.errors[id]?.message && <span className='text-xs font-light text-destructive'>* {formState.errors[id].message as any}</span> }
               </FormLabel>
             )
           }

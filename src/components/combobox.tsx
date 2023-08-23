@@ -66,9 +66,9 @@ export function ComboBox ({
                   { label }&nbsp;
 
                   {
-                    formState.errors?.identifierNumber?.message && (
+                    formState.errors?.pidType?.message && (
                       <span className='text-xs font-light'>
-                        * {formState.errors.identifierNumber.message as string}
+                        * {formState.errors.pidType.message as string}
                       </span>
                     )
                   }

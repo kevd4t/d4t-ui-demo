@@ -133,7 +133,7 @@ export function InputPID ({
       <Input
         id='pidNumber'
         form={form}
-        type='text'
+        type='pidNumber'
         onKeyPress={handleOnlyNumbers}
         onKeyUp={handleOnKeyUpIdentifierNumber}
         tabIndex={dni?.number?.tabIndex || dniDefaultValues.number.tabIndex}
