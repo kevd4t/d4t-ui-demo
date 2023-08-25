@@ -46,7 +46,6 @@ export const LoginWithEmail = () => {
           disabled={loading}
           placeholder='user@email.com'
           form={form}
-          description='Ingrese su correo electronico'
         />
 
         <Input
