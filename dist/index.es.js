@@ -18440,10 +18440,10 @@ var X7 = /* @__PURE__ */ N(function(e, t) {
     }));
   }));
 });
-const C8 = ({ complete: e, onComplete: t, validate: n, disabled: r, tabIndex: o, autoFocus: a, format: s, containerClassName: c }) => /* @__PURE__ */ h.exports.jsx("div", { className: R("pin-field-container", c), children: /* @__PURE__ */ h.exports.jsx(
+const C8 = ({ complete: e, onComplete: t, validate: n, disabled: r, tabIndex: o, autoFocus: a, format: s, containerClassName: c, className: i }) => /* @__PURE__ */ h.exports.jsx("div", { className: R("pin-field-container", c), children: /* @__PURE__ */ h.exports.jsx(
   X7,
   {
-    className: R("pin-field", { complete: e }),
+    className: R("pin-field", { complete: e }, i),
     onComplete: t,
     format: s,
     validate: n,

@@ -10,14 +10,14 @@ export interface ICodeVerificationProps extends HTMLAttributes<HTMLDivElement> {
   tabIndex?: number
   autoFocus?: boolean
   format?: (char: string) => string
-  containerClassName
+  containerClassName?: string
 }
 
-export const CodeVerification = ({ complete, onComplete, validate, disabled, tabIndex, autoFocus, format, containerClassName }: ICodeVerificationProps) => {
+export const CodeVerification = ({ complete, onComplete, validate, disabled, tabIndex, autoFocus, format, containerClassName, className }: ICodeVerificationProps) => {
   return (
     <div className={cn('pin-field-container', containerClassName)}>
       <PinField
-        className={cn('pin-field', { complete })}
+        className={cn('pin-field', { complete }, className)}
         onComplete={onComplete}
         format={format}
         validate={validate}

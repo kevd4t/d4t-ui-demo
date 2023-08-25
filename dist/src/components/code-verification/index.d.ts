@@ -7,6 +7,6 @@ export interface ICodeVerificationProps extends HTMLAttributes<HTMLDivElement> {
     tabIndex?: number;
     autoFocus?: boolean;
     format?: (char: string) => string;
-    containerClassName: any;
+    containerClassName?: string;
 }
-export declare const CodeVerification: ({ complete, onComplete, validate, disabled, tabIndex, autoFocus, format, containerClassName }: ICodeVerificationProps) => JSX.Element;
+export declare const CodeVerification: ({ complete, onComplete, validate, disabled, tabIndex, autoFocus, format, containerClassName, className }: ICodeVerificationProps) => JSX.Element;
