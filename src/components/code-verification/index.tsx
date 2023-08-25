@@ -1,19 +1,13 @@
 import React, { HTMLAttributes } from 'react'
-import { PinField } from 'react-pin-field'
+import { PinField, PinFieldProps } from 'react-pin-field'
 import { cn } from '../../lib/utils'
 
-export interface ICodeVerificationProps extends HTMLAttributes<HTMLDivElement> {
+export interface ICodeVerificationProps extends PinFieldProps {
   complete: boolean
-  onComplete: (code) => void
-  validate?: string | RegExp | string[] | ((key: string) => boolean)
-  disabled?: boolean
-  tabIndex?: number
-  autoFocus?: boolean
-  format?: (char: string) => string
   containerClassName?: string
 }
 
-export const CodeVerification = ({ complete, onComplete, validate, disabled, tabIndex, autoFocus, format, containerClassName, className }: ICodeVerificationProps) => {
+export const CodeVerification = ({ complete, onComplete, validate, disabled, tabIndex, autoFocus, format, containerClassName, className, ...rest }: ICodeVerificationProps) => {
   return (
     <div className={cn('pin-field-container', containerClassName)}>
       <PinField
@@ -24,6 +18,7 @@ export const CodeVerification = ({ complete, onComplete, validate, disabled, tab
         disabled={disabled}
         tabIndex={tabIndex}
         autoFocus={autoFocus}
+        {...rest}
       />
     </div>
   )
