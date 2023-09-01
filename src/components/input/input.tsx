@@ -39,7 +39,7 @@ interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, '
   type: React.HTMLInputTypeAttribute | 'pidNumber'
 }
 
-export function Input ({ children, id, form, label, classNameContainer, description, ...rest }: InputProps) {
+export function Input ({ children, id, form, label, classNameContainer, description, defaultValue, ...rest }: InputProps) {
   const [showPassword, setShowPassword] = React.useState(false)
 
   const handleOnKeyUppidNumber = (event) => {
@@ -52,6 +52,7 @@ export function Input ({ children, id, form, label, classNameContainer, descript
     return (
       <FormField
         control={form.control}
+        defaultValue={defaultValue}
         name={id}
         render={({ field, formState }) => (
           <FormItem className={cn('w-full', classNameContainer)}>
@@ -97,6 +98,7 @@ export function Input ({ children, id, form, label, classNameContainer, descript
     return (
       <FormField
         control={form.control}
+        defaultValue={defaultValue}
         name={id}
         render={({ field, formState }) => {
           return (
@@ -132,6 +134,7 @@ export function Input ({ children, id, form, label, classNameContainer, descript
     <FormField
       control={form.control}
       name={id}
+      defaultValue={defaultValue}
       render={({ field, formState }) => (
         <FormItem className={cn('w-full', classNameContainer)}>
           <div className='flex justify-start items-end'>

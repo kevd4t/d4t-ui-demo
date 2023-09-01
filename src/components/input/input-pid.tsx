@@ -69,6 +69,7 @@ export interface PIDNumber {
   placeholder?: string
   maxLength?: number
   disabled?: boolean
+  defaultValue?: string
 }
 
 export interface PID {
@@ -85,7 +86,7 @@ export interface PIDProps  {
 const dniDefaultValues: PID = {
   type: {
     id: 'pidType',
-    tabIndex: 1,
+    tabIndex: undefined,
     buttonClassName: 'w-[80px]',
     popoverClassName: 'w-[90px]',
     notFoundLabel: 'Codigo No Encontrado',
@@ -97,9 +98,10 @@ const dniDefaultValues: PID = {
   },
   number: {
     id: 'pidNumber',
-    tabIndex: 2,
+    tabIndex: undefined,
     placeholder: '00.000.000',
-    maxLength: 10
+    maxLength: 10,
+    defaultValue: ''
   }
 }
 
@@ -134,6 +136,7 @@ export function InputPID ({
         id='pidNumber'
         form={form}
         type='text'
+        defaultValue={dni?.number?.defaultValue}
         onKeyPress={handleOnlyNumbers}
         onKeyUp={handleOnKeyUpIdentifierNumber}
         tabIndex={dni?.number?.tabIndex || dniDefaultValues.number.tabIndex}

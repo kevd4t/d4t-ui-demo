@@ -10192,27 +10192,28 @@ const jy = (e) => e.replace(/[\.\s]/g, "").replace(/(\d{1,3})(?=(\d{3})+(?:\.\d+
   )
 );
 qa.displayName = "InputUI";
-function Tu({ children: e, id: t, form: n, label: r, classNameContainer: o, description: a, ...s }) {
-  const [c, i] = w.useState(!1), l = (u) => {
-    const { value: d } = u.target, f = gm(d);
-    n.setValue("identifier", { dni: { number: f } });
+function Tu({ children: e, id: t, form: n, label: r, classNameContainer: o, description: a, defaultValue: s, ...c }) {
+  const [i, l] = w.useState(!1), u = (d) => {
+    const { value: f } = d.target, p = gm(f);
+    n.setValue("identifier", { dni: { number: p } });
   };
-  return s.type === "password" ? /* @__PURE__ */ h.exports.jsx(
+  return c.type === "password" ? /* @__PURE__ */ h.exports.jsx(
     Zn,
     {
       control: n.control,
+      defaultValue: s,
       name: t,
-      render: ({ field: u, formState: d }) => {
-        var f;
+      render: ({ field: d, formState: f }) => {
+        var p;
         return /* @__PURE__ */ h.exports.jsxs(bn, { className: R("w-full", o), children: [
           /* @__PURE__ */ h.exports.jsxs("div", { className: "flex justify-start items-end", children: [
             r && /* @__PURE__ */ h.exports.jsxs(gn, { className: "flex", children: [
               r,
               " "
             ] }),
-            ((f = d == null ? void 0 : d.errors[t]) == null ? void 0 : f.message) && /* @__PURE__ */ h.exports.jsxs("span", { className: "text-xs font-light text-destructive", children: [
+            ((p = f == null ? void 0 : f.errors[t]) == null ? void 0 : p.message) && /* @__PURE__ */ h.exports.jsxs("span", { className: "text-xs font-light text-destructive", children: [
               "* ",
-              d.errors[t].message
+              f.errors[t].message
             ] })
           ] }),
           a && /* @__PURE__ */ h.exports.jsx(uo, { className: "text-xs", children: a }),
@@ -10221,10 +10222,10 @@ function Tu({ children: e, id: t, form: n, label: r, classNameContainer: o, desc
             /* @__PURE__ */ h.exports.jsx(
               qa,
               {
-                ...u,
-                ...s,
-                className: R("pr-14", s.className),
-                type: c ? "text" : "password"
+                ...d,
+                ...c,
+                className: R("pr-14", c.className),
+                type: i ? "text" : "password"
               }
             ),
             /* @__PURE__ */ h.exports.jsx(
@@ -10232,45 +10233,46 @@ function Tu({ children: e, id: t, form: n, label: r, classNameContainer: o, desc
               {
                 type: "button",
                 tabIndex: -1,
-                onClick: () => i((p) => !p),
+                onClick: () => l((m) => !m),
                 className: "absolute right-4 mr-0.5 top-2.5",
-                children: c ? /* @__PURE__ */ h.exports.jsx(Qm, { className: "text-zinc-700", size: 22 }) : /* @__PURE__ */ h.exports.jsx(Jm, { className: "text-zinc-700", size: 22 })
+                children: i ? /* @__PURE__ */ h.exports.jsx(Qm, { className: "text-zinc-700", size: 22 }) : /* @__PURE__ */ h.exports.jsx(Jm, { className: "text-zinc-700", size: 22 })
               }
             )
           ] }) })
         ] });
       }
     }
-  ) : s.type === "pidNumber" ? /* @__PURE__ */ h.exports.jsx(
+  ) : c.type === "pidNumber" ? /* @__PURE__ */ h.exports.jsx(
     Zn,
     {
       control: n.control,
+      defaultValue: s,
       name: t,
-      render: ({ field: u, formState: d }) => {
-        var f;
+      render: ({ field: d, formState: f }) => {
+        var p;
         return /* @__PURE__ */ h.exports.jsxs(bn, { className: R("w-full", o), children: [
           /* @__PURE__ */ h.exports.jsxs("div", { className: "flex justify-start items-end", children: [
             r && /* @__PURE__ */ h.exports.jsxs(gn, { className: "flex", children: [
               r,
               " "
             ] }),
-            ((f = d == null ? void 0 : d.errors[t]) == null ? void 0 : f.message) && /* @__PURE__ */ h.exports.jsxs("span", { className: "text-xs font-light text-destructive", children: [
+            ((p = f == null ? void 0 : f.errors[t]) == null ? void 0 : p.message) && /* @__PURE__ */ h.exports.jsxs("span", { className: "text-xs font-light text-destructive", children: [
               "* ",
-              d.errors[t].message
+              f.errors[t].message
             ] })
           ] }),
           /* @__PURE__ */ h.exports.jsx("div", { className: "my-2" }),
           /* @__PURE__ */ h.exports.jsx(Jn, { children: /* @__PURE__ */ h.exports.jsx(
             Tu,
             {
-              ...u,
-              ...s,
+              ...d,
+              ...c,
               form: n,
               id: "pidNumber",
               type: "text",
               maxLength: 10,
               placeholder: "00.000.000",
-              onKeyUp: l,
+              onKeyUp: u,
               onKeyPress: Mu
             }
           ) })
@@ -10282,17 +10284,18 @@ function Tu({ children: e, id: t, form: n, label: r, classNameContainer: o, desc
     {
       control: n.control,
       name: t,
-      render: ({ field: u, formState: d }) => {
-        var f;
+      defaultValue: s,
+      render: ({ field: d, formState: f }) => {
+        var p;
         return /* @__PURE__ */ h.exports.jsxs(bn, { className: R("w-full", o), children: [
           /* @__PURE__ */ h.exports.jsxs("div", { className: "flex justify-start items-end", children: [
             r && /* @__PURE__ */ h.exports.jsxs(gn, { className: "flex", children: [
               r,
               " "
             ] }),
-            ((f = d == null ? void 0 : d.errors[t]) == null ? void 0 : f.message) && /* @__PURE__ */ h.exports.jsxs("span", { className: "text-xs font-light text-destructive", children: [
+            ((p = f == null ? void 0 : f.errors[t]) == null ? void 0 : p.message) && /* @__PURE__ */ h.exports.jsxs("span", { className: "text-xs font-light text-destructive", children: [
               "* ",
-              d.errors[t].message
+              f.errors[t].message
             ] })
           ] }),
           a && /* @__PURE__ */ h.exports.jsx(uo, { className: "text-xs", children: a }),
@@ -10300,8 +10303,8 @@ function Tu({ children: e, id: t, form: n, label: r, classNameContainer: o, desc
           /* @__PURE__ */ h.exports.jsx(Jn, { children: /* @__PURE__ */ h.exports.jsx(
             qa,
             {
-              ...u,
-              ...s
+              ...d,
+              ...c
             }
           ) })
         ] });
@@ -10327,7 +10330,7 @@ const Bi = (e) => {
 }, Ke = {
   type: {
     id: "pidType",
-    tabIndex: 1,
+    tabIndex: void 0,
     buttonClassName: "w-[80px]",
     popoverClassName: "w-[90px]",
     notFoundLabel: "Codigo No Encontrado",
@@ -10339,19 +10342,20 @@ const Bi = (e) => {
   },
   number: {
     id: "pidNumber",
-    tabIndex: 2,
+    tabIndex: void 0,
     placeholder: "00.000.000",
-    maxLength: 10
+    maxLength: 10,
+    defaultValue: ""
   }
 };
 function x3({
   form: e,
   pid: t = Ke
 }) {
-  var r, o, a, s, c, i, l, u, d, f, p, m, v;
-  const n = (g) => {
-    const { value: x } = g.target, $ = jy(x);
-    e.setValue("pidNumber", $);
+  var r, o, a, s, c, i, l, u, d, f, p, m, v, g;
+  const n = (x) => {
+    const { value: $ } = x.target, y = jy($);
+    e.setValue("pidNumber", y);
   };
   return /* @__PURE__ */ h.exports.jsxs("div", { className: "w-full flex justify-start items-end gap-x-2", children: [
     /* @__PURE__ */ h.exports.jsx(
@@ -10377,11 +10381,12 @@ function x3({
         id: "pidNumber",
         form: e,
         type: "text",
+        defaultValue: (p = t == null ? void 0 : t.number) == null ? void 0 : p.defaultValue,
         onKeyPress: Mu,
         onKeyUp: n,
-        tabIndex: ((p = t == null ? void 0 : t.number) == null ? void 0 : p.tabIndex) || Ke.number.tabIndex,
-        maxLength: ((m = t == null ? void 0 : t.number) == null ? void 0 : m.maxLength) || Ke.number.maxLength,
-        placeholder: ((v = t == null ? void 0 : t.number) == null ? void 0 : v.placeholder) || Ke.number.placeholder
+        tabIndex: ((m = t == null ? void 0 : t.number) == null ? void 0 : m.tabIndex) || Ke.number.tabIndex,
+        maxLength: ((v = t == null ? void 0 : t.number) == null ? void 0 : v.maxLength) || Ke.number.maxLength,
+        placeholder: ((g = t == null ? void 0 : t.number) == null ? void 0 : g.placeholder) || Ke.number.placeholder
       }
     )
   ] });

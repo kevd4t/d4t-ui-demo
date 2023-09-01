@@ -32,6 +32,7 @@ export interface PIDNumber {
     placeholder?: string;
     maxLength?: number;
     disabled?: boolean;
+    defaultValue?: string;
 }
 export interface PID {
     type?: PIDType;
