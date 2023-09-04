@@ -75,14 +75,12 @@ export const DialogEditStatus = ({ status, isOpenEdit, setOpenEdit }: IDialogDet
           </div>
 
           <TextArea
+            form={formEditStatus}
             rows={5}
             tabIndex={6}
             id='description'
             label='Descripción'
             defaultValue={status.description}
-            register={formEditStatus.register}
-            messageErrors={formEditStatus.formState.errors}
-            inputErrors={subcategoryRules.description}
           />
         </section>
 
