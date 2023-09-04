@@ -3,9 +3,11 @@
 import * as React from 'react'
 
 import { cn } from '../lib/utils'
+import { UseFormReturn } from 'react-hook-form'
+import { FormControl, FormDescription, FormField, FormItem, FormLabel } from './'
 
 export interface TextareaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> { }
 
 const TextareaUI = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className, ...props }, ref) => {
@@ -23,4 +25,44 @@ const TextareaUI = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 )
 TextareaUI.displayName = 'TextareaUI'
 
-export { TextareaUI }
+interface ITextAreaProps extends React.HTMLAttributes<HTMLTextAreaElement> {
+  id: string
+  form: UseFormReturn<any, any, any>
+  label?: string
+  className?: string
+  description?: string
+  placeholder?: string
+  containerClassName?: string
+}
+
+const TextArea = ({ id, form, label, className, description, placeholder, containerClassName, ...rest }: ITextAreaProps) => {
+  return (
+    <FormField
+      control={form.control}
+      name={id}
+      render={({ field, formState }) => (
+        <FormItem className={cn('w-full', containerClassName)}>
+          <div className='flex justify-start items-end'>
+            {label && <FormLabel className='flex'>{label}&nbsp;</FormLabel>}
+            {formState?.errors[id]?.message && <span className='text-xs font-light text-destructive'>* {formState.errors[id].message as any}</span>}
+          </div>
+
+          {description && (<FormDescription className='text-xs'>{description}</FormDescription>)}
+
+          <div className='my-2'></div>
+
+          <FormControl>
+            <TextareaUI
+              placeholder={placeholder}
+              className={cn('resize-none', className)}
+              {...field}
+              {...rest}
+            />
+          </FormControl>
+        </FormItem>
+      )}
+    />
+  )
+}
+
+export { TextareaUI, TextArea }
