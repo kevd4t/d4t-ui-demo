@@ -25,7 +25,7 @@ const TextareaUI = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 )
 TextareaUI.displayName = 'TextareaUI'
 
-interface ITextAreaProps extends React.HTMLAttributes<HTMLTextAreaElement> {
+export interface ITextareaProps extends Omit<TextareaProps, 'form'> {
   id: string
   form: UseFormReturn<any, any, any>
   label?: string
@@ -35,7 +35,7 @@ interface ITextAreaProps extends React.HTMLAttributes<HTMLTextAreaElement> {
   containerClassName?: string
 }
 
-const TextArea = ({ id, form, label, className, description, placeholder, containerClassName, ...rest }: ITextAreaProps) => {
+const TextArea = ({ id, form, label, className, description, placeholder, containerClassName, ...rest }: ITextareaProps) => {
   return (
     <FormField
       control={form.control}

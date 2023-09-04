@@ -52,6 +52,7 @@ export const DialogDetailStatus = ({ status, isOpenViewModel, setOpenViewModel }
           </div>
 
           <TextArea
+            form={form}
             rows={5}
             readOnly
             tabIndex={6}
@@ -63,7 +64,7 @@ export const DialogDetailStatus = ({ status, isOpenViewModel, setOpenViewModel }
 
         <section>
           <Label>Color del Estado</Label>
-          <CardDescription>Codigo Hexadecimal: { status.color }</CardDescription>
+          <CardDescription>Codigo Hexadecimal: {status.color}</CardDescription>
 
           <div className='my-2'></div>
 
@@ -78,7 +79,7 @@ export const DialogDetailStatus = ({ status, isOpenViewModel, setOpenViewModel }
                 backgroundColor: convertHexToRGBA(status.color, 0.3)
               }}
             >
-              { status.title }
+              {status.title}
             </Badge>
           </div>
         </section>
