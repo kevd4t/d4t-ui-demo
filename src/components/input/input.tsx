@@ -52,7 +52,7 @@ export function Input({ children, id, form, label, classNameContainer, descripti
 
   const validateInputIconClassNames = () => {
     if (iconDirection === 'left') {
-      if (icon) return 'pl-9'
+      if (icon || rest.type === 'password') return 'pl-9'
       else ''
     }
 
@@ -82,65 +82,52 @@ export function Input({ children, id, form, label, classNameContainer, descripti
 
             <FormControl>
               <div className='relative'>
+                {
+                  (iconDirection === 'left') && (
+                    <>
+                      <button
+                        type='button'
+                        onClick={() => setShowPassword(prevState => !prevState)}
+                        className='absolute inset-y-0 left-0 flex items-center pl-3 z-50'
+                      >
+                        {
+                          showPassword
+                            ? <Eye size={18} />
+                            : <EyeOff size={18} />
+                        }
+                      </button>
+                    </>
+                  )
+                }
+
                 <InputUI
                   {...field}
                   {...rest}
-                  className={cn('pr-14', rest.className)}
+                  className={cn(validateInputIconClassNames(), rest.className)}
                   type={showPassword ? 'text' : 'password'}
                 />
 
-                <button
-                  type='button'
-                  tabIndex={-1}
-                  onClick={() => setShowPassword(prevState => !prevState)}
-                  className='absolute right-4 mr-0.5 top-2.5'
-                >
-                  {
-                    showPassword
-                      ? <Eye className='text-zinc-700' size={22} />
-                      : <EyeOff className='text-zinc-700' size={22} />
-                  }
-                </button>
+                {
+                  (iconDirection === 'right') && (
+                    <div className='absolute inset-y-0 right-0 flex items-center pr-3 z-10'>
+                      <button
+                        type='button'
+                        tabIndex={-1}
+                        onClick={() => setShowPassword(prevState => !prevState)}
+                      >
+                        {
+                          showPassword
+                            ? <Eye size={18} />
+                            : <EyeOff size={18} />
+                        }
+                      </button>
+                    </div>
+                  )
+                }
               </div>
             </FormControl>
           </FormItem>
         )}
-      />
-    )
-  }
-
-  if (rest.type === 'pidNumber') {
-    return (
-      <FormField
-        control={form.control}
-        defaultValue={defaultValue}
-        name={id}
-        render={({ field, formState }) => {
-          return (
-            <FormItem className={cn('w-full', classNameContainer)}>
-              <div className='flex justify-start items-end'>
-                {label && <FormLabel className='flex'>{label}&nbsp;</FormLabel>}
-                {formState?.errors[id]?.message && <span className='text-xs font-light text-destructive'>* {formState.errors[id].message as any}</span>}
-              </div>
-
-              <div className='my-2'></div>
-
-              <FormControl>
-                <Input
-                  {...field}
-                  {...rest}
-                  form={form}
-                  id='pidNumber'
-                  type='text'
-                  maxLength={10}
-                  placeholder='00.000.000'
-                  onKeyUp={handleOnKeyUppidNumber}
-                  onKeyPress={handleOnlyNumbers}
-                />
-              </FormControl>
-            </FormItem>
-          )
-        }}
       />
     )
   }

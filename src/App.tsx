@@ -200,7 +200,7 @@ function App() {
 
           <Input
             form={form}
-            id='name'
+            id='lastname'
             type='text'
             iconDirection='right'
             icon={<UserIcon size={17} />}
@@ -208,9 +208,16 @@ function App() {
 
           <Input
             form={form}
-            id='name'
-            type='text'
-            icon={<UserIcon size={17} />}
+            id='password'
+            type='password'
+            iconDirection='right'
+          />
+
+          <Input
+            form={form}
+            id='password'
+            type='password'
+            iconDirection='left'
           />
         </Form>
       </div>
