@@ -10,6 +10,8 @@ interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, '
     classNameContainer?: string;
     description?: string;
     type: React.HTMLInputTypeAttribute | 'pidNumber';
+    icon?: React.ReactNode;
+    iconDirection?: 'left' | 'right';
 }
-export declare function Input({ children, id, form, label, classNameContainer, description, defaultValue, ...rest }: InputProps): JSX.Element;
+export declare function Input({ children, id, form, label, classNameContainer, description, defaultValue, icon, iconDirection, ...rest }: InputProps): JSX.Element;
 export {};

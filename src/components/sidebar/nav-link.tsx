@@ -17,20 +17,20 @@ export const NavLink = ({ to, label, icon, pathname, Link }: LinkNavigationProps
   const [showTooltip, setShowTooltip] = useState(false)
   const navLinkContainer = useRef(null)
   const { isExpanded } = useSidebar()
- 
+
   useEffect(() => {
     const updateTruncationMap = () => {
       const linkElement = navLinkContainer.current.querySelector(`#${to.replaceAll('/', '_')}`)
-  
+
       if (linkElement) {
         const labelCollapsed = linkElement.offsetWidth < linkElement.scrollWidth
         setShowTooltip(labelCollapsed)
       }
     }
-  
+
     window.addEventListener('resize', updateTruncationMap)
     updateTruncationMap()
-  
+
     return () => window.removeEventListener('resize', updateTruncationMap)
   }, [to])
 
@@ -59,20 +59,20 @@ export const NavLink = ({ to, label, icon, pathname, Link }: LinkNavigationProps
 
           {
             (showTooltip && isExpanded) && (
-                <Tooltip>
-                  <TooltipTrigger className='truncate'>
-                    <span
-                      id={to.replaceAll('/', '_')}
-                      className='pl-2 mt-0.5 dark:text-white text-sm whitespace-nowrap truncate block'
-                    >
-                      {label}
-                    </span>
-                  </TooltipTrigger>
+              <Tooltip>
+                <TooltipTrigger className='truncate'>
+                  <span
+                    id={to.replaceAll('/', '_')}
+                    className='pl-2 mt-0.5 dark:text-white text-sm whitespace-nowrap truncate block'
+                  >
+                    {label}
+                  </span>
+                </TooltipTrigger>
 
-                  <TooltipContent>
-                    <p>{label}</p>
-                  </TooltipContent>
-                </Tooltip>
+                <TooltipContent>
+                  <p>{label}</p>
+                </TooltipContent>
+              </Tooltip>
             )
           }
         </div>
@@ -105,20 +105,20 @@ export const NavLink = ({ to, label, icon, pathname, Link }: LinkNavigationProps
 
         {
           (showTooltip && isExpanded) && (
-              <Tooltip>
-                <TooltipTrigger className='truncate'>
-                  <span
-                    id={to.replaceAll('/', '_')}
-                    className='pl-2 mt-0.5 dark:text-white text-sm whitespace-nowrap truncate block'
-                  >
-                    {label}
-                  </span>
-                </TooltipTrigger>
+            <Tooltip>
+              <TooltipTrigger className='truncate'>
+                <span
+                  id={to.replaceAll('/', '_')}
+                  className='pl-2 mt-0.5 dark:text-white text-sm whitespace-nowrap truncate block'
+                >
+                  {label}
+                </span>
+              </TooltipTrigger>
 
-                <TooltipContent>
-                  <p>{label}</p>
-                </TooltipContent>
-              </Tooltip>
+              <TooltipContent>
+                <p>{label}</p>
+              </TooltipContent>
+            </Tooltip>
           )
         }
       </Link>

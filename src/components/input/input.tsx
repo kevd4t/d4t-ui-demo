@@ -10,7 +10,7 @@ import { formatCI } from '../../lib/utils/formatters'
 import { handleOnlyNumbers } from '../../lib/utils/keyUpCI'
 
 
-export interface InputUIProps extends React.InputHTMLAttributes<HTMLInputElement> {}
+export interface InputUIProps extends React.InputHTMLAttributes<HTMLInputElement> { }
 
 export const InputUI = React.forwardRef<HTMLInputElement, InputUIProps>(
   ({ className, type, ...props }, ref) => {
@@ -37,9 +37,11 @@ interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, '
   classNameContainer?: string
   description?: string
   type: React.HTMLInputTypeAttribute | 'pidNumber'
+  icon?: React.ReactNode
+  iconDirection?: 'left' | 'right'
 }
 
-export function Input ({ children, id, form, label, classNameContainer, description, defaultValue, ...rest }: InputProps) {
+export function Input({ children, id, form, label, classNameContainer, description, defaultValue, icon, iconDirection, ...rest }: InputProps) {
   const [showPassword, setShowPassword] = React.useState(false)
 
   const handleOnKeyUppidNumber = (event) => {
@@ -57,11 +59,11 @@ export function Input ({ children, id, form, label, classNameContainer, descript
         render={({ field, formState }) => (
           <FormItem className={cn('w-full', classNameContainer)}>
             <div className='flex justify-start items-end'>
-              { label && <FormLabel className='flex'>{ label }&nbsp;</FormLabel> }
-              { formState?.errors[id]?.message && <span className='text-xs font-light text-destructive'>* {formState.errors[id].message as any}</span> }
+              {label && <FormLabel className='flex'>{label}&nbsp;</FormLabel>}
+              {formState?.errors[id]?.message && <span className='text-xs font-light text-destructive'>* {formState.errors[id].message as any}</span>}
             </div>
 
-            { description && (<FormDescription className='text-xs'>{description}</FormDescription>) }
+            {description && (<FormDescription className='text-xs'>{description}</FormDescription>)}
 
             <div className='my-2'></div>
 
@@ -104,8 +106,8 @@ export function Input ({ children, id, form, label, classNameContainer, descript
           return (
             <FormItem className={cn('w-full', classNameContainer)}>
               <div className='flex justify-start items-end'>
-                { label && <FormLabel className='flex'>{ label }&nbsp;</FormLabel> }
-                { formState?.errors[id]?.message && <span className='text-xs font-light text-destructive'>* {formState.errors[id].message as any}</span> }
+                {label && <FormLabel className='flex'>{label}&nbsp;</FormLabel>}
+                {formState?.errors[id]?.message && <span className='text-xs font-light text-destructive'>* {formState.errors[id].message as any}</span>}
               </div>
 
               <div className='my-2'></div>
@@ -138,15 +140,17 @@ export function Input ({ children, id, form, label, classNameContainer, descript
       render={({ field, formState }) => (
         <FormItem className={cn('w-full', classNameContainer)}>
           <div className='flex justify-start items-end'>
-            { label && <FormLabel className='flex'>{ label }&nbsp;</FormLabel> }
-            { formState?.errors[id]?.message && <span className='text-xs font-light text-destructive'>* {formState.errors[id].message as any}</span> }
+            {label && <FormLabel className='flex'>{label}&nbsp;</FormLabel>}
+            {formState?.errors[id]?.message && <span className='text-xs font-light text-destructive'>* {formState.errors[id].message as any}</span>}
           </div>
 
-          { description && (<FormDescription className='text-xs'>{description}</FormDescription>) }
+          {description && (<FormDescription className='text-xs'>{description}</FormDescription>)}
 
           <div className='my-2'></div>
 
-          <FormControl>
+          <FormControl className={`flex justify-start ${iconDirection === 'right' && 'flex-row-reverse'}`}>
+            {icon && icon}
+
             <InputUI
               {...field}
               {...rest}

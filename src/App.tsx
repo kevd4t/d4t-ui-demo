@@ -1,90 +1,32 @@
 import { Badge, BarChart, Building, DivideCircle, HelpCircle, LucideTruck, Router, Settings, StopCircle, Truck, User } from 'lucide-react'
 
+import { NavLinkNested, Sidebar } from './components/sidebar'
 import { SidebarContent } from './components/sidebar/content'
 import { NavLink } from './components/sidebar/nav-link'
 import { AppLayout } from './layouts/Application'
-import { FormLogin } from './examples/FormLogin'
-import { NavLinkNested, Sidebar } from './components/sidebar'
-import { Table } from './components/data-table/GenericTable'
 import { useState } from 'react'
-import { PaginationState } from '@tanstack/react-table'
-import { getStatusColumns } from './status-table'
 
-import { RowSelectionState } from '@tanstack/react-table'
-import { useFetch } from './lib/hooks'
-import { IFetchDataTable, IUser } from './lib/types'
+import { CodeVerification } from './components/code-verification'
+import { cn } from './lib/utils'
 
-interface HandleTableItemsSelectedParams {
-  itemsTableSelected: RowSelectionState
-  dataItems: any[]
-}
-
-export const handleTableItemsSelected = ({ itemsTableSelected, dataItems }: HandleTableItemsSelectedParams) => {
-  const itemsIdx = Object.keys(itemsTableSelected)
-
-  const usersSelectedFullData = itemsIdx.flatMap(itemIdx => {
-    const itemsFiltred = dataItems.filter((_, idx) => itemIdx === idx.toString())
-    return itemsFiltred
-  })
-
-  return usersSelectedFullData
-}
-
-export const handleFetchUrlUsers = ({ pageIndex, pageSize, search, filters }) => {
-  const status = (filters?.status?.length) ? filters?.status : null
-  const role = (filters?.role?.length) ? filters?.role : null
-
-  const filterStatus = status ? `&status=${status}` : ''
-  const filterRoles = role ? `&role=${role}` : ''
-  const searchText = search ? `&search=${search}` : ''
-
-  const url = `/api/users?page=${pageIndex}&limit=${pageSize}${filterRoles}${filterStatus}${searchText}`
-
-  return url
-}
-
-export const handleFetchUrlUserGroups = ({ pageIndex, pageSize, search, filters }) => {
-  const status = (filters?.status?.length) ? filters?.status : null
-
-  const filterStatus = status ? `&status=${status}` : ''
-  const searchText = search ? `&search=${search}` : ''
-
-  const url = `/api/users/groups?page=${pageIndex}&limit=${pageSize}${searchText}${filterStatus}`
-
-  return url
-}
-
-type GetUsers = () => Promise<any>
-
-const getUsers: GetUsers = async () => fetch('/api/users')
 
 function App() {
-  const profile = {role: 'Administrador', name: 'Kevin', lastname: 'blanco' }
-  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({ pageIndex: 1, pageSize: 5 })
-  const { data, error, loading, fetcher } = useFetch<IFetchDataTable<IUser>>(getUsers)
-  const [usersSelected, setUsersSelected] = useState<RowSelectionState>({})
+  const profile = { role: 'Administrador', name: 'Kevin', lastname: 'blanco' }
+  const [completeVerification] = useState(false)
+  const [loading, setLoading] = useState(false)
 
-  const pagination = {
-    pageSize,
-    pageIndex,
-    setPagination,
-    labels: { pluralItem: 'Estados', singularItem: 'Estado' }
-  }
-
-  const handleSearchWithParams = async ({ search, filters }) => {
-    const usersSelectedFullData = handleTableItemsSelected({ itemsTableSelected: usersSelected, dataItems: data.results })
-    console.log({ usersSelectedFullData })
-
-    const url = handleFetchUrlUsers({ pageSize, pageIndex, search, filters })
-    fetcher(getUsers)
+  const onComplete = (code) => {
+    setLoading(true)
+    console.log(code)
+    setTimeout(() => setLoading(false), 1000)
   }
 
   return (
     <AppLayout>
       <Sidebar
-        logout={() => {}}
+        logout={() => { }}
         profile={profile}
-        theme={{ toggleTheme: () => {}, value: 'dark' }}
+        theme={{ toggleTheme: () => { }, value: 'dark' }}
       >
         <SidebarContent>
           <NavLink
@@ -127,7 +69,7 @@ function App() {
             ]}
           />
 
-         <NavLink
+          <NavLink
             to='/ja'
             pathname='/'
             label='Eventos'
@@ -141,7 +83,7 @@ function App() {
             icon={<Settings className='dark:text-white' size={20} />}
           />
 
-          
+
           <NavLink
             to='/xd2'
             pathname='/'
@@ -246,28 +188,16 @@ function App() {
             pathname='/'
             label='Almacenamiento'
             icon={<Settings className='dark:text-white' size={20} />}
-          /> 
+          />
         </SidebarContent>
       </Sidebar>
 
       <div>
-        <FormLogin />
-
-        <Table
-          visibilityColumns
-          pagination={pagination}
-          data={[
-            {
-              id: 345,
-              title: 'Epale',
-              color: '#eeeeee',
-              description: 'Descripción',
-              isActive: true
-            }
-          ]}
-          queryInfo={{ error: null, isFetching: false }}
-          inputSearch={{ handleSearchWithParams, placeholder: 'Buscar Usuario' }}
-          columns={getStatusColumns({ selection: true, actions: { detail: true } })}
+        <CodeVerification
+          length={4}
+          mode='numeric'
+          onComplete={onComplete}
+          disabled={loading}
         />
       </div>
     </AppLayout>

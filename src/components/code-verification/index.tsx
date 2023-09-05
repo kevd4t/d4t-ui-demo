@@ -1,23 +1,27 @@
-import React, { HTMLAttributes } from 'react'
+import React from 'react'
 import { PinField, PinFieldProps } from 'react-pin-field'
 import { cn } from '../../lib/utils'
 
-export interface ICodeVerificationProps extends PinFieldProps {
-  complete: boolean
+export interface ICodeVerificationProps extends Omit<PinFieldProps, 'validate'> {
+  onComplete: (code: string) => void
+  mode: 'numeric' | 'alpha-numeric'
+  length: number
+  disabled?: boolean
   containerClassName?: string
+  format?: (char: string) => string
 }
 
-export const CodeVerification = ({ complete, onComplete, validate, disabled, tabIndex, autoFocus, format, containerClassName, className, ...rest }: ICodeVerificationProps) => {
+export const CodeVerification = ({ onComplete, mode, length, disabled, tabIndex, autoFocus, containerClassName, className, ...rest }: ICodeVerificationProps) => {
+  const [complete] = React.useState(false)
+
   return (
     <div className={cn('pin-field-container', containerClassName)}>
       <PinField
         className={cn('pin-field', { complete }, className)}
         onComplete={onComplete}
-        format={format}
-        validate={validate}
+        validate={mode === 'numeric' ? '0123456789' : 'abcABC123'}
         disabled={disabled}
-        tabIndex={tabIndex}
-        autoFocus={autoFocus}
+        length={length}
         {...rest}
       />
     </div>
