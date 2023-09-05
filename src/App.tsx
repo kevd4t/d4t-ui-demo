@@ -1,4 +1,4 @@
-import { Badge, BarChart, Building, DivideCircle, HelpCircle, LucideTruck, Router, Settings, StopCircle, Truck, User } from 'lucide-react'
+import { Badge, BanIcon, BarChart, BoxIcon, Building, DivideCircle, HelpCircle, LucideTruck, Router, Settings, StopCircle, Truck, User, UserIcon } from 'lucide-react'
 
 import { NavLinkNested, Sidebar } from './components/sidebar'
 import { SidebarContent } from './components/sidebar/content'
@@ -6,20 +6,18 @@ import { NavLink } from './components/sidebar/nav-link'
 import { AppLayout } from './layouts/Application'
 import { useState } from 'react'
 
-import { CodeVerification } from './components/code-verification'
-import { cn } from './lib/utils'
+import { useForm } from 'react-hook-form'
+import { Input, Form } from './components'
+import { z } from 'zod'
+
+const schema = z.object({
+  name: z.string()
+})
 
 
 function App() {
   const profile = { role: 'Administrador', name: 'Kevin', lastname: 'blanco' }
-  const [completeVerification] = useState(false)
-  const [loading, setLoading] = useState(false)
-
-  const onComplete = (code) => {
-    setLoading(true)
-    console.log(code)
-    setTimeout(() => setLoading(false), 1000)
-  }
+  const form = useForm<z.infer<typeof schema>>()
 
   return (
     <AppLayout>
@@ -192,13 +190,29 @@ function App() {
         </SidebarContent>
       </Sidebar>
 
-      <div>
-        <CodeVerification
-          length={4}
-          mode='numeric'
-          onComplete={onComplete}
-          disabled={loading}
-        />
+      <div className='mx-auto max-w-xs'>
+        <Form {...form}>
+          <Input
+            form={form}
+            id='name'
+            type='text'
+          />
+
+          <Input
+            form={form}
+            id='name'
+            type='text'
+            iconDirection='right'
+            icon={<UserIcon size={17} />}
+          />
+
+          <Input
+            form={form}
+            id='name'
+            type='text'
+            icon={<UserIcon size={17} />}
+          />
+        </Form>
       </div>
     </AppLayout>
   )

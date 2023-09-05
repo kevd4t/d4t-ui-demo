@@ -37,17 +37,30 @@ interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, '
   classNameContainer?: string
   description?: string
   type: React.HTMLInputTypeAttribute | 'pidNumber'
-  icon?: React.ReactNode
+  icon?: React.ReactElement
   iconDirection?: 'left' | 'right'
 }
 
-export function Input({ children, id, form, label, classNameContainer, description, defaultValue, icon, iconDirection, ...rest }: InputProps) {
+export function Input({ children, id, form, label, classNameContainer, description, defaultValue, icon, iconDirection = 'left', ...rest }: InputProps) {
   const [showPassword, setShowPassword] = React.useState(false)
 
   const handleOnKeyUppidNumber = (event) => {
     const { value } = event.target
     const identifierNumberFormmated = formatCI(value)
     form.setValue('identifier', { dni: { number: identifierNumberFormmated } })
+  }
+
+  const validateInputIconClassNames = () => {
+    if (iconDirection === 'left') {
+      if (icon) return 'pl-9'
+      else ''
+    }
+
+    if (iconDirection === 'right') {
+      return 'pr-9'
+    }
+
+    return ''
   }
 
   if (rest.type === 'password') {
@@ -148,14 +161,31 @@ export function Input({ children, id, form, label, classNameContainer, descripti
 
           <div className='my-2'></div>
 
-          <FormControl className={`flex justify-start ${iconDirection === 'right' && 'flex-row-reverse'}`}>
-            {icon && icon}
+          <div className='relative'>
+            {
+              (iconDirection === 'left' && icon) && (
+                <div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none'>
+                  {icon}
+                </div>
+              )
+            }
 
-            <InputUI
-              {...field}
-              {...rest}
-            />
-          </FormControl>
+            <FormControl>
+              <InputUI
+                {...field}
+                {...rest}
+                className={validateInputIconClassNames()}
+              />
+            </FormControl>
+
+            {
+              (iconDirection === 'right' && icon) && (
+                <div className='absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none'>
+                  {icon}
+                </div>
+              )
+            }
+          </div>
         </FormItem>
       )}
     />
