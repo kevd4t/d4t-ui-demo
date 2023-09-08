@@ -2,11 +2,11 @@ import ImageUploading from 'react-images-uploading'
 import { IconPhotoPlus } from '@tabler/icons-react'
 import Zoom from 'react-medium-image-zoom'
 
-import type { ImageListType, onChangeImage, ReactNode } from '@/lib/types'
-import { cn } from '@/lib/utils'
+import type { ImageListType, onChangeImage } from './types'
+import { cn } from '../../lib/utils'
 
-import { Button } from '@/components/ui'
-import { Label } from '../labels'
+import { Button, Label } from '../'
+import { ReactNode } from 'react'
 // import { GridSlider } from '../sliders/GridSlider'
 
 interface IUploadImageProps {
@@ -47,7 +47,7 @@ export const MultipleImages = ({
 }: IUploadImageProps) => {
   return (
     <div>
-      { label && <Label>{label}</Label> }
+      {label && <Label>{label}</Label>}
 
       <div className='my-2'></div>
 
@@ -69,7 +69,7 @@ export const MultipleImages = ({
                         {
                           imageList.map((image, index) => {
                             return (
-                              <div key={index} className ='imagen-container w-full flex flex-col justify-center items-center'>
+                              <div key={index} className='imagen-container w-full flex flex-col justify-center items-center'>
                                 {
                                   zoom
                                     ? (
@@ -100,17 +100,17 @@ export const MultipleImages = ({
                                   {
                                     compress && (
                                       <Button tabIndex={tabIndexs?.viewCompress} className='whitespace-nowrap' type='button' onClick={() => compress.openComparisons()}>
-                                    Ver Compresión
+                                        Ver Compresión
                                       </Button>
                                     )
                                   }
 
                                   <Button tabIndex={tabIndexs?.change} className='max-w-[116.33px] w-full' type='button' onClick={() => onImageUpdate(index)}>
-                                Cambiar
+                                    Cambiar
                                   </Button>
 
                                   <Button tabIndex={tabIndexs?.delete} className='max-w-[116.33px] w-full' type='button' onClick={() => onImageRemove(index)}>
-                                Eliminar
+                                    Eliminar
                                   </Button>
                                 </div>
                               </div>
@@ -118,7 +118,7 @@ export const MultipleImages = ({
                           })
                         }
 
-                        <div className ='imagen-container'>
+                        <div className='imagen-container'>
                           <div
                             {...dragProps}
                             className={cn(`w-full h-[237px] ${isDragging ? 'border-indigo-600' : 'border-slate-50'} flex flex-col justify-center items-center border-dashed border-2 bg-slate-50 bg-opacity-5 rounded-md p-2`, imageContainerClassName)}>
@@ -128,7 +128,7 @@ export const MultipleImages = ({
                               className='p-2 h-min'
                               onClick={onImageUpload}
                             >
-                              <IconPhotoPlus className='w-8 h-8'/>
+                              <IconPhotoPlus className='w-8 h-8' />
                             </Button>
                           </div>
                         </div>
@@ -201,11 +201,11 @@ export const MultipleImages = ({
                         )}
                       >
 
-                        { icons?.placeholder || <IconPhotoPlus className='text-zinc-400 w-10 h-10' /> }
+                        {icons?.placeholder || <IconPhotoPlus className='text-zinc-400 w-10 h-10' />}
 
                         <Button type='button' tabIndex={tabIndexs?.upload} className={`mt-2 ${isDragging && 'text-indigo-600'}`} onClick={onImageUpload}>
-                          { icons?.uploadButton }
-                          { uploadLabel || 'Cargar Imagen' }
+                          {icons?.uploadButton}
+                          {uploadLabel || 'Cargar Imagen'}
                         </Button>
                         <span className='font-semibold text-zinc-500'>o arrastra y suelta imagenes</span>
                       </div>
