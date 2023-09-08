@@ -1,10 +1,9 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Button } from '@/components/ui/button'
+import { Select, Button, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../..'
 import { useTableStore } from './store'
 
-export function TablePagination () {
+export function TablePagination() {
   const { pagination, updateLimit, nextPage, prevPage } = useTableStore()
 
   return (

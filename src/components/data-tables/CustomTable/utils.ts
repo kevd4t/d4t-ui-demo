@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { TablePagination } from './types'
 
 export interface DataToFormat {

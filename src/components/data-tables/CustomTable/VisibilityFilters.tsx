@@ -1,6 +1,7 @@
 import { IconAdjustmentsHorizontal } from '@tabler/icons-react'
-import { Button } from 'd4t-ui-demo'
 import { useTableStore } from './store'
+
+import { Button } from '../..'
 
 export const VisibilityFilters = () => {
   const { showFilters, setShowFilters } = useTableStore()

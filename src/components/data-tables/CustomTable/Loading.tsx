@@ -1,4 +1,4 @@
-import { LoaderDots } from '@/components/common/loaders/DynamicDots'
+import { LoaderDots } from '../../'
 
 export const TableLoading = () => {
   return (
