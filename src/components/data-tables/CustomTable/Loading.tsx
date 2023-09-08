@@ -1,6 +1,6 @@
-import { LoaderDots } from '../../loaders/DynamicDots'
+import { LoaderDots } from '@/components/common/loaders/DynamicDots'
 
-export const TableFetchingData = () => {
+export const TableLoading = () => {
   return (
     <div className='w-full h-full flex flex-col justify-center items-center py-24'>
       <LoaderDots />
