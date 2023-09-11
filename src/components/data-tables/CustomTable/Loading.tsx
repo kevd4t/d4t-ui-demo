@@ -1,4 +1,6 @@
-import { LoaderDots } from '../../'
+export const LoaderDots = () => {
+  return <span className='loader-fade-dot'></span>
+}
 
 export const TableLoading = () => {
   return (

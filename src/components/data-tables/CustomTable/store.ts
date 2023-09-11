@@ -1,5 +1,9 @@
+// @ts-nocheck
+
+import { createContext } from 'react'
 import { create } from 'zustand'
-import { InitialTable, TableFilter, TableQuery, TableStore } from './types'
+
+import { InitialTable, TableContextStore, TableFilter, TableQuery, TableStore } from './types'
 
 // TODO Refactor
 export const useTableStore = create<TableStore<any>>((set, get) => ({
@@ -16,8 +20,6 @@ export const useTableStore = create<TableStore<any>>((set, get) => ({
     hasPrevPage: false,
     hasNextPage: false
   },
-
-  setOnSubmitTable: (submit) => set((prevState) => ({ ...prevState, onSubmitTable: submit })),
 
   setInitialTable: (initialState: InitialTable<any>) => set((prevState) => {
     const filterFiltersExist = (columnToFilter) => columnToFilter?.filters && columnToFilter?.filters.length
@@ -142,3 +144,21 @@ export const useTableStore = create<TableStore<any>>((set, get) => ({
   setQueries: (queries) => set(prevState => ({ ...prevState, queries })),
   setData: (data) => set(prevState => ({ ...prevState, data }))
 }))
+
+export const TableContext = createContext<TableContextStore>({
+  data: [],
+  filters: [],
+  queries: [],
+  columns: [],
+  showFilters: true,
+  searchForm: null,
+  onSubmitTable: null,
+  setSearchForm: () => { },
+  pagination: {
+    limit: 5,
+    page: 1,
+    labels: { plural: 'Items', single: 'Item' },
+    hasPrevPage: false,
+    hasNextPage: false
+  }
+})

@@ -1,7 +1,9 @@
-import { TableBody as TableBodyUI, TableCell, TableRow } from 'd4t-ui-demo'
-import { useTableStore } from './store'
-import { TableColumn } from './types'
+import { useContext } from 'react'
+
+import { TableBody as TableBodyUI, TableCell, TableRow } from '../../table'
 import { generateUUID } from './utils'
+import { TableContext } from './store'
+import { TableColumn } from './types'
 
 const TableBodyEmpty = ({ colSpan }: { colSpan: number }) => {
   return (
@@ -38,7 +40,7 @@ const TableBodyRow = ({ data, columns }: { data: Record<string, string>[], colum
 }
 
 export const TableBody = () => {
-  const { data, columns } = useTableStore()
+  const { data, columns } = useContext(TableContext)
 
   return (
     <TableBodyUI>

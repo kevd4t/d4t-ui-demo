@@ -1,10 +1,11 @@
 import { IconAdjustmentsHorizontal } from '@tabler/icons-react'
-import { useTableStore } from './store'
+import { useContext } from 'react'
 
+import { TableContext } from './store'
 import { Button } from '../..'
 
 export const VisibilityFilters = () => {
-  const { showFilters, setShowFilters } = useTableStore()
+  const { showFilters, setShowFilters } = useContext(TableContext)
 
   return (
     <Button

@@ -11,7 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   Label
-} from 'd4t-ui-demo'
+} from '../..'
 
 interface SearchQueryProps {
   id: string

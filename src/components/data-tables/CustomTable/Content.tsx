@@ -1,4 +1,4 @@
-import { TableUI } from 'd4t-ui-demo'
+import { TableUI } from '../../table'
 
 import { TableHeader } from './Header'
 import { TableBody } from './Body'

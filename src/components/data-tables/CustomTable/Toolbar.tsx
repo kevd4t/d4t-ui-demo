@@ -1,13 +1,15 @@
-import React from 'react'
-import { useTableStore } from './store'
-import { SearchQuery } from './SearchQuery'
-import { Button } from 'd4t-ui-demo'
+import React, { useContext } from 'react'
+import { Button } from '../..'
 import { X } from 'lucide-react'
-import { FacetedFilter } from './FacetedFilter'
+
+import { TableContext } from './store'
+
 import { VisibilityFilters } from './VisibilityFilters'
+import { FacetedFilter } from './FacetedFilter'
+import { SearchQuery } from './SearchQuery'
 
 export const TableToolbar = ({ form, onSubmit }) => {
-  const { queries, filters, showFilters, resetFilters } = useTableStore()
+  const { queries, filters, showFilters, resetFilters } = useContext(TableContext)
   const watchFields = form.watch(queries.map(item => item.id))
 
   return (
@@ -29,37 +31,43 @@ export const TableToolbar = ({ form, onSubmit }) => {
           </section>
         </form>
 
-        <div className='w-auto h-full flex flex-wrap gap-x-3 gap-y-2 justify-start items-center'>
-          <VisibilityFilters />
+        {
+          filters?.length
+            ? (
+              <div className='w-auto h-full flex flex-wrap gap-x-3 gap-y-2 justify-start items-center'>
+                <VisibilityFilters />
 
-          {
-            (showFilters && filters) && filters.map(filter => (
-              <FacetedFilter
-                key={filter.id}
-                id={filter.id}
-                icon={filter.icon}
-                label={filter.label}
-                options={filter.options}
-              />
-            ))
-          }
-          {
-            showFilters && (
-              <Button
-                type='button'
-                variant='ghost'
-                onClick={() => {
-                  // table.resetColumnFilters()
-                  resetFilters()
-                }}
-                className='px-2 py-5 lg:px-3 ml-0 lg:ml-auto'
-              >
-                  Limpiar Filtros
-                <X className='ml-2 h-4 w-4' />
-              </Button>
+                {
+                  (showFilters && filters) && filters.map(filter => (
+                    <FacetedFilter
+                      key={filter.id}
+                      id={filter.id}
+                      icon={filter.icon}
+                      label={filter.label}
+                      options={filter.options}
+                    />
+                  ))
+                }
+                {
+                  showFilters && (
+                    <Button
+                      type='button'
+                      variant='ghost'
+                      onClick={() => {
+                        // table.resetColumnFilters()
+                        resetFilters()
+                      }}
+                      className='px-2 py-5 lg:px-3 ml-0 lg:ml-auto'
+                    >
+                      Limpiar Filtros
+                      <X className='ml-2 h-4 w-4' />
+                    </Button>
+                  )
+                }
+              </div>
             )
-          }
-        </div>
+            : null
+        }
       </div>
     </div>
   )

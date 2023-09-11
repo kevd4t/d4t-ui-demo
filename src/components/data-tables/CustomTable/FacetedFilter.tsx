@@ -1,9 +1,12 @@
-import { Badge, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, Popover, PopoverContent, PopoverTrigger, Separator, cn } from 'd4t-ui-demo'
-import { useTableStore } from './store'
-import { Check } from 'lucide-react'
-import { ReactNode, useEffect } from 'react'
-import { TableFilterOption } from './types'
 import { IconAdjustments } from '@tabler/icons-react'
+import { ReactNode, useContext } from 'react'
+import { Check } from 'lucide-react'
+
+import { TableFilterOption } from './types'
+import { TableContext } from './store'
+
+import { Badge, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, Popover, PopoverContent, PopoverTrigger, Separator } from '../..'
+import { cn } from '../../../lib/utils'
 
 interface FacetedFilterProps {
   id: string
@@ -13,7 +16,7 @@ interface FacetedFilterProps {
 }
 
 export const FacetedFilter = ({ id, icon, label, options }: FacetedFilterProps) => {
-  const { selectOptionFilter, getFilterOptionsSelectedById: getOptionsSelectedById, resetFilters } = useTableStore()
+  const { selectOptionFilter, getFilterOptionsSelectedById, resetFilters } = useContext(TableContext)
 
   return (
     <Popover>
@@ -24,7 +27,7 @@ export const FacetedFilter = ({ id, icon, label, options }: FacetedFilterProps) 
           {label}
 
           {
-            getOptionsSelectedById(id).length > 0 && (
+            getFilterOptionsSelectedById(id).length > 0 && (
               <>
                 <Separator orientation='vertical' className='mx-2 h-4' />
 
@@ -32,33 +35,34 @@ export const FacetedFilter = ({ id, icon, label, options }: FacetedFilterProps) 
                   variant='secondary'
                   className='rounded-sm px-1 font-normal lg:hidden'
                 >
-                  {getOptionsSelectedById(id).length}
+                  {getFilterOptionsSelectedById(id).length}
                 </Badge>
 
                 <div className='hidden space-x-1 lg:flex'>
                   {
-                    getOptionsSelectedById(id).length > 2
+                    getFilterOptionsSelectedById(id).length > 2
                       ? (
                         <Badge
                           variant='secondary'
                           className='rounded-sm px-1 font-normal'
                         >
-                          {getOptionsSelectedById(id).length} seleccionados
+                          {getFilterOptionsSelectedById(id).length} seleccionados
                         </Badge>
                       )
                       : (
-                        // <div>epa</div>
                         options
                           .filter((option) => option.selected)
-                          .map((option) => (
-                            <Badge
-                              variant='secondary'
-                              key={option.value.toString()}
-                              className='rounded-sm px-1 font-normal'
-                            >
-                              {option.label}
-                            </Badge>
-                          ))
+                          .map((option) => {
+                            return (
+                              <Badge
+                                variant='secondary'
+                                key={option.value.toString()}
+                                className='rounded-sm px-1 font-normal'
+                              >
+                                {option.label}
+                              </Badge>
+                            )
+                          })
                       )}
                 </div>
               </>
@@ -116,7 +120,7 @@ export const FacetedFilter = ({ id, icon, label, options }: FacetedFilterProps) 
             </CommandGroup>
 
             {
-              getOptionsSelectedById(id).length > 0 && (
+              getFilterOptionsSelectedById(id).length > 0 && (
                 <>
                   <CommandSeparator />
 

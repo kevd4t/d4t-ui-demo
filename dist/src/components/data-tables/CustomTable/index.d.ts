@@ -8,5 +8,5 @@ interface CustomTableProps<DataSchema> {
     error: boolean;
     onSubmitTable: TableSubmit;
 }
-export declare function CustomTable<DataSchema>({ data, onSubmitTable, pagination, columns, loading, error }: CustomTableProps<DataSchema>): JSX.Element;
+export declare function CustomTable<DataSchema>(props: CustomTableProps<DataSchema>): JSX.Element;
 export {};

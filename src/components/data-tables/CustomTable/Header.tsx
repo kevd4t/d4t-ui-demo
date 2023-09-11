@@ -1,8 +1,10 @@
-import { TableHead, TableRow, TableHeader as TablerHeaderUI } from 'd4t-ui-demo'
-import { useTableStore } from './store'
+import { useContext } from 'react'
+
+import { TableHead, TableRow, TableHeader as TablerHeaderUI } from '../../table'
+import { TableContext } from './store'
 
 export const TableHeader = () => {
-  const { columns } = useTableStore()
+  const { columns } = useContext(TableContext)
 
   return (
     <TablerHeaderUI>

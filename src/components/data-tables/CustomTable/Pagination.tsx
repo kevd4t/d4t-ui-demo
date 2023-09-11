@@ -1,10 +1,12 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useContext } from 'react'
+
+import { TableContext } from './store'
 
 import { Select, Button, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../..'
-import { useTableStore } from './store'
 
 export function TablePagination() {
-  const { pagination, updateLimit, nextPage, prevPage } = useTableStore()
+  const { pagination, updateLimit, nextPage, prevPage } = useContext(TableContext)
 
   return (
     <div className='flex flex-wrap items-center justify-end'>
@@ -47,6 +49,7 @@ export function TablePagination() {
 
         <div className='flex items-center space-x-2'>
           <Button
+            type='button'
             variant='outline'
             className='h-8 w-8 p-0'
             onClick={() => prevPage()}
@@ -61,6 +64,7 @@ export function TablePagination() {
           </div>
 
           <Button
+            type='button'
             variant='outline'
             className='h-8 w-8 p-0'
             onClick={() => nextPage()}

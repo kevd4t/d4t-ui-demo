@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { UseFormReturn } from 'react-hook-form';
 export interface TableFilterOption {
     id: string;
     label: string;
@@ -26,7 +27,7 @@ export interface TableQuery {
     id: string;
     label: string;
 }
-export interface TablePaginationLabel {
+interface TablePaginationLabel {
     plural: string;
     single: string;
 }
@@ -44,13 +45,23 @@ export interface TableSubmitParams {
     page: number;
 }
 export declare type TableSubmit = ({ page, limit, queries, filters }: TableSubmitParams) => Promise<void>;
-export interface InitialTable<TData> {
+export interface InitialTable<TData = any> {
     data: TData[] | [];
     filters: TableFilter[];
     queries: TableQuery[];
+    showFilters: boolean;
     columns: TableColumn<TData>[];
     pagination: TablePagination;
     onSubmitTable: TableSubmit;
+    setShowFilters: (value: boolean) => void;
+    setSearchForm: (searchForm: any) => void;
+    selectOptionFilter: (filterId: string, optionId: string, optionValue: boolean) => void;
+    getFiltersWithOptionsSelected: () => any[];
+    getFilterOptionsSelectedById: (filterId: string) => any[];
+    resetFilters: () => void;
+    nextPage: () => void;
+    prevPage: () => void;
+    updateLimit: (limit: number) => void;
 }
 export interface TableStore<TData> {
     data: TData[] | [];
@@ -60,7 +71,6 @@ export interface TableStore<TData> {
     filters?: TableFilter[];
     queries?: TableQuery[];
     onSubmitTable: TableSubmit;
-    setOnSubmitTable: (submit: TableSubmit) => void;
     selectOptionFilter: (filterId: string, optionId: string, optionValue: boolean) => void;
     getFiltersWithOptionsSelected: () => any[];
     getFilterOptionsSelectedById: (filterId: string) => any[];
@@ -76,5 +86,24 @@ export interface TableStore<TData> {
     setFilters: (filters: TableFilter[]) => void;
     setQueries: (queries: TableQuery[]) => void;
     setData: (data: TData[] | []) => void;
+}
+export interface TableContextStore<TData = any> {
+    data: TData[] | [];
+    showFilters: boolean;
+    columns: TableColumn<TData>[];
+    pagination: TablePagination;
+    searchForm?: UseFormReturn<any, any, any>;
+    filters?: TableFilter[];
+    queries?: TableQuery[];
+    onSubmitTable: TableSubmit;
+    setSearchForm: (searchForm: any) => void;
+    setShowFilters: (value: boolean) => void;
+    selectOptionFilter: (filterId: string, optionId: string, optionValue: boolean) => void;
+    getFiltersWithOptionsSelected: () => any[];
+    getFilterOptionsSelectedById: (filterId: string) => any[];
+    resetFilters: () => void;
+    nextPage: () => void;
+    prevPage: () => void;
+    updateLimit: (limit: number) => void;
 }
 export {};
