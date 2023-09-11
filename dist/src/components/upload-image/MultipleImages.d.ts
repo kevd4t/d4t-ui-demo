@@ -1,27 +1,7 @@
-import type { ImageListType, onChangeImage } from './types';
-import { ReactNode } from 'react';
-interface IUploadImageProps {
-    imageToUpload: ImageListType;
-    onChange: onChangeImage;
-    label?: string;
-    emptyClassName?: string;
-    imageContainerClassName?: string;
-    uploadLabel?: string;
-    zoom?: boolean;
-    multiple?: boolean;
-    compress?: {
-        openComparisons: () => void;
-    };
-    icons?: {
-        placeholder?: ReactNode;
-        uploadButton?: ReactNode;
-    };
-    tabIndexs?: {
-        viewCompress?: number;
-        upload?: number;
-        change?: number;
-        delete?: number;
-    };
+import { SetStateAction, Dispatch } from 'react';
+import type { IUploadImage, IUploadImageProps } from './types';
+interface IMultipleUploadImageProps extends Omit<IUploadImageProps, 'setUploadImage'> {
+    setUploadImage: Dispatch<SetStateAction<IUploadImage[]>>;
 }
-export declare const MultipleImages: ({ imageToUpload, onChange, label, uploadLabel, tabIndexs, emptyClassName, imageContainerClassName, icons, zoom, compress }: IUploadImageProps) => JSX.Element;
+export declare const MultipleImages: ({ label, setUploadImage, format, uploadLabel, tabIndexs, emptyClassName, imageContainerClassName, icons, zoom, compress }: IMultipleUploadImageProps) => JSX.Element;
 export {};

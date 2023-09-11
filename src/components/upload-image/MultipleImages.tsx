@@ -1,42 +1,23 @@
+import { SetStateAction, useState, Dispatch } from 'react'
 import ImageUploading from 'react-images-uploading'
 import { IconPhotoPlus } from '@tabler/icons-react'
 import Zoom from 'react-medium-image-zoom'
 
-import type { ImageListType, onChangeImage } from './types'
-import { cn } from '../../lib/utils'
+import type { ImageListType, onChangeImage, IUploadImage, IUploadImageProps } from './types'
 
-import { Button, Label } from '../'
-import { ReactNode } from 'react'
-// import { GridSlider } from '../sliders/GridSlider'
+import { compressImage } from './handleCompressionImage'
+import { Button } from '../button'
+import { Label } from '../label'
+import { cn, convertBytes } from '../../lib/utils'
 
-interface IUploadImageProps {
-  imageToUpload: ImageListType
-  onChange: onChangeImage
-  label?: string
-  emptyClassName?: string
-  imageContainerClassName?: string
-  uploadLabel?: string
-  zoom?: boolean
-  multiple?: boolean
-  compress?: {
-    openComparisons: () => void
-  }
-  icons?: {
-    placeholder?: ReactNode
-    uploadButton?: ReactNode
-  }
-  tabIndexs?: {
-    viewCompress?: number
-    upload?: number
-    change?: number
-    delete?: number
-  }
+interface IMultipleUploadImageProps extends Omit<IUploadImageProps, 'setUploadImage'> {
+  setUploadImage: Dispatch<SetStateAction<IUploadImage[]>>
 }
 
 export const MultipleImages = ({
-  imageToUpload,
-  onChange,
   label,
+  setUploadImage,
+  format,
   uploadLabel,
   tabIndexs,
   emptyClassName,
@@ -44,7 +25,55 @@ export const MultipleImages = ({
   icons,
   zoom,
   compress
-}: IUploadImageProps) => {
+}: IMultipleUploadImageProps) => {
+  const [localImage, setLocalImage] = useState<ImageListType>([])
+
+  const onChangeImage: onChangeImage = async (imageList, addUpdateIndex) => {
+    const originalFile = imageList[0]?.file
+    const originalDataUrl = imageList[0]?.data_url
+
+    if (!originalFile) {
+      setLocalImage(([{ data_url: '', file: null }]))
+      return
+    }
+
+    const { data_url: compressedUrl, file: compressedFile } = await compressImage({
+      imageFile: originalFile,
+      quality: format?.quality || 10,
+      maxWidth: format?.width || 500,
+      maxHeight: format?.width || 500,
+      compressFormat: format?.extension || 'png',
+      rotation: format?.rotation || 0
+    })
+
+    const originalSize = convertBytes(imageList[0]?.file.size)
+    const compreesedSize = convertBytes(compressedFile.size)
+
+    setLocalImage([{ data_url: originalDataUrl, file: originalFile }])
+
+    setUploadImage(prevState => ([
+      ...prevState,
+      {
+        original: {
+          preview: imageList[0]?.data_url as string,
+          file: imageList[0]?.file,
+          size: {
+            formated: originalSize,
+            bytes: imageList[0]?.file.size
+          }
+        },
+        compressed: {
+          preview: compressedUrl?.toString() as string,
+          file: compressedFile,
+          size: {
+            formated: compreesedSize,
+            bytes: compressedFile.size
+          }
+        }
+      }
+    ]))
+  }
+
   return (
     <div>
       {label && <Label>{label}</Label>}
@@ -53,10 +82,10 @@ export const MultipleImages = ({
 
       <ImageUploading
         multiple
-        onChange={onChange}
-        value={imageToUpload}
+        value={localImage}
         dataURLKey='data_url'
-        acceptType={['webp', 'png', 'jpg', 'jpeg']}
+        onChange={onChangeImage}
+        acceptType={['webp', 'png', 'jpeg']}
       >
         {({ imageList, onImageUpload, onImageUpdate, onImageRemove, isDragging, dragProps }) => {
           return (
