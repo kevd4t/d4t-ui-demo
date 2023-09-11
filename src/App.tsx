@@ -4,10 +4,10 @@ import { NavLinkNested, Sidebar } from './components/sidebar'
 import { SidebarContent } from './components/sidebar/content'
 import { NavLink } from './components/sidebar/nav-link'
 import { AppLayout } from './layouts/Application'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { useForm } from 'react-hook-form'
-import { Input, Form } from './components'
+import { Input, Form, UploadImage, IUploadImage } from './components'
 import { z } from 'zod'
 
 const schema = z.object({
@@ -16,8 +16,13 @@ const schema = z.object({
 
 
 function App() {
+  const [photo, setPhoto] = useState<IUploadImage>({ compressed: null, original: null })
   const profile = { role: 'Administrador', name: 'Kevin', lastname: 'blanco' }
   const form = useForm<z.infer<typeof schema>>()
+
+  useEffect(() => {
+    console.log(photo)
+  }, [photo])
 
   return (
     <AppLayout>
@@ -191,35 +196,9 @@ function App() {
       </Sidebar>
 
       <div className='mx-auto max-w-xs'>
-        <Form {...form}>
-          <Input
-            form={form}
-            id='name'
-            type='text'
-          />
-
-          <Input
-            form={form}
-            id='lastname'
-            type='text'
-            iconDirection='right'
-            icon={<UserIcon size={17} />}
-          />
-
-          <Input
-            form={form}
-            id='password'
-            type='password'
-            iconDirection='right'
-          />
-
-          <Input
-            form={form}
-            id='password'
-            type='password'
-            iconDirection='left'
-          />
-        </Form>
+        <UploadImage
+          setUploadImage={setPhoto}
+        />
       </div>
     </AppLayout>
   )
