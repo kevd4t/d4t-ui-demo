@@ -1,6 +1,8 @@
 import React from 'react'
 
 import { cn } from '../../lib/utils'
+import { Avatar, AvatarImage, AvatarFallback } from '../'
+import { ImageOff } from 'lucide-react'
 
 interface ImageWithoutZoomProps {
   previewUrl: string
@@ -9,13 +11,11 @@ interface ImageWithoutZoomProps {
 
 export const ImageWithoutZoom = ({ previewUrl, imageContainerClassName }: ImageWithoutZoomProps) => {
   return (
-    <div className={cn('w-full h-[237px]', imageContainerClassName)}>
-      <img
-        src={previewUrl}
-        alt='image'
-        className='rounded-md object-contain m-auto h-full'
-        style={{ width: '-webkit-fill-available' }}
-      />
-    </div>
+    <Avatar className={cn('w-full h-[237px] rounded-md', imageContainerClassName)}>
+      <AvatarImage src={previewUrl} className='rounded-md object-contain m-auto h-full' style={{ width: '-webkit-fill-available' }} />
+      <AvatarFallback className='w-full h-full rounded-md'>
+        <ImageOff />
+      </AvatarFallback>
+    </Avatar>
   )
 }
