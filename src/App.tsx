@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Input, Form, UploadImage, IUploadImage } from './components'
 import { z } from 'zod'
+import FileResizer from 'react-image-file-resizer'
 
 const schema = z.object({
   name: z.string()
@@ -198,6 +199,9 @@ function App() {
       <div className='mx-auto max-w-xs'>
         <UploadImage
           setUploadImage={setPhoto}
+          compress={{
+            resizer: FileResizer
+          }}
         />
       </div>
     </AppLayout>

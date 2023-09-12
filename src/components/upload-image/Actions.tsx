@@ -15,7 +15,7 @@ export const UploadImageActions = ({ imageIndex, compress, tabIndexs, onImageUpd
   return (
     <div className='mt-2 gap-x-2 w-full flex justify-center items-start'>
       {
-        compress && (
+        compress?.openComparisons && (
           <Button
             tabIndex={tabIndexs?.viewCompress}
             className='whitespace-nowrap'

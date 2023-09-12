@@ -41,9 +41,11 @@ interface IHandleCompressionImageParams {
   minHeight?: number
   outputType?: string
   compressFormat?: string
+  resizer: typeof FileResizer
 }
 
 const compressImage = ({
+  resizer,
   imageFile,
   maxWidth = 1080, // Nueva resolución horizontal
   maxHeight = 720, // Nueva resolución vertical
@@ -53,7 +55,7 @@ const compressImage = ({
   outputType = 'base64'
 }: IHandleCompressionImageParams): Promise<{ data_url: string | Blob | File | ProgressEvent<FileReader>, file: File }> => {
   return new Promise((resolve) => {
-    FileResizer?.imageFileResizer(
+    resizer?.imageFileResizer(
       imageFile,
       maxWidth,
       maxHeight,
@@ -92,37 +94,51 @@ export const UploadImage = ({
       return
     }
 
-    const { data_url: compressedUrl, file: compressedFile } = await compressImage({
-      imageFile: originalFile,
-      quality: format?.quality || 10,
-      maxWidth: format?.width || 500,
-      maxHeight: format?.width || 500,
-      compressFormat: format?.extension || 'png',
-      rotation: format?.rotation || 0
-    })
-
-    const originalSize = convertBytes(imageList[0]?.file.size)
-    const compreesedSize = convertBytes(compressedFile.size)
-
     setLocalImage([{ data_url: originalDataUrl, file: originalFile }])
+    const originalSize = convertBytes(imageList[0]?.file.size)
+
+    if (compress?.resizer) {
+      const { data_url: compressedUrl, file: compressedFile } = await compressImage({
+        resizer: compress?.resizer,
+        imageFile: originalFile,
+        quality: format?.quality || 10,
+        maxWidth: format?.width || 500,
+        maxHeight: format?.width || 500,
+        compressFormat: format?.extension || 'png',
+        rotation: format?.rotation || 0
+      })
+
+      const compreesedSize = convertBytes(compressedFile.size)
+
+      setUploadImage({
+        original: {
+          preview: imageList[0]?.data_url as string,
+          file: imageList[0]?.file,
+          size: {
+            formated: originalSize,
+            bytes: imageList[0]?.file.size
+          }
+        },
+        compressed: {
+          preview: compressedUrl?.toString() as string,
+          file: compressedFile,
+          size: {
+            formated: compreesedSize,
+            bytes: compressedFile.size
+          }
+        }
+      })
+
+      return
+    }
 
     setUploadImage({
       original: {
         preview: imageList[0]?.data_url as string,
         file: imageList[0]?.file,
-        size: {
-          formated: originalSize,
-          bytes: imageList[0]?.file.size
-        }
+        size: { formated: originalSize, bytes: imageList[0]?.file.size }
       },
-      compressed: {
-        preview: compressedUrl?.toString() as string,
-        file: compressedFile,
-        size: {
-          formated: compreesedSize,
-          bytes: compressedFile.size
-        }
-      }
+      compressed: null
     })
   }
 
