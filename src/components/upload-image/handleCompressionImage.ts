@@ -1,4 +1,4 @@
-import Resizer from 'react-image-file-resizer'
+import FileResizer from 'react-image-file-resizer'
 
 const dataURItoFile = (dataURI: string, filename: string): File => {
   const arr = dataURI.split(',')
@@ -42,7 +42,7 @@ export const compressImage = ({
   outputType = 'base64'
 }: IHandleCompressionImageParams): Promise<{ data_url: string | Blob | File | ProgressEvent<FileReader>, file: File }> => {
   return new Promise((resolve) => {
-    Resizer.imageFileResizer(
+    FileResizer.imageFileResizer(
       imageFile,
       maxWidth,
       maxHeight,

@@ -1,5 +1,5 @@
 import ImageUploading from 'react-images-uploading'
-import Resizer from 'react-image-file-resizer'
+import FileResizer from 'react-image-file-resizer'
 import { useState } from 'react'
 
 import type { IUploadImageProps, ImageListType, onChangeImage } from './types'
@@ -53,7 +53,7 @@ const compressImage = ({
   outputType = 'base64'
 }: IHandleCompressionImageParams): Promise<{ data_url: string | Blob | File | ProgressEvent<FileReader>, file: File }> => {
   return new Promise((resolve) => {
-    Resizer?.imageFileResizer(
+    FileResizer?.imageFileResizer(
       imageFile,
       maxWidth,
       maxHeight,

@@ -1,3 +1,4 @@
+export * from 'react-image-file-resizer';
 export * from "./button";
 export * from './calendar';
 export * from './avatar';
