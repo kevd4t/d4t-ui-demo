@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { TableBody as TableBodyUI, TableCell, TableRow } from '../../table'
 import { generateUUID } from './utils'
 import { TableContext } from './store'
-import { TableColumn } from './types'
+import { ITableColumn } from './types'
 
 const TableBodyEmpty = ({ colSpan }: { colSpan: number }) => {
   return (
@@ -15,7 +15,7 @@ const TableBodyEmpty = ({ colSpan }: { colSpan: number }) => {
   )
 }
 
-const TableBodyRow = ({ data, columns }: { data: Record<string, string>[], columns: TableColumn<any>[] }) => {
+const TableBodyRow = ({ data, columns }: { data: Record<string, string>[], columns: ITableColumn<any>[] }) => {
   return (
     <>
       {

@@ -2,7 +2,7 @@ import { IconAdjustments } from '@tabler/icons-react'
 import { ReactNode, useContext } from 'react'
 import { Check } from 'lucide-react'
 
-import { TableFilterOption } from './types'
+import { ITableFilterOption } from './types'
 import { TableContext } from './store'
 
 import { Badge, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, Popover, PopoverContent, PopoverTrigger, Separator } from '../..'
@@ -12,7 +12,7 @@ interface FacetedFilterProps {
   id: string
   label: string
   icon: ReactNode
-  options: TableFilterOption[]
+  options: ITableFilterOption[]
 }
 
 export const FacetedFilter = ({ id, icon, label, options }: FacetedFilterProps) => {

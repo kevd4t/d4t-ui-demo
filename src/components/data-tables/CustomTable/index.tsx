@@ -1,4 +1,4 @@
-import type { ITablePagination, InitialTable, TableColumn, TableFilter, TableSubmit, TableSubmitParams } from './types'
+import type { ITablePagination, IInitialTable, ITableColumn, ITableFilter, ITableSubmit, ITableSubmitParams } from './types'
 import { useCallback, useEffect, useState } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import { TableContext } from './store'
@@ -13,10 +13,10 @@ import { TableEmpty } from './Empty'
 interface CustomTableProps<DataSchema> {
   data: DataSchema[];
   pagination: ITablePagination;
-  columns: TableColumn<DataSchema>[];
+  columns: ITableColumn<DataSchema>[];
   loading: boolean;
   error: boolean;
-  onSubmitTable: TableSubmit;
+  onSubmitTable: ITableSubmit;
 }
 
 const initialPagination: ITablePagination = {
@@ -34,7 +34,7 @@ export function CustomTable<DataSchema>(props: CustomTableProps<DataSchema>) {
   const [searchForm, setSearchForm] = useState<UseFormReturn<any, any, any>>()
   const [pagination, setPagination] = useState(props?.pagination ?? initialPagination)
 
-  const handleSubmit = useCallback((params: TableSubmitParams) => props.onSubmitTable({ ...params }), [props])
+  const handleSubmit = useCallback((params: ITableSubmitParams) => props.onSubmitTable({ ...params }), [props])
 
   const updatePagination = useCallback((newPagination) => {
     setPagination(newPagination)
@@ -52,7 +52,7 @@ export function CustomTable<DataSchema>(props: CustomTableProps<DataSchema>) {
       })
     })
 
-    const filtersSelected: TableFilter[] = globalFilters
+    const filtersSelected: ITableFilter[] = globalFilters
       .map((filter) => ({
         id: filter.id,
         label: filter.label,
@@ -77,9 +77,9 @@ export function CustomTable<DataSchema>(props: CustomTableProps<DataSchema>) {
     if (!globalFilters?.length) {
       const filterFiltersExist = (columnToFilter) => columnToFilter?.filters && columnToFilter?.filters.length
 
-      const filters: TableFilter[] = columns.filter(filterFiltersExist).map((filter) => {
+      const filters: ITableFilter[] = columns.filter(filterFiltersExist).map((filter) => {
         const filterOptions = filter.filters.map((filterOption) => ({ ...filterOption, selected: false }))
-        const toReturn: TableFilter = { ...filter, id: filter.id as string, options: filterOptions }
+        const toReturn: ITableFilter = { ...filter, id: filter.id as string, options: filterOptions }
 
         return toReturn
       })
@@ -88,7 +88,7 @@ export function CustomTable<DataSchema>(props: CustomTableProps<DataSchema>) {
     }
   }, [columns, globalFilters?.length])
 
-  const initialValues: InitialTable = {
+  const initialValues: IInitialTable = {
     data,
     columns,
     pagination,

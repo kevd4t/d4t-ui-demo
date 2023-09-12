@@ -3,10 +3,10 @@
 import { createContext } from 'react'
 import { create } from 'zustand'
 
-import { InitialTable, TableContextStore, TableFilter, TableQuery, TableStore } from './types'
+import { IInitialTable, ITableContextStore, ITableFilter, ITableQuery, ITableStore } from './types'
 
 // TODO Refactor
-export const useTableStore = create<TableStore<any>>((set, get) => ({
+export const useTableStore = create<ITableStore<any>>((set, get) => ({
   data: [],
   filters: [],
   queries: [],
@@ -21,10 +21,10 @@ export const useTableStore = create<TableStore<any>>((set, get) => ({
     hasNextPage: false
   },
 
-  setInitialTable: (initialState: InitialTable<any>) => set((prevState) => {
+  setInitialTable: (initialState: IInitialTable<any>) => set((prevState) => {
     const filterFiltersExist = (columnToFilter) => columnToFilter?.filters && columnToFilter?.filters.length
 
-    const filters: TableFilter[] = initialState.columns.filter(filterFiltersExist).map(filter => {
+    const filters: ITableFilter[] = initialState.columns.filter(filterFiltersExist).map(filter => {
       const filterOptions = filter.filters.map(filterOption => ({ ...filterOption, selected: false }))
       const toReturn = { ...filter, id: filter.id as string, options: filterOptions }
 
@@ -34,7 +34,7 @@ export const useTableStore = create<TableStore<any>>((set, get) => ({
     })
 
     const columnsWithQueries = initialState.columns.filter(userColumn => userColumn.isQuery)
-    const queries: TableQuery[] = columnsWithQueries.map(column => ({
+    const queries: ITableQuery[] = columnsWithQueries.map(column => ({
       id: column.id as string,
       label: column.label
     }))
@@ -145,7 +145,7 @@ export const useTableStore = create<TableStore<any>>((set, get) => ({
   setData: (data) => set(prevState => ({ ...prevState, data }))
 }))
 
-export const TableContext = createContext<TableContextStore>({
+export const TableContext = createContext<ITableContextStore>({
   data: [],
   filters: [],
   queries: [],

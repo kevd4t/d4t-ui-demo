@@ -8,10 +8,10 @@ import { z } from 'zod'
 import { Button, Form, Spinner } from '../../'
 import { TableToolbar } from './Toolbar'
 import { TableContext } from './store'
-import { TableSubmit } from './types'
+import { ITableSubmit } from './types'
 
 interface TableSearchProps {
-  onSubmitTable: TableSubmit
+  onSubmitTable: ITableSubmit
   loading: boolean
 }
 

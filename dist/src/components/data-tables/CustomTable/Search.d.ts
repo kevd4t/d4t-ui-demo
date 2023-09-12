@@ -1,7 +1,7 @@
 /// <reference types="react" />
-import { TableSubmit } from './types';
+import { ITableSubmit } from './types';
 interface TableSearchProps {
-    onSubmitTable: TableSubmit;
+    onSubmitTable: ITableSubmit;
     loading: boolean;
 }
 export declare const TableSearch: ({ onSubmitTable, loading }: TableSearchProps) => JSX.Element;

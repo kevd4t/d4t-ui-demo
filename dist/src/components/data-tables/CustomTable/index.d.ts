@@ -1,12 +1,12 @@
 /// <reference types="react" />
-import type { ITablePagination, TableColumn, TableSubmit } from './types';
+import type { ITablePagination, ITableColumn, ITableSubmit } from './types';
 interface CustomTableProps<DataSchema> {
     data: DataSchema[];
     pagination: ITablePagination;
-    columns: TableColumn<DataSchema>[];
+    columns: ITableColumn<DataSchema>[];
     loading: boolean;
     error: boolean;
-    onSubmitTable: TableSubmit;
+    onSubmitTable: ITableSubmit;
 }
 export declare function CustomTable<DataSchema>(props: CustomTableProps<DataSchema>): JSX.Element;
 export {};
