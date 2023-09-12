@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-import { TablePagination } from './types'
+import { ITablePagination } from './types'
 
 export interface DataToFormat {
   __typename?: string
@@ -12,7 +12,7 @@ export interface DataToFormat {
   docs: any[]
 }
 
-export const formatPagination = (dataToFormat: DataToFormat): TablePagination => {
+export const formatPagination = (dataToFormat: DataToFormat): ITablePagination => {
   const hasNextPage = dataToFormat?.hasNextPage ?? false
   const hasPrevPage = dataToFormat?.hasPrevPage ?? false
   const limit = dataToFormat?.limit ?? 10

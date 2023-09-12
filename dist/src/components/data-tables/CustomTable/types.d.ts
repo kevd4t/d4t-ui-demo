@@ -31,7 +31,7 @@ interface TablePaginationLabel {
     plural: string;
     single: string;
 }
-export interface TablePagination {
+export interface ITablePagination {
     labels?: TablePaginationLabel;
     limit: number;
     page: number;
@@ -51,8 +51,9 @@ export interface InitialTable<TData = any> {
     queries: TableQuery[];
     showFilters: boolean;
     columns: TableColumn<TData>[];
-    pagination: TablePagination;
+    pagination: ITablePagination;
     onSubmitTable: TableSubmit;
+    searchForm: UseFormReturn<any, any, any>;
     setShowFilters: (value: boolean) => void;
     setSearchForm: (searchForm: any) => void;
     selectOptionFilter: (filterId: string, optionId: string, optionValue: boolean) => void;
@@ -67,7 +68,7 @@ export interface TableStore<TData> {
     data: TData[] | [];
     showFilters: boolean;
     columns: TableColumn<TData>[];
-    pagination: TablePagination;
+    pagination: ITablePagination;
     filters?: TableFilter[];
     queries?: TableQuery[];
     onSubmitTable: TableSubmit;
@@ -81,7 +82,7 @@ export interface TableStore<TData> {
     setInitialTable: (initialState: InitialTable<TData>) => void;
     updateLimit: (limit: number) => void;
     updatePage: (page: number) => void;
-    setPagination: (pagination: TablePagination) => void;
+    setPagination: (pagination: ITablePagination) => void;
     setColumns: (columns: TableColumn<TData>[]) => void;
     setFilters: (filters: TableFilter[]) => void;
     setQueries: (queries: TableQuery[]) => void;
@@ -91,7 +92,7 @@ export interface TableContextStore<TData = any> {
     data: TData[] | [];
     showFilters: boolean;
     columns: TableColumn<TData>[];
-    pagination: TablePagination;
+    pagination: ITablePagination;
     searchForm?: UseFormReturn<any, any, any>;
     filters?: TableFilter[];
     queries?: TableQuery[];

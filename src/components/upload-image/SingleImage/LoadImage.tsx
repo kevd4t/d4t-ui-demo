@@ -1,8 +1,8 @@
 import { IconPhotoPlus } from '@tabler/icons-react'
 import React from 'react'
 
-import { cn } from '../../lib/utils'
-import { Button } from '../button'
+import { cn } from '../../../lib/utils'
+import { Button } from '../../button'
 
 export const LoadImage = ({ dragProps, isDragging, emptyClassName, icons, tabIndexs, uploadLabel, onImageUpload }) => {
   return (

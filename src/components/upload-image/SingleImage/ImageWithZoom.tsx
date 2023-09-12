@@ -1,8 +1,8 @@
 import Zoom from 'react-medium-image-zoom'
 import React from 'react'
 
-import { cn } from '../../lib/utils'
-import { Avatar, AvatarFallback, AvatarImage } from '../'
+import { cn } from '../../../lib/utils'
+import { Avatar, AvatarFallback, AvatarImage } from '../../'
 import { ImageOff } from 'lucide-react'
 
 interface ImageWithZoomProps {

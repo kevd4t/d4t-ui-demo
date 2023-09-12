@@ -47,7 +47,7 @@ export const TableBody = () => {
       {
         data.length
           ? <TableBodyRow data={data} columns={columns} />
-          : <TableBodyEmpty colSpan={data.length} />
+          : <TableBodyEmpty colSpan={columns.length} />
       }
     </TableBodyUI>
   )

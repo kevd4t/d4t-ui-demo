@@ -1,4 +1,4 @@
-import FileResizer from 'react-image-file-resizer'
+import FileResizer from "react-image-file-resizer"
 
 const dataURItoFile = (dataURI: string, filename: string): File => {
   const arr = dataURI.split(',')
@@ -20,7 +20,7 @@ const dataURItoFile = (dataURI: string, filename: string): File => {
   return new File([buffer], filename, { type: mime })
 }
 
-export interface IHandleCompressionImageParams {
+interface IHandleCompressionImageParams {
   imageFile: File
   quality: number
   maxWidth?: number
@@ -30,9 +30,11 @@ export interface IHandleCompressionImageParams {
   minHeight?: number
   outputType?: string
   compressFormat?: string
+  resizer: typeof FileResizer
 }
 
 export const compressImage = ({
+  resizer,
   imageFile,
   maxWidth = 1080, // Nueva resolución horizontal
   maxHeight = 720, // Nueva resolución vertical
@@ -42,7 +44,7 @@ export const compressImage = ({
   outputType = 'base64'
 }: IHandleCompressionImageParams): Promise<{ data_url: string | Blob | File | ProgressEvent<FileReader>, file: File }> => {
   return new Promise((resolve) => {
-    FileResizer.imageFileResizer(
+    resizer?.imageFileResizer(
       imageFile,
       maxWidth,
       maxHeight,

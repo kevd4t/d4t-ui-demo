@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { cn } from '../../lib/utils'
-import { Avatar, AvatarImage, AvatarFallback } from '../'
+import { cn } from '../../../lib/utils'
+import { Avatar, AvatarImage, AvatarFallback } from '../../'
 import { ImageOff } from 'lucide-react'
 
 interface ImageWithoutZoomProps {

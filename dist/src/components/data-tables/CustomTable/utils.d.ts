@@ -1,4 +1,4 @@
-import { TablePagination } from './types';
+import { ITablePagination } from './types';
 export interface DataToFormat {
     __typename?: string;
     count: number;
@@ -8,7 +8,7 @@ export interface DataToFormat {
     page: number;
     docs: any[];
 }
-export declare const formatPagination: (dataToFormat: DataToFormat) => TablePagination;
+export declare const formatPagination: (dataToFormat: DataToFormat) => ITablePagination;
 export declare const initialPagination: {
     limit: number;
     page: number;

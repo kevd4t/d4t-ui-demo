@@ -3,12 +3,12 @@ import ImageUploading from 'react-images-uploading'
 import { IconPhotoPlus } from '@tabler/icons-react'
 import Zoom from 'react-medium-image-zoom'
 
-import type { ImageListType, onChangeImage, IUploadImage, IUploadImageProps } from './types'
+import type { ImageListType, onChangeImage, IUploadImage, IUploadImageProps } from '../types'
+import { compressImage } from '../handleCompressionImage'
+import { cn, convertBytes } from '../../../lib/utils'
 
-import { compressImage } from './handleCompressionImage'
-import { Button } from '../button'
-import { Label } from '../label'
-import { cn, convertBytes } from '../../lib/utils'
+import { Button } from '../../button'
+import { Label } from '../../label'
 
 interface IMultipleUploadImageProps extends Omit<IUploadImageProps, 'setUploadImage'> {
   setUploadImage: Dispatch<SetStateAction<IUploadImage[]>>
@@ -28,54 +28,77 @@ export const MultipleImages = ({
 }: IMultipleUploadImageProps) => {
   const [localImage, setLocalImage] = useState<ImageListType>([])
 
+  const onChange = (imageList) => {
+    // const originalFile = imageList.slice(-1)[0]?.file
+    // console.log({ originalFile })
+    setLocalImage(imageList)
+  }
+
   const onChangeImage: onChangeImage = async (imageList, addUpdateIndex) => {
-    const originalFile = imageList[0]?.file
-    const originalDataUrl = imageList[0]?.data_url
+    setLocalImage(imageList)
+
+    const lastImage = imageList?.slice(-1)[0]
+    const originalUrl = lastImage?.data_url
+    const originalFile = lastImage?.file
 
     if (!originalFile) {
-      setLocalImage(([{ data_url: '', file: null }]))
+      setLocalImage(([]))
+      setUploadImage([])
       return
     }
 
-    const { data_url: compressedUrl, file: compressedFile } = await compressImage({
-      imageFile: originalFile,
-      quality: format?.quality || 10,
-      maxWidth: format?.width || 500,
-      maxHeight: format?.width || 500,
-      compressFormat: format?.extension || 'png',
-      rotation: format?.rotation || 0
-    })
+    const originalSize = convertBytes(originalFile.size)
 
-    const originalSize = convertBytes(imageList[0]?.file.size)
-    const compreesedSize = convertBytes(compressedFile.size)
+    if (compress?.resizer) {
+      const { data_url: compressedUrl, file: compressedFile } = await compressImage({
+        resizer: compress?.resizer,
+        imageFile: originalFile,
+        quality: format?.quality || 10,
+        maxWidth: format?.width || 500,
+        maxHeight: format?.width || 500,
+        compressFormat: format?.extension || 'png',
+        rotation: format?.rotation || 0
+      })
 
-    setLocalImage([{ data_url: originalDataUrl, file: originalFile }])
+      const compreesedSize = convertBytes(compressedFile.size)
 
-    setUploadImage(prevState => ([
+      setUploadImage(prevState => [
+        ...prevState,
+        {
+          original: {
+            preview: originalUrl as string,
+            file: originalFile,
+            size: { formated: originalSize, bytes: originalFile.size }
+          },
+          compressed: {
+            preview: compressedUrl?.toString() as string,
+            file: compressedFile,
+            size: { formated: compreesedSize, bytes: compressedFile.size }
+          }
+        }
+      ])
+
+      return
+    }
+
+    setUploadImage(prevState => [
       ...prevState,
       {
         original: {
-          preview: imageList[0]?.data_url as string,
-          file: imageList[0]?.file,
+          preview: imageList.slice(-1)[0]?.data_url as string,
+          file: imageList.slice(-1)[0]?.file,
           size: {
             formated: originalSize,
-            bytes: imageList[0]?.file.size
+            bytes: imageList.slice(-1)[0]?.file.size
           }
         },
-        compressed: {
-          preview: compressedUrl?.toString() as string,
-          file: compressedFile,
-          size: {
-            formated: compreesedSize,
-            bytes: compressedFile.size
-          }
-        }
+        compressed: null
       }
-    ]))
+    ])
   }
 
   return (
-    <div>
+    <div className='w-full'>
       {label && <Label>{label}</Label>}
 
       <div className='my-2'></div>
@@ -134,11 +157,20 @@ export const MultipleImages = ({
                                     )
                                   }
 
-                                  <Button tabIndex={tabIndexs?.change} className='max-w-[116.33px] w-full' type='button' onClick={() => onImageUpdate(index)}>
+                                  <Button
+                                    tabIndex={tabIndexs?.change} className='max-w-[116.33px] w-full' type='button' onClick={() => onImageUpdate(index)}>
                                     Cambiar
                                   </Button>
 
-                                  <Button tabIndex={tabIndexs?.delete} className='max-w-[116.33px] w-full' type='button' onClick={() => onImageRemove(index)}>
+                                  <Button
+                                    tabIndex={tabIndexs?.delete}
+                                    className='max-w-[116.33px] w-full'
+                                    type='button'
+                                    onClick={() => {
+                                      // setLocalImage(prevState => prevState.slice(index))
+                                      onImageRemove(index)
+                                    }}
+                                  >
                                     Eliminar
                                   </Button>
                                 </div>
@@ -161,63 +193,6 @@ export const MultipleImages = ({
                             </Button>
                           </div>
                         </div>
-
-                        {/* <GridSlider
-                          zoom={zoom}
-                          images={imageList}
-                        /> */}
-
-                        {/* {
-                          imageList.map((image, index) => {
-                            return (
-                              <div key={index} className ='imagen-container w-full flex flex-col justify-center items-center'>
-                                {
-                                  zoom
-                                    ? (
-                                      <Zoom>
-                                        <div className={cn('w-full h-[237px]', imageContainerClassName)}>
-                                          <img
-                                            src={image.data_url}
-                                            alt='image'
-                                            className='rounded-md object-contain m-auto h-full'
-                                            style={{ width: '-webkit-fill-available' }}
-                                          />
-                                        </div>
-                                      </Zoom>
-                                    )
-                                    : (
-                                      <div className={cn('w-full h-[237px]', imageContainerClassName)}>
-                                        <img
-                                          src={image.data_url}
-                                          alt='image'
-                                          className='rounded-md object-contain m-auto h-full'
-                                          style={{ width: '-webkit-fill-available' }}
-                                        />
-                                      </div>
-                                    )
-                                }
-
-                                <div className='mt-2 gap-x-2 w-full flex justify-center items-start'>
-                                  {
-                                    compress && (
-                                      <Button tabIndex={tabIndexs?.viewCompress} className='whitespace-nowrap' type='button' onClick={() => compress.openComparisons()}>
-                                    Ver Compresión
-                                      </Button>
-                                    )
-                                  }
-
-                                  <Button tabIndex={tabIndexs?.change} className='max-w-[116.33px] w-full' type='button' onClick={() => onImageUpdate(index)}>
-                                Cambiar
-                                  </Button>
-
-                                  <Button tabIndex={tabIndexs?.delete} className='max-w-[116.33px] w-full' type='button' onClick={() => onImageRemove(index)}>
-                                Eliminar
-                                  </Button>
-                                </div>
-                              </div>
-                            )
-                          })
-                        } */}
                       </div>
                     )
                     : <>

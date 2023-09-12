@@ -7,9 +7,7 @@ import { AppLayout } from './layouts/Application'
 import { useEffect, useState } from 'react'
 
 import { useForm } from 'react-hook-form'
-import { Input, Form, UploadImage, IUploadImage } from './components'
 import { z } from 'zod'
-import FileResizer from 'react-image-file-resizer'
 
 const schema = z.object({
   name: z.string()
@@ -17,13 +15,8 @@ const schema = z.object({
 
 
 function App() {
-  const [photo, setPhoto] = useState<IUploadImage>({ compressed: null, original: null })
   const profile = { role: 'Administrador', name: 'Kevin', lastname: 'blanco' }
   const form = useForm<z.infer<typeof schema>>()
-
-  useEffect(() => {
-    console.log(photo)
-  }, [photo])
 
   return (
     <AppLayout>
@@ -196,13 +189,8 @@ function App() {
         </SidebarContent>
       </Sidebar>
 
-      <div className='mx-auto max-w-xs'>
-        <UploadImage
-          setUploadImage={setPhoto}
-          compress={{
-            resizer: FileResizer
-          }}
-        />
+      <div className='mx-auto max-w-4xl'>
+
       </div>
     </AppLayout>
   )

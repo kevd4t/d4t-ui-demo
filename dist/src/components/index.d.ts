@@ -42,5 +42,4 @@ export * from './generic-select';
 export * from './color-picker';
 export * from './code-verification';
 export * from './upload-image/types';
-export * from './upload-image';
-export * from './upload-image/MultipleImages';
+export * from './upload-image/SingleImage';

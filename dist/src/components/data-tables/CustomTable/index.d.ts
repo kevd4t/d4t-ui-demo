@@ -1,7 +1,7 @@
 /// <reference types="react" />
-import type { TablePagination as ITablePagination, TableColumn, TableSubmit } from './types';
+import type { ITablePagination, TableColumn, TableSubmit } from './types';
 interface CustomTableProps<DataSchema> {
-    data: DataSchema[] | [];
+    data: DataSchema[];
     pagination: ITablePagination;
     columns: TableColumn<DataSchema>[];
     loading: boolean;
