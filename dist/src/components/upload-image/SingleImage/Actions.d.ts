@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { IUploadImage, UploadImageCompress, UploadImageTabIndexs } from '../types';
+import { IUploadImage, ImageListType, UploadImageCompress, UploadImageTabIndexs } from '../types';
 interface UploadImageActionsProps {
     imageIndex: number;
     compress?: UploadImageCompress;
@@ -7,6 +7,7 @@ interface UploadImageActionsProps {
     onImageUpdate: (index: number) => void;
     onImageRemove: (index: number) => void;
     setUploadImage: Dispatch<SetStateAction<IUploadImage>>;
+    setLocalImage: Dispatch<SetStateAction<ImageListType>>;
 }
-export declare const UploadImageActions: ({ imageIndex, compress, tabIndexs, onImageUpdate, setUploadImage, onImageRemove }: UploadImageActionsProps) => JSX.Element;
+export declare const UploadImageActions: ({ imageIndex, compress, tabIndexs, onImageUpdate, setUploadImage, onImageRemove, setLocalImage }: UploadImageActionsProps) => JSX.Element;
 export {};

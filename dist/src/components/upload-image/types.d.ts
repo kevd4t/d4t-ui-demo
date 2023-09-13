@@ -53,6 +53,7 @@ export interface FormatImage {
     rotation?: number;
 }
 export interface IUploadImageProps {
+    initialPreview?: string;
     setUploadImage: Dispatch<SetStateAction<IUploadImage>>;
     format?: FormatImage;
     label?: string;

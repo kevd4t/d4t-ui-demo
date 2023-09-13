@@ -8,6 +8,8 @@ import { useEffect, useState } from 'react'
 
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { IUploadImage } from './components/upload-image/types'
+import { UploadImage } from './components/upload-image/SingleImage'
 
 const schema = z.object({
   name: z.string()
@@ -15,6 +17,7 @@ const schema = z.object({
 
 
 function App() {
+  const [image, setImage] = useState<IUploadImage>({ compressed: null, original: null })
   const profile = { role: 'Administrador', name: 'Kevin', lastname: 'blanco' }
   const form = useForm<z.infer<typeof schema>>()
 
@@ -190,7 +193,10 @@ function App() {
       </Sidebar>
 
       <div className='mx-auto max-w-4xl'>
-
+        <UploadImage
+          initialPreview='https://www.adslzone.net/app/uploads-adslzone.net/2019/04/borrar-fondo-imagen.jpg'
+          setUploadImage={setImage}
+        />
       </div>
     </AppLayout>
   )

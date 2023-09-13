@@ -12,6 +12,7 @@ import { LoadImage } from './LoadImage'
 import { Label } from '../../label'
 
 export const UploadImage = ({
+  initialPreview = null,
   setUploadImage,
   format,
   label,
@@ -23,7 +24,7 @@ export const UploadImage = ({
   zoom,
   compress
 }: IUploadImageProps) => {
-  const [localImage, setLocalImage] = useState<ImageListType>([])
+  const [localImage, setLocalImage] = useState<ImageListType>(initialPreview ? [{ data_url: initialPreview, file: null }] : [])
 
   const onChangeImage: onChangeImage = async (imageList, addUpdateIndex) => {
     const originalFile = imageList[0]?.file
@@ -118,6 +119,7 @@ export const UploadImage = ({
                                 onImageUpdate={onImageUpdate}
                                 compress={compress}
                                 tabIndexs={tabIndexs}
+                                setLocalImage={setLocalImage}
                               />
                             </div>
                           )
