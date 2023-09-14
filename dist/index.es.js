@@ -18696,7 +18696,7 @@ function DE() {
           variant: "outline",
           className: "h-8 w-8 p-0",
           onClick: () => r(),
-          disabled: e.hasPrevPage,
+          disabled: !e.hasPrevPage,
           children: [
             /* @__PURE__ */ p.exports.jsx("span", { className: "sr-only", children: "Pagina Anterior" }),
             /* @__PURE__ */ p.exports.jsx(Bf, { className: "h-4 w-4" })
@@ -18714,7 +18714,7 @@ function DE() {
           variant: "outline",
           className: "h-8 w-8 p-0",
           onClick: () => n(),
-          disabled: e.hasNextPage,
+          disabled: !e.hasNextPage,
           children: [
             /* @__PURE__ */ p.exports.jsx("span", { className: "sr-only", children: "Siguiente Pagina" }),
             /* @__PURE__ */ p.exports.jsx(Ko, { className: "h-4 w-4" })

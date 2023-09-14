@@ -53,7 +53,7 @@ export function TablePagination() {
             variant='outline'
             className='h-8 w-8 p-0'
             onClick={() => prevPage()}
-            disabled={pagination.hasPrevPage}
+            disabled={!pagination.hasPrevPage}
           >
             <span className='sr-only'>Pagina Anterior</span>
             <ChevronLeft className='h-4 w-4' />
@@ -68,7 +68,7 @@ export function TablePagination() {
             variant='outline'
             className='h-8 w-8 p-0'
             onClick={() => nextPage()}
-            disabled={pagination.hasNextPage}
+            disabled={!pagination.hasNextPage}
           >
             <span className='sr-only'>Siguiente Pagina</span>
             <ChevronRight className='h-4 w-4' />
