@@ -88,6 +88,14 @@ export function CustomTable<DataSchema>(props: CustomTableProps<DataSchema>) {
     }
   }, [columns, globalFilters?.length])
 
+  useEffect(() => {
+    setPagination(prevState => ({
+      ...prevState,
+      hasNextPage: props.pagination.hasNextPage,
+      hasPrevPage: props.pagination.hasPrevPage,
+    }))
+  }, [props.pagination.hasNextPage, props.pagination.hasNextPage])
+
   const initialValues: IInitialTable = {
     data,
     columns,

@@ -14,3 +14,4 @@ export declare const initialPagination: {
     page: number;
 };
 export declare const generateUUID: () => any;
+export declare const insertColumn: (newColumn: ITableColumn<any>, originalColumn: ITableColumn<any>[]) => any[];
