@@ -15,7 +15,7 @@ interface UploadImageActionsProps {
 
 export const UploadImageActions = ({ imageIndex, compress, tabIndexs, onImageUpdate, setUploadImage, onImageRemove, setLocalImage }: UploadImageActionsProps) => {
   return (
-    <div className='mt-2 gap-x-2 w-full flex justify-center items-start'>
+    <div className='mt-2 gap-x-2 w-full flex flex-col justify-center items-end gap-y-2 absolute top-2 right-2'>
       {
         compress?.openComparisons && (
           <Button

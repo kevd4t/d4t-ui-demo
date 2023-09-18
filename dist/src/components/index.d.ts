@@ -43,3 +43,4 @@ export * from './color-picker';
 export * from './code-verification';
 export * from './upload-image/types';
 export * from './upload-image/SingleImage';
+export * from './upload-image/MultipleImages';

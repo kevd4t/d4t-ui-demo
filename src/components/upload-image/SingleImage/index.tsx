@@ -24,7 +24,7 @@ export const UploadImage = ({
   zoom,
   compress
 }: IUploadImageProps) => {
-  const [localImage, setLocalImage] = useState<ImageListType>(initialPreview ? [{ data_url: initialPreview, file: null }] : [])
+  const [localImage, setLocalImage] = useState<ImageListType>(initialPreview ? [{ data_url: initialPreview as string, file: null }] : [])
 
   const onChangeImage: onChangeImage = async (imageList, addUpdateIndex) => {
     const originalFile = imageList[0]?.file
@@ -105,7 +105,7 @@ export const UploadImage = ({
                       {
                         imageList.map((image, index) => {
                           return (
-                            <div key={index} className='imagen-container w-full flex flex-col justify-center items-center'>
+                            <div key={index} className='imagen-container w-full flex flex-col justify-center items-center relative'>
                               {
                                 zoom
                                   ? <ImageWithZoom imageContainerClassName={imageContainerClassName} previewUrl={image?.data_url} />
