@@ -7,7 +7,7 @@ import { ImageOff } from 'lucide-react'
 
 interface ImageWithZoomProps extends Omit<UncontrolledProps, 'children'> {
   src: string
-  imageContainerClassName: string
+  imageContainerClassName?: string
 }
 
 export const ImageWithZoom = ({ src, imageContainerClassName }: ImageWithZoomProps) => {
