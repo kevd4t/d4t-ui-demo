@@ -44,3 +44,4 @@ export * from './code-verification';
 export * from './upload-image/types';
 export * from './upload-image/SingleImage';
 export * from './upload-image/MultipleImages';
+export * from './upload-image/SingleImage/ImageWithZoom';

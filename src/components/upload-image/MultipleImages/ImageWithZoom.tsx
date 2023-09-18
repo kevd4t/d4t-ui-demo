@@ -10,11 +10,11 @@ interface ImageWithZoomProps {
   imageContainerClassName: string
 }
 
-export const ImageWithZoom = ({ previewUrl, imageContainerClassName }: ImageWithZoomProps) => {
+export const ImageWithZoom = ({ previewUrl: src, imageContainerClassName }: ImageWithZoomProps) => {
   return (
     <Zoom>
       <Avatar className={cn('w-full h-[237px] rounded-md', imageContainerClassName)}>
-        <AvatarImage src={previewUrl} className='rounded-md object-contain m-auto h-full' style={{ width: '-webkit-fill-available' }} />
+        <AvatarImage src={src} className='rounded-md object-contain m-auto h-full' style={{ width: '-webkit-fill-available' }} />
         <AvatarFallback className='w-full h-full rounded-md'>
           <ImageOff />
         </AvatarFallback>

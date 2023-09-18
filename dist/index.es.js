@@ -24236,7 +24236,7 @@ function kg(e) {
   const [t, n] = X(!1);
   return N.createElement(gT, { ...e, isZoomed: t, onZoomChange: n });
 }
-const bT = ({ previewUrl: e, imageContainerClassName: t }) => /* @__PURE__ */ p.exports.jsx(kg, { children: /* @__PURE__ */ p.exports.jsxs(Br, { className: A("w-full h-[237px] rounded-md", t), children: [
+const bT = ({ src: e, imageContainerClassName: t }) => /* @__PURE__ */ p.exports.jsx(kg, { children: /* @__PURE__ */ p.exports.jsxs(Br, { className: A("w-full h-[237px] rounded-md", t), children: [
   /* @__PURE__ */ p.exports.jsx(zr, { src: e, className: "rounded-md object-contain m-auto h-full", style: { width: "-webkit-fill-available" } }),
   /* @__PURE__ */ p.exports.jsx(Hr, { className: "w-full h-full rounded-md", children: /* @__PURE__ */ p.exports.jsx(Ds, {}) })
 ] }) }), xT = ({ imageIndex: e, compress: t, tabIndexs: n, onImageUpdate: r, setUploadImage: o, onImageRemove: a, setLocalImage: s }) => /* @__PURE__ */ p.exports.jsxs("div", { className: "mt-2 gap-x-2 w-full flex flex-col justify-center items-end gap-y-2 absolute top-2 right-2", children: [
@@ -24362,7 +24362,7 @@ const bT = ({ previewUrl: e, imageContainerClassName: t }) => /* @__PURE__ */ p.
         dataURLKey: "data_url",
         acceptType: ["webp", "png", "jpg", "jpeg"],
         children: ({ imageList: v, onImageUpload: h, onImageUpdate: g, onImageRemove: y, isDragging: b, dragProps: $ }) => /* @__PURE__ */ p.exports.jsx(p.exports.Fragment, { children: v.length >= 1 ? /* @__PURE__ */ p.exports.jsx("div", { children: v.map((_, w) => /* @__PURE__ */ p.exports.jsxs("div", { className: "imagen-container w-full flex flex-col justify-center items-center relative", children: [
-          l ? /* @__PURE__ */ p.exports.jsx(bT, { imageContainerClassName: i, previewUrl: _ == null ? void 0 : _.data_url }) : /* @__PURE__ */ p.exports.jsx(oT, { imageContainerClassName: i, previewUrl: _ == null ? void 0 : _.data_url }),
+          l ? /* @__PURE__ */ p.exports.jsx(bT, { imageContainerClassName: i, src: _ == null ? void 0 : _.data_url }) : /* @__PURE__ */ p.exports.jsx(oT, { imageContainerClassName: i, previewUrl: _ == null ? void 0 : _.data_url }),
           /* @__PURE__ */ p.exports.jsx(
             xT,
             {
@@ -24677,6 +24677,7 @@ export {
   _P as HoverCard,
   _8 as HoverCardContent,
   CP as HoverCardTrigger,
+  bT as ImageWithZoom,
   Hm as Input,
   YT as InputPID,
   yc as InputUI,

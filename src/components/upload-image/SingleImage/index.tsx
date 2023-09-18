@@ -108,7 +108,7 @@ export const UploadImage = ({
                             <div key={index} className='imagen-container w-full flex flex-col justify-center items-center relative'>
                               {
                                 zoom
-                                  ? <ImageWithZoom imageContainerClassName={imageContainerClassName} previewUrl={image?.data_url} />
+                                  ? <ImageWithZoom imageContainerClassName={imageContainerClassName} src={image?.data_url} />
                                   : <ImageWithoutZoom imageContainerClassName={imageContainerClassName} previewUrl={image?.data_url} />
                               }
 
