@@ -30,12 +30,7 @@ export const UploadImage = ({
     const originalFile = imageList[0]?.file
     const originalDataUrl = imageList[0]?.data_url
 
-    if (!originalFile) {
-      setLocalImage(([{ data_url: '', file: null }]))
-      return
-    }
-
-    setLocalImage([{ data_url: originalDataUrl, file: originalFile }])
+    setLocalImage(imageList)
     const originalSize = convertBytes(imageList[0]?.file.size)
 
     if (compress?.resizer) {
@@ -130,7 +125,6 @@ export const UploadImage = ({
                       <LoadImage
                         dragProps={dragProps}
                         emptyClassName={emptyClassName}
-                        icons={icons}
                         isDragging={isDragging}
                         onImageUpload={onImageUpload}
                         tabIndexs={tabIndexs}

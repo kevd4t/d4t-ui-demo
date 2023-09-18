@@ -194,7 +194,6 @@ function App() {
 
       <div className='mx-auto max-w-4xl'>
         <UploadImage
-          initialPreview='https://www.adslzone.net/app/uploads-adslzone.net/2019/04/borrar-fondo-imagen.jpg'
           setUploadImage={setImage}
         />
       </div>

@@ -2,6 +2,8 @@ import React, { Dispatch, SetStateAction } from 'react'
 
 import { IUploadImage, ImageListType, UploadImageCompress, UploadImageTabIndexs } from '../types'
 import { Button } from '../../button'
+import { IconPhotoStar } from '@tabler/icons-react'
+import { Edit, Trash } from 'lucide-react'
 
 interface UploadImageActionsProps {
   imageIndex: number
@@ -19,36 +21,38 @@ export const UploadImageActions = ({ imageIndex, compress, tabIndexs, onImageUpd
       {
         compress?.openComparisons && (
           <Button
-            tabIndex={tabIndexs?.viewCompress}
-            className='whitespace-nowrap'
+            size='icon'
             type='button'
+            variant='outline'
+            tabIndex={tabIndexs?.viewCompress}
             onClick={() => compress.openComparisons()}
+            className='whitespace-nowrap backdrop-blur-sm border-green-900 bg-green-900 bg-opacity-10 hover:bg-green-900 hover:bg-opacity-30'
           >
-            Ver Compresión
+            <IconPhotoStar size={16} />
           </Button>
         )
       }
 
       <Button
-        tabIndex={tabIndexs?.change}
-        className='max-w-[116.33px] w-full'
+        size='icon'
         type='button'
+        variant='outline'
+        tabIndex={tabIndexs?.change}
         onClick={() => onImageUpdate(imageIndex)}
+        className='backdrop-blur-sm border-yellow-900 bg-yellow-900 bg-opacity-10 hover:bg-yellow-900 hover:bg-opacity-30'
       >
-        Cambiar
+        <Edit size={14} />
       </Button>
 
       <Button
         tabIndex={tabIndexs?.delete}
-        className='max-w-[116.33px] w-full'
         type='button'
-        onClick={() => {
-          onImageRemove(imageIndex);
-          setLocalImage([])
-          setUploadImage({ original: null, compressed: null })
-        }}
+        size='icon'
+        variant='outline'
+        onClick={() => onImageRemove(imageIndex)}
+        className='backdrop-blur-sm border-red-900 bg-red-900 bg-opacity-10 hover:bg-red-900 hover:bg-opacity-30'
       >
-        Eliminar
+        <Trash size={14} />
       </Button>
     </div>
   )

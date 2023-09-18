@@ -1,10 +1,10 @@
-import { IconPhotoPlus } from '@tabler/icons-react'
 import React from 'react'
 
 import { cn } from '../../../lib/utils'
 import { Button } from '../../button'
+import { ImagePlus } from 'lucide-react'
 
-export const LoadImage = ({ dragProps, isDragging, emptyClassName, icons, tabIndexs, uploadLabel, onImageUpload }) => {
+export const LoadImage = ({ dragProps, isDragging, emptyClassName, tabIndexs, uploadLabel, onImageUpload }) => {
   return (
     <div
       {...dragProps}
@@ -15,13 +15,16 @@ export const LoadImage = ({ dragProps, isDragging, emptyClassName, icons, tabInd
       )}
     >
 
-      {icons?.placeholder || <IconPhotoPlus className='text-zinc-400 w-10 h-10' />}
-
-      <Button type='button' tabIndex={tabIndexs?.upload} className={`mt-2 ${isDragging && 'text-indigo-600'}`} onClick={onImageUpload}>
-        {icons?.uploadButton}
-        {uploadLabel || 'Cargar Imagen'}
+      <Button
+        size='icon'
+        type='button'
+        variant='outline'
+        tabIndex={tabIndexs?.upload}
+        className={`mt-2 ${isDragging && 'text-indigo-600'}`} onClick={onImageUpload}
+      >
+        <ImagePlus size={22} />
       </Button>
-      <span className='font-semibold text-zinc-500'>o arrastra y suelta una imagen</span>
+      <span className='font-medium text-zinc-500'>o arrastra y suelta una imagen</span>
     </div>
   )
 }
