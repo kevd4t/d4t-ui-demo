@@ -12,7 +12,7 @@ interface ImageWithZoomProps extends Omit<UncontrolledProps, 'children'> {
 
 export const ImageWithZoom = ({ src, imageContainerClassName }: ImageWithZoomProps) => {
   return (
-    <Zoom >
+    <Zoom>
       <Avatar className={cn('w-full h-[237px] rounded-md', imageContainerClassName)}>
         <AvatarImage src={src} className='rounded-md object-contain m-auto h-full' style={{ width: '-webkit-fill-available' }} />
         <AvatarFallback className='w-full h-full rounded-md'>
