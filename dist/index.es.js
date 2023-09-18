@@ -24272,7 +24272,7 @@ const xT = ({ src: e, imageContainerClassName: t }) => /* @__PURE__ */ p.exports
       variant: "outline",
       tabIndex: n == null ? void 0 : n.change,
       onClick: () => r(e),
-      className: "backdrop-blur-sm border-yellow-900 bg-yellow-900 bg-opacity-10 hover:bg-yellow-900 hover:bg-opacity-30",
+      className: "backdrop-blur-sm border-yellow-600 bg-yellow-600 bg-opacity-10 hover:bg-yellow-600 hover:bg-opacity-30",
       children: /* @__PURE__ */ p.exports.jsx(Yf, { size: 14 })
     }
   ),
