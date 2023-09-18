@@ -35,7 +35,7 @@ export const MultiUploadImageActions = ({ imageIndex, compress, tabIndexs, onIma
         variant='outline'
         tabIndex={tabIndexs?.change}
         onClick={() => onImageUpdate(imageIndex)}
-        className='backdrop-blur-sm border-yellow-900 bg-yellow-900 bg-opacity-10 hover:bg-yellow-900 hover:bg-opacity-30'
+        className='backdrop-blur-sm border-yellow-600 bg-yellow-600 bg-opacity-10 hover:bg-yellow-600 hover:bg-opacity-30'
       >
         <Edit size={14} />
       </Button>
