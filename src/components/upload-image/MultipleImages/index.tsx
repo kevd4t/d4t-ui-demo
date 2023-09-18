@@ -26,7 +26,6 @@ export const MultipleImages = ({
   tabIndexs,
   emptyClassName,
   imageContainerClassName,
-  icons,
   zoom,
   compress
 }: IMultipleUploadImageProps) => {
@@ -134,7 +133,6 @@ export const MultipleImages = ({
                       <LoadMultiImages
                         dragProps={dragProps}
                         emptyClassName={emptyClassName}
-                        icons={icons}
                         isDragging={isDragging}
                         onImageUpload={onImageUpload}
                         tabIndexs={tabIndexs}

@@ -3,8 +3,9 @@ import React from 'react'
 
 import { cn } from '../../../lib/utils'
 import { Button } from '../../button'
+import { ImagePlus } from 'lucide-react'
 
-export const LoadMultiImages = ({ dragProps, isDragging, emptyClassName, icons, tabIndexs, uploadLabel, onImageUpload }) => {
+export const LoadMultiImages = ({ dragProps, isDragging, emptyClassName, tabIndexs, uploadLabel, onImageUpload }) => {
   return (
     <div
       {...dragProps}
@@ -15,13 +16,16 @@ export const LoadMultiImages = ({ dragProps, isDragging, emptyClassName, icons, 
       )}
     >
 
-      {icons?.placeholder || <IconPhotoPlus className='text-zinc-400 w-10 h-10' />}
-
-      <Button type='button' tabIndex={tabIndexs?.upload} className={`mt-2 ${isDragging && 'text-indigo-600'}`} onClick={onImageUpload}>
-        {icons?.uploadButton}
-        {uploadLabel || 'Cargar Imagenes'}
+      <Button
+        size='icon'
+        type='button'
+        variant='outline'
+        tabIndex={tabIndexs?.upload}
+        className={`mt-2 ${isDragging && 'text-indigo-600'}`} onClick={onImageUpload}
+      >
+        <ImagePlus size={22} />
       </Button>
-      <span className='font-semibold text-zinc-500'>o arrastra y suelta imagenes</span>
+      <span className='font-medium text-zinc-500'>o arrastra y suelta las imagenes</span>
     </div>
   )
 }

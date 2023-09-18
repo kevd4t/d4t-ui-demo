@@ -20,7 +20,6 @@ export const UploadImage = ({
   tabIndexs,
   emptyClassName,
   imageContainerClassName,
-  icons,
   zoom,
   compress
 }: IUploadImageProps) => {
@@ -30,10 +29,15 @@ export const UploadImage = ({
     const originalFile = imageList[0]?.file
     const originalDataUrl = imageList[0]?.data_url
 
+    if (!originalFile) {
+      setLocalImage([])
+      setUploadImage({ original: null, compressed: null })
+    }
+
     setLocalImage(imageList)
     const originalSize = convertBytes(imageList[0]?.file.size)
 
-    if (compress?.resizer) {
+    if (compress?.resizer && originalFile) {
       const { data_url: compressedUrl, file: compressedFile } = await compressImage({
         resizer: compress?.resizer,
         imageFile: originalFile,
@@ -48,8 +52,8 @@ export const UploadImage = ({
 
       setUploadImage({
         original: {
-          preview: imageList[0]?.data_url as string,
-          file: imageList[0]?.file,
+          preview: originalDataUrl as string,
+          file: originalFile,
           size: {
             formated: originalSize,
             bytes: imageList[0]?.file.size

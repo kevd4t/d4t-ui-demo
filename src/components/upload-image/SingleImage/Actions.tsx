@@ -49,7 +49,11 @@ export const UploadImageActions = ({ imageIndex, compress, tabIndexs, onImageUpd
         type='button'
         size='icon'
         variant='outline'
-        onClick={() => onImageRemove(imageIndex)}
+        onClick={() => {
+          onImageRemove(imageIndex)
+          setLocalImage([])
+          setUploadImage({ original: null, compressed: null })
+        }}
         className='backdrop-blur-sm border-red-900 bg-red-900 bg-opacity-10 hover:bg-red-900 hover:bg-opacity-30'
       >
         <Trash size={14} />

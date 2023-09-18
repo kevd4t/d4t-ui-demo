@@ -65,6 +65,5 @@ export interface IUploadImageProps {
     uploadLabel?: string;
     zoom?: boolean;
     compress?: UploadImageCompress;
-    icons?: UploadImageIcons;
     tabIndexs?: UploadImageTabIndexs;
 }
