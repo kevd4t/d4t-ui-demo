@@ -24,7 +24,7 @@ export const LoadImage = ({ dragProps, isDragging, emptyClassName, tabIndexs, up
       >
         <ImagePlus size={22} />
       </Button>
-      <span className='font-medium text-zinc-500'>o arrastra y suelta una imagen</span>
+      <span className='font-normal text-sm text-zinc-500'>o arrastra y suelta una imagen</span>
     </div>
   )
 }

@@ -24312,7 +24312,7 @@ const xT = ({ src: e, imageContainerClassName: t }) => /* @__PURE__ */ p.exports
           children: /* @__PURE__ */ p.exports.jsx(Hf, { size: 22 })
         }
       ),
-      /* @__PURE__ */ p.exports.jsx("span", { className: "font-medium text-zinc-500", children: "o arrastra y suelta una imagen" })
+      /* @__PURE__ */ p.exports.jsx("span", { className: "font-normal text-sm text-zinc-500", children: "o arrastra y suelta una imagen" })
     ]
   }
 ), nk = ({
@@ -24371,9 +24371,9 @@ const xT = ({ src: e, imageContainerClassName: t }) => /* @__PURE__ */ p.exports
       compressed: null
     });
   };
-  return /* @__PURE__ */ p.exports.jsxs("div", { className: "w-full", children: [
+  return /* @__PURE__ */ p.exports.jsxs("div", { className: "w-full h-full", children: [
     r && /* @__PURE__ */ p.exports.jsx(la, { children: r }),
-    /* @__PURE__ */ p.exports.jsx("div", { className: "my-2" }),
+    r && /* @__PURE__ */ p.exports.jsx("div", { className: "my-2" }),
     /* @__PURE__ */ p.exports.jsx(
       Pg,
       {

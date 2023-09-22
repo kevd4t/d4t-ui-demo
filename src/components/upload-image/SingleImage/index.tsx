@@ -83,10 +83,10 @@ export const UploadImage = ({
   }
 
   return (
-    <div className='w-full'>
+    <div className='w-full h-full'>
       {label && <Label>{label}</Label>}
 
-      <div className='my-2'></div>
+      {label && <div className='my-2'></div>}
 
       <ImageUploading
         value={localImage}
