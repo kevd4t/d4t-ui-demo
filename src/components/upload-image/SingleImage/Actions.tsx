@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react'
 
-import { IUploadImage, ImageListType, UploadImageCompress, UploadImageTabIndexs } from '../types'
+import { IUploadImage, ImageListType, OnChangeImage, SetUploadImage, UploadImageCompress, UploadImageTabIndexs } from '../types'
 import { Button } from '../../button'
 import { IconPhotoStar } from '@tabler/icons-react'
 import { Edit, Trash } from 'lucide-react'
@@ -11,7 +11,7 @@ interface UploadImageActionsProps {
   tabIndexs?: UploadImageTabIndexs
   onImageUpdate: (index: number) => void
   onImageRemove: (index: number) => void
-  setUploadImage: Dispatch<SetStateAction<IUploadImage>>
+  setUploadImage: SetUploadImage | OnChangeImage
   setLocalImage: Dispatch<SetStateAction<ImageListType>>
 }
 

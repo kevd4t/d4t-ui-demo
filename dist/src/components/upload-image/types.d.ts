@@ -52,12 +52,14 @@ export interface FormatImage {
     quality?: QualityNumber;
     rotation?: number;
 }
+export declare type SetUploadImage = Dispatch<SetStateAction<IUploadImage>>;
+export declare type OnChangeImage = (image: IUploadImage) => void;
 export interface IUploadImageProps {
     initialPreview?: string | [{
         data_url?: string;
         file?: null;
     }];
-    setUploadImage: Dispatch<SetStateAction<IUploadImage>>;
+    setUploadImage: SetUploadImage | OnChangeImage;
     format?: FormatImage;
     label?: string;
     emptyClassName?: string;

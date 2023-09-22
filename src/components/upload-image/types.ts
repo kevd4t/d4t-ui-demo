@@ -62,9 +62,12 @@ export interface FormatImage {
   rotation?: number
 }
 
+export type SetUploadImage = Dispatch<SetStateAction<IUploadImage>>
+export type OnChangeImage = (image: IUploadImage) => void
+
 export interface IUploadImageProps {
   initialPreview?: string | [{ data_url?: string, file?: null }]
-  setUploadImage: Dispatch<SetStateAction<IUploadImage>>
+  setUploadImage: SetUploadImage | OnChangeImage
   format?: FormatImage
   label?: string
   emptyClassName?: string
