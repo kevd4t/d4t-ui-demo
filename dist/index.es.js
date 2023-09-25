@@ -24261,7 +24261,7 @@ const xT = ({ src: e, imageContainerClassName: t }) => /* @__PURE__ */ p.exports
       variant: "outline",
       tabIndex: n == null ? void 0 : n.viewCompress,
       onClick: () => t.openComparisons(),
-      className: "dark:text-white text-green-600 backdrop-blur-sm border-green-600 bg-green-600 bg-opacity-10 hover:bg-green-600 hover:bg-opacity-25 hover:text-green-600",
+      className: "text-green-600 backdrop-blur-sm border-green-600 bg-green-600 bg-opacity-10 hover:bg-green-600 hover:bg-opacity-25 hover:text-green-600",
       children: /* @__PURE__ */ p.exports.jsx(fg, { size: 16 })
     }
   ),
@@ -24273,7 +24273,7 @@ const xT = ({ src: e, imageContainerClassName: t }) => /* @__PURE__ */ p.exports
       variant: "outline",
       tabIndex: n == null ? void 0 : n.change,
       onClick: () => r(e),
-      className: "dark:text-white text-yellow-600 backdrop-blur-sm border-yellow-600 bg-yellow-600 bg-opacity-10 hover:bg-yellow-600 hover:bg-opacity-25 hover:text-yellow-600",
+      className: "text-yellow-600 backdrop-blur-sm border-yellow-600 bg-yellow-600 bg-opacity-10 hover:bg-yellow-600 hover:bg-opacity-25 hover:text-yellow-600",
       children: /* @__PURE__ */ p.exports.jsx(Yf, { size: 14 })
     }
   ),
@@ -24287,7 +24287,7 @@ const xT = ({ src: e, imageContainerClassName: t }) => /* @__PURE__ */ p.exports
       onClick: () => {
         a(e), s([]), o({ original: null, compressed: null });
       },
-      className: "dark:text-white text-red-700 backdrop-blur-sm border-red-700 bg-red-700 bg-opacity-10 hover:bg-red-700 hover:bg-opacity-25 hover:text-red-700",
+      className: "text-red-700 backdrop-blur-sm border-red-700 bg-red-700 bg-opacity-10 hover:bg-red-700 hover:bg-opacity-25 hover:text-red-700",
       children: /* @__PURE__ */ p.exports.jsx(Gf, { size: 14 })
     }
   )
