@@ -16,5 +16,6 @@ export interface IGenericSelectProps extends HTMLAttributes<HTMLDivElement> {
     classNameContainer?: string;
     classNameSelect?: string;
     description?: string;
+    disabled?: boolean;
 }
-export declare const GenericSelect: ({ id, label, defaultValue, placeholder, description, items, form, tabIndex, classNameContainer, classNameSelect }: IGenericSelectProps) => JSX.Element;
+export declare const GenericSelect: ({ id, label, defaultValue, placeholder, description, items, form, tabIndex, classNameContainer, classNameSelect, disabled }: IGenericSelectProps) => JSX.Element;

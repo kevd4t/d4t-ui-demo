@@ -23,6 +23,7 @@ export interface IGenericSelectProps extends HTMLAttributes<HTMLDivElement> {
   classNameContainer?: string
   classNameSelect?: string
   description?: string
+  disabled?: boolean
 }
 
 export const GenericSelect = ({
@@ -35,32 +36,33 @@ export const GenericSelect = ({
   form,
   tabIndex,
   classNameContainer,
-  classNameSelect
+  classNameSelect,
+  disabled
 }: IGenericSelectProps) => {
-    return (
-      <FormField
-        control={form.control}
-        name={id}
-        defaultValue={defaultValue}
-        render={({ field, formState }) => (
+  return (
+    <FormField
+      control={form.control}
+      name={id}
+      defaultValue={defaultValue}
+      render={({ field, formState }) => (
         <FormItem className={cn('w-full', classNameContainer)}>
           <div className='flex justify-start items-end'>
-            { label && <FormLabel className='flex'>{ label }&nbsp;</FormLabel> }
-            { formState?.errors[id]?.message && <span className='text-xs font-light text-destructive'>* {formState.errors[id].message as any}</span> }
+            {label && <FormLabel className='flex'>{label}&nbsp;</FormLabel>}
+            {formState?.errors[id]?.message && <span className='text-xs font-light text-destructive'>* {formState.errors[id].message as any}</span>}
           </div>
 
-          { description && (<FormDescription className='text-xs'>{description}</FormDescription>) }
+          {description && (<FormDescription className='text-xs'>{description}</FormDescription>)}
 
           <div className='my-2'></div>
 
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
-              <FormControl>
-                <SelectTrigger tabIndex={tabIndex} className={cn('w-full', classNameSelect)}>
-                  <SelectValue placeholder={placeholder} />
-                </SelectTrigger>
-              </FormControl>
+          <Select onValueChange={field.onChange} defaultValue={field.value} disabled={disabled}>
+            <FormControl>
+              <SelectTrigger disabled={disabled} tabIndex={tabIndex} className={cn('w-full', classNameSelect)}>
+                <SelectValue placeholder={placeholder} />
+              </SelectTrigger>
+            </FormControl>
 
-              <SelectContent>
+            <SelectContent>
               {
                 items.map(item => (
                   <SelectItem key={item.value?.toString()} value={item.value?.toString()}>

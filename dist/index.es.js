@@ -22654,36 +22654,37 @@ const QP = ({
   form: s,
   tabIndex: i,
   classNameContainer: c,
-  classNameSelect: l
+  classNameSelect: l,
+  disabled: u
 }) => /* @__PURE__ */ p.exports.jsx(
   Eo,
   {
     control: s.control,
     name: e,
     defaultValue: n,
-    render: ({ field: u, formState: d }) => {
-      var f;
+    render: ({ field: d, formState: f }) => {
+      var m;
       return /* @__PURE__ */ p.exports.jsxs(kr, { className: A("w-full", c), children: [
         /* @__PURE__ */ p.exports.jsxs("div", { className: "flex justify-start items-end", children: [
           t && /* @__PURE__ */ p.exports.jsxs(Mr, { className: "flex", children: [
             t,
             " "
           ] }),
-          ((f = d == null ? void 0 : d.errors[e]) == null ? void 0 : f.message) && /* @__PURE__ */ p.exports.jsxs("span", { className: "text-xs font-light text-destructive", children: [
+          ((m = f == null ? void 0 : f.errors[e]) == null ? void 0 : m.message) && /* @__PURE__ */ p.exports.jsxs("span", { className: "text-xs font-light text-destructive", children: [
             "* ",
-            d.errors[e].message
+            f.errors[e].message
           ] })
         ] }),
         o && /* @__PURE__ */ p.exports.jsx(No, { className: "text-xs", children: o }),
         /* @__PURE__ */ p.exports.jsx("div", { className: "my-2" }),
-        /* @__PURE__ */ p.exports.jsxs(pv, { onValueChange: u.onChange, defaultValue: u.value, children: [
-          /* @__PURE__ */ p.exports.jsx(So, { children: /* @__PURE__ */ p.exports.jsx(Jl, { tabIndex: i, className: A("w-full", l), children: /* @__PURE__ */ p.exports.jsx(mv, { placeholder: r }) }) }),
-          /* @__PURE__ */ p.exports.jsx(Ql, { children: a.map((m) => {
-            var v, h;
-            return /* @__PURE__ */ p.exports.jsx(eu, { value: (v = m.value) == null ? void 0 : v.toString(), children: /* @__PURE__ */ p.exports.jsxs("div", { className: "flex justify-center items-center", children: [
-              (m == null ? void 0 : m.icon) && /* @__PURE__ */ p.exports.jsx("div", { className: "dark:text-white mr-2 h-5", children: m.icon }),
-              m.label
-            ] }) }, (h = m.value) == null ? void 0 : h.toString());
+        /* @__PURE__ */ p.exports.jsxs(pv, { onValueChange: d.onChange, defaultValue: d.value, disabled: u, children: [
+          /* @__PURE__ */ p.exports.jsx(So, { children: /* @__PURE__ */ p.exports.jsx(Jl, { disabled: u, tabIndex: i, className: A("w-full", l), children: /* @__PURE__ */ p.exports.jsx(mv, { placeholder: r }) }) }),
+          /* @__PURE__ */ p.exports.jsx(Ql, { children: a.map((v) => {
+            var h, g;
+            return /* @__PURE__ */ p.exports.jsx(eu, { value: (h = v.value) == null ? void 0 : h.toString(), children: /* @__PURE__ */ p.exports.jsxs("div", { className: "flex justify-center items-center", children: [
+              (v == null ? void 0 : v.icon) && /* @__PURE__ */ p.exports.jsx("div", { className: "dark:text-white mr-2 h-5", children: v.icon }),
+              v.label
+            ] }) }, (g = v.value) == null ? void 0 : g.toString());
           }) })
         ] })
       ] });
