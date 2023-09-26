@@ -29,8 +29,6 @@ const initialPagination: ITablePagination = {
 
 export function CustomTable<DataSchema>(props: CustomTableProps<DataSchema>) {
   const { data, columns, loading, error } = props
-
-
   const [showFilters, setShowFilters] = useState(false)
   const [globalFilters, setFilters] = useState([])
   const [searchForm, setSearchForm] = useState<UseFormReturn<any, any, any>>()
@@ -98,7 +96,7 @@ export function CustomTable<DataSchema>(props: CustomTableProps<DataSchema>) {
     }))
   }, [props.pagination.hasNextPage, props.pagination.hasNextPage])
 
-  const [initialValues, setInitialValues] = useState<IInitialTable>({
+  const initialValues: IInitialTable = {
     data,
     columns,
     pagination,
@@ -119,6 +117,7 @@ export function CustomTable<DataSchema>(props: CustomTableProps<DataSchema>) {
 
       return []
     },
+    getGlobalFilters: () => globalFilters,
     getFiltersWithOptionsSelected: () => {
       return globalFilters
         .map((filter) => ({
@@ -146,6 +145,20 @@ export function CustomTable<DataSchema>(props: CustomTableProps<DataSchema>) {
 
       setFilters(filterFinded)
     },
+    resetOptionsByFilter: (filterId) => {
+      const filtersReseted = globalFilters.map(filter => {
+        if (filter.id === filterId) {
+          return {
+            ...filter,
+            options: filter.options.map(option => ({ ...option, selected: false }))
+          }
+        }
+
+        return filter
+      })
+
+      setFilters(filtersReseted)
+    },
     resetFilters: () => {
       const filtersReseted = globalFilters.map((filter) => ({
         ...filter,
@@ -160,26 +173,12 @@ export function CustomTable<DataSchema>(props: CustomTableProps<DataSchema>) {
     nextPage,
     setSearchForm: (searchForm) => setSearchForm(searchForm),
     prevPage
-  })
-
-  useEffect(() => {
-    setInitialValues(prevState => ({
-      ...prevState,
-      data: data || []
-    }))
-  }, [data])
-
-  useEffect(() => {
-    setInitialValues(prevState => ({
-      ...prevState,
-      columns: columns || []
-    }))
-  }, [columns])
+  }
 
   return (
     <TableContext.Provider value={{ ...initialValues }}>
       <div className='w-full h-fit space-y-4'>
-        {!loading && !error && data && <TableSearch onSubmitTable={handleSubmit} loading={loading} />}
+        {<TableSearch onSubmitTable={handleSubmit} loading={loading} />}
 
         <div className='rounded-md border'>
           {loading && <TableLoading />}

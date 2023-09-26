@@ -34,8 +34,8 @@ export interface ITableQuery {
 }
 
 interface ITablePaginationLabel {
-  plural: string
-  single: string
+  plural?: string
+  single?: string
 }
 
 export interface ITablePagination {
@@ -68,7 +68,9 @@ export interface IInitialTable<TData = any> {
   setShowFilters: (value: boolean) => void
   setSearchForm: (searchForm) => void
   selectOptionFilter: (filterId: string, optionId: string, optionValue: boolean) => void
+  resetOptionsByFilter: (filterId: string) => void
   getFiltersWithOptionsSelected: () => any[]
+  getGlobalFilters: () => any[]
   getFilterOptionsSelectedById: (filterId: string) => any[]
   resetFilters: () => void
   nextPage: () => void
@@ -117,12 +119,14 @@ export interface ITableContextStore<TData = any> {
   onSubmitTable: ITableSubmit
 
   setSearchForm: (searchForm) => void
+  getGlobalFilters: () => any[]
 
   setShowFilters: (value: boolean) => void
   selectOptionFilter: (filterId: string, optionId: string, optionValue: boolean) => void
   getFiltersWithOptionsSelected: () => any[]
   getFilterOptionsSelectedById: (filterId: string) => any[]
   resetFilters: () => void
+  resetOptionsByFilter: (filterId: string) => void
   nextPage: () => void
   prevPage: () => void
   updateLimit: (limit: number) => void

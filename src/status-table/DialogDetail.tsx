@@ -29,7 +29,6 @@ export const DialogDetailStatus = ({ status, isOpenViewModel, setOpenViewModel }
         <section className='w-full space-y-4'>
           <div className='w-full grid grid-cols-1 grid-rows-2 sm:grid-cols-2 sm:grid-rows-1 gap-y-3 gap-x-5'>
             <Input
-              form={form}
               readOnly
               id='title'
               type='text'
@@ -40,7 +39,6 @@ export const DialogDetailStatus = ({ status, isOpenViewModel, setOpenViewModel }
             />
 
             <Input
-              form={form}
               readOnly
               type='text'
               tabIndex={5}

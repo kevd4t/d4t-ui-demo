@@ -70,6 +70,7 @@ export interface IUploadImageProps {
   setUploadImage: SetUploadImage | OnChangeImage
   format?: FormatImage
   label?: string
+  disabled?: boolean
   emptyClassName?: string
   imageContainerClassName?: string
   uploadLabel?: string

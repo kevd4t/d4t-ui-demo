@@ -11,6 +11,8 @@ import { z } from 'zod'
 import { IUploadImage } from './components/upload-image/types'
 import { UploadImage } from './components/upload-image/SingleImage'
 import FileResizer from 'react-image-file-resizer'
+import { CustomTable, ITableSubmit } from './components'
+import { characterColumns } from './examples/tables/RickAndMorty'
 
 const schema = z.object({
   name: z.string()
@@ -18,9 +20,54 @@ const schema = z.object({
 
 
 function App() {
-  const [image, setImage] = useState<IUploadImage>({ compressed: null, original: null })
   const profile = { role: 'Administrador', name: 'Kevin', lastname: 'blanco' }
-  const form = useForm<z.infer<typeof schema>>()
+  const [data, setData] = useState([])
+  const [error, setError] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [pagination, setPagination] = useState({ prev: false, next: false })
+
+  const onSubmit: ITableSubmit = async ({ page, limit, filters, queries }) => {
+    console.log({ page, limit, filters, queries })
+
+    setLoading(true)
+
+    setTimeout(async () => {
+      try {
+        const res = await fetch(`https://rickandmortyapi.com/api/character/?page=${page || '1'}`)
+        const data = await res.json()
+
+        setData(data.results)
+        setPagination({ next: Boolean(data.info.next), prev: Boolean(data.info.prev) })
+
+      } catch (err) {
+        setError(Boolean(err))
+      } finally {
+        setLoading(false)
+      }
+    }, 1000)
+
+  }
+
+  useEffect(() => {
+    (async () => {
+      setLoading(true)
+
+      setTimeout(async () => {
+        try {
+          const res = await fetch('https://rickandmortyapi.com/api/character')
+          const data = await res.json()
+
+          setData(data.results)
+          setPagination({ next: Boolean(data.info.next), prev: Boolean(data.info.prev) })
+
+        } catch (err) {
+          setError(Boolean(err))
+        } finally {
+          setLoading(false)
+        }
+      }, 1000)
+    })()
+  }, [])
 
   return (
     <AppLayout>
@@ -194,11 +241,18 @@ function App() {
       </Sidebar>
 
       <div className='mx-auto max-w-4xl'>
-        <UploadImage
-          compress={{
-            resizer: FileResizer
+        <CustomTable
+          onSubmitTable={onSubmit}
+          pagination={{
+            hasNextPage: pagination.next,
+            hasPrevPage: pagination.prev,
+            limit: 10,
+            page: 1
           }}
-          setUploadImage={setImage}
+          columns={characterColumns}
+          data={data}
+          loading={loading}
+          error={Boolean(error)}
         />
       </div>
     </AppLayout>

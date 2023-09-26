@@ -18,6 +18,7 @@ export const UploadImage = ({
   label,
   uploadLabel,
   tabIndexs,
+  disabled,
   emptyClassName,
   imageContainerClassName,
   zoom,
@@ -112,6 +113,7 @@ export const UploadImage = ({
                               }
 
                               <UploadImageActions
+                                disabled={disabled}
                                 imageIndex={index}
                                 setUploadImage={setUploadImage}
                                 onImageRemove={onImageRemove}

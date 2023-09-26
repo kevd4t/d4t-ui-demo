@@ -14,14 +14,14 @@ export function TablePagination() {
         rowsToSelect && (
           <div className='flex-1 text-sm text-muted-foreground'>
             {table.getFilteredSelectedRowModel().rows.length} de {' '}
-            {table.getFilteredRowModel().rows.length} {pagination.labels.singularItem}(s) Seleccionados.
+            {table.getFilteredRowModel().rows.length} {pagination?.labels?.singularItem}(s) Seleccionados.
           </div>
         )
       } */}
 
       <div className='flex items-end sm:items-center space-x-6 lg:space-x-8 mt-2 sm:mt-0'>
         <div className='flex flex-wrap items-center gap-2'>
-          <p className='text-sm font-medium'>{pagination.labels.plural} por Pagina</p>
+          <p className='text-sm font-medium'>{pagination?.labels?.plural || 'Items'} por Pagina</p>
 
           <Select
             value={`${pagination.limit}`}

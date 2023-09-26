@@ -7,6 +7,7 @@ import { Edit, Trash } from 'lucide-react'
 
 interface UploadImageActionsProps {
   imageIndex: number
+  disabled?: boolean
   compress?: UploadImageCompress
   tabIndexs?: UploadImageTabIndexs
   onImageUpdate: (index: number) => void
@@ -15,7 +16,9 @@ interface UploadImageActionsProps {
   setLocalImage: Dispatch<SetStateAction<ImageListType>>
 }
 
-export const UploadImageActions = ({ imageIndex, compress, tabIndexs, onImageUpdate, setUploadImage, onImageRemove, setLocalImage }: UploadImageActionsProps) => {
+export const UploadImageActions = ({ imageIndex, compress, disabled, tabIndexs, onImageUpdate, setUploadImage, onImageRemove, setLocalImage }: UploadImageActionsProps) => {
+  if (disabled) return null
+
   return (
     <div className='mt-2 gap-x-2 w-full flex flex-col justify-center items-end gap-y-2 absolute top-2 right-2'>
       {

@@ -94,6 +94,22 @@ export const useTableStore = create<ITableStore<any>>((set, get) => ({
     return ({ ...prevState, filters: filterFinded })
   }),
 
+  resetOptionsByFilter: (filterId) => set((prevState) => {
+    const filterFinded = prevState.filters.map(filter => {
+      if (filter.id === filterId) {
+        return {
+          ...filter,
+          options: filter.options.map(option => ({ ...option, selected: false }))
+        }
+      }
+
+      return filter
+    })
+
+    return ({ ...prevState, filters: filterFinded })
+  }),
+
+
   resetFilters: () => set((prevState) => {
     const filtersReseted = prevState.filters.map(filter => ({
       ...filter,
@@ -154,6 +170,8 @@ export const TableContext = createContext<ITableContextStore>({
   searchForm: null,
   onSubmitTable: null,
   setSearchForm: () => { },
+  getGlobalFilters: () => { },
+  resetOptionsByFilter: () => { },
   pagination: {
     limit: 5,
     page: 1,

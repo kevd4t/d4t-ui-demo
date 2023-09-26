@@ -1,13 +1,13 @@
-import { EmptyBoxIllustration } from '../../illustrations/EmptyBox'
+import { TableUI } from '../../table'
+
+import { TableHeader } from './Header'
+import { TableBody } from './Body'
 
 export const TableEmpty = () => {
   return (
-    <div className='w-full flex flex-col items-center justify-center py-8'>
-      <EmptyBoxIllustration />
-
-      <div className='-mt-3'>
-        <span>Sin Resultados</span>
-      </div>
-    </div>
+    <TableUI>
+      <TableHeader />
+      <TableBody />
+    </TableUI>
   )
 }

@@ -7,16 +7,24 @@ import { TableContext } from './store'
 
 import { Badge, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, Popover, PopoverContent, PopoverTrigger, Separator } from '../..'
 import { cn } from '../../../lib/utils'
+import { UseFormReturn } from 'react-hook-form'
 
 interface FacetedFilterProps {
+  form: UseFormReturn<any, any, any>
   id: string
   label: string
   icon: ReactNode
   options: ITableFilterOption[]
+  onSubmit: any
 }
 
-export const FacetedFilter = ({ id, icon, label, options }: FacetedFilterProps) => {
-  const { selectOptionFilter, getFilterOptionsSelectedById, resetFilters } = useContext(TableContext)
+export const FacetedFilter = ({ id, form, icon, label, options, onSubmit }: FacetedFilterProps) => {
+  const { selectOptionFilter, getFilterOptionsSelectedById, resetOptionsByFilter } = useContext(TableContext)
+
+  const clearFilter = (filterId: string) => {
+    resetOptionsByFilter(filterId)
+    // form.handleSubmit(onSubmit)()
+  }
 
   return (
     <Popover>
@@ -126,7 +134,11 @@ export const FacetedFilter = ({ id, icon, label, options }: FacetedFilterProps) 
 
                   <CommandGroup>
                     <CommandItem
-                      onSelect={() => resetFilters()}
+                      // onSelect={() => {
+                      //   resetFilters()
+                      //   form.handleSubmit(onSubmit)
+                      // }}
+                      onSelect={() => clearFilter(id)}
                       className='justify-center text-center'
                     >
                       Limpiar Filtros

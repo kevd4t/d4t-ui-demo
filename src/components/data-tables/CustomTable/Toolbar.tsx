@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useRef } from 'react'
 import { Button } from '../..'
 import { X } from 'lucide-react'
 
@@ -11,6 +11,11 @@ import { SearchQuery } from './SearchQuery'
 export const TableToolbar = ({ form, onSubmit }) => {
   const { queries, filters, showFilters, resetFilters } = useContext(TableContext)
   const watchFields = form.watch(queries.map(item => item.id))
+
+  const clearAllFilters = () => {
+    resetFilters()
+    // form.handleSubmit(onSubmit)()
+  }
 
   return (
     <div className='w-10/12 flex items-center justify-between'>
@@ -40,6 +45,8 @@ export const TableToolbar = ({ form, onSubmit }) => {
                 {
                   (showFilters && filters) && filters.map(filter => (
                     <FacetedFilter
+                      onSubmit={onSubmit}
+                      form={form}
                       key={filter.id}
                       id={filter.id}
                       icon={filter.icon}
@@ -49,14 +56,11 @@ export const TableToolbar = ({ form, onSubmit }) => {
                   ))
                 }
                 {
-                  showFilters && (
+                  (showFilters && filters?.length) && (
                     <Button
-                      type='button'
+                      type='submit'
                       variant='ghost'
-                      onClick={() => {
-                        // table.resetColumnFilters()
-                        resetFilters()
-                      }}
+                      onClick={clearAllFilters}
                       className='px-2 py-5 lg:px-3 ml-0 lg:ml-auto'
                     >
                       Limpiar Filtros

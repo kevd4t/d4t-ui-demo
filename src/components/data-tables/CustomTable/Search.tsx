@@ -16,7 +16,7 @@ interface TableSearchProps {
 }
 
 export const TableSearch = ({ onSubmitTable, loading }: TableSearchProps) => {
-  const { queries, getFiltersWithOptionsSelected, filters, pagination: { page, limit }, setSearchForm } = useContext(TableContext)
+  const { queries, getFiltersWithOptionsSelected, getGlobalFilters, filters, pagination: { page, limit }, setSearchForm } = useContext(TableContext)
 
   const form = useForm<any>({
     defaultValues: queries.reduce((obj, item) => {
@@ -33,8 +33,10 @@ export const TableSearch = ({ onSubmitTable, loading }: TableSearchProps) => {
   })
 
   const onSubmit = async (data) => {
-    const queries = []
+    console.log({ data })
     const filtersSelected = getFiltersWithOptionsSelected()
+
+    const queries = []
 
     Object.entries(data)?.forEach(query => {
       if (!query[1]) return
