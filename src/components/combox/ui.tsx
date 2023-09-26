@@ -3,9 +3,9 @@ import { ChevronsUpDown } from 'lucide-react'
 import { ReactNode, useState } from 'react'
 import { Check } from 'lucide-react'
 
-import { cn } from '../lib/utils'
+import { cn } from '../../lib/utils'
 
-import { FormField, FormItem, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Popover, PopoverContent, PopoverTrigger, FormLabel } from './'
+import { FormField, FormItem, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Popover, PopoverContent, PopoverTrigger, FormLabel } from '..'
 
 type TComboxItem = {
   value: string
@@ -32,7 +32,7 @@ interface IComboxProps {
   popoverClassName?: string
 }
 
-export function ComboBox ({
+export function ComboBox({
   id,
   form,
   label,
@@ -63,7 +63,7 @@ export function ComboBox ({
             {
               label && (
                 <FormLabel className='flex'>
-                  { label }&nbsp;
+                  {label}&nbsp;
 
                   {
                     formState.errors?.pidType?.message && (
@@ -75,7 +75,7 @@ export function ComboBox ({
                 </FormLabel>
               )
             }
-            
+
             <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger asChild>
                 <Button
@@ -112,8 +112,8 @@ export function ComboBox ({
                           }}
                           className='w-full flex justify-start items-center'
                         >
-                          { item?.image && <img src={item.image} alt={item.label} width={40} className='mr-2' /> }
-                          { item?.icon && item.icon }
+                          {item?.image && <img src={item.image} alt={item.label} width={40} className='mr-2' />}
+                          {item?.icon && item.icon}
 
                           {item.label}
 

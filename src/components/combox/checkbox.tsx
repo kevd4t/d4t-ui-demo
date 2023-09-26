@@ -2,7 +2,7 @@ import { useState, type ReactNode } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import { Check } from 'lucide-react'
 
-import { FormDescription, FormField, FormItem, FormLabel, Badge, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, Popover, PopoverContent, PopoverTrigger } from '..'
+import { FormDescription, FormField, FormItem, FormLabel, Badge, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, Popover, PopoverContent, PopoverTrigger } from '../'
 import { cn } from '../../lib/utils'
 
 interface Option {
@@ -18,19 +18,24 @@ interface LocalOption extends Option {
 
 interface ComboxCheckBoxProps {
   id: string
+  form: UseFormReturn<any, any, any>
+  options: Option[]
   label?: string
   placeholder?: string
   description?: string
   icon?: ReactNode
   classNameContainer?: string
-  form: UseFormReturn<any, any, any>
-  options: Option[]
   tabIndex?: number
 }
 
 export const ComboxCheckbox = ({ form, id, description, icon, placeholder, label, tabIndex, options, classNameContainer }: ComboxCheckBoxProps) => {
-  const optionsFormated: LocalOption[] = options.map(option => ({ ...option, selected: false }))
-  const [localOptions, setLocalOptions] = useState<LocalOption[]>(optionsFormated)
+  const defaultOptions = form?.formState?.defaultValues[id]
+  const optionsFormatted: LocalOption[] = options.map(option => ({
+    ...option,
+    selected: defaultOptions ? defaultOptions.includes(option.value) : false
+  }))
+
+  const [localOptions, setLocalOptions] = useState<LocalOption[]>(optionsFormatted)
 
   const getSelectedOptions = (filterId) => {
     const selectedOptions = localOptions.filter((option) => option.selected).map((option) => option.value)
