@@ -11,7 +11,7 @@ import { z } from 'zod'
 import { IUploadImage } from './components/upload-image/types'
 import { UploadImage } from './components/upload-image/SingleImage'
 import FileResizer from 'react-image-file-resizer'
-import { CustomTable, ITableSubmit } from './components'
+import { ComboxCheckbox, CustomTable, ITableSubmit } from './components'
 import { characterColumns } from './examples/tables/RickAndMorty'
 
 const schema = z.object({
@@ -241,7 +241,7 @@ function App() {
       </Sidebar>
 
       <div className='mx-auto max-w-4xl'>
-        <CustomTable
+        {/* <CustomTable
           onSubmitTable={onSubmit}
           pagination={{
             hasNextPage: pagination.next,
@@ -253,6 +253,12 @@ function App() {
           data={data}
           loading={loading}
           error={Boolean(error)}
+        /> */}
+
+        <ComboxCheckbox
+          id='fino'
+          readOnly
+          defaultValue={['Gasolina', 'xd', 'Diesel', 'lo que sea manito']}
         />
       </div>
     </AppLayout>
