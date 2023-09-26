@@ -1,12 +1,38 @@
-import { useState, type ReactNode } from 'react'
-import { UseFormReturn } from 'react-hook-form'
+import { useState, useRef, useEffect } from 'react'
 import { Check } from 'lucide-react'
 
 import { FormDescription, FormField, FormItem, FormLabel, Badge, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, Popover, PopoverContent, PopoverTrigger, Label } from '../'
 import { cn } from '../../lib/utils'
 import { LocalOption } from './types'
 
-export const CheckboxField = ({ form, id, description, icon, placeholder, label, tabIndex, options, classNameContainer, classNamePopover, comboxWidth }) => {
+export const CheckboxField = ({ form, id, description, icon, placeholder, label, tabIndex, options, classNameContainer, classNamePopover }) => {
+  const elementRef = useRef(null)
+  const [comboxWidth, setComboxWidth] = useState(null)
+
+  useEffect(() => {
+    const element = elementRef.current
+
+    if (!element) {
+      return
+    }
+
+    // Crea una instancia de ResizeObserver
+    const resizeObserver = new ResizeObserver((entries) => {
+      const width = entries[0].contentRect.width
+      setComboxWidth(width)
+    })
+
+    // Observa el elemento
+    resizeObserver.observe(element)
+
+    // Limpia la instancia de ResizeObserver cuando el componente se desmonta
+    return () => {
+      resizeObserver.unobserve(element)
+      resizeObserver.disconnect()
+    }
+  }, [])
+
+
   const defaultOptions = form?.formState?.defaultValues[id]
   const optionsFormatted: LocalOption[] = options.map(option => ({
     ...option,
@@ -50,7 +76,14 @@ export const CheckboxField = ({ form, id, description, icon, placeholder, label,
 
             <Popover>
               <PopoverTrigger asChild>
-                <Button type='button' variant='outline' size='sm' className='py-5 border w-full justify-start' tabIndex={tabIndex}>
+                <Button
+                  ref={elementRef}
+                  type='button'
+                  variant='outline'
+                  size='sm'
+                  className='py-5 border w-full justify-start'
+                  tabIndex={tabIndex}
+                >
                   {icon && icon}
 
                   {

@@ -11,7 +11,7 @@ import { z } from 'zod'
 import { IUploadImage } from './components/upload-image/types'
 import { UploadImage } from './components/upload-image/SingleImage'
 import FileResizer from 'react-image-file-resizer'
-import { ComboxCheckbox, CustomTable, ITableSubmit } from './components'
+import { ComboxCheckbox, CustomTable, Form, ITableSubmit } from './components'
 import { characterColumns } from './examples/tables/RickAndMorty'
 
 const schema = z.object({
@@ -25,28 +25,33 @@ function App() {
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(true)
   const [pagination, setPagination] = useState({ prev: false, next: false })
+  const form = useForm<{ fuel: string[] }>({ defaultValues: { fuel: [] } })
 
-  const onSubmit: ITableSubmit = async ({ page, limit, filters, queries }) => {
-    console.log({ page, limit, filters, queries })
-
-    setLoading(true)
-
-    setTimeout(async () => {
-      try {
-        const res = await fetch(`https://rickandmortyapi.com/api/character/?page=${page || '1'}`)
-        const data = await res.json()
-
-        setData(data.results)
-        setPagination({ next: Boolean(data.info.next), prev: Boolean(data.info.prev) })
-
-      } catch (err) {
-        setError(Boolean(err))
-      } finally {
-        setLoading(false)
-      }
-    }, 1000)
-
+  const onSubmit = (data) => {
+    console.log({ data })
   }
+
+  // const onSubmit: ITableSubmit = async ({ page, limit, filters, queries }) => {
+  //   console.log({ page, limit, filters, queries })
+
+  //   setLoading(true)
+
+  //   setTimeout(async () => {
+  //     try {
+  //       const res = await fetch(`https://rickandmortyapi.com/api/character/?page=${page || '1'}`)
+  //       const data = await res.json()
+
+  //       setData(data.results)
+  //       setPagination({ next: Boolean(data.info.next), prev: Boolean(data.info.prev) })
+
+  //     } catch (err) {
+  //       setError(Boolean(err))
+  //     } finally {
+  //       setLoading(false)
+  //     }
+  //   }, 1000)
+
+  // }
 
   useEffect(() => {
     (async () => {
@@ -254,12 +259,21 @@ function App() {
           loading={loading}
           error={Boolean(error)}
         /> */}
-
-        <ComboxCheckbox
-          id='fino'
-          readOnly
-          defaultValue={['Gasolina', 'xd', 'Diesel', 'lo que sea manito']}
-        />
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <ComboxCheckbox
+              form={form}
+              id='fuel'
+              label='Combustible'
+              options={[{
+                id: 'activo',
+                value: 'activo',
+                label: 'activo'
+              }]}
+            />
+            <button type='submit'>dale</button>
+          </form>
+        </Form>
       </div>
     </AppLayout>
   )
