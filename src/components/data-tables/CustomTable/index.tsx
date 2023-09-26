@@ -29,6 +29,8 @@ const initialPagination: ITablePagination = {
 
 export function CustomTable<DataSchema>(props: CustomTableProps<DataSchema>) {
   const { data, columns, loading, error } = props
+
+
   const [showFilters, setShowFilters] = useState(false)
   const [globalFilters, setFilters] = useState([])
   const [searchForm, setSearchForm] = useState<UseFormReturn<any, any, any>>()
@@ -96,7 +98,7 @@ export function CustomTable<DataSchema>(props: CustomTableProps<DataSchema>) {
     }))
   }, [props.pagination.hasNextPage, props.pagination.hasNextPage])
 
-  const initialValues: IInitialTable = {
+  const [initialValues, setInitialValues] = useState<IInitialTable>({
     data,
     columns,
     pagination,
@@ -158,7 +160,21 @@ export function CustomTable<DataSchema>(props: CustomTableProps<DataSchema>) {
     nextPage,
     setSearchForm: (searchForm) => setSearchForm(searchForm),
     prevPage
-  }
+  })
+
+  useEffect(() => {
+    setInitialValues(prevState => ({
+      ...prevState,
+      data: data || []
+    }))
+  }, [data])
+
+  useEffect(() => {
+    setInitialValues(prevState => ({
+      ...prevState,
+      columns: columns || []
+    }))
+  }, [columns])
 
   return (
     <TableContext.Provider value={{ ...initialValues }}>
