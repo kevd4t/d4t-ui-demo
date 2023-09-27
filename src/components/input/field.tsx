@@ -56,7 +56,7 @@ export const Field = ({ id, form, icon, label, description, iconDirection, class
       render={({ field, formState }) => (
         <FormItem className={cn('w-full', classNameContainer)}>
           <div className='flex justify-start items-end'>
-            {label && <FormLabel className='flex'>{label}&nbsp</FormLabel>}
+            {label && <FormLabel className='flex'>{label}&nbsp;</FormLabel>}
             {formState?.errors[id]?.message && <span className='text-xs font-light text-destructive'>* {formState.errors[id].message as any}</span>}
           </div>
 

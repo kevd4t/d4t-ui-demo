@@ -1,5 +1,5 @@
 /// <reference types="react" />
-export declare const ComboboxCheckboxReadOnly: ({ description, icon, placeholder, label, tabIndex, options, classNameContainer, classNamePopover, defaultValue }: {
+export declare const ComboboxCheckboxReadOnly: ({ description, icon, placeholder, label, tabIndex, options, classNameContainer, classNamePopover }: {
     description: any;
     icon: any;
     placeholder: any;
@@ -8,5 +8,4 @@ export declare const ComboboxCheckboxReadOnly: ({ description, icon, placeholder
     options: any;
     classNameContainer: any;
     classNamePopover: any;
-    defaultValue: any;
 }) => JSX.Element;

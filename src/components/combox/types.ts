@@ -15,7 +15,6 @@ export interface LocalOption extends Option {
 
 export interface ComboxCheckBoxPropsBase {
   id: string
-  defaultValue?: string[]
   label?: string
   placeholder?: string
   description?: string
@@ -27,7 +26,7 @@ export interface ComboxCheckBoxPropsBase {
 
 export interface ComboxCheckBoxReadOnly extends ComboxCheckBoxPropsBase {
   readOnly: true;
-  defaultValue: string[]
+  options: Option[]
 }
 
 export interface ComboxCheckBoxWithForm extends ComboxCheckBoxPropsBase {

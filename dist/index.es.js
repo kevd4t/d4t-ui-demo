@@ -11110,7 +11110,7 @@ const gC = ({ id: e, form: t, label: n, description: r, iconDirection: o, classN
         /* @__PURE__ */ f.exports.jsxs("div", { className: "flex justify-start items-end", children: [
           r && /* @__PURE__ */ f.exports.jsxs($r, { className: "flex", children: [
             r,
-            "&nbsp"
+            " "
           ] }),
           ((d = u == null ? void 0 : u.errors[e]) == null ? void 0 : d.message) && /* @__PURE__ */ f.exports.jsxs("span", { className: "text-xs font-light text-destructive", children: [
             "* ",
@@ -24845,7 +24845,9 @@ const Tk = ({ form: e, id: t, description: n, icon: r, placeholder: o, label: a,
                   /* @__PURE__ */ f.exports.jsx(wn, { children: /* @__PURE__ */ f.exports.jsx(
                     _n,
                     {
-                      onSelect: () => b(),
+                      onSelect: () => {
+                        e.setValue(t, []), b();
+                      },
                       className: "justify-center text-center",
                       children: "Limpiar"
                     }
@@ -24858,18 +24860,18 @@ const Tk = ({ form: e, id: t, description: n, icon: r, placeholder: o, label: a,
       }
     }
   );
-}, Pk = ({ description: e, icon: t, placeholder: n, label: r, tabIndex: o, options: a, classNameContainer: s, classNamePopover: i, defaultValue: c }) => {
-  const l = j(null), [u, d] = G(null);
+}, Pk = ({ description: e, icon: t, placeholder: n, label: r, tabIndex: o, options: a, classNameContainer: s, classNamePopover: i }) => {
+  const c = j(null), [l, u] = G(null);
   return Q(() => {
-    const p = l.current;
-    if (!p)
+    const d = c.current;
+    if (!d)
       return;
-    const m = new ResizeObserver((v) => {
-      const h = v[0].contentRect.width;
-      d(h);
+    const p = new ResizeObserver((m) => {
+      const v = m[0].contentRect.width;
+      u(v);
     });
-    return m.observe(p), () => {
-      m.unobserve(p), m.disconnect();
+    return p.observe(d), () => {
+      p.unobserve(d), p.disconnect();
     };
   }, []), /* @__PURE__ */ f.exports.jsxs("div", { className: R("w-full space-y-2", s), children: [
     /* @__PURE__ */ f.exports.jsx("div", { className: "flex justify-start items-end", children: r && /* @__PURE__ */ f.exports.jsxs(Sn, { className: "flex", children: [
@@ -24881,7 +24883,7 @@ const Tk = ({ form: e, id: t, description: n, icon: r, placeholder: o, label: a,
       /* @__PURE__ */ f.exports.jsx(cr, { asChild: !0, children: /* @__PURE__ */ f.exports.jsxs(
         Qe,
         {
-          ref: l,
+          ref: c,
           type: "button",
           variant: "outline",
           size: "sm",
@@ -24889,50 +24891,51 @@ const Tk = ({ form: e, id: t, description: n, icon: r, placeholder: o, label: a,
           tabIndex: o,
           children: [
             t && t,
-            !c.length && /* @__PURE__ */ f.exports.jsx("span", { className: "text-muted-foreground font-normal", children: n || "Seleccione alguna opción" }),
-            c.length > 0 && /* @__PURE__ */ f.exports.jsxs(f.exports.Fragment, { children: [
+            !a.length && /* @__PURE__ */ f.exports.jsx("span", { className: "text-muted-foreground font-normal", children: n || "Seleccione alguna opción" }),
+            a.length > 0 && /* @__PURE__ */ f.exports.jsxs(f.exports.Fragment, { children: [
               /* @__PURE__ */ f.exports.jsxs(
                 Wt,
                 {
                   variant: "secondary",
                   className: "rounded-sm px-1 font-normal lg:hidden",
                   children: [
-                    c.length,
+                    a.length,
                     " seleccionados"
                   ]
                 }
               ),
-              /* @__PURE__ */ f.exports.jsx("div", { className: "hidden space-x-1 lg:flex", children: c.length > 2 ? /* @__PURE__ */ f.exports.jsxs(
+              /* @__PURE__ */ f.exports.jsx("div", { className: "hidden space-x-1 lg:flex", children: a.length > 2 ? /* @__PURE__ */ f.exports.jsxs(
                 Wt,
                 {
                   variant: "secondary",
                   className: "rounded-sm px-1 font-normal",
                   children: [
-                    c.length,
+                    a.length,
                     " seleccionados"
                   ]
                 }
-              ) : c.map((p) => /* @__PURE__ */ f.exports.jsx(
+              ) : a.map((d) => /* @__PURE__ */ f.exports.jsx(
                 Wt,
                 {
                   variant: "secondary",
                   className: "rounded-sm px-1 font-normal",
-                  children: p
+                  children: d.label
                 },
-                p
+                d.id
               )) })
             ] })
           ]
         }
       ) }),
-      /* @__PURE__ */ f.exports.jsx(Vn, { style: { width: u + 24 }, className: R("w-full p-0", i), align: "start", children: /* @__PURE__ */ f.exports.jsxs(Un, { children: [
+      /* @__PURE__ */ f.exports.jsx(Vn, { style: { width: l + 24 }, className: R("w-full p-0", i), align: "start", children: /* @__PURE__ */ f.exports.jsxs(Un, { children: [
         /* @__PURE__ */ f.exports.jsx(ur, { placeholder: r }),
         /* @__PURE__ */ f.exports.jsxs(ri, { children: [
           /* @__PURE__ */ f.exports.jsx(dr, { children: "Sin Resultados" }),
-          /* @__PURE__ */ f.exports.jsx(wn, { children: c.map((p) => /* @__PURE__ */ f.exports.jsxs(
+          /* @__PURE__ */ f.exports.jsx(wn, { children: a.map((d) => /* @__PURE__ */ f.exports.jsxs(
             _n,
             {
               disabled: !0,
+              className: "cursor-default",
               children: [
                 /* @__PURE__ */ f.exports.jsx(
                   "div",
@@ -24946,27 +24949,27 @@ const Tk = ({ form: e, id: t, description: n, icon: r, placeholder: o, label: a,
                     children: /* @__PURE__ */ f.exports.jsx(en, { className: R("h-4 w-4") })
                   }
                 ),
-                /* @__PURE__ */ f.exports.jsx("span", { children: p })
+                /* @__PURE__ */ f.exports.jsx("span", { children: d.label })
               ]
             },
-            p
+            d.id
           )) })
         ] })
       ] }) })
     ] })
   ] });
-}, l8 = ({ id: e, description: t, icon: n, placeholder: r, label: o, tabIndex: a, classNameContainer: s, readOnly: i, defaultValue: c, classNamePopover: l, ...u }) => i ? /* @__PURE__ */ f.exports.jsx(
+}, l8 = ({ id: e, description: t, icon: n, placeholder: r, label: o, tabIndex: a, classNameContainer: s, readOnly: i, classNamePopover: c, ...l }) => i ? /* @__PURE__ */ f.exports.jsx(
   Pk,
   {
     label: o,
     classNameContainer: s,
     description: t,
-    classNamePopover: l,
+    classNamePopover: c,
     icon: n,
     placeholder: r,
     tabIndex: a,
-    form: (u == null ? void 0 : u.form) || null,
-    options: (u == null ? void 0 : u.options) || []
+    form: (l == null ? void 0 : l.form) || null,
+    options: (l == null ? void 0 : l.options) || []
   }
 ) : /* @__PURE__ */ f.exports.jsx(
   Tk,
@@ -24975,12 +24978,12 @@ const Tk = ({ form: e, id: t, description: n, icon: r, placeholder: o, label: a,
     label: o,
     classNameContainer: s,
     description: t,
-    classNamePopover: l,
+    classNamePopover: c,
     icon: n,
     placeholder: r,
     tabIndex: a,
-    form: (u == null ? void 0 : u.form) || null,
-    options: (u == null ? void 0 : u.options) || []
+    form: (l == null ? void 0 : l.form) || null,
+    options: (l == null ? void 0 : l.options) || []
   }
 );
 function u8(e) {

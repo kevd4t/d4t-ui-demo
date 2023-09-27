@@ -3,9 +3,7 @@ import { ComboxCheckBoxProps } from './types'
 import { ComboboxCheckboxReadOnly } from './readonly'
 
 
-export const ComboxCheckbox = ({ id, description, icon, placeholder, label, tabIndex, classNameContainer, readOnly, defaultValue, classNamePopover, ...rest }: ComboxCheckBoxProps) => {
-
-
+export const ComboxCheckbox = ({ id, description, icon, placeholder, label, tabIndex, classNameContainer, readOnly, classNamePopover, ...rest }: ComboxCheckBoxProps) => {
   if (readOnly) {
     return (
       <ComboboxCheckboxReadOnly

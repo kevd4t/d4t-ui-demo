@@ -5,7 +5,7 @@ import { cn } from '../../lib/utils'
 
 import { Label, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Popover, PopoverContent, PopoverTrigger, Badge, CommandList } from '..'
 
-export const ComboboxCheckboxReadOnly = ({ description, icon, placeholder, label, tabIndex, options, classNameContainer, classNamePopover, defaultValue }) => {
+export const ComboboxCheckboxReadOnly = ({ description, icon, placeholder, label, tabIndex, options, classNameContainer, classNamePopover }) => {
   const elementRef = useRef(null)
   const [comboxWidth, setComboxWidth] = useState(null)
 
@@ -53,7 +53,7 @@ export const ComboboxCheckboxReadOnly = ({ description, icon, placeholder, label
             {icon && icon}
 
             {
-              !defaultValue.length && (
+              !options.length && (
                 <span className='text-muted-foreground font-normal'>
                   {placeholder || 'Seleccione alguna opción'}
                 </span>
@@ -61,36 +61,36 @@ export const ComboboxCheckboxReadOnly = ({ description, icon, placeholder, label
             }
 
             {
-              defaultValue.length > 0 && (
+              options.length > 0 && (
                 <>
                   <Badge
                     variant='secondary'
                     className='rounded-sm px-1 font-normal lg:hidden'
                   >
-                    {defaultValue.length} seleccionados
+                    {options.length} seleccionados
                   </Badge>
 
                   <div className='hidden space-x-1 lg:flex'>
                     {
-                      defaultValue.length > 2
+                      options.length > 2
                         ? (
                           <Badge
                             variant='secondary'
                             className='rounded-sm px-1 font-normal'
                           >
-                            {defaultValue.length} seleccionados
+                            {options.length} seleccionados
                           </Badge>
                         )
                         : (
-                          defaultValue
+                          options
                             .map((option) => {
                               return (
                                 <Badge
                                   variant='secondary'
-                                  key={option}
+                                  key={option.id}
                                   className='rounded-sm px-1 font-normal'
                                 >
-                                  {option}
+                                  {option.label}
                                 </Badge>
                               )
                             })
@@ -111,11 +111,12 @@ export const ComboboxCheckboxReadOnly = ({ description, icon, placeholder, label
 
               <CommandGroup>
                 {
-                  defaultValue.map((option) => {
+                  options.map((option) => {
                     return (
                       <CommandItem
-                        key={option}
+                        key={option.id}
                         disabled
+                        className='cursor-default'
                       >
                         <div
                           className={cn(
@@ -128,7 +129,7 @@ export const ComboboxCheckboxReadOnly = ({ description, icon, placeholder, label
                           <Check className={cn('h-4 w-4')} />
                         </div>
 
-                        <span>{option}</span>
+                        <span>{option.label}</span>
                       </CommandItem>
                     )
                   })

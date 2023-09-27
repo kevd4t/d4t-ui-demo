@@ -185,7 +185,10 @@ export const CheckboxField = ({ form, id, description, icon, placeholder, label,
 
                           <CommandGroup>
                             <CommandItem
-                              onSelect={() => resetFilters()}
+                              onSelect={() => {
+                                form.setValue(id, [])
+                                resetFilters()
+                              }}
                               className='justify-center text-center'
                             >
                               Limpiar

@@ -25,7 +25,7 @@ function App() {
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(true)
   const [pagination, setPagination] = useState({ prev: false, next: false })
-  const form = useForm<{ fuel: string[] }>({ defaultValues: { fuel: [] } })
+  const form = useForm<{ fuel: string[] }>({ defaultValues: { fuel: ['activo'] } })
 
   const onSubmit = (data) => {
     console.log({ data })
@@ -262,14 +262,16 @@ function App() {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <ComboxCheckbox
-              form={form}
+              readOnly
               id='fuel'
               label='Combustible'
-              options={[{
-                id: 'activo',
-                value: 'activo',
-                label: 'activo'
-              }]}
+              options={[
+                {
+                  id: 'activo',
+                  value: 'activo',
+                  label: 'Activo'
+                }
+              ]}
             />
             <button type='submit'>dale</button>
           </form>
