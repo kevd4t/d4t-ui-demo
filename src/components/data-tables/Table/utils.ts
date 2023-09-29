@@ -1,5 +1,6 @@
 // @ts-nocheck
 
+import { ITableColumn } from './types'
 import { ITablePagination } from './types'
 
 export interface DataToFormat {
@@ -29,11 +30,10 @@ export const generateUUID = () =>
     (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16)
   )
 
-
 export const insertColumn = (newColumn: ITableColumn<any>, originalColumn: ITableColumn<any>[]) => {
   return [
-    ...truckColumns.slice(0, truckColumns.length - 1),
+    ...originalColumn.slice(0, originalColumn.length - 1),
     newColumn,
-    ...truckColumns.slice(truckColumns.length - 1)
+    ...originalColumn.slice(originalColumn.length - 1)
   ]
 }

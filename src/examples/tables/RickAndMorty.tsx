@@ -1,4 +1,4 @@
-import { ITableColumn } from '../../components/data-tables/CustomTable/types'
+import { ITableColumn } from '../../components/data-tables/Table/types'
 
 export interface Character {
   id: number;

@@ -1,9 +1,8 @@
+import { Select, Button, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../..'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useContext } from 'react'
 
 import { TableContext } from './store'
-
-import { Select, Button, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../..'
 
 export function TablePagination() {
   const { pagination, updateLimit, nextPage, prevPage } = useContext(TableContext)

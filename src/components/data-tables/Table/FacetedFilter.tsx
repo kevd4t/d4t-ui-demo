@@ -1,13 +1,13 @@
 import { IconAdjustments } from '@tabler/icons-react'
+import { UseFormReturn } from 'react-hook-form'
 import { ReactNode, useContext } from 'react'
 import { Check } from 'lucide-react'
 
 import { ITableFilterOption } from './types'
+import { cn } from '../../../lib/utils'
 import { TableContext } from './store'
 
 import { Badge, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, Popover, PopoverContent, PopoverTrigger, Separator } from '../..'
-import { cn } from '../../../lib/utils'
-import { UseFormReturn } from 'react-hook-form'
 
 interface FacetedFilterProps {
   form: UseFormReturn<any, any, any>
@@ -29,7 +29,7 @@ export const FacetedFilter = ({ id, form, icon, label, options, onSubmit }: Face
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant='outline' size='sm' className='py-5 border-dashed'>
+        <Button type='button' variant='outline' size='sm' className='py-5 border-dashed'>
           {icon || <IconAdjustments size={16} className='mr-2' />}
 
           {label}

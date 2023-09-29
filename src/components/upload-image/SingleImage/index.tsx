@@ -1,5 +1,5 @@
 import ImageUploading from 'react-images-uploading'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import type { IUploadImageProps, ImageListType, onChangeImage } from '../types'
 import { compressImage } from '../handleCompressionImage'
@@ -82,6 +82,12 @@ export const UploadImage = ({
       compressed: null
     })
   }
+
+  useEffect(() => {
+    if (initialPreview) {
+      setLocalImage([{ data_url: initialPreview as string, file: null }])
+    }
+  }, [initialPreview])
 
   return (
     <div className='w-full h-full'>

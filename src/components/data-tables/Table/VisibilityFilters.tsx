@@ -2,13 +2,14 @@ import { IconAdjustmentsHorizontal } from '@tabler/icons-react'
 import { useContext } from 'react'
 
 import { TableContext } from './store'
-import { Button } from '../..'
+import { Button } from '../../'
 
 export const VisibilityFilters = () => {
   const { showFilters, setShowFilters } = useContext(TableContext)
 
   return (
     <Button
+      type='button'
       variant='outline'
       onClick={() => setShowFilters(!showFilters)}
       className='ml-auto py-5 whitespace-nowrap'

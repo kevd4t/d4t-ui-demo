@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react'
 import { UseFormReturn } from 'react-hook-form'
+import type { Dispatch, ReactNode, SetStateAction } from 'react'
 
 export interface ITableFilterOption {
   id: string
@@ -21,7 +21,7 @@ type IDataProperty<Type> = {
 }
 
 export interface ITableColumn<TDataSchema> {
-  id: keyof IDataProperty<TDataSchema> | 'actions'
+  id: keyof IDataProperty<TDataSchema> | 'actions' | 'select' | 'multi-select'
   label: string
   filters?: ITableFilterOption[]
   isQuery?: boolean
@@ -117,6 +117,8 @@ export interface ITableContextStore<TData = any> {
   filters?: ITableFilter[]
   queries?: ITableQuery[]
   onSubmitTable: ITableSubmit
+
+  setSelectItem: Dispatch<SetStateAction<any>>
 
   setSearchForm: (searchForm) => void
   getGlobalFilters: () => any[]

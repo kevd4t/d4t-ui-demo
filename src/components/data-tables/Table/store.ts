@@ -1,5 +1,4 @@
 // @ts-nocheck
-
 import { createContext } from 'react'
 import { create } from 'zustand'
 
@@ -109,7 +108,6 @@ export const useTableStore = create<ITableStore<any>>((set, get) => ({
     return ({ ...prevState, filters: filterFinded })
   }),
 
-
   resetFilters: () => set((prevState) => {
     const filtersReseted = prevState.filters.map(filter => ({
       ...filter,
@@ -169,7 +167,8 @@ export const TableContext = createContext<ITableContextStore>({
   showFilters: true,
   searchForm: null,
   onSubmitTable: null,
-  setSearchForm: () => { },
+  setSearchForm: () => {},
+  setSelectItem: () => {},
   getGlobalFilters: () => { },
   resetOptionsByFilter: () => { },
   pagination: {

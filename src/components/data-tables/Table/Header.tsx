@@ -1,6 +1,6 @@
+import { TableHead, TableRow, TableHeader as TablerHeaderUI } from '../..'
 import { useContext } from 'react'
 
-import { TableHead, TableRow, TableHeader as TablerHeaderUI } from '../../table'
 import { TableContext } from './store'
 
 export const TableHeader = () => {

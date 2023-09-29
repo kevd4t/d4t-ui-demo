@@ -1,9 +1,9 @@
-import { TableUI } from '../../table'
+import { TableUI } from '../..'
 
 import { TableHeader } from './Header'
 import { TableBody } from './Body'
 
-export const TableContent = () => {
+export const TableEmpty = () => {
   return (
     <TableUI>
       <TableHeader />

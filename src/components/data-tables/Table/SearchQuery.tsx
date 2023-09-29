@@ -11,7 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   Label
-} from '../..'
+} from '../../'
 
 interface SearchQueryProps {
   id: string
@@ -25,20 +25,25 @@ export const SearchQuery = ({ id, form, label, icon, queryText }: SearchQueryPro
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant='outline' size='sm' className='py-5 border-dashed'>
+        <Button variant='outline' size='sm' className='py-5 border-dashed' type='button'>
           <Search size={16} className='mr-2 text-gray-500' />
 
           {label}
 
-          <Separator orientation='vertical' className='mx-2 h-4' />
+          {
+            queryText && (
+              <>
+                <Separator orientation='vertical' className='mx-2 h-4' />
 
-          <Badge
-            variant='secondary'
-            className='rounded-sm px-1 font-normal'
-          >
-            {queryText || 'Buscar '}
-          </Badge>
-
+                <Badge
+                  variant='secondary'
+                  className='rounded-sm px-1 font-normal'
+                >
+                  {queryText}
+                </Badge>
+              </>
+            )
+          }
         </Button>
       </PopoverTrigger>
 

@@ -4,8 +4,7 @@ import { useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-
-import { Button, Form, Spinner } from '../../'
+import { Button, Form, Spinner } from '../..'
 import { TableToolbar } from './Toolbar'
 import { TableContext } from './store'
 import { ITableSubmit } from './types'
@@ -16,7 +15,7 @@ interface TableSearchProps {
 }
 
 export const TableSearch = ({ onSubmitTable, loading }: TableSearchProps) => {
-  const { queries, getFiltersWithOptionsSelected, getGlobalFilters, filters, pagination: { page, limit }, setSearchForm } = useContext(TableContext)
+  const { queries, getFiltersWithOptionsSelected, filters, pagination: { page, limit }, setSearchForm } = useContext(TableContext)
 
   const form = useForm<any>({
     defaultValues: queries.reduce((obj, item) => {
