@@ -1,6 +1,6 @@
+import { UseFormReturn } from 'react-hook-form';
 import { ReactNode } from 'react';
 import { ITableFilterOption } from './types';
-import { UseFormReturn } from 'react-hook-form';
 interface FacetedFilterProps {
     form: UseFormReturn<any, any, any>;
     id: string;

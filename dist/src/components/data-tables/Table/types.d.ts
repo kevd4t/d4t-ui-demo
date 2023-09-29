@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react';
 import { UseFormReturn } from 'react-hook-form';
+import type { Dispatch, ReactNode, SetStateAction } from 'react';
 export interface ITableFilterOption {
     id: string;
     label: string;
@@ -17,7 +17,7 @@ declare type IDataProperty<Type> = {
     [Property in keyof Type as Exclude<Property, '__typename'>]: Type[Property];
 };
 export interface ITableColumn<TDataSchema> {
-    id: keyof IDataProperty<TDataSchema> | 'actions';
+    id: keyof IDataProperty<TDataSchema> | 'actions' | 'select' | 'multi-select';
     label: string;
     filters?: ITableFilterOption[];
     isQuery?: boolean;
@@ -99,6 +99,7 @@ export interface ITableContextStore<TData = any> {
     filters?: ITableFilter[];
     queries?: ITableQuery[];
     onSubmitTable: ITableSubmit;
+    setSelectItem: Dispatch<SetStateAction<any>>;
     setSearchForm: (searchForm: any) => void;
     getGlobalFilters: () => any[];
     setShowFilters: (value: boolean) => void;

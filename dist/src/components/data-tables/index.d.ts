@@ -1,3 +1,3 @@
-export * from './CustomTable';
-export * from './CustomTable/types';
-export * from './CustomTable/utils';
+export * from './Table';
+export * from './Table/types';
+export * from './Table/utils';
