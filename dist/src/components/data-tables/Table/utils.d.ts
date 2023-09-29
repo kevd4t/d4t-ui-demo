@@ -1,4 +1,4 @@
-import { ITableColumn } from './types';
+import { ITableColumn } from '../../';
 import { ITablePagination } from './types';
 export interface DataToFormat {
     __typename?: string;

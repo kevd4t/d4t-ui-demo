@@ -11,7 +11,7 @@ import { z } from 'zod'
 import { IUploadImage } from './components/upload-image/types'
 import { UploadImage } from './components/upload-image/SingleImage'
 import FileResizer from 'react-image-file-resizer'
-import { ComboxCheckbox, DataTable, Form, ITableSubmit } from './components'
+import { ComboxCheckbox, D4TTable, Form, ITableSubmit } from './components'
 import { characterColumns } from './examples/tables/RickAndMorty'
 
 const schema = z.object({
