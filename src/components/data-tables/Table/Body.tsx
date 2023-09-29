@@ -1,10 +1,17 @@
+import { Dispatch, SetStateAction, useContext } from 'react'
 import { IconClick } from '@tabler/icons-react'
-import { useContext } from 'react'
 
-import { Button, TableBody as TableBodyUI, TableCell, TableRow } from '../..'
+import { Button, Checkbox, TableBody as TableBodyUI, TableCell, TableRow } from '../../'
 import { generateUUID } from './utils'
 import { TableContext } from './store'
 import { ITableColumn } from './types'
+
+interface TableBodyRowProps {
+  data: Record<string, string>[],
+  columns: ITableColumn<any>[],
+  setSelectItem: (item) => void
+  setMultiItemsSelected: Dispatch<SetStateAction<any[]>>
+}
 
 const TableBodyEmpty = ({ colSpan }: { colSpan: number }) => {
   return (
@@ -16,7 +23,7 @@ const TableBodyEmpty = ({ colSpan }: { colSpan: number }) => {
   )
 }
 
-const TableBodyRow = ({ data, columns, setSelectItem }: { data: Record<string, string>[], columns: ITableColumn<any>[], setSelectItem: (item) => void }) => {
+const TableBodyRow = ({ data, columns, setSelectItem, setMultiItemsSelected }: TableBodyRowProps) => {
   const renderCell = (column: ITableColumn<any>, item: Record<string, string>) => {
     if (column?.render) {
       return <div>{column.render(item)}</div>
@@ -27,6 +34,12 @@ const TableBodyRow = ({ data, columns, setSelectItem }: { data: Record<string, s
         <Button onClick={() => setSelectItem(item)} variant='outline' size='icon' type='button'>
           <IconClick size={18} />
         </Button>
+      )
+    }
+
+    if (column.id === 'multi-select') {
+      return (
+        <Checkbox onClick={() => setMultiItemsSelected([item])} checked={true} />
       )
     }
 
@@ -53,13 +66,13 @@ const TableBodyRow = ({ data, columns, setSelectItem }: { data: Record<string, s
 }
 
 export const TableBody = () => {
-  const { data, columns, setSelectItem } = useContext(TableContext)
+  const { data, columns, setSelectItem, setMultiItemsSelected } = useContext(TableContext)
 
   return (
     <TableBodyUI>
       {
         data.length
-          ? <TableBodyRow setSelectItem={setSelectItem} data={data} columns={columns} />
+          ? <TableBodyRow setMultiItemsSelected={setMultiItemsSelected} setSelectItem={setSelectItem} data={data} columns={columns} />
           : <TableBodyEmpty colSpan={columns.length} />
       }
     </TableBodyUI>

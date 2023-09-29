@@ -1,4 +1,4 @@
-import type { ITablePagination, ITableColumn, ITableFilter, ITableSubmit, ITableSubmitParams } from './types'
+import type { ITablePagination, ITableColumn, ITableFilter, ITableSubmit, ITableSubmitParams, ITableDynamicFilter } from './types'
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import { TableContext } from './store'
@@ -17,7 +17,8 @@ interface CustomTableProps<DataSchema> {
   loading: boolean
   error: boolean
   onSubmitTable: ITableSubmit
-  setSelectItem: Dispatch<SetStateAction<any>>
+  setSelectItem?: Dispatch<SetStateAction<any>>
+  filters?: ITableDynamicFilter<DataSchema>[]
 }
 
 const initialPagination: ITablePagination = {
@@ -28,12 +29,13 @@ const initialPagination: ITablePagination = {
   hasNextPage: false
 }
 
-export function DataTable<DataSchema>(props: CustomTableProps<DataSchema>) {
+export function D4TTable <DataSchema> (props: CustomTableProps<DataSchema>) {
   const [localData, setLocalData] = useState([])
-  const [globalFilters, setFilters] = useState([])
+  const [localFilters, setLocalFilters] = useState([])
   const [localQueries, setLocalQueries] = useState([])
   const [showFilters, setShowFilters] = useState(false)
   const [localError, setLocalError] = useState(props?.error)
+  const [multiItemsSelected, setMultiItemsSelected] = useState([])
   const [localLoading, setLocalLoading] = useState(props?.loading)
   const [searchForm, setSearchForm] = useState<UseFormReturn<any, any, any>>()
   const [pagination, setPagination] = useState(props?.pagination ?? initialPagination)
@@ -57,7 +59,7 @@ export function DataTable<DataSchema>(props: CustomTableProps<DataSchema>) {
       })
     })
 
-    const filtersSelected: ITableFilter[] = globalFilters
+    const filtersSelected: ITableFilter[] = localFilters
       .map((filter) => ({
         id: filter.id,
         label: filter.label,
@@ -66,7 +68,7 @@ export function DataTable<DataSchema>(props: CustomTableProps<DataSchema>) {
       .filter((filter) => filter.options.length > 0)
 
     handleSubmit({ filters: filtersSelected, queries, limit: newPagination.limit, page: newPagination.page })
-  }, [globalFilters, handleSubmit, searchForm])
+  }, [localFilters, handleSubmit, searchForm])
 
   const nextPage = useCallback(() => {
     updatePagination({ ...pagination, page: pagination.page + 1 })
@@ -79,7 +81,7 @@ export function DataTable<DataSchema>(props: CustomTableProps<DataSchema>) {
   }, [pagination, updatePagination])
 
   const getFiltersWithOptionsSelected = () => {
-    return globalFilters
+    return localFilters
       .map((filter) => ({
         id: filter.id,
         label: filter.label,
@@ -89,7 +91,7 @@ export function DataTable<DataSchema>(props: CustomTableProps<DataSchema>) {
   }
 
   const getFilterOptionsSelectedById = (filterId) => {
-    const filterFinded = globalFilters.find((f) => f.id === filterId)
+    const filterFinded = localFilters.find((f) => f.id === filterId)
 
     if (filterFinded) {
       const selectedOptions = filterFinded.options.filter((option) => option.selected).map((option) => option.value)
@@ -100,7 +102,7 @@ export function DataTable<DataSchema>(props: CustomTableProps<DataSchema>) {
   }
 
   const selectOptionFilter = (filterId, optionId, optionValue) => {
-    const filterFinded = globalFilters.map((filter) => {
+    const filterFinded = localFilters.map((filter) => {
       if (filter.id === filterId) {
         return {
           ...filter,
@@ -115,13 +117,13 @@ export function DataTable<DataSchema>(props: CustomTableProps<DataSchema>) {
       return filter
     })
 
-    setFilters(filterFinded)
+    setLocalFilters(filterFinded)
   }
 
-  const getGlobalFilters = () => globalFilters
+  const getGlobalFilters = () => localFilters
 
   const resetOptionsByFilter = (filterId) => {
-    const filtersReseted = globalFilters.map(filter => {
+    const filtersReseted = localFilters.map(filter => {
       if (filter.id === filterId) {
         return {
           ...filter,
@@ -132,18 +134,18 @@ export function DataTable<DataSchema>(props: CustomTableProps<DataSchema>) {
       return filter
     })
 
-    setFilters(filtersReseted)
+    setLocalFilters(filtersReseted)
   }
 
   const updateLimit = (limit) => updatePagination({ ...pagination, limit })
 
   const resetFilters = () => {
-    const filtersReseted = globalFilters.map((filter) => ({
+    const filtersReseted = localFilters.map((filter) => ({
       ...filter,
       options: filter.options.map((option) => ({ ...option, selected: false }))
     }))
 
-    setFilters(filtersReseted)
+    setLocalFilters(filtersReseted)
   }
 
   useEffect(() => setLocalData(props?.data || []), [props?.data])
@@ -152,6 +154,7 @@ export function DataTable<DataSchema>(props: CustomTableProps<DataSchema>) {
   useEffect(() => setPagination(props?.pagination), [props?.pagination])
   useEffect(() => setLocalColumns(props?.columns || []), [props?.columns])
 
+  // Extract Queries
   useEffect(() => {
     const queries = localColumns.filter(userColumn => userColumn.isQuery).map(column => ({
       id: column.id as string,
@@ -161,20 +164,47 @@ export function DataTable<DataSchema>(props: CustomTableProps<DataSchema>) {
     setLocalQueries(queries)
   }, [localColumns])
 
+  // Extract Filters
   useEffect(() => {
-    if (!globalFilters?.length) {
-      const filterFiltersExist = (columnToFilter) => columnToFilter?.filters && columnToFilter?.filters.length
+    const filterFiltersExist = (columnToFilter) => columnToFilter?.filters && columnToFilter?.filters.length
 
-      const filters: ITableFilter[] = localColumns.filter(filterFiltersExist).map((filter) => {
-        const filterOptions = filter.filters.map((filterOption) => ({ ...filterOption, selected: false }))
-        const toReturn: ITableFilter = { ...filter, id: filter.id as string, options: filterOptions }
+    const filters: ITableFilter[] = localColumns.filter(filterFiltersExist).map((filter) => {
+      const filterOptions = filter.filters.map((filterOption) => ({ ...filterOption, selected: false }))
+      const toReturn: ITableFilter = { ...filter, id: filter.id as string, options: filterOptions }
 
-        return toReturn
+      return toReturn
+    })
+
+    setLocalFilters(filters)
+  }, [localColumns])
+
+  // Extract Dynamic Filters
+  useEffect(() => {
+    props?.filters.forEach(filter => {
+      if (!filter?.filters) return
+
+      localColumns.forEach(column => {
+        if (filter.id === column.id) {
+          setLocalFilters(prevState => {
+            const exist = prevState.some(item => item.id === filter.id)
+
+            if (exist) {
+              return prevState
+            }
+
+            return [
+              ...prevState,
+              {
+                id: column.id,
+                label: column.label,
+                options: filter.filters
+              }
+            ]
+          })
+        }
       })
-
-      setFilters(filters)
-    }
-  }, [localColumns, globalFilters?.length])
+    })
+  }, [localColumns, props?.filters])
 
   useEffect(() => {
     setPagination(prevState => ({
@@ -189,23 +219,24 @@ export function DataTable<DataSchema>(props: CustomTableProps<DataSchema>) {
       data: localData,
       columns: localColumns,
       pagination,
+      nextPage,
+      prevPage,
+      searchForm,
+      updateLimit,
       showFilters,
-      getFiltersWithOptionsSelected,
-      onSubmitTable: handleSubmit,
-      filters: globalFilters,
-      queries: localQueries,
-      getFilterOptionsSelectedById,
+      resetFilters,
       getGlobalFilters,
       selectOptionFilter,
       resetOptionsByFilter,
-      resetFilters,
-      updateLimit,
+      setMultiItemsSelected,
+      queries: localQueries,
+      filters: localFilters,
+      onSubmitTable: handleSubmit,
+      getFilterOptionsSelectedById,
+      getFiltersWithOptionsSelected,
       setSelectItem: props.setSelectItem,
       setShowFilters: (value) => setShowFilters(value),
-      setSearchForm: (searchForm) => setSearchForm(searchForm),
-      searchForm,
-      nextPage,
-      prevPage
+      setSearchForm: (searchForm) => setSearchForm(searchForm)
     }}>
       <div className='w-full h-fit space-y-4'>
         {<TableSearch onSubmitTable={handleSubmit} loading={localLoading} />}

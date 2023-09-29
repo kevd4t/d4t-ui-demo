@@ -1,4 +1,4 @@
-import { Select, Button, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../..'
+import { Select, Button, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useContext } from 'react'
 

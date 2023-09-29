@@ -1,4 +1,4 @@
-import { TableUI } from '../..'
+import { TableUI } from '../../'
 
 import { TableHeader } from './Header'
 import { TableBody } from './Body'

@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { Button } from '../../'
 import { X } from 'lucide-react'
 
 import { TableContext } from './store'
@@ -6,7 +7,6 @@ import { TableContext } from './store'
 import { VisibilityFilters } from './VisibilityFilters'
 import { FacetedFilter } from './FacetedFilter'
 import { SearchQuery } from './SearchQuery'
-import { Button } from '../../'
 
 export const TableToolbar = ({ form, onSubmit }) => {
   const { queries, filters, showFilters, resetFilters } = useContext(TableContext)
@@ -56,17 +56,19 @@ export const TableToolbar = ({ form, onSubmit }) => {
                   ))
                 }
                 {
-                  (showFilters && filters?.length) && (
-                    <Button
-                      type='button'
-                      variant='ghost'
-                      onClick={clearAllFilters}
-                      className='px-2 py-5 lg:px-3 ml-0 lg:ml-auto'
-                    >
-                      Limpiar Filtros
-                      <X className='ml-2 h-4 w-4' />
-                    </Button>
-                  )
+                  (showFilters && filters?.filter((filter) => filter.options.some(option => option.selected)).length)
+                    ? (
+                      <Button
+                        type='button'
+                        variant='ghost'
+                        onClick={clearAllFilters}
+                        className='px-2 py-5 lg:px-3 ml-0 lg:ml-auto'
+                      >
+                        Limpiar Filtros
+                        <X className='ml-2 h-4 w-4' />
+                      </Button>
+                    )
+                    : null
                 }
               </div>
             )

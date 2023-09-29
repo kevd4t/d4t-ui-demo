@@ -1,5 +1,5 @@
-import { UseFormReturn } from 'react-hook-form'
 import type { Dispatch, ReactNode, SetStateAction } from 'react'
+import { UseFormReturn } from 'react-hook-form'
 
 export interface ITableFilterOption {
   id: string
@@ -27,6 +27,12 @@ export interface ITableColumn<TDataSchema> {
   isQuery?: boolean
   render?: (item: IDataProperty<TDataSchema>) => ReactNode
 }
+
+export interface ITableDynamicFilter<TDataSchema> {
+  id: keyof IDataProperty<TDataSchema>
+  filters?: ITableFilterOption[]
+}
+
 
 export interface ITableQuery {
   id: string
@@ -113,6 +119,8 @@ export interface ITableContextStore<TData = any> {
   columns: ITableColumn<TData>[]
   pagination: ITablePagination
   searchForm?: UseFormReturn<any, any, any>
+
+  setMultiItemsSelected: Dispatch<SetStateAction<any[]>>
 
   filters?: ITableFilter[]
   queries?: ITableQuery[]
