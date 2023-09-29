@@ -29,7 +29,7 @@ const initialPagination: ITablePagination = {
   hasNextPage: false
 }
 
-export function D4TTable <DataSchema> (props: CustomTableProps<DataSchema>) {
+export function D4TTable<DataSchema>(props: CustomTableProps<DataSchema>) {
   const [localData, setLocalData] = useState([])
   const [localFilters, setLocalFilters] = useState([])
   const [localQueries, setLocalQueries] = useState([])
@@ -180,6 +180,10 @@ export function D4TTable <DataSchema> (props: CustomTableProps<DataSchema>) {
 
   // Extract Dynamic Filters
   useEffect(() => {
+    if (!props?.filters) {
+      return
+    }
+
     props?.filters.forEach(filter => {
       if (!filter?.filters) return
 

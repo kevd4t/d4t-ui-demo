@@ -22469,7 +22469,7 @@ function r8(e) {
     });
     o(F);
   }, [$]), J(() => {
-    e == null || e.filters.forEach((V) => {
+    e != null && e.filters && (e == null || e.filters.forEach((V) => {
       V != null && V.filters && $.forEach((F) => {
         V.id === F.id && o((U) => U.some((O) => O.id === V.id) ? U : [
           ...U,
@@ -22480,7 +22480,7 @@ function r8(e) {
           }
         ]);
       });
-    });
+    }));
   }, [$, e == null ? void 0 : e.filters]), J(() => {
     y((V) => {
       var F, U;
