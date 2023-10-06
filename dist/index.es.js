@@ -11039,7 +11039,7 @@ const gC = ({ id: e, form: t, label: n, description: r, iconDirection: o, classN
           /* @__PURE__ */ f.exports.jsxs("div", { className: "flex justify-start items-end", children: [
             n && /* @__PURE__ */ f.exports.jsxs($r, { className: "flex", children: [
               n,
-              "&nbsp"
+              " "
             ] }),
             ((p = d == null ? void 0 : d.errors[e]) == null ? void 0 : p.message) && /* @__PURE__ */ f.exports.jsxs("span", { className: "text-xs font-light text-destructive", children: [
               "* ",
