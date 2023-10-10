@@ -7,4 +7,4 @@ export interface IBottomNavItem {
 export interface IBottonNavProps {
     items: IBottomNavItem[];
 }
-export default function BottomNavigation({ items }: IBottonNavProps): JSX.Element;
+export declare function BottomNavigation({ items }: IBottonNavProps): JSX.Element;
