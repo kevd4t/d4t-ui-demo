@@ -18276,27 +18276,35 @@ const pf = (e) => {
   isExpanded: !0,
   setIsExpanded: (t) => e({ isExpanded: t }),
   toggleExpandSidebar: () => e((t) => ({ isExpanded: !t.isExpanded }))
-})), qO = ({ children: e, className: t, profile: n, logout: r, theme: o }) => {
-  const { isExpanded: a, toggleExpandSidebar: s } = pi();
+})), qO = ({
+  children: e,
+  className: t,
+  profile: n,
+  logout: r,
+  theme: o,
+  isDrawerSidebar: a
+}) => {
+  const { isExpanded: s, toggleExpandSidebar: i } = pi();
   return /* @__PURE__ */ f.exports.jsx(
     "aside",
     {
       tabIndex: -1,
       className: R(
-        "sidebar dark:border-transparent overflow-hidden hidden lg:block",
+        `sidebar dark:border-transparent overflow-hidden ${a ? "" : "hidden"} lg:block`,
         t,
-        `${a ? "max-w-[240px]" : "max-w-[100px]"}`
+        `${s ? "max-w-[240px]" : "max-w-[100px]"}`,
+        `${a ? "ml-auto" : ""}`
       ),
       children: /* @__PURE__ */ f.exports.jsxs("div", { className: "w-full py-8 grid grid-rows-[56px_1fr_160px] h-full gap-y-3 px-3", children: [
-        /* @__PURE__ */ f.exports.jsx(V3, { isExpanded: a, profile: n }),
+        /* @__PURE__ */ f.exports.jsx(V3, { isExpanded: s, profile: n }),
         e,
         /* @__PURE__ */ f.exports.jsx(
           W3,
           {
             theme: o,
             logout: r,
-            isExpanded: a,
-            toggleExpandSidebar: s
+            isExpanded: s,
+            toggleExpandSidebar: i
           }
         )
       ] })
@@ -18305,27 +18313,36 @@ const pf = (e) => {
 }, XO = ({ children: e }) => {
   const { isExpanded: t } = pi();
   return /* @__PURE__ */ f.exports.jsx("section", { className: "w-full h-full py-3 scroll-content", children: /* @__PURE__ */ f.exports.jsx("div", { className: `${t ? " pr-2" : "pl-2"} w-full space-y-3`, children: e }) });
-}, JO = ({ to: e, label: t, icon: n, pathname: r, Link: o }) => {
-  const [a, s] = K(!1), i = L(null), { isExpanded: c } = pi();
+}, JO = ({
+  to: e,
+  label: t,
+  icon: n,
+  pathname: r,
+  Link: o,
+  isBottomNavLink: a
+}) => {
+  const [s, i] = K(!1), c = L(null), { isExpanded: l } = pi();
   return J(() => {
-    const l = () => {
-      const u = i.current.querySelector(`#${e.replaceAll("/", "_")}`);
-      if (u) {
-        const d = u.offsetWidth < u.scrollWidth;
-        s(d);
+    const u = () => {
+      const d = c.current.querySelector(
+        `#${e.replaceAll("/", "_")}`
+      );
+      if (d) {
+        const p = d.offsetWidth < d.scrollWidth;
+        i(p);
       }
     };
-    return window.addEventListener("resize", l), l(), () => window.removeEventListener("resize", l);
+    return window.addEventListener("resize", u), u(), () => window.removeEventListener("resize", u);
   }, [e]), o ? /* @__PURE__ */ f.exports.jsx(Gr, { delayDuration: 180, children: /* @__PURE__ */ f.exports.jsxs(
     o,
     {
       href: e,
-      ref: i,
-      className: `cursor-pointer border-2 border-transparent flex ${c ? "justify-start h-[42px]" : "justify-center"} items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 hover:dark:bg-main-hover 
+      ref: c,
+      className: `cursor-pointer border-2 border-transparent flex ${l ? "justify-start h-[42px]" : "justify-center"} items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 hover:dark:bg-main-hover 
         ${r.startsWith(e) && "border-2 border-gray-300 bg-gray-200 dark:border-dark dark:bg-main-hover"} select-none`,
       children: [
         /* @__PURE__ */ f.exports.jsx("div", { children: n }),
-        !a && c && /* @__PURE__ */ f.exports.jsx(
+        !s && l && /* @__PURE__ */ f.exports.jsx(
           "span",
           {
             id: e.replaceAll("/", "_"),
@@ -18333,7 +18350,7 @@ const pf = (e) => {
             children: t
           }
         ),
-        a && c && /* @__PURE__ */ f.exports.jsxs(Zr, { children: [
+        s && l && /* @__PURE__ */ f.exports.jsxs(Zr, { children: [
           /* @__PURE__ */ f.exports.jsx(qr, { className: "truncate", children: /* @__PURE__ */ f.exports.jsx(
             "span",
             {
@@ -18349,20 +18366,20 @@ const pf = (e) => {
   ) }) : /* @__PURE__ */ f.exports.jsx(Gr, { delayDuration: 180, children: /* @__PURE__ */ f.exports.jsxs(
     "div",
     {
-      ref: i,
-      className: `cursor-pointer border-2 border-transparent flex ${c ? "justify-start h-[42px]" : "justify-center"} items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 hover:dark:bg-main-hover 
+      ref: c,
+      className: a ? "" : `cursor-pointer border-2 border-transparent flex ${l ? "justify-start h-[42px]" : "justify-center"} items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 hover:dark:bg-main-hover 
           ${r.startsWith(e) && "border-2 border-gray-300 bg-gray-200 dark:border-dark dark:bg-main-hover"} select-none`,
       children: [
         /* @__PURE__ */ f.exports.jsx("div", { children: n }),
-        !a && c && /* @__PURE__ */ f.exports.jsx(
+        !s && l && /* @__PURE__ */ f.exports.jsx(
           "span",
           {
             id: e.replaceAll("/", "_"),
             className: "pl-2 mt-0.5 dark:text-white text-sm whitespace-nowrap truncate block",
-            children: t
+            children: a ? "" : t
           }
         ),
-        a && c && /* @__PURE__ */ f.exports.jsxs(Zr, { children: [
+        s && l && /* @__PURE__ */ f.exports.jsxs(Zr, { children: [
           /* @__PURE__ */ f.exports.jsx(qr, { className: "truncate", children: /* @__PURE__ */ f.exports.jsx(
             "span",
             {
