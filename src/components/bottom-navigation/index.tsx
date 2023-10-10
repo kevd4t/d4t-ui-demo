@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { SidebarIcon } from "lucide-react";
-import DrawerBottomNavigation from "./bottomNavigation-drawer";
-import BottomNavigationButton from "./bottomNavigation-button";
-import BottomNavigationSidebar from "./bottomNavigation-sidebar";
+import DrawerBottomNavigation from "./drawer";
+import BottomNavigationButton from "./button";
+import BottomNavigationSidebar from "./sidebar";
 
 export interface IBottomNavItem {
   titleDescription: string;

@@ -1,7 +1,7 @@
 import { IBottomNavItem } from "./index";
 import { ButtonHTMLAttributes } from "react";
-import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "../";
-import { NavLink } from "../";
+import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "..";
+import { NavLink } from "..";
 
 interface IBottomNavButton
   extends Pick<IBottomNavItem, "titleDescription">,

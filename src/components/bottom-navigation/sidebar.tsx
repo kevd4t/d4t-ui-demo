@@ -1,4 +1,4 @@
-import { Sidebar, SidebarContent, NavLink } from "../";
+import { Sidebar, SidebarContent, NavLink } from "..";
 import { Settings } from "lucide-react";
 
 export default function BottomNavigationSidebar() {
