@@ -2,8 +2,8 @@ import { useState } from "react";
 import { SidebarIcon } from "lucide-react";
 import { IBottonNavProps } from "./schemas/IComponent-props";
 import DrawerBottomNavigation from "./drawer";
-import BottomNavigationButton from "./button";
-import BottomNavigationSidebar from "./sidebar";
+import BottomNavigationButton from "./nav-button";
+import BottomNavigationSidebar from "./sidebar/sidebar";
 
 export function BottomNavigation({
   bottomItems,
@@ -24,6 +24,7 @@ export function BottomNavigation({
             key={idx}
             icon={item.icon}
             titleDescription={item.titleDescription}
+            Link={null}
           />
         ))}
 
@@ -31,6 +32,7 @@ export function BottomNavigation({
           icon={<SidebarIcon />}
           titleDescription="Options"
           actionToSet={setIsDrawerOpen}
+          Link={null}
         />
       </div>
 
@@ -43,6 +45,7 @@ export function BottomNavigation({
           sidebar={sidebar}
           navLinksItems={navLinksItems}
           subLinksItems={subLinksItems}
+          onCloseSideBar={() => setIsDrawerOpen(false)}
         />
       </DrawerBottomNavigation>
     </div>
