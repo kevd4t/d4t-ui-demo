@@ -1,10 +1,3 @@
 /// <reference types="react" />
-export interface IBottomNavItem {
-    titleDescription: string;
-    path: string;
-    icon: React.ReactNode;
-}
-export interface IBottonNavProps {
-    items: IBottomNavItem[];
-}
-export declare function BottomNavigation({ items }: IBottonNavProps): JSX.Element;
+import { IBottonNavProps } from "./schemas/IComponent-props";
+export declare function BottomNavigation({ bottomItems, navLinksItems, subLinksItems, sidebar, }: IBottonNavProps): JSX.Element;

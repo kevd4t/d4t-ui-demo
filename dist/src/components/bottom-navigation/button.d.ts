@@ -1,4 +1,4 @@
-import { IBottomNavItem } from "./index";
+import { IBottomNavItem } from "./schemas/IComponent-props";
 import { ButtonHTMLAttributes } from "react";
 interface IBottomNavButton extends Pick<IBottomNavItem, "titleDescription">, ButtonHTMLAttributes<any> {
     icon: React.ReactNode;
