@@ -1,8 +1,6 @@
 import {
   Badge,
-  BanIcon,
   BarChart,
-  BoxIcon,
   Building,
   DivideCircle,
   HelpCircle,
@@ -12,41 +10,15 @@ import {
   StopCircle,
   Truck,
   User,
-  UserIcon,
 } from "lucide-react";
-
 import { NavLinkNested, Sidebar } from "./components/sidebar";
 import { SidebarContent } from "./components/sidebar/content";
 import { NavLink } from "./components/sidebar/nav-link";
 import { AppLayout } from "./layouts/Application";
-import { useEffect, useState } from "react";
-
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { IUploadImage } from "./components/upload-image/types";
-import { UploadImage } from "./components/upload-image/SingleImage";
-import FileResizer from "react-image-file-resizer";
-import { ComboxCheckbox, D4TTable, Form, ITableSubmit } from "./components";
-import { characterColumns } from "./examples/tables/RickAndMorty";
-import BottomNavigation from "./components/bottom-navigation/index";
-
-const schema = z.object({
-  name: z.string(),
-});
+import { BottomNavigation } from "./components";
 
 function App() {
   const profile = { role: "Administrador", name: "Kevin", lastname: "blanco" };
-  const [data, setData] = useState([]);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [pagination, setPagination] = useState({ prev: false, next: false });
-  const form = useForm<{ fuel: string[] }>({
-    defaultValues: { fuel: ["activo"] },
-  });
-
-  const onSubmit = (data) => {
-    console.log({ data });
-  };
 
   const sections = [
     {
@@ -67,7 +39,6 @@ function App() {
     {
       titleDescription: "Analytics",
       path: "/anaytics",
-      // icon: BarChart,
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -76,9 +47,9 @@ function App() {
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           className="lucide lucide-align-vertical-space-around"
         >
           <rect width="10" height="6" x="7" y="9" rx="2" />
@@ -88,51 +59,6 @@ function App() {
       ),
     },
   ];
-
-  // const onSubmit: ITableSubmit = async ({ page, limit, filters, queries }) => {
-  //   console.log({ page, limit, filters, queries })
-
-  //   setLoading(true)
-
-  //   setTimeout(async () => {
-  //     try {
-  //       const res = await fetch(`https://rickandmortyapi.com/api/character/?page=${page || '1'}`)
-  //       const data = await res.json()
-
-  //       setData(data.results)
-  //       setPagination({ next: Boolean(data.info.next), prev: Boolean(data.info.prev) })
-
-  //     } catch (err) {
-  //       setError(Boolean(err))
-  //     } finally {
-  //       setLoading(false)
-  //     }
-  //   }, 1000)
-
-  // }
-
-  useEffect(() => {
-    (async () => {
-      setLoading(true);
-
-      setTimeout(async () => {
-        try {
-          const res = await fetch("https://rickandmortyapi.com/api/character");
-          const data = await res.json();
-
-          setData(data.results);
-          setPagination({
-            next: Boolean(data.info.next),
-            prev: Boolean(data.info.prev),
-          });
-        } catch (err) {
-          setError(Boolean(err));
-        } finally {
-          setLoading(false);
-        }
-      }, 1000);
-    })();
-  }, []);
 
   return (
     <AppLayout>
@@ -306,38 +232,51 @@ function App() {
       </Sidebar>
 
       <div className="mx-auto max-w-4xl">
-        {/* <CustomTable
-          onSubmitTable={onSubmit}
-          pagination={{
-            hasNextPage: pagination.next,
-            hasPrevPage: pagination.prev,
-            limit: 10,
-            page: 1
+        {/* Bottom navigation */}
+        <BottomNavigation
+          sidebar={{
+            logout: () => {},
+            profile,
+            theme: { toggleTheme: () => {}, value: "dark" },
           }}
-          columns={characterColumns}
-          data={data}
-          loading={loading}
-          error={Boolean(error)}
-        /> */}
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <ComboxCheckbox
-              readOnly
-              id="fuel"
-              label="Combustible"
-              options={[
-                {
-                  id: "activo",
-                  value: "activo",
-                  label: "Activo",
-                },
-              ]}
-            />
-            <button type="submit">dale</button>
-          </form>
-        </Form>
-
-        <BottomNavigation items={sections} />
+          bottomItems={sections}
+          navLinksItems={[
+            {
+              label:
+                "Ajaaaaa aaaaaaa aaaaa aaaaaaaaaaaaa asd asfsdf sdf sdgfds",
+              to: "/fino",
+              icon: <User className="dark:text-white" />,
+              pathname: "/asdfa",
+            },
+            {
+              label: "ecole x 2",
+              to: "/ecole",
+              pathname: "/asdfa",
+              icon: <User className="dark:text-white" />,
+            },
+          ]}
+          subLinksItems={{
+            label: "Ajaaaaa aaaaaaa aaaaa aaaaaaaaaaaaa asd asfsdf sdf sdgfds",
+            to: "/fino",
+            icon: <User className="dark:text-white" />,
+            pathname: "/asdfa",
+            subLinks: [
+              {
+                label:
+                  "Ajaaaaa aaaaaaa aaaaa aaaaaaaaaaaaa asd asfsdf sdf sdgfds",
+                to: "/fino",
+                icon: <User className="dark:text-white" />,
+                pathname: "/asdfa",
+              },
+              {
+                label: "ecole x 2",
+                to: "/ecole",
+                pathname: "/asdfa",
+                icon: <User className="dark:text-white" />,
+              },
+            ],
+          }}
+        />
       </div>
     </AppLayout>
   );
