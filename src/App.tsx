@@ -22,13 +22,8 @@ import { AppLayout } from "./layouts/Application";
 import { useEffect, useState } from "react";
 
 import { useForm } from "react-hook-form";
+import { ComboxCheckbox, Form, BottomNavigation } from "./components";
 import { z } from "zod";
-import { IUploadImage } from "./components/upload-image/types";
-import { UploadImage } from "./components/upload-image/SingleImage";
-import FileResizer from "react-image-file-resizer";
-import { ComboxCheckbox, D4TTable, Form, ITableSubmit } from "./components";
-import { characterColumns } from "./examples/tables/RickAndMorty";
-import BottomNavigation from "./components/bottom-navigation/index";
 
 const schema = z.object({
   name: z.string(),
@@ -137,9 +132,9 @@ function App() {
   return (
     <AppLayout>
       <Sidebar
-        logout={() => {}}
+        logout={() => { }}
         profile={profile}
-        theme={{ toggleTheme: () => {}, value: "dark" }}
+        theme={{ toggleTheme: () => { }, value: "dark" }}
       >
         <SidebarContent>
           <NavLink
