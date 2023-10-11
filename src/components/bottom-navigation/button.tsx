@@ -1,4 +1,4 @@
-import { IBottomNavItem } from "./index";
+import { IBottomNavItem } from "./schemas/IComponent-props";
 import { ButtonHTMLAttributes } from "react";
 import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "..";
 import { NavLink } from "..";
@@ -19,7 +19,7 @@ export default function BottomNavigationButton({
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger>
-          <button
+          <div
             onClick={
               actionToSet
                 ? () => {
@@ -27,7 +27,7 @@ export default function BottomNavigationButton({
                   }
                 : null
             }
-            type="button"
+            role="button"
             className="w-full border-2 border-transparent flex justify-center items-center p-2 group group-hover:text-[#eaeaea] text-base font-normal text-gray-[#eaeaea] rounded-lg hover:bg-gray-100 hover:dark:bg-main-hover select-none"
           >
             <NavLink
@@ -37,7 +37,7 @@ export default function BottomNavigationButton({
               icon={icon}
               isBottomNavLink={true}
             />
-          </button>
+          </div>
         </TooltipTrigger>
 
         <TooltipContent>{titleDescription}</TooltipContent>
