@@ -234,6 +234,7 @@ function App() {
       <div className="mx-auto max-w-4xl">
         {/* Bottom navigation */}
         <BottomNavigation
+          Link={null}
           sidebar={{
             logout: () => {},
             profile,

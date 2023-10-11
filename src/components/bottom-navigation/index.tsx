@@ -10,6 +10,7 @@ export function BottomNavigation({
   navLinksItems,
   subLinksItems,
   sidebar,
+  Link,
 }: IBottonNavProps) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -42,6 +43,7 @@ export function BottomNavigation({
         onClose={() => setIsDrawerOpen(false)}
       >
         <BottomNavigationSidebar
+          Link={Link}
           sidebar={sidebar}
           navLinksItems={navLinksItems}
           subLinksItems={subLinksItems}

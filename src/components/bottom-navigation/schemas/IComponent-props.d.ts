@@ -34,5 +34,6 @@ export interface IBottomNavigationSidebarProps {
   navLinksItems?: INavLink[];
   subLinksItems?: INavLinkNested;
   sidebar: ISidebarConfigProps;
+  Link: any;
   onCloseSideBar: () => void;
 }
