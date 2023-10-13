@@ -25115,32 +25115,26 @@ function g8({
 }) {
   const [a, s] = H(!1);
   return /* @__PURE__ */ f.exports.jsxs("div", { className: "lg:hidden md:block md:min-w-640 md:max-w-767 fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200 dark:bg-[#09090B] dark:border-[#151313] rounded-t-xl", children: [
-    /* @__PURE__ */ f.exports.jsxs(
-      "div",
-      {
-        className: `grid h-full max-w-lg grid-cols-${5} mx-auto font-medium`,
-        children: [
-          e.map((i, c) => /* @__PURE__ */ f.exports.jsx(
-            Ff,
-            {
-              icon: i.icon,
-              titleDescription: i.titleDescription,
-              Link: null
-            },
-            c
-          )),
-          /* @__PURE__ */ f.exports.jsx(
-            Ff,
-            {
-              icon: /* @__PURE__ */ f.exports.jsx(Bx, {}),
-              titleDescription: "Options",
-              actionToSet: s,
-              Link: null
-            }
-          )
-        ]
-      }
-    ),
+    /* @__PURE__ */ f.exports.jsxs("div", { className: "grid h-full max-w-lg grid-cols-5 mx-auto font-medium", children: [
+      e.map((i, c) => /* @__PURE__ */ f.exports.jsx(
+        Ff,
+        {
+          icon: i.icon,
+          titleDescription: i.titleDescription,
+          Link: null
+        },
+        c
+      )),
+      /* @__PURE__ */ f.exports.jsx(
+        Ff,
+        {
+          icon: /* @__PURE__ */ f.exports.jsx(Bx, {}),
+          titleDescription: "Options",
+          actionToSet: s,
+          Link: null
+        }
+      )
+    ] }),
     /* @__PURE__ */ f.exports.jsx(
       A7,
       {
