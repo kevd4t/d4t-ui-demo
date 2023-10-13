@@ -1,19 +1,22 @@
-import { IBottomNavigationSidebarProps } from "./schemas/IComponent-props";
-import { Sidebar, SidebarContent, NavLink, NavLinkNested } from "..";
+import { IBottomNavigationSidebarProps } from "../schemas/IComponent-props";
+import { NavLink, NavLinkNested } from "../../";
+import BottomNavigationSidebarHeader from "./sidebar-header";
+import BottomNavigationSidebarFooter from "./sidebar-footer";
 
 export default function BottomNavigationSidebar({
   navLinksItems,
   subLinksItems,
   sidebar,
+  onCloseSideBar,
+  Link,
 }: IBottomNavigationSidebarProps) {
+  const { profile } = sidebar;
+
   return (
-    <Sidebar
-      logout={sidebar.logout}
-      profile={sidebar.profile}
-      isDrawerSidebar={true}
-      theme={sidebar.theme}
-    >
-      <SidebarContent>
+    <>
+      <BottomNavigationSidebarHeader profile={profile} />
+
+      <aside className="px-6">
         {navLinksItems?.map((navLinkItem, idx) => (
           <NavLink
             key={idx}
@@ -21,6 +24,7 @@ export default function BottomNavigationSidebar({
             pathname={navLinkItem.pathname}
             label={navLinkItem.label}
             icon={navLinkItem.icon}
+            Link={Link}
           />
         ))}
 
@@ -30,9 +34,15 @@ export default function BottomNavigationSidebar({
             label={subLinksItems.label}
             icon={subLinksItems.icon}
             sublinks={subLinksItems.subLinks}
+            Link={Link}
           />
         )}
-      </SidebarContent>
-    </Sidebar>
+
+        <BottomNavigationSidebarFooter
+          onCloseSideBar={onCloseSideBar}
+          sidebar={sidebar}
+        />
+      </aside>
+    </>
   );
 }

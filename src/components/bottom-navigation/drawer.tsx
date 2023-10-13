@@ -11,31 +11,24 @@ export default function DrawerBottomNavigation({
   onClose,
   children,
 }: IDrawerProps) {
-  const drawerRef = useRef(null);
-
-  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (drawerRef.current && !drawerRef.current.contains(e.target as Node)) {
-      onClose();
-    }
-  };
-
   return (
     <div
-      className={`fixed z-30 inset-0 bg-transparent bg-opacity-50  transition-opacity ${
+      className={`fixed z-30 inset-0 bg-opacity-50  transition-opacity ${
         isOpen
           ? "opacity-100 pointer-events-auto"
           : "opacity-0 pointer-events-none"
       }`}
-      onClick={handleOverlayClick}
     >
-      <div className="fixed z-50 inset-y-0  right-0 max-w-full flex">
+      <div className="fixed z-50 inset-y-0  right-0  flex">
         <div
-          ref={drawerRef}
-          className="w-full max-w-m bg-transparent overflow-y-scroll"
+          className={`max-w-[250px] h-full bg-main overflow-y-scroll rounded-l-xl border-l-[1.5px] border-l-slate-30`}
         >
           {children}
         </div>
       </div>
+
+      {/* "outSide" drawer section */}
+      <div className="h-full" onClick={onClose}></div>
     </div>
   );
 }
