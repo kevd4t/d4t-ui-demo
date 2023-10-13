@@ -7,7 +7,8 @@ export interface IBottomNavItem {
   icon: React.ReactNode;
 }
 
-export interface IBottonNavProps extends IBottomNavigationSidebarProps {
+export interface IBottonNavProps
+  extends Omit<IBottomNavigationSidebarProps, "onCloseSideBar"> {
   bottomItems: IBottomNavItem[];
 }
 
@@ -33,4 +34,6 @@ export interface IBottomNavigationSidebarProps {
   navLinksItems?: INavLink[];
   subLinksItems?: INavLinkNested;
   sidebar: ISidebarConfigProps;
+  Link: any;
+  onCloseSideBar: () => void;
 }
