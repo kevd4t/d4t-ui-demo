@@ -38,10 +38,6 @@ export const MultipleImages = ({
 }: IMultipleUploadImageProps) => {
   const [localImage, setLocalImage] = useState<ImageListType>([]);
 
-  useEffect(() => {
-    console.log("Local images length", localImage.length);
-  }, [localImage.length]);
-
   const onChangeImage: onChangeImage = async (imageList, addUpdateIndex) => {
     setLocalImage(imageList);
 
