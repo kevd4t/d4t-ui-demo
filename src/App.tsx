@@ -1,107 +1,96 @@
-import { Router, Truck, User } from "lucide-react";
 import { AppLayout } from "./layouts/Application";
-import { BottomNavigation, ComboxCheckbox, IUploadImage, MultipleImages } from "./components";
-import { useForm } from "react-hook-form";
-import { useEffect } from "react";
-import { useState } from "react";
-import FileResizer from "react-image-file-resizer";
+import {
+  D4TTable,
+  ITableColumn,
+  ITablePagination,
+  ITableSubmit,
+} from "./components";
 
 function App() {
-  const form = useForm()
-  const profile = { role: "Administrador", name: "Kevin", lastname: "blanco" };
-
-  const sections = [
+  const data = [
     {
-      titleDescription: "Users",
-      path: "/users",
-      icon: <User />,
+      id: "234",
+      name: "Kevin",
     },
     {
-      titleDescription: "Router",
-      path: "/routes",
-      icon: <Router />,
+      id: "235",
+      name: "Cristian",
     },
     {
-      titleDescription: "Tracking",
-      path: "/tracking",
-      icon: <Truck />,
+      id: "236",
+      name: "Shamael",
     },
     {
-      titleDescription: "Analytics",
-      path: "/anaytics",
-      icon: <Truck />,
+      id: "237",
+      name: "Jose",
+    },
+    {
+      id: "238",
+      name: "Ronald",
+    },
+    {
+      id: "239",
+      name: "Jorge",
+    },
+    {
+      id: "240",
+      name: "Jesus",
+    },
+    {
+      id: "241",
+      name: "Nancy",
     },
   ];
 
-  const [uploadImages, setUploadImages] = useState<IUploadImage[]>([]);
+  const dataColumns: ITableColumn<any>[] = [
+    {
+      id: "multi-select",
+      label: "seleccion",
+    },
+    {
+      id: "id",
+      label: "ID",
+    },
+    {
+      id: "name",
+      label: "Nombre",
+      filters: [
+        {
+          id: "name",
+          label: "Nombre",
+          value: "Kevin",
+        },
+      ],
+    },
+  ];
+
+  const dataPagination: ITablePagination = {
+    limit: 5,
+    page: 1,
+    labels: { plural: "Items", single: "Item" },
+    hasPrevPage: false,
+    hasNextPage: false,
+  };
+  const onSubmitTable: ITableSubmit = async ({
+    queries,
+    filters,
+    page,
+    limit,
+  }) => {
+    console.log({ queries, filters, page, limit });
+  };
 
   return (
     <AppLayout>
       <div className="mx-auto max-w-4xl">
-        <div className="h-50 w-50 border-2 p-10 rounded-lg">
-          <MultipleImages
-            label="Multi upload images"
-            uploadLabel="upload"
-            setUploadImages={setUploadImages}
-            limit={2}
-            compress={{
-              openComparisons: () => { },
-              resizer: FileResizer,
-            }}
-            initialPreview={[
-              {
-                data_url:
-                  "https://www.drupal.org/files/project-images/nextjs-icon-dark-background.png",
-              },
-            ]}
-          />
-        </div>
-
-        {/* Bottom navigation */}
-        <BottomNavigation
-          Link={null}
-          sidebar={{
-            logout: () => { },
-            profile,
-            theme: { toggleTheme: () => { }, value: "dark" },
-          }}
-          bottomItems={sections}
-          navLinksItems={[
-            {
-              label:
-                "Ajaaaaa aaaaaaa aaaaa aaaaaaaaaaaaa asd asfsdf sdf sdgfds",
-              to: "/fino",
-              icon: <User className="dark:text-white" />,
-              pathname: "/asdfa",
-            },
-            {
-              label: "ecole x 2",
-              to: "/ecole",
-              pathname: "/asdfa",
-              icon: <User className="dark:text-white" />,
-            },
-          ]}
-          subLinksItems={{
-            label: "Ajaaaaa aaaaaaa aaaaa aaaaaaaaaaaaa asd asfsdf sdf sdgfds",
-            to: "/fino",
-            icon: <User className="dark:text-white" />,
-            pathname: "/asdfa",
-            subLinks: [
-              {
-                label:
-                  "Ajaaaaa aaaaaaa aaaaa aaaaaaaaaaaaa asd asfsdf sdf sdgfds",
-                to: "/fino",
-                icon: <User className="dark:text-white" />,
-                pathname: "/asdfa",
-              },
-              {
-                label: "ecole x 2",
-                to: "/ecole",
-                pathname: "/asdfa",
-                icon: <User className="dark:text-white" />,
-              },
-            ],
-          }}
+        <D4TTable
+          data={data}
+          onSubmitTable={onSubmitTable}
+          pagination={dataPagination}
+          columns={dataColumns}
+          error={false}
+          loading={false}
+          limitOfMultiSelect={4}
         />
       </div>
     </AppLayout>
