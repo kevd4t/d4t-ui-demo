@@ -55,10 +55,7 @@ export interface FormatImage {
 export declare type SetUploadImage = Dispatch<SetStateAction<IUploadImage>>;
 export declare type OnChangeImage = (image: IUploadImage) => void;
 export interface IUploadImageProps {
-    initialPreview?: string | [{
-        data_url?: string;
-        file?: null;
-    }];
+    initialPreview?: string;
     setUploadImage: SetUploadImage | OnChangeImage;
     format?: FormatImage;
     label?: string;
