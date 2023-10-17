@@ -20,8 +20,9 @@ import { ImageWithZoom } from "./ImageWithZoom";
 import { LoadMultiImages } from "./LoadImage";
 
 interface IMultipleUploadImageProps
-  extends Omit<IUploadImageProps, "setUploadImage"> {
+  extends Omit<IUploadImageProps, "setUploadImage" | "initialPreview"> {
   setUploadImages: Dispatch<SetStateAction<IUploadImage[]>>;
+  initialPreview?: [{ data_url?: string, file?: File, [key: string]: any }]
 }
 
 export const MultipleImages = ({
