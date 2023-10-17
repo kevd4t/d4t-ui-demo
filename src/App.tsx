@@ -43,11 +43,17 @@ function App() {
             label="Multi upload images"
             uploadLabel="upload"
             setUploadImages={setUploadImages}
-            limit={3}
+            limit={2}
             compress={{
               openComparisons: () => { },
               resizer: FileResizer,
             }}
+            initialPreview={[
+              {
+                data_url:
+                  "https://www.drupal.org/files/project-images/nextjs-icon-dark-background.png",
+              },
+            ]}
           />
         </div>
 

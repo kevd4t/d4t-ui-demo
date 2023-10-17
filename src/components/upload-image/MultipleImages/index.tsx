@@ -35,8 +35,15 @@ export const MultipleImages = ({
   zoom,
   compress,
   limit,
+  initialPreview,
 }: IMultipleUploadImageProps) => {
   const [localImage, setLocalImage] = useState<ImageListType>([]);
+
+  useEffect(() => {
+    if (initialPreview.length) {
+      setLocalImage([...localImage, ...initialPreview]);
+    }
+  }, []);
 
   const onChangeImage: onChangeImage = async (imageList, addUpdateIndex) => {
     setLocalImage(imageList);
@@ -78,6 +85,7 @@ export const MultipleImages = ({
 
     Promise.all(imageListFormated).then(setUploadImages);
   };
+
   return (
     <div>
       {label && <Label>{label}</Label>}
@@ -90,6 +98,7 @@ export const MultipleImages = ({
         dataURLKey="data_url"
         onChange={onChangeImage}
         acceptType={["webp", "png", "jpeg", "jpg"]}
+        maxNumber={limit}
       >
         {({
           imageList,
