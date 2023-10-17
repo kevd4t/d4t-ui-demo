@@ -1,7 +1,7 @@
 {
   "name": "d4t-ui-demo",
   "private": false,
-  "version": "0.0.109",
+  "version": "0.0.110",
   "type": "module",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
