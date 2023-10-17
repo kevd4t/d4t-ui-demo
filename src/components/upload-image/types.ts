@@ -77,4 +77,5 @@ export interface IUploadImageProps {
   zoom?: boolean
   compress?: UploadImageCompress
   tabIndexs?: UploadImageTabIndexs
+  limit: number
 }
