@@ -15,9 +15,12 @@ import { NavLinkNested, Sidebar } from "./components/sidebar";
 import { SidebarContent } from "./components/sidebar/content";
 import { NavLink } from "./components/sidebar/nav-link";
 import { AppLayout } from "./layouts/Application";
-import { BottomNavigation } from "./components";
+import { BottomNavigation, ComboxCheckbox } from "./components";
+import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
 function App() {
+  const form = useForm()
   const profile = { role: "Administrador", name: "Kevin", lastname: "blanco" };
 
   const sections = [
@@ -60,12 +63,14 @@ function App() {
     },
   ];
 
+  useEffect(() => { }, [])
+
   return (
     <AppLayout>
       <Sidebar
-        logout={() => {}}
+        logout={() => { }}
         profile={profile}
-        theme={{ toggleTheme: () => {}, value: "dark" }}
+        theme={{ toggleTheme: () => { }, value: "dark" }}
       >
         <SidebarContent>
           <NavLink
@@ -231,54 +236,20 @@ function App() {
         </SidebarContent>
       </Sidebar>
 
-      <div className="mx-auto max-w-4xl">
-        {/* Bottom navigation */}
-        <BottomNavigation
-          Link={null}
-          sidebar={{
-            logout: () => {},
-            profile,
-            theme: { toggleTheme: () => {}, value: "dark" },
-          }}
-          bottomItems={sections}
-          navLinksItems={[
-            {
-              label:
-                "Ajaaaaa aaaaaaa aaaaa aaaaaaaaaaaaa asd asfsdf sdf sdgfds",
-              to: "/fino",
-              icon: <User className="dark:text-white" />,
-              pathname: "/asdfa",
-            },
-            {
-              label: "ecole x 2",
-              to: "/ecole",
-              pathname: "/asdfa",
-              icon: <User className="dark:text-white" />,
-            },
-          ]}
-          subLinksItems={{
-            label: "Ajaaaaa aaaaaaa aaaaa aaaaaaaaaaaaa asd asfsdf sdf sdgfds",
-            to: "/fino",
-            icon: <User className="dark:text-white" />,
-            pathname: "/asdfa",
-            subLinks: [
-              {
-                label:
-                  "Ajaaaaa aaaaaaa aaaaa aaaaaaaaaaaaa asd asfsdf sdf sdgfds",
-                to: "/fino",
-                icon: <User className="dark:text-white" />,
-                pathname: "/asdfa",
-              },
-              {
-                label: "ecole x 2",
-                to: "/ecole",
-                pathname: "/asdfa",
-                icon: <User className="dark:text-white" />,
-              },
-            ],
-          }}
-        />
-      </div>
+
+      <ComboxCheckbox
+        form={form}
+        id='fuel'
+        label='Combustible'
+        options={[
+          {
+            id: '234',
+            label: 'Epale',
+            value: 'EPALE'
+          }
+        ]}
+      />
+
     </AppLayout>
   );
 }
