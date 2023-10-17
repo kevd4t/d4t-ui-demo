@@ -66,7 +66,7 @@ export type SetUploadImage = Dispatch<SetStateAction<IUploadImage>>
 export type OnChangeImage = (image: IUploadImage) => void
 
 export interface IUploadImageProps {
-  initialPreview?: [{ data_url?: string, file?: File, [key: string]: any }]
+  initialPreview?: string
   setUploadImage: SetUploadImage | OnChangeImage
   format?: FormatImage
   label?: string
