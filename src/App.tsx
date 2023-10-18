@@ -1,96 +1,104 @@
+import { Router, Truck, User } from "lucide-react";
 import { AppLayout } from "./layouts/Application";
-import {
-  D4TTable,
-  ITableColumn,
-  ITablePagination,
-  ITableSubmit,
-} from "./components";
+import { BottomNavigation, IUploadImage, MultipleImages } from "./components";
+import { useState } from "react";
+import FileResizer from "react-image-file-resizer";
 
 function App() {
-  const data = [
+  const profile = { role: "Administrador", name: "Kevin", lastname: "blanco" };
+
+  const sections = [
     {
-      id: "234",
-      name: "Kevin",
+      titleDescription: "Users",
+      path: "/users",
+      icon: <User />,
     },
     {
-      id: "235",
-      name: "Cristian",
+      titleDescription: "Router",
+      path: "/routes",
+      icon: <Router />,
     },
     {
-      id: "236",
-      name: "Shamael",
+      titleDescription: "Tracking",
+      path: "/tracking",
+      icon: <Truck />,
     },
     {
-      id: "237",
-      name: "Jose",
-    },
-    {
-      id: "238",
-      name: "Ronald",
-    },
-    {
-      id: "239",
-      name: "Jorge",
-    },
-    {
-      id: "240",
-      name: "Jesus",
-    },
-    {
-      id: "241",
-      name: "Nancy",
+      titleDescription: "Analytics",
+      path: "/anaytics",
+      icon: <Truck />,
     },
   ];
 
-  const dataColumns: ITableColumn<any>[] = [
-    {
-      id: "multi-select",
-      label: "seleccion",
-    },
-    {
-      id: "id",
-      label: "ID",
-    },
-    {
-      id: "name",
-      label: "Nombre",
-      filters: [
-        {
-          id: "name",
-          label: "Nombre",
-          value: "Kevin",
-        },
-      ],
-    },
-  ];
-
-  const dataPagination: ITablePagination = {
-    limit: 5,
-    page: 1,
-    labels: { plural: "Items", single: "Item" },
-    hasPrevPage: false,
-    hasNextPage: false,
-  };
-  const onSubmitTable: ITableSubmit = async ({
-    queries,
-    filters,
-    page,
-    limit,
-  }) => {
-    console.log({ queries, filters, page, limit });
-  };
+  const [uploadImages, setUploadImages] = useState<IUploadImage[]>([]);
 
   return (
     <AppLayout>
       <div className="mx-auto max-w-4xl">
-        <D4TTable
-          data={data}
-          onSubmitTable={onSubmitTable}
-          pagination={dataPagination}
-          columns={dataColumns}
-          error={false}
-          loading={false}
-          limitOfMultiSelect={4}
+        <div className="h-50 w-50 border-2 p-10 rounded-lg">
+          <MultipleImages
+            label="Multi upload images"
+            uploadLabel="upload"
+            setUploadImages={setUploadImages}
+            limit={1}
+            compress={{
+              openComparisons: () => {},
+              resizer: FileResizer,
+            }}
+            // initialPreview={[
+            //   {
+            //     data_url:
+            //       "https://www.drupal.org/files/project-images/nextjs-icon-dark-background.png",
+            //   },
+            // ]}
+          />
+        </div>
+
+        {/* Bottom navigation */}
+        <BottomNavigation
+          Link={null}
+          sidebar={{
+            logout: () => {},
+            profile,
+            theme: { toggleTheme: () => {}, value: "dark" },
+          }}
+          bottomItems={sections}
+          navLinksItems={[
+            {
+              label:
+                "Ajaaaaa aaaaaaa aaaaa aaaaaaaaaaaaa asd asfsdf sdf sdgfds",
+              to: "/fino",
+              icon: <User className="dark:text-white" />,
+              pathname: "/asdfa",
+            },
+            {
+              label: "ecole x 2",
+              to: "/ecole",
+              pathname: "/asdfa",
+              icon: <User className="dark:text-white" />,
+            },
+          ]}
+          subLinksItems={{
+            label: "Ajaaaaa aaaaaaa aaaaa aaaaaaaaaaaaa asd asfsdf sdf sdgfds",
+            to: "/fino",
+            icon: <User className="dark:text-white" />,
+            pathname: "/asdfa",
+            subLinks: [
+              {
+                label:
+                  "Ajaaaaa aaaaaaa aaaaa aaaaaaaaaaaaa asd asfsdf sdf sdgfds",
+                to: "/fino",
+                icon: <User className="dark:text-white" />,
+                pathname: "/asdfa",
+              },
+              {
+                label: "ecole x 2",
+                to: "/ecole",
+                pathname: "/asdfa",
+                icon: <User className="dark:text-white" />,
+              },
+            ],
+          }}
         />
       </div>
     </AppLayout>

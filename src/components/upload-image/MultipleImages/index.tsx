@@ -41,7 +41,7 @@ export const MultipleImages = ({
   const [localImage, setLocalImage] = useState<ImageListType>([]);
 
   useEffect(() => {
-    if (initialPreview.length) {
+    if (initialPreview && initialPreview.length) {
       setLocalImage([...localImage, ...initialPreview]);
     }
   }, []);
@@ -112,7 +112,7 @@ export const MultipleImages = ({
           return (
             <>
               {imageList.length >= 1 ? (
-                <div className="grid grid-cols-2 grid-flow-row gap-4">
+                <div className={`grid ${limit === 1 ? "grid-cols-1" : "grid-cols-2"} grid-flow-row gap-4`}>
                   {imageList.map((image, index) => {
                     return (
                       <div
