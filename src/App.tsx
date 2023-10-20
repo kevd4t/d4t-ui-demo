@@ -1,8 +1,12 @@
 import { Router, Truck, User } from "lucide-react";
 import { AppLayout } from "./layouts/Application";
-import { BottomNavigation, IUploadImage, MultipleImages } from "./components";
-import { useState } from "react";
-import FileResizer from "react-image-file-resizer";
+import {
+  BottomNavigation,
+  D4TTable,
+  ITableColumn,
+  ITablePagination,
+  ITableSubmit,
+} from "./components";
 
 function App() {
   const profile = { role: "Administrador", name: "Kevin", lastname: "blanco" };
@@ -30,30 +34,63 @@ function App() {
     },
   ];
 
-  const [uploadImages, setUploadImages] = useState<IUploadImage[]>([]);
+  const data = [
+    {
+      id: "234",
+      name: "Kevin",
+    },
+  ];
+  const dataColumns: ITableColumn<any>[] = [
+    {
+      id: "id",
+      label: "ID",
+    },
+    {
+      id: "id",
+      label: "CID",
+      isQuery: true,
+    },
+    {
+      id: "id",
+      label: "Nombre",
+      filters: [
+        {
+          id: "name",
+          label: "Nombre",
+          value: "Kevin",
+        },
+      ],
+    },
+  ];
+
+  const dataPagination: ITablePagination = {
+    limit: 5,
+    page: 1,
+    labels: { plural: "Items", single: "Item" },
+    hasPrevPage: false,
+    hasNextPage: false,
+  };
+  const onSubmitTable: ITableSubmit = async ({
+    queries,
+    filters,
+    page,
+    limit,
+  }) => {
+    console.log({ queries, filters, page, limit });
+  };
 
   return (
     <AppLayout>
-      <div className="mx-auto max-w-4xl">
-        <div className="h-50 w-50 border-2 p-10 rounded-lg">
-          <MultipleImages
-            label="Multi upload images"
-            uploadLabel="upload"
-            setUploadImages={setUploadImages}
-            limit={1}
-            compress={{
-              openComparisons: () => {},
-              resizer: FileResizer,
-            }}
-            // initialPreview={[
-            //   {
-            //     data_url:
-            //       "https://www.drupal.org/files/project-images/nextjs-icon-dark-background.png",
-            //   },
-            // ]}
-          />
-        </div>
+      <D4TTable
+        data={data}
+        onSubmitTable={onSubmitTable}
+        pagination={dataPagination}
+        columns={dataColumns}
+        error={false}
+        loading={false}
+      />
 
+      <div className="mx-auto max-w-4xl">
         {/* Bottom navigation */}
         <BottomNavigation
           Link={null}
