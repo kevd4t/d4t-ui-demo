@@ -22432,40 +22432,56 @@ const yk = () => {
     )
   ] })
 ] }), _k = ({ form: e, onSubmit: t }) => {
-  const { queries: n, filters: r, showFilters: o, resetFilters: a } = ot(Pn), s = e.watch(n.map((c) => c.id)), i = () => {
-    a();
+  const {
+    queries: n,
+    filters: r,
+    showFilters: o,
+    resetFilters: a,
+    onSubmitTable: s,
+    pagination: { page: i, limit: c }
+  } = ot(Pn), l = e.watch(n.map((d) => d.id)), u = () => {
+    a(), s({ queries: n, filters: [], limit: c, page: i });
   };
   return /* @__PURE__ */ f.exports.jsx("div", { className: "w-10/12 flex items-center justify-between", children: /* @__PURE__ */ f.exports.jsxs("div", { className: "w-full flex flex-col items-start gap-x-2 gap-y-2", children: [
-    /* @__PURE__ */ f.exports.jsx("form", { onSubmit: e.handleSubmit(t), className: "w-full flex justify-start items-center sm:mr-4", children: /* @__PURE__ */ f.exports.jsx("section", { className: "mr-3 flex justify-start items-center gap-x-3", children: n.map((c, l) => /* @__PURE__ */ f.exports.jsx(
-      wk,
+    /* @__PURE__ */ f.exports.jsx(
+      "form",
       {
-        queryText: s[l],
-        label: c.label,
-        id: c.id,
-        form: e
-      },
-      c.id
-    )) }) }),
+        onSubmit: e.handleSubmit(t),
+        className: "w-full flex justify-start items-center sm:mr-4",
+        children: /* @__PURE__ */ f.exports.jsx("section", { className: "mr-3 flex justify-start items-center gap-x-3", children: n.map((d, p) => /* @__PURE__ */ f.exports.jsx(
+          wk,
+          {
+            queryText: l[p],
+            label: d.label,
+            id: d.id,
+            form: e
+          },
+          d.id
+        )) })
+      }
+    ),
     r != null && r.length ? /* @__PURE__ */ f.exports.jsxs("div", { className: "w-auto h-full flex flex-wrap gap-x-3 gap-y-2 justify-start items-center", children: [
       /* @__PURE__ */ f.exports.jsx(yk, {}),
-      o && r && r.map((c) => /* @__PURE__ */ f.exports.jsx(
+      o && r && r.map((d) => /* @__PURE__ */ f.exports.jsx(
         $k,
         {
           onSubmit: t,
           form: e,
-          id: c.id,
-          icon: c.icon,
-          label: c.label,
-          options: c.options
+          id: d.id,
+          icon: d.icon,
+          label: d.label,
+          options: d.options
         },
-        c.id
+        d.id
       )),
-      o && (r != null && r.filter((c) => c.options.some((l) => l.selected)).length) ? /* @__PURE__ */ f.exports.jsxs(
+      o && (r != null && r.filter(
+        (d) => d.options.some((p) => p.selected)
+      ).length) ? /* @__PURE__ */ f.exports.jsxs(
         Je,
         {
           type: "button",
           variant: "ghost",
-          onClick: i,
+          onClick: u,
           className: "px-2 py-5 lg:px-3 ml-0 lg:ml-auto",
           children: [
             "Limpiar Filtros",
