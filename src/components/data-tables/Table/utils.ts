@@ -1,6 +1,5 @@
 // @ts-nocheck
-import { ITableColumn } from '../../'
-import { ITablePagination } from './types'
+import { ITablePagination, ITableColumn } from './types'
 
 export interface DataToFormat {
   __typename?: string

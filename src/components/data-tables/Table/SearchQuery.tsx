@@ -11,7 +11,7 @@ import {
   PopoverContent,
   PopoverTrigger,
   Label
-} from '../../'
+} from '../..'
 
 interface SearchQueryProps {
   id: string

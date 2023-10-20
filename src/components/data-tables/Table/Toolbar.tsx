@@ -62,9 +62,9 @@ export const TableToolbar = ({ form, onSubmit }) => {
                 />
               ))}
             {showFilters &&
-            filters?.filter((filter) =>
-              filter.options.some((option) => option.selected)
-            ).length ? (
+              filters?.filter((filter) =>
+                filter.options.some((option) => option.selected)
+              ).length ? (
               <Button
                 type="button"
                 variant="ghost"

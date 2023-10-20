@@ -7,7 +7,7 @@ import {
   TableBody as TableBodyUI,
   TableCell,
   TableRow,
-} from "d4t-ui-demo";
+} from "../..";
 import { generateUUID } from "./utils";
 import { TableContext } from "./store";
 import { ITableColumn } from "./types";
