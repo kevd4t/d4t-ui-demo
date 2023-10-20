@@ -46,8 +46,14 @@ function App() {
       label: "ID",
     },
     {
-      id: "id",
-      label: "CID",
+      id: "firtname",
+      label: "CIDuno",
+      isQuery: true,
+    },
+
+    {
+      id: "role",
+      label: "ROLE",
       isQuery: true,
     },
     {
