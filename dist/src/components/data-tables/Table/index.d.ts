@@ -1,5 +1,5 @@
-import type { ITablePagination, ITableColumn, ITableSubmit, ITableDynamicFilter } from './types';
-import { Dispatch, SetStateAction } from 'react';
+import type { ITablePagination, ITableColumn, ITableSubmit, ITableDynamicFilter } from "./types";
+import { Dispatch, SetStateAction } from "react";
 interface CustomTableProps<DataSchema> {
     data: DataSchema[];
     pagination: ITablePagination;
@@ -9,6 +9,7 @@ interface CustomTableProps<DataSchema> {
     onSubmitTable: ITableSubmit;
     setSelectItem?: Dispatch<SetStateAction<any>>;
     filters?: ITableDynamicFilter<DataSchema>[];
+    limitOfMultiSelect?: number;
 }
 export declare function D4TTable<DataSchema>(props: CustomTableProps<DataSchema>): JSX.Element;
 export {};
