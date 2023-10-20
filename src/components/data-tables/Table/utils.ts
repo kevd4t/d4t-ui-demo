@@ -22,6 +22,8 @@ export const formatPagination = (dataToFormat: DataToFormat): ITablePagination =
   return { hasNextPage, hasPrevPage, limit, page, labels }
 }
 
+export const camelToSnake = (str: string | unknown) => str.replace(/[A-Z]/g, (letter: any) => `_${letter.toLowerCase()}`).toUpperCase()
+
 export const initialPagination: { limit: number, page: number } = { limit: 10, page: 1 }
 
 export const generateUUID = () =>
