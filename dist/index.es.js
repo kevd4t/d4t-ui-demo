@@ -22440,7 +22440,15 @@ const yk = () => {
     onSubmitTable: s,
     pagination: { page: i, limit: c }
   } = ot(Pn), l = e.watch(n.map((d) => d.id)), u = () => {
-    a(), s({ queries: n, filters: [], limit: c, page: i });
+    var p;
+    a();
+    const d = [];
+    (p = Object.entries(e == null ? void 0 : e.getValues())) == null || p.forEach((m) => {
+      m[1] && d.push({
+        field: m[0],
+        text: m[1]
+      });
+    }), s({ queries: d, filters: [], limit: c, page: i });
   };
   return /* @__PURE__ */ f.exports.jsx("div", { className: "w-10/12 flex items-center justify-between", children: /* @__PURE__ */ f.exports.jsxs("div", { className: "w-full flex flex-col items-start gap-x-2 gap-y-2", children: [
     /* @__PURE__ */ f.exports.jsx(
