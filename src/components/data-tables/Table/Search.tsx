@@ -4,7 +4,7 @@ import { useContext, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { Button, Form, Spinner } from '../../'
+import { Button, Form, Spinner } from '../..'
 import { TableToolbar } from './Toolbar'
 import { TableContext } from './store'
 import { ITableSubmit } from './types'

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Button } from '../../'
+import { Button } from '../..'
 import { X } from 'lucide-react'
 
 import { TableContext } from './store'
