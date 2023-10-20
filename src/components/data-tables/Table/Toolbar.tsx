@@ -7,8 +7,14 @@ import { TableContext } from "./store";
 import { VisibilityFilters } from "./VisibilityFilters";
 import { FacetedFilter } from "./FacetedFilter";
 import { SearchQuery } from "./SearchQuery";
+import { UseFormReturn } from "react-hook-form";
 
-export const TableToolbar = ({ form, onSubmit }) => {
+interface IToolbarProps {
+  form: UseFormReturn<any, any, any>;
+  onSubmit: (data: any) => Promise<void>;
+}
+
+export const TableToolbar = ({ form, onSubmit }: IToolbarProps) => {
   const {
     queries,
     filters,
@@ -21,6 +27,20 @@ export const TableToolbar = ({ form, onSubmit }) => {
 
   const clearAllFilters = () => {
     resetFilters();
+
+    //--- Refactor this (pass to utility)
+    const queries = [];
+
+    Object.entries(form?.getValues())?.forEach((query) => {
+      if (!query[1]) return;
+
+      queries.push({
+        field: query[0],
+        text: query[1],
+      });
+    });
+    //---
+
     onSubmitTable({ queries, filters: [], limit, page });
   };
 
@@ -63,7 +83,7 @@ export const TableToolbar = ({ form, onSubmit }) => {
               ))}
             {showFilters &&
               filters?.filter((filter) =>
-                filter.options.some((option) => option.selected)
+                filter.options.some((option) => option.selected),
               ).length ? (
               <Button
                 type="button"
