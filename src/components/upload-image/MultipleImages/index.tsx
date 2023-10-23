@@ -22,7 +22,7 @@ import { LoadMultiImages } from "./LoadImage";
 interface IMultipleUploadImageProps
   extends Omit<IUploadImageProps, "setUploadImage" | "initialPreview"> {
   setUploadImages: Dispatch<SetStateAction<IUploadImage[]>>;
-  initialPreview?: [{ data_url?: string, file?: File, [key: string]: any }]
+  initialPreview?: [{ data_url?: string; file?: File; [key: string]: any }];
 }
 
 export const MultipleImages = ({
@@ -112,7 +112,11 @@ export const MultipleImages = ({
           return (
             <>
               {imageList.length >= 1 ? (
-                <div className={`grid ${limit === 1 ? "grid-cols-1" : "grid-cols-2"} grid-flow-row gap-4`}>
+                <div
+                  className={`grid ${
+                    limit === 1 || !limit ? "grid-cols-1" : "grid-cols-2"
+                  } grid-flow-row gap-4`}
+                >
                   {imageList.map((image, index) => {
                     return (
                       <div
