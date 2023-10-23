@@ -6,10 +6,15 @@ import {
   ITableColumn,
   ITablePagination,
   ITableSubmit,
+  IUploadImage,
+  MultipleImages,
 } from "./components";
+import { useState } from "react";
+import FileResizer from "react-image-file-resizer";
 
 function App() {
   const profile = { role: "Administrador", name: "Kevin", lastname: "blanco" };
+  const [uploadImages, setUploadImages] = useState<IUploadImage[]>([]);
 
   const sections = [
     {
@@ -144,6 +149,16 @@ function App() {
           }}
         />
       </div>
+
+      <MultipleImages
+        label="Multi upload images"
+        uploadLabel="upload"
+        setUploadImages={setUploadImages}
+        compress={{
+          openComparisons: () => {},
+          resizer: FileResizer,
+        }}
+      />
     </AppLayout>
   );
 }
