@@ -24605,60 +24605,66 @@ const S7 = ({ src: e, imageContainerClassName: t }) => /* @__PURE__ */ f.exports
           onImageRemove: b,
           isDragging: y,
           dragProps: $
-        }) => /* @__PURE__ */ f.exports.jsx(f.exports.Fragment, { children: h.length >= 1 ? /* @__PURE__ */ f.exports.jsxs("div", { className: `grid ${l === 1 ? "grid-cols-1" : "grid-cols-2"} grid-flow-row gap-4`, children: [
-          h.map((_, w) => /* @__PURE__ */ f.exports.jsxs(
-            "div",
-            {
-              className: "imagen-container w-full flex flex-col justify-center items-center relative",
-              children: [
-                i ? /* @__PURE__ */ f.exports.jsx(
-                  O7,
-                  {
-                    imageContainerClassName: s,
-                    previewUrl: _ == null ? void 0 : _.data_url
-                  }
-                ) : /* @__PURE__ */ f.exports.jsx(
-                  P7,
-                  {
-                    imageContainerClassName: s,
-                    previewUrl: _ == null ? void 0 : _.data_url
-                  }
-                ),
-                /* @__PURE__ */ f.exports.jsx(
-                  k7,
-                  {
-                    imageIndex: w,
-                    onImageRemove: b,
-                    onImageUpdate: g,
-                    compress: c,
-                    tabIndexs: o
-                  }
-                )
-              ]
-            },
-            w
-          )),
-          d.length < l && /* @__PURE__ */ f.exports.jsx("div", { className: "imagen-container", children: /* @__PURE__ */ f.exports.jsx(
-            "div",
-            {
-              ...$,
-              className: I(
-                `w-full h-[237px] ${y ? "border-indigo-600" : "border-slate-50"} flex flex-col justify-center items-center border-dashed border-2 bg-slate-50 bg-opacity-5 rounded-md p-2`,
-                s
-              ),
-              children: /* @__PURE__ */ f.exports.jsx(
-                Je,
+        }) => /* @__PURE__ */ f.exports.jsx(f.exports.Fragment, { children: h.length >= 1 ? /* @__PURE__ */ f.exports.jsxs(
+          "div",
+          {
+            className: `grid ${l === 1 || !l ? "grid-cols-1" : "grid-cols-2"} grid-flow-row gap-4`,
+            children: [
+              h.map((_, w) => /* @__PURE__ */ f.exports.jsxs(
+                "div",
                 {
-                  type: "button",
-                  variant: "outline",
-                  className: "p-2 h-min",
-                  onClick: v,
-                  children: /* @__PURE__ */ f.exports.jsx(f4, { className: "w-8 h-8" })
+                  className: "imagen-container w-full flex flex-col justify-center items-center relative",
+                  children: [
+                    i ? /* @__PURE__ */ f.exports.jsx(
+                      O7,
+                      {
+                        imageContainerClassName: s,
+                        previewUrl: _ == null ? void 0 : _.data_url
+                      }
+                    ) : /* @__PURE__ */ f.exports.jsx(
+                      P7,
+                      {
+                        imageContainerClassName: s,
+                        previewUrl: _ == null ? void 0 : _.data_url
+                      }
+                    ),
+                    /* @__PURE__ */ f.exports.jsx(
+                      k7,
+                      {
+                        imageIndex: w,
+                        onImageRemove: b,
+                        onImageUpdate: g,
+                        compress: c,
+                        tabIndexs: o
+                      }
+                    )
+                  ]
+                },
+                w
+              )),
+              d.length < l && /* @__PURE__ */ f.exports.jsx("div", { className: "imagen-container", children: /* @__PURE__ */ f.exports.jsx(
+                "div",
+                {
+                  ...$,
+                  className: I(
+                    `w-full h-[237px] ${y ? "border-indigo-600" : "border-slate-50"} flex flex-col justify-center items-center border-dashed border-2 bg-slate-50 bg-opacity-5 rounded-md p-2`,
+                    s
+                  ),
+                  children: /* @__PURE__ */ f.exports.jsx(
+                    Je,
+                    {
+                      type: "button",
+                      variant: "outline",
+                      className: "p-2 h-min",
+                      onClick: v,
+                      children: /* @__PURE__ */ f.exports.jsx(f4, { className: "w-8 h-8" })
+                    }
+                  )
                 }
-              )
-            }
-          ) })
-        ] }) : /* @__PURE__ */ f.exports.jsx(
+              ) })
+            ]
+          }
+        ) : /* @__PURE__ */ f.exports.jsx(
           M7,
           {
             dragProps: $,
