@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Button } from "../../";
+import { Button, camelToSnake } from "../../";
 import { X } from "lucide-react";
 
 import { TableContext } from "./store";
@@ -35,7 +35,7 @@ export const TableToolbar = ({ form, onSubmit }: IToolbarProps) => {
       if (!query[1]) return;
 
       queries.push({
-        field: query[0],
+        field: camelToSnake(query[0]),
         text: query[1],
       });
     });
@@ -82,9 +82,9 @@ export const TableToolbar = ({ form, onSubmit }: IToolbarProps) => {
                 />
               ))}
             {showFilters &&
-              filters?.filter((filter) =>
-                filter.options.some((option) => option.selected),
-              ).length ? (
+            filters?.filter((filter) =>
+              filter.options.some((option) => option.selected),
+            ).length ? (
               <Button
                 type="button"
                 variant="ghost"
