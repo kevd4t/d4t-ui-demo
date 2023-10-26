@@ -1,68 +1,59 @@
-import { Router, Truck, User } from "lucide-react";
 import { AppLayout } from "./layouts/Application";
 import {
-  BottomNavigation,
   D4TTable,
   ITableColumn,
   ITablePagination,
   ITableSubmit,
-  IUploadImage,
-  MultipleImages,
 } from "./components";
-import { useState } from "react";
-import FileResizer from "react-image-file-resizer";
+import { useEffect, useState } from "react";
 
 function App() {
-  const profile = { role: "Administrador", name: "Kevin", lastname: "blanco" };
-  const [uploadImages, setUploadImages] = useState<IUploadImage[]>([]);
-
-  const sections = [
-    {
-      titleDescription: "Users",
-      path: "/users",
-      icon: <User />,
-    },
-    {
-      titleDescription: "Router",
-      path: "/routes",
-      icon: <Router />,
-    },
-    {
-      titleDescription: "Tracking",
-      path: "/tracking",
-      icon: <Truck />,
-    },
-    {
-      titleDescription: "Analytics",
-      path: "/anaytics",
-      icon: <Truck />,
-    },
-  ];
-
   const data = [
     {
       id: "234",
       name: "Kevin",
     },
+    {
+      id: "235",
+      name: "Cristian",
+    },
+    {
+      id: "236",
+      name: "Shamael",
+    },
+    {
+      id: "237",
+      name: "Jose",
+    },
+    {
+      id: "238",
+      name: "Ronald",
+    },
+    {
+      id: "239",
+      name: "Jorge",
+    },
+    {
+      id: "240",
+      name: "Jesus",
+    },
+    {
+      id: "241",
+      name: "Nancy",
+    },
   ];
+
   const dataColumns: ITableColumn<any>[] = [
+    {
+      id: "multi-select",
+      label: "seleccion",
+    },
     {
       id: "id",
       label: "ID",
     },
     {
-      id: "firtname",
-      label: "CIDuno",
-      isQuery: true,
-    },
-
-    {
-      id: "role",
-      label: "ROLE",
-      isQuery: true,
-    },
-    {
-      id: "id",
+      id: "name",
       label: "Nombre",
       filters: [
         {
@@ -90,75 +81,27 @@ function App() {
     console.log({ queries, filters, page, limit });
   };
 
+  const [hello, setHello] = useState([]);
+
+  useEffect(() => {
+    console.log("hello ==> ", hello);
+  }, [hello]);
+
   return (
     <AppLayout>
-      <D4TTable
-        data={data}
-        onSubmitTable={onSubmitTable}
-        pagination={dataPagination}
-        columns={dataColumns}
-        error={false}
-        loading={false}
-      />
-
       <div className="mx-auto max-w-4xl">
-        {/* Bottom navigation */}
-        <BottomNavigation
-          Link={null}
-          sidebar={{
-            logout: () => {},
-            profile,
-            theme: { toggleTheme: () => {}, value: "dark" },
-          }}
-          bottomItems={sections}
-          navLinksItems={[
-            {
-              label:
-                "Ajaaaaa aaaaaaa aaaaa aaaaaaaaaaaaa asd asfsdf sdf sdgfds",
-              to: "/fino",
-              icon: <User className="dark:text-white" />,
-              pathname: "/asdfa",
-            },
-            {
-              label: "ecole x 2",
-              to: "/ecole",
-              pathname: "/asdfa",
-              icon: <User className="dark:text-white" />,
-            },
-          ]}
-          subLinksItems={{
-            label: "Ajaaaaa aaaaaaa aaaaa aaaaaaaaaaaaa asd asfsdf sdf sdgfds",
-            to: "/fino",
-            icon: <User className="dark:text-white" />,
-            pathname: "/asdfa",
-            subLinks: [
-              {
-                label:
-                  "Ajaaaaa aaaaaaa aaaaa aaaaaaaaaaaaa asd asfsdf sdf sdgfds",
-                to: "/fino",
-                icon: <User className="dark:text-white" />,
-                pathname: "/asdfa",
-              },
-              {
-                label: "ecole x 2",
-                to: "/ecole",
-                pathname: "/asdfa",
-                icon: <User className="dark:text-white" />,
-              },
-            ],
-          }}
+        <D4TTable
+          data={data}
+          onSubmitTable={onSubmitTable}
+          pagination={dataPagination}
+          columns={dataColumns}
+          error={false}
+          loading={false}
+          limitOfMultiSelect={4}
+          multiItemsSelected={hello}
+          setMultiItemsSelected={setHello}
         />
       </div>
-
-      <MultipleImages
-        label="Multi upload images"
-        uploadLabel="upload"
-        setUploadImages={setUploadImages}
-        compress={{
-          openComparisons: () => {},
-          resizer: FileResizer,
-        }}
-      />
     </AppLayout>
   );
 }
