@@ -7,14 +7,15 @@ import { useContext, useState } from "react";
 export const handleCheckboxChange = (item: Record<string, string>) => {
   const { multiItemsSelected, setMultiItemsSelected, limitOfMultiSelect } =
     useContext(TableContext);
+
   const [itemsSelectedCount, setItemsSelectedCount] = useState<number>(
-    multiItemsSelected.length
+    multiItemsSelected.length,
   );
 
   const verficationOfItems = () => {
     // Verify if the item is already selected
     const isSelected = multiItemsSelected.some(
-      (selectedItem) => selectedItem.id === item.id
+      (selectedItem) => selectedItem.id === item.id,
     );
 
     if (multiItemsSelected.length === limitOfMultiSelect && !isSelected) {
@@ -25,7 +26,7 @@ export const handleCheckboxChange = (item: Record<string, string>) => {
     if (isSelected) {
       // If already selected, unmark it and remove it from the array
       const updatedItems = multiItemsSelected.filter(
-        (selectedItem) => selectedItem.id !== item.id
+        (selectedItem) => selectedItem.id !== item.id,
       );
       setMultiItemsSelected(updatedItems);
       setItemsSelectedCount(itemsSelectedCount - 1);

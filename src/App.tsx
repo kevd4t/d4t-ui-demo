@@ -5,6 +5,7 @@ import {
   ITablePagination,
   ITableSubmit,
 } from "./components";
+import { useEffect, useState } from "react";
 
 function App() {
   const data = [
@@ -80,6 +81,12 @@ function App() {
     console.log({ queries, filters, page, limit });
   };
 
+  const [hello, setHello] = useState([]);
+
+  useEffect(() => {
+    console.log("hello ==> ", hello);
+  }, [hello]);
+
   return (
     <AppLayout>
       <div className="mx-auto max-w-4xl">
@@ -91,6 +98,8 @@ function App() {
           error={false}
           loading={false}
           limitOfMultiSelect={4}
+          multiItemsSelected={hello}
+          setMultiItemsSelected={setHello}
         />
       </div>
     </AppLayout>
