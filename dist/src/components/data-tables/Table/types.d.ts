@@ -1,5 +1,5 @@
-import type { Dispatch, ReactNode, SetStateAction } from 'react';
-import { UseFormReturn } from 'react-hook-form';
+import type { Dispatch, ReactNode, SetStateAction } from "react";
+import { UseFormReturn } from "react-hook-form";
 export interface ITableFilterOption {
     id: string;
     label: string;
@@ -14,10 +14,10 @@ export interface ITableFilter {
     options: ITableFilterOption[];
 }
 declare type IDataProperty<Type> = {
-    [Property in keyof Type as Exclude<Property, '__typename'>]: Type[Property];
+    [Property in keyof Type as Exclude<Property, "__typename">]: Type[Property];
 };
 export interface ITableColumn<TDataSchema> {
-    id: keyof IDataProperty<TDataSchema> | 'actions' | 'select' | 'multi-select';
+    id: keyof IDataProperty<TDataSchema> | "actions" | "select" | "multi-select";
     label: string;
     filters?: ITableFilterOption[];
     isQuery?: boolean;
@@ -48,7 +48,7 @@ export interface ITableSubmitParams {
     limit: number;
     page: number;
 }
-export declare type ITableSubmit = ({ page, limit, queries, filters }: ITableSubmitParams) => Promise<void>;
+export declare type ITableSubmit = ({ page, limit, queries, filters, }: ITableSubmitParams) => Promise<void>;
 export interface IInitialTable<TData = any> {
     data: TData[] | [];
     filters: ITableFilter[];
@@ -100,7 +100,9 @@ export interface ITableContextStore<TData = any> {
     columns: ITableColumn<TData>[];
     pagination: ITablePagination;
     searchForm?: UseFormReturn<any, any, any>;
+    multiItemsSelected: any[];
     setMultiItemsSelected: Dispatch<SetStateAction<any[]>>;
+    limitOfMultiSelect: number;
     filters?: ITableFilter[];
     queries?: ITableQuery[];
     onSubmitTable: ITableSubmit;

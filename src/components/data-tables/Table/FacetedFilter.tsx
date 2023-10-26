@@ -6,7 +6,7 @@ import { Check } from 'lucide-react'
 import { ITableFilterOption } from './types'
 import { TableContext } from './store'
 
-import { Badge, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, Popover, PopoverContent, PopoverTrigger, Separator } from '../../'
+import { Badge, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, Popover, PopoverContent, PopoverTrigger, Separator } from '../..'
 import { cn } from '../../../lib/utils'
 
 interface FacetedFilterProps {
