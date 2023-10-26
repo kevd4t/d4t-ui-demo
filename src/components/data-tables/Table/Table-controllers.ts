@@ -9,13 +9,13 @@ export const handleCheckboxChange = (item: Record<string, string>) => {
     useContext(TableContext);
 
   const [itemsSelectedCount, setItemsSelectedCount] = useState<number>(
-    multiItemsSelected.length,
+    multiItemsSelected ? multiItemsSelected.length : 0
   );
 
   const verficationOfItems = () => {
     // Verify if the item is already selected
     const isSelected = multiItemsSelected.some(
-      (selectedItem) => selectedItem.id === item.id,
+      (selectedItem) => selectedItem.id === item.id
     );
 
     if (multiItemsSelected.length === limitOfMultiSelect && !isSelected) {
@@ -26,7 +26,7 @@ export const handleCheckboxChange = (item: Record<string, string>) => {
     if (isSelected) {
       // If already selected, unmark it and remove it from the array
       const updatedItems = multiItemsSelected.filter(
-        (selectedItem) => selectedItem.id !== item.id,
+        (selectedItem) => selectedItem.id !== item.id
       );
       setMultiItemsSelected(updatedItems);
       setItemsSelectedCount(itemsSelectedCount - 1);
