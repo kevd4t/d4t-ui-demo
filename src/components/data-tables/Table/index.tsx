@@ -33,6 +33,8 @@ interface CustomTableProps<DataSchema> {
   setSelectItem?: Dispatch<SetStateAction<any>>;
   filters?: ITableDynamicFilter<DataSchema>[];
   limitOfMultiSelect?: number;
+  setMultiItemsSelected?: Dispatch<SetStateAction<any[]>>;
+  multiItemsSelected?: any[];
 }
 
 const initialPagination: ITablePagination = {
@@ -49,7 +51,7 @@ export function D4TTable<DataSchema>(props: CustomTableProps<DataSchema>) {
   const [localQueries, setLocalQueries] = useState([]);
   const [showFilters, setShowFilters] = useState(false);
   const [localError, setLocalError] = useState(props?.error);
-  const [multiItemsSelected, setMultiItemsSelected] = useState([]);
+  // const [multiItemsSelected, setMultiItemsSelected] = useState([]);
   const [localLoading, setLocalLoading] = useState(props?.loading);
   const [searchForm, setSearchForm] = useState<UseFormReturn<any, any, any>>();
   const [pagination, setPagination] = useState(
@@ -283,8 +285,10 @@ export function D4TTable<DataSchema>(props: CustomTableProps<DataSchema>) {
         getGlobalFilters,
         selectOptionFilter,
         resetOptionsByFilter,
-        multiItemsSelected,
-        setMultiItemsSelected,
+        // multiItemsSelected,
+        // setMultiItemsSelected,
+        multiItemsSelected: props.multiItemsSelected,
+        setMultiItemsSelected: props.setMultiItemsSelected,
         limitOfMultiSelect: props.limitOfMultiSelect,
         queries: localQueries,
         filters: localFilters,
