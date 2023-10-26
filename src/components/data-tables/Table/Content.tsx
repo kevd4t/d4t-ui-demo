@@ -6,11 +6,6 @@ import { useContext, useEffect } from "react";
 import { TableContext } from "./store";
 
 export const TableContent = () => {
-  const { multiItemsSelected } = useContext(TableContext);
-
-  useEffect(() => {
-    console.log(multiItemsSelected);
-  }, [multiItemsSelected]);
 
   return (
     <TableUI>
