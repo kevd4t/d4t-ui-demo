@@ -22,6 +22,7 @@ import { TableLoading } from "./Loading";
 import { TableSearch } from "./Search";
 import { TableError } from "./Error";
 import { TableEmpty } from "./Empty";
+import { camelToSnake } from "./utils";
 
 interface CustomTableProps<DataSchema> {
   data: DataSchema[];
@@ -51,7 +52,6 @@ export function D4TTable<DataSchema>(props: CustomTableProps<DataSchema>) {
   const [localQueries, setLocalQueries] = useState([]);
   const [showFilters, setShowFilters] = useState(false);
   const [localError, setLocalError] = useState(props?.error);
-  // const [multiItemsSelected, setMultiItemsSelected] = useState([]);
   const [localLoading, setLocalLoading] = useState(props?.loading);
   const [searchForm, setSearchForm] = useState<UseFormReturn<any, any, any>>();
   const [pagination, setPagination] = useState(
@@ -78,7 +78,7 @@ export function D4TTable<DataSchema>(props: CustomTableProps<DataSchema>) {
         if (!query[1]) return;
 
         queries.push({
-          field: query[0],
+          field: camelToSnake(query[0]),
           text: query[1],
         });
       });
@@ -285,8 +285,6 @@ export function D4TTable<DataSchema>(props: CustomTableProps<DataSchema>) {
         getGlobalFilters,
         selectOptionFilter,
         resetOptionsByFilter,
-        // multiItemsSelected,
-        // setMultiItemsSelected,
         multiItemsSelected: props.multiItemsSelected,
         setMultiItemsSelected: props.setMultiItemsSelected,
         limitOfMultiSelect: props.limitOfMultiSelect,
