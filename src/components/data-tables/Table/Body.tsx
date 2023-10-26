@@ -11,6 +11,7 @@ import {
 import { generateUUID } from "./utils";
 import { TableContext } from "./store";
 import { ITableColumn } from "./types";
+import { handleCheckboxChange } from "./Table-controllers";
 // import { useCheckboxSelection } from "./Table-controllers";
 
 interface TableBodyRowProps {
@@ -41,42 +42,14 @@ const TableBodyRow = ({
   setMultiItemsSelected,
   multiItemsSelected,
   setItemsSelectedCount,
-  itemsSelectedCount,
   limitOfMultiSelect,
 }: TableBodyRowProps) => {
   const renderCell = (
     column: ITableColumn<any>,
     item: Record<string, string>
   ) => {
-
-    const handleCheckboxChange = () => {
-      // Verify if the item is already selected
-      const isSelected = multiItemsSelected.some(
-        (selectedItem) => selectedItem.id === item.id
-      );
-
-      if (multiItemsSelected.length === limitOfMultiSelect && !isSelected) {
-        console.log("NO puedes seleccionar más elementos.");
-        return;
-      }
-
-      if (isSelected) {
-        // If already selected, unmark it and remove it from the array
-        const updatedItems = multiItemsSelected.filter(
-          (selectedItem) => selectedItem.id !== item.id
-        );
-        setMultiItemsSelected(updatedItems);
-        setItemsSelectedCount(itemsSelectedCount - 1);
-      } else {
-        // If not selected and not reached the limit, mark it and add it to the array
-        const updatedItems = [
-          ...multiItemsSelected,
-          { ...item, isSelected: true },
-        ];
-        setMultiItemsSelected(updatedItems);
-        setItemsSelectedCount(itemsSelectedCount + 1);
-      }
-    };
+    const { itemsSelectedCount, verficationOfItems } =
+      handleCheckboxChange(item);
 
     if (column?.render) {
       return <div>{column.render(item)}</div>;
@@ -98,7 +71,7 @@ const TableBodyRow = ({
     if (column.id === "multi-select") {
       return (
         <Checkbox
-          onClick={handleCheckboxChange}
+          onClick={() => { verficationOfItems(); }}
           checked={multiItemsSelected.some(
             (selectedItem) => selectedItem.id === item.id
           )}
@@ -137,7 +110,7 @@ export const TableBody = () => {
     limitOfMultiSelect,
   } = useContext(TableContext);
   const [itemsSelectedCount, setItemsSelectedCount] = useState<number>(
-    multiItemsSelected.length
+    multiItemsSelected ? multiItemsSelected.length : 0
   );
 
   return (
