@@ -1,11 +1,14 @@
 import { AppLayout } from "./layouts/Application";
 import {
   D4TTable,
+  GenericSelect,
   ITableColumn,
   ITablePagination,
   ITableSubmit,
+  Form
 } from "./components";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 
 function App() {
   const data = [
@@ -82,6 +85,8 @@ function App() {
   };
 
   const [hello, setHello] = useState([]);
+  const probeForm = useForm<any, any, any>({
+  })
 
   useEffect(() => {
     console.log("hello ==> ", hello);
@@ -89,7 +94,7 @@ function App() {
 
   return (
     <AppLayout>
-      <div className="mx-auto max-w-4xl">
+      {/* <div className="mx-auto max-w-4xl">
         <D4TTable
           data={data}
           onSubmitTable={onSubmitTable}
@@ -101,7 +106,55 @@ function App() {
           multiItemsSelected={hello}
           setMultiItemsSelected={setHello}
         />
-      </div>
+
+
+      </div> */}
+
+      <section>
+        <Form {...probeForm}>
+          <GenericSelect
+            form={probeForm}
+            id="input.id"
+            placeholder="Selecciona"
+            classNameGroup="h-64"
+            items={[
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+              { label: "hello", value: "hello" },
+            ]}
+          />
+        </Form>
+
+      </section>
     </AppLayout>
   );
 }
