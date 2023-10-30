@@ -3,7 +3,7 @@
 import { UseFormReturn } from 'react-hook-form'
 import type { ReactNode, HTMLAttributes } from 'react'
 
-import { FormControl, FormDescription, FormField, FormItem, FormLabel, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '..'
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, Label, Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '..'
 import { cn } from '../../lib/utils'
 
 export interface IGenericSelectItems {
@@ -22,6 +22,7 @@ export interface IGenericSelectProps extends HTMLAttributes<HTMLDivElement> {
   label?: string
   classNameContainer?: string
   classNameSelect?: string
+  classNameGroup?: string
   description?: string
   disabled?: boolean
 }
@@ -37,6 +38,7 @@ export const GenericSelect = ({
   tabIndex,
   classNameContainer,
   classNameSelect,
+  classNameGroup,
   disabled
 }: IGenericSelectProps) => {
   return (
@@ -57,29 +59,32 @@ export const GenericSelect = ({
 
           <Select onValueChange={field.onChange} defaultValue={field.value} disabled={disabled}>
             <FormControl>
-              <SelectTrigger disabled={disabled} tabIndex={tabIndex} className={cn('w-full', classNameSelect)}>
+              <SelectTrigger disabled={disabled} tabIndex={tabIndex} className={cn('w-full', classNameSelect)} >
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
             </FormControl>
 
             <SelectContent>
-              {
-                items.map(item => (
-                  <SelectItem key={item.value?.toString()} value={item.value?.toString()}>
-                    <div className='flex justify-center items-center'>
-                      {
-                        item?.icon && (
-                          <div className='dark:text-white mr-2 h-5'>
-                            {item.icon}
-                          </div>
-                        )
-                      }
+              <SelectGroup className={cn('overflow-auto', classNameGroup)}>
+                {
+                  items.map(item => (
+                    <SelectItem key={item.value?.toString()} value={item.value?.toString()} >
+                      <div className='flex justify-center items-center'>
+                        {
+                          item?.icon && (
+                            <div className='dark:text-white mr-2 h-5'>
+                              {item.icon}
+                            </div>
+                          )
+                        }
 
-                      {item.label}
-                    </div>
-                  </SelectItem>
-                ))
-              }
+                        {item.label}
+                      </div>
+                    </SelectItem>
+                  ))
+                }
+              </SelectGroup>
+
             </SelectContent>
           </Select>
         </FormItem>
