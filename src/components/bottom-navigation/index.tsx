@@ -24,6 +24,7 @@ export function BottomNavigation({
             icon={item.icon}
             titleDescription={item.titleDescription}
             Link={Link}
+            item={item}
           />
         ))}
 
@@ -32,6 +33,7 @@ export function BottomNavigation({
           titleDescription="Options"
           actionToSet={setIsDrawerOpen}
           Link={null}
+          item={null}
         />
       </div>
 
