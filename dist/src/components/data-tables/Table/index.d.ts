@@ -10,6 +10,8 @@ interface CustomTableProps<DataSchema> {
     setSelectItem?: Dispatch<SetStateAction<any>>;
     filters?: ITableDynamicFilter<DataSchema>[];
     limitOfMultiSelect?: number;
+    setMultiItemsSelected?: Dispatch<SetStateAction<any[]>>;
+    multiItemsSelected?: any[];
 }
 export declare function D4TTable<DataSchema>(props: CustomTableProps<DataSchema>): JSX.Element;
 export {};

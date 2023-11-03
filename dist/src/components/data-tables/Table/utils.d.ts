@@ -9,6 +9,7 @@ export interface DataToFormat {
     docs: any[];
 }
 export declare const formatPagination: (dataToFormat: DataToFormat) => ITablePagination;
+export declare const camelToSnake: (str: string | unknown) => any;
 export declare const initialPagination: {
     limit: number;
     page: number;

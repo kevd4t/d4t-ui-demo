@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { ITableSubmit } from './types';
+import { ITableSubmit } from "./types";
 interface TableSearchProps {
     onSubmitTable: ITableSubmit;
     loading: boolean;
