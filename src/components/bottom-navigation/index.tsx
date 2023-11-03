@@ -23,7 +23,7 @@ export function BottomNavigation({
             key={idx}
             icon={item.icon}
             titleDescription={item.titleDescription}
-            Link={null}
+            Link={Link}
           />
         ))}
 
