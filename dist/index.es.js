@@ -25171,7 +25171,8 @@ function Vf({
   icon: e,
   titleDescription: t,
   actionToSet: n,
-  Link: r
+  Link: r,
+  item: o
 }) {
   return /* @__PURE__ */ f.exports.jsx(pr, { children: /* @__PURE__ */ f.exports.jsxs(mr, { children: [
     /* @__PURE__ */ f.exports.jsx(hr, { children: /* @__PURE__ */ f.exports.jsx(
@@ -25186,8 +25187,8 @@ function Vf({
           fb,
           {
             Link: r,
-            to: "/asd",
-            pathname: "/asd",
+            to: o ? o.path : "/",
+            pathname: o ? o.path : "/",
             label: t,
             icon: e,
             isBottomNavLink: !0
@@ -25304,7 +25305,8 @@ function b8({
         {
           icon: i.icon,
           titleDescription: i.titleDescription,
-          Link: null
+          Link: o,
+          item: i
         },
         c
       )),
@@ -25314,7 +25316,8 @@ function b8({
           icon: /* @__PURE__ */ f.exports.jsx(Yx, {}),
           titleDescription: "Options",
           actionToSet: s,
-          Link: null
+          Link: null,
+          item: null
         }
       )
     ] }),
