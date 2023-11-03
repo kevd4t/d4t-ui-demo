@@ -23,7 +23,8 @@ export function BottomNavigation({
             key={idx}
             icon={item.icon}
             titleDescription={item.titleDescription}
-            Link={null}
+            Link={Link}
+            item={item}
           />
         ))}
 
@@ -32,6 +33,7 @@ export function BottomNavigation({
           titleDescription="Options"
           actionToSet={setIsDrawerOpen}
           Link={null}
+          item={null}
         />
       </div>
 

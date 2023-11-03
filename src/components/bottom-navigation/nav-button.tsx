@@ -5,9 +5,10 @@ import { NavLink } from "..";
 
 interface IBottomNavButton
   extends Pick<IBottomNavItem, "titleDescription">,
-    ButtonHTMLAttributes<any> {
+  ButtonHTMLAttributes<any> {
   icon: React.ReactNode;
   actionToSet?: React.Dispatch<React.SetStateAction<boolean>>;
+  item: IBottomNavItem;
   Link: any;
 }
 
@@ -16,6 +17,7 @@ export default function BottomNavigationButton({
   titleDescription,
   actionToSet,
   Link,
+  item
 }: IBottomNavButton) {
   return (
     <TooltipProvider>
@@ -25,8 +27,8 @@ export default function BottomNavigationButton({
             onClick={
               actionToSet
                 ? () => {
-                    actionToSet(true);
-                  }
+                  actionToSet(true);
+                }
                 : null
             }
             role="button"
@@ -34,8 +36,8 @@ export default function BottomNavigationButton({
           >
             <NavLink
               Link={Link}
-              to="/asd"
-              pathname="/asd"
+              to={item ? item.path : "/"}
+              pathname={item ? item.path : "/"}
               label={titleDescription}
               icon={icon}
               isBottomNavLink={true}
