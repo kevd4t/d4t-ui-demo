@@ -53,13 +53,11 @@ export const NavLink = ({
           className={
             isBottomNavLink
               ? ""
-              : `cursor-pointer border-2 border-transparent flex ${
-                  isExpanded ? "justify-start h-[42px]" : "justify-center"
-                } items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 hover:dark:bg-main-hover 
-          ${
-            pathname.startsWith(to) &&
-            "border-2 border-gray-300 bg-gray-200 dark:border-dark dark:bg-main-hover"
-          } select-none`
+              : `cursor-pointer border-2 border-transparent flex ${isExpanded ? "justify-start h-[42px]" : "justify-center"
+              } items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 hover:dark:bg-main-hover 
+          ${pathname.startsWith(to) &&
+              "border-2 border-gray-300 bg-gray-200 dark:border-dark dark:bg-main-hover"
+              } select-none`
           }
         >
           <div>{icon}</div>
@@ -99,13 +97,14 @@ export const NavLink = ({
       <Link
         href={to}
         ref={navLinkContainer}
-        className={`cursor-pointer border-2 border-transparent flex ${
-          isExpanded ? "justify-start h-[42px]" : "justify-center"
-        } items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 hover:dark:bg-main-hover 
-        ${
-          pathname.startsWith(to) &&
-          "border-2 border-gray-300 bg-gray-200 dark:border-dark dark:bg-main-hover"
-        } select-none`}
+        className={
+          isBottomNavLink
+            ? 'cursor-pointer'
+            : `cursor-pointer border-2 border-transparent flex ${isExpanded ? "justify-start h-[42px]" : "justify-center"
+            } items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 hover:dark:bg-main-hover 
+        ${pathname.startsWith(to) &&
+            "border-2 border-gray-300 bg-gray-200 dark:border-dark dark:bg-main-hover"
+            } select-none`}
       >
         <div>{icon}</div>
 
@@ -114,7 +113,7 @@ export const NavLink = ({
             id={to.replaceAll("/", "_")}
             className="pl-2 mt-0.5 dark:text-white text-sm whitespace-nowrap truncate block"
           >
-            {label}
+            {isBottomNavLink ? "" : label}
           </span>
         )}
 
