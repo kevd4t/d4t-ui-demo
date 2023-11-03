@@ -18,8 +18,8 @@ interface NavSubLinkProps extends SublinksItem {
 export const NavSubLink = ({ isExpanded, pathname, to, icon, label, Link }: NavSubLinkProps) => {
   const [showTooltip, setShowTooltip] = useState(false)
   const containerRef = useRef(null)
- 
-  useEffect(() => { 
+
+  useEffect(() => {
     const updateTruncationMap = () => {
       const linkElement = containerRef.current.querySelector(`#${to.replaceAll('/', '_')}`)
 
@@ -28,10 +28,10 @@ export const NavSubLink = ({ isExpanded, pathname, to, icon, label, Link }: NavS
         setShowTooltip(labelCollapsed)
       }
     }
-  
+
     window.addEventListener('resize', updateTruncationMap)
     updateTruncationMap()
-  
+
     return () => window.removeEventListener('resize', updateTruncationMap)
   }, [to])
 
@@ -41,8 +41,8 @@ export const NavSubLink = ({ isExpanded, pathname, to, icon, label, Link }: NavS
         <div
           ref={containerRef}
           className={
-            `cursor-pointer border-2 border-transparent flex ${isExpanded ? 'pl-4 justify-start h-[42px]' : 'justify-center'} items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 hover:dark:bg-main-hover 
-          ${pathname.startsWith(to) && 'border-2 border-gray-300 bg-gray-200 dark:border-dark dark:bg-main-hover'} select-none`
+            `cursor-pointer border-2 border-transparent flex ${isExpanded ? 'pl-4 justify-start h-[42px]' : 'justify-center'} items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-brand-primary/20 hover:dark:bg-main-hover 
+          ${pathname.startsWith(to) && 'border-2 border-brand-primary/30 bg-brand-primary/20 dark:border-dark dark:bg-brand-primary/20 text-brand-primary'} select-none`
           }
         >
           <div>{icon}</div>
@@ -60,20 +60,20 @@ export const NavSubLink = ({ isExpanded, pathname, to, icon, label, Link }: NavS
 
           {
             (showTooltip && isExpanded) && (
-                <Tooltip>
-                  <TooltipTrigger className='truncate'>
-                    <span
-                      id={to.replaceAll('/', '_')}
-                      className='pl-2 mt-0.5 dark:text-white text-sm whitespace-nowrap truncate block'
-                    >
-                      {label}
-                    </span>
-                  </TooltipTrigger>
+              <Tooltip>
+                <TooltipTrigger className='truncate'>
+                  <span
+                    id={to.replaceAll('/', '_')}
+                    className='pl-2 mt-0.5 dark:text-white text-sm whitespace-nowrap truncate block'
+                  >
+                    {label}
+                  </span>
+                </TooltipTrigger>
 
-                  <TooltipContent>
-                    <p>{label}</p>
-                  </TooltipContent>
-                </Tooltip>
+                <TooltipContent>
+                  <p>{label}</p>
+                </TooltipContent>
+              </Tooltip>
             )
           }
         </div>
@@ -87,8 +87,8 @@ export const NavSubLink = ({ isExpanded, pathname, to, icon, label, Link }: NavS
         href={to}
         ref={containerRef}
         className={
-          `cursor-pointer border-2 border-transparent flex ${isExpanded ? 'pl-4 justify-start h-[42px]' : 'justify-center'} items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 hover:dark:bg-main-hover 
-        ${pathname.startsWith(to) && 'border-2 border-gray-300 bg-gray-200 dark:border-dark dark:bg-main-hover'} select-none`
+          `cursor-pointer border-2 border-transparent flex ${isExpanded ? 'pl-4 justify-start h-[42px]' : 'justify-center'} items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg bg-brand-primary/20 hover:dark:bg-main-hover 
+        ${pathname.startsWith(to) && 'border-2 border-brand-primary/30 bg-brand-primary/20 dark:border-dark dark:bg-brand-primary/20 text-brand-primary'} select-none`
         }
       >
         <div>{icon}</div>
@@ -106,20 +106,20 @@ export const NavSubLink = ({ isExpanded, pathname, to, icon, label, Link }: NavS
 
         {
           (showTooltip && isExpanded) && (
-              <Tooltip>
-                <TooltipTrigger className='truncate'>
-                  <span
-                    id={to.replaceAll('/', '_')}
-                    className='pl-2 mt-0.5 dark:text-white text-sm whitespace-nowrap truncate block'
-                  >
-                    {label}
-                  </span>
-                </TooltipTrigger>
+            <Tooltip>
+              <TooltipTrigger className='truncate'>
+                <span
+                  id={to.replaceAll('/', '_')}
+                  className='pl-2 mt-0.5 dark:text-white text-sm whitespace-nowrap truncate block'
+                >
+                  {label}
+                </span>
+              </TooltipTrigger>
 
-                <TooltipContent>
-                  <p>{label}</p>
-                </TooltipContent>
-              </Tooltip>
+              <TooltipContent>
+                <p>{label}</p>
+              </TooltipContent>
+            </Tooltip>
           )
         }
       </Link>

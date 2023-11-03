@@ -9,6 +9,17 @@
     --background-hover: 240deg 3.05% 16.21%;
     --background-sidebar: var(--background);
 
+    /*Branding vars*/
+    --primary-brand-text: 0deg 3% 97%;
+
+    --primary-brand: 356deg 77% 47%;
+    --primary-brand-opaque: 356deg 77% 42%;
+    --primary-brand-lighter: 356deg 77% 63%;
+
+    --secondary-brand: 226.2deg 50% 39.22%;
+    --secondary-brand-opaque: 226deg 50% 35%
+    /*----*/
+
     --foreground: 240 10% 3.9%;
  
     --muted: 240 4.8% 95.9%;
@@ -46,6 +57,8 @@
     --background-hover: 240deg 3.05% 16.21%;
     --background-scroll: 240deg 3.05% 16.21%;
     --background-sidebar: var(--background);
+
+    --third-color: 30, 91%, 41%;
 
     --foreground: 0 0% 98%;
  
