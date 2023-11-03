@@ -52,7 +52,7 @@ export const NavLink = ({
           ref={navLinkContainer}
           className={
             isBottomNavLink
-              ? ""
+              ? "cursor-pointer"
               : `cursor-pointer border-2 border-transparent flex ${isExpanded ? "justify-start h-[42px]" : "justify-center"
               } items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-brand-primary/20 hover:dark:bg-brand-primary/10 
           ${pathname.startsWith(to) &&
@@ -97,11 +97,14 @@ export const NavLink = ({
       <Link
         href={to}
         ref={navLinkContainer}
-        className={`cursor-pointer border-2 border-transparent flex ${isExpanded ? "justify-start h-[42px]" : "justify-center"
-          } items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-brand-primary/20 hover:dark:bg-brand-primary/10 
+        className={
+          isBottomNavLink
+            ? "cursor-pointer"
+            : `cursor-pointer border-2 border-transparent flex ${isExpanded ? "justify-start h-[42px]" : "justify-center"
+            } items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-brand-primary/20 hover:dark:bg-brand-primary/10 
         ${pathname.startsWith(to) &&
-          "border-2 border-brand-primary/30 bg-brand-primary/20 dark:border-dark dark:bg-brand-primary/10 text-brand-primary"
-          } select-none`}
+            "border-2 border-brand-primary/30 bg-brand-primary/20 dark:border-dark dark:bg-brand-primary/10 text-brand-primary"
+            } select-none`}
       >
         <div>{icon}</div>
 
@@ -110,7 +113,7 @@ export const NavLink = ({
             id={to.replaceAll("/", "_")}
             className="pl-2 mt-0.5 dark:text-white text-sm whitespace-nowrap truncate block"
           >
-            {label}
+            {isBottomNavLink ? "" : label}
           </span>
         )}
 
