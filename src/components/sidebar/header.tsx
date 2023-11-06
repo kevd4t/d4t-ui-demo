@@ -33,7 +33,7 @@ export const SidebarHeader = ({ profile, isExpanded }: SidebarHeaderProps) => {
         isExpanded && (
           <section className='w-full h-full flex flex-col justify-center'>
             <span className='truncate'>{profile?.name} {profile?.lastname}</span>
-            { profile?.role && (<Badge className='w-full'>{profile.role}</Badge>) }
+            {profile?.role && (<Badge className='w-full bg-brand-secondary dark:text-white'>{profile.role}</Badge>)}
           </section>
         )
       }

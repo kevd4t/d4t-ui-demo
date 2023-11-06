@@ -51,7 +51,7 @@ export const SidebarFooter = ({ logout, isExpanded, toggleExpandSidebar, theme }
               >
                 <LogOut className='dark:text-white' size={20} />
 
-                { isExpanded && (<span className='pl-2 dark:text-white text-sm'>Cerrar Sesión</span>) }
+                {isExpanded && (<span className='pl-2 dark:text-white text-sm'>Cerrar Sesión</span>)}
               </button>
             </li>
           )

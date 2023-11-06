@@ -99,6 +99,7 @@ const TableBodyRow = ({
     if (column.id === "multi-select") {
       return (
         <Checkbox
+          className="border-slate-500 data-[state=checked]:bg-brand-primary-lighter"
           onClick={() => { multiItemsSelected ? verficationOfItems() : null }}
           checked={multiItemsSelected ? multiItemsSelected.some(
             (selectedItem) => selectedItem.id === item.id
