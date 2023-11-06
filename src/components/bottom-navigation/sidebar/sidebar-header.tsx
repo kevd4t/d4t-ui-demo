@@ -1,5 +1,5 @@
 import { User } from "lucide-react";
-import { SidebarProfile } from "../../";
+import { AvatarImage, SidebarProfile } from "../../";
 import { Avatar, AvatarFallback, Badge } from "../../";
 
 export default function BottomNavigationSidebarHeader({
@@ -10,8 +10,10 @@ export default function BottomNavigationSidebarHeader({
   return (
     <header className="justify-center w-full h-14 flex items-start gap-x-3 my-10 px-10">
       <Avatar className="w-16 h-full border border-gray-200 shadow-sm rounded-md">
+        <AvatarImage src={profile?.photo} className='object-cover' />
+
         <AvatarFallback className="p-2 rounded-md h-full bg-transparent">
-          <User className="text-black dark:text-white h-full" />
+          <AvatarImage src={profile?.photo} className='object-cover' />
         </AvatarFallback>
       </Avatar>
 

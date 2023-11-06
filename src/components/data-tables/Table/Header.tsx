@@ -7,11 +7,11 @@ export const TableHeader = () => {
   const { columns } = useContext(TableContext)
 
   return (
-    <TablerHeaderUI>
+    <TablerHeaderUI className='bg-brand-primary-lighter'>
       <TableRow >
         {
           columns.length > 0 && columns.map((column, idx) => (
-            <TableHead key={`${column.id}-${idx}`}>{column.label}</TableHead>
+            <TableHead key={`${column.id}-${idx}`} className='text-brand-text'>{column.label}</TableHead>
           ))
         }
       </TableRow>

@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ['class'],
+  important: true,
   content: [
     './src/**/*.{ts,tsx}',
     './index.ts'
@@ -35,6 +36,22 @@ module.exports = {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))'
         },
+        
+        brand: {
+          text: {
+            DEFAULT: 'hsl(var(--primary-brand-text))',
+          },
+          primary: {
+            DEFAULT:'hsl(var(--primary-brand))',
+            opaque: 'hsl(var(--primary-brand-opaque))',
+            lighter: 'hsl(var(--primary-brand-lighter))'
+          },
+          secondary: {
+            DEFAULT: 'hsl(var(--secondary-brand))',
+            opaque: 'hsl(var(--secondary-brand-opaque))'
+          }
+        },
+
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))'
