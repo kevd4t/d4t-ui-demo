@@ -13,7 +13,7 @@ export default function BottomNavigationSidebarHeader({
         <AvatarImage src={profile?.photo} className='object-cover' />
 
         <AvatarFallback className="p-2 rounded-md h-full bg-transparent">
-          <User className="text-black dark:text-white h-full" />
+          <AvatarImage src={profile?.photo} className='object-cover' />
         </AvatarFallback>
       </Avatar>
 
