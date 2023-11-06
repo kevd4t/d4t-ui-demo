@@ -99,11 +99,19 @@ export const NavLink = ({
         ref={navLinkContainer}
         className={
           isBottomNavLink
+<<<<<<< HEAD
             ? "cursor-pointer"
             : `cursor-pointer border-2 border-transparent flex ${isExpanded ? "justify-start h-[42px]" : "justify-center"
             } items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-brand-primary/20 hover:dark:bg-brand-primary/10 
         ${pathname.startsWith(to) &&
             "border-2 border-brand-primary/30 bg-brand-primary/20 dark:border-dark dark:bg-brand-primary/10 text-brand-primary"
+=======
+            ? 'cursor-pointer'
+            : `cursor-pointer border-2 border-transparent flex ${isExpanded ? "justify-start h-[42px]" : "justify-center"
+            } items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-gray-100 hover:dark:bg-main-hover
+        ${pathname.startsWith(to) &&
+            "border-2 border-gray-300 bg-gray-200 dark:border-dark dark:bg-main-hover"
+>>>>>>> develop
             } select-none`}
       >
         <div>{icon}</div>
