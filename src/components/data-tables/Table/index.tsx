@@ -301,7 +301,7 @@ export function D4TTable<DataSchema>(props: CustomTableProps<DataSchema>) {
       <div className="w-full h-fit space-y-4">
         {<TableSearch onSubmitTable={handleSubmit} loading={localLoading} />}
 
-        <div className="rounded-md border">
+        <div className="rounded-md border overflow-clip">
           {localLoading && <TableLoading />}
           {!localLoading && localError && <TableError />}
           {!localLoading && !localError && !localData && <TableEmpty />}
