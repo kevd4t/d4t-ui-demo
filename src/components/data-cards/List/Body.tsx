@@ -49,15 +49,12 @@ const ListBodyItems = ({
     <>
       {data.map((item, idx) => (
         <Card key={generateUUIDToList()}>
-          <CardHeader>{item.name}</CardHeader>
+          {
+            columns.map((column) => (
+              renderCell(column, item)
+            ))
+          }
         </Card>
-        // <TableRow key={generateUUIDToList()}>
-        //   {columns.map((column) => (
-        //     <TableCell key={generateUUIDToList()}>
-        //       {renderCell(column, item)}
-        //     </TableCell>
-        //   ))}
-        // </TableRow>
       ))}
     </>
   );
