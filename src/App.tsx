@@ -16,7 +16,9 @@ import {
   IUploadImage,
   MultipleImages,
   Card,
-  CardContent
+  CardContent,
+  D4TCardsList,
+  IListColumn
 } from "./components";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -24,6 +26,11 @@ import { Badge, BarChart, Building, DivideCircle, HelpCircle, LucideTruck, Route
 import { ThemeProvider, useTheme } from "next-themes";
 import FileResizer from "react-image-file-resizer";
 
+interface ITank {
+  id: string;
+  name: string;
+  fuelLevel: number
+}
 
 function App() {
   const profile = { role: "Administrador", name: "Kevin", lastname: "blanco" };
@@ -85,25 +92,49 @@ function App() {
     },
   ];
 
-  const dataColumns: ITableColumn<any>[] = [
+  const dataFromBack: ITank[] = [
     {
-      id: "multi-select",
-      label: "seleccion",
+      id: '3434',
+      fuelLevel: 34,
+      name: 'Tank 10999'
     },
     {
-      id: "id",
-      label: "ID",
+      id: '3434',
+      fuelLevel: 34,
+      name: 'Tan99'
+    }, {
+      id: '3434',
+      fuelLevel: 34,
+      name: 'PDV 10999'
+    }, {
+      id: '3434',
+      fuelLevel: 34,
+      name: 'Tank 10999'
+    },
+
+  ]
+
+  const dataCardsColumns: IListColumn<ITank>[] = [
+    {
+      id: "label",
+      value: 'Mi Card',
+      label: 'hello'
     },
     {
-      id: "name",
-      label: "Nombre",
-      filters: [
-        {
-          id: "name",
-          label: "Nombre",
-          value: "Kevin",
-        },
-      ],
+      id: "description",
+      value: 'the description',
+      label: 'hello'
+
+    },
+    {
+      id: "content",
+      value: 'Mi Card',
+      label: 'hello',
+      render: (tank) => (
+        <CardContent>
+          {tank.fuelLevel}
+        </CardContent>
+      )
     },
   ];
 
@@ -133,12 +164,6 @@ function App() {
     } else {
       setTheme('light')
     }
-  }
-
-  const helloPromise = () => {
-    return new Promise<void>((resolve, reject) => {
-      console.log("hello")
-    })
   }
 
   return (
@@ -317,7 +342,7 @@ function App() {
         <div className="grid grid-cols-2">
           {/* Table */}
           <div className="m-10 max-w-4xl">
-            <D4TTable
+            {/* <D4TTable
               data={data}
               onSubmitTable={onSubmitTable}
               pagination={dataPagination}
@@ -327,7 +352,7 @@ function App() {
               limitOfMultiSelect={4}
               multiItemsSelected={itemsOfMultiSel}
               setMultiItemsSelected={setItemsOfMultisel}
-            />
+            /> */}
           </div>
 
           {/* Forms */}
@@ -380,6 +405,20 @@ function App() {
               </CardContent>
             </Card>
           </div>
+        </div>
+
+        <div className="grid grid-cols-1">
+          <D4TCardsList
+            data={dataFromBack}
+            onSubmitTable={onSubmitTable}
+            pagination={dataPagination}
+            columns={dataCardsColumns}
+            error={false}
+            loading={false}
+            limitOfMultiSelect={4}
+            multiItemsSelected={itemsOfMultiSel}
+            setMultiItemsSelected={setItemsOfMultisel}
+          />
         </div>
 
 
