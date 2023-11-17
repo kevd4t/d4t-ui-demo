@@ -95,7 +95,7 @@ function App() {
       label: "ID",
     },
     {
-      id: "name",
+      id: "firstName",
       label: "Nombre",
       filters: [
         {
@@ -104,6 +104,7 @@ function App() {
           value: "Kevin",
         },
       ],
+      isQuery: true
     },
   ];
 
@@ -327,6 +328,7 @@ function App() {
               limitOfMultiSelect={4}
               multiItemsSelected={itemsOfMultiSel}
               setMultiItemsSelected={setItemsOfMultisel}
+              isFormatedUpperQueries={false}
             />
           </div>
 

@@ -21,6 +21,7 @@ export const TableSearch = ({ onSubmitTable, loading }: TableSearchProps) => {
     filters,
     pagination: { page, limit },
     setSearchForm,
+    isFormatedUpperQueries
   } = useContext(TableContext);
 
   const form = useForm<any>({
@@ -49,7 +50,7 @@ export const TableSearch = ({ onSubmitTable, loading }: TableSearchProps) => {
       if (!query[1]) return;
 
       queries.push({
-        field: camelToSnake(query[0]),
+        field: isFormatedUpperQueries ? camelToSnake(query[0]) : query[0],
         text: query[1],
       });
     });
