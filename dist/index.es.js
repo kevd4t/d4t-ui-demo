@@ -22703,7 +22703,7 @@ function p8(e) {
       },
       children: /* @__PURE__ */ f.exports.jsxs("div", { className: "w-full h-fit space-y-4", children: [
         /* @__PURE__ */ f.exports.jsx(P7, { onSubmitTable: $, loading: d }),
-        /* @__PURE__ */ f.exports.jsxs("div", { className: "rounded-md border", children: [
+        /* @__PURE__ */ f.exports.jsxs("div", { className: "rounded-md border overflow-clip", children: [
           d && /* @__PURE__ */ f.exports.jsx(_4, {}),
           !d && l && /* @__PURE__ */ f.exports.jsx(k7, {}),
           !d && !l && !t && /* @__PURE__ */ f.exports.jsx(O7, {}),
