@@ -22,6 +22,7 @@ export const TableToolbar = ({ form, onSubmit }: IToolbarProps) => {
     resetFilters,
     onSubmitTable,
     pagination: { page, limit },
+    isFormatedUpperQueries
   } = useContext(TableContext);
   const watchFields = form.watch(queries.map((item) => item.id));
 
@@ -35,7 +36,7 @@ export const TableToolbar = ({ form, onSubmit }: IToolbarProps) => {
       if (!query[1]) return;
 
       queries.push({
-        field: camelToSnake(query[0]),
+        field: isFormatedUpperQueries ? camelToSnake(query[0]) : query[0],
         text: query[1],
       });
     });
@@ -82,9 +83,9 @@ export const TableToolbar = ({ form, onSubmit }: IToolbarProps) => {
                 />
               ))}
             {showFilters &&
-            filters?.filter((filter) =>
-              filter.options.some((option) => option.selected),
-            ).length ? (
+              filters?.filter((filter) =>
+                filter.options.some((option) => option.selected),
+              ).length ? (
               <Button
                 type="button"
                 variant="ghost"

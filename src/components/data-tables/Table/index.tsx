@@ -36,6 +36,7 @@ interface CustomTableProps<DataSchema> {
   limitOfMultiSelect?: number;
   setMultiItemsSelected?: Dispatch<SetStateAction<any[]>>;
   multiItemsSelected?: any[];
+  isFormatedUpperQueries?: boolean;
 }
 
 const initialPagination: ITablePagination = {
@@ -78,7 +79,7 @@ export function D4TTable<DataSchema>(props: CustomTableProps<DataSchema>) {
         if (!query[1]) return;
 
         queries.push({
-          field: camelToSnake(query[0]),
+          field: props.isFormatedUpperQueries ? camelToSnake(query[0]) : query[0],
           text: query[1],
         });
       });
@@ -279,6 +280,7 @@ export function D4TTable<DataSchema>(props: CustomTableProps<DataSchema>) {
         nextPage,
         prevPage,
         searchForm,
+        isFormatedUpperQueries: props.isFormatedUpperQueries,
         updateLimit,
         showFilters,
         resetFilters,

@@ -131,6 +131,7 @@ export interface ITableContextStore<TData = any> {
   columns: ITableColumn<TData>[];
   pagination: ITablePagination;
   searchForm?: UseFormReturn<any, any, any>;
+  isFormatedUpperQueries?: boolean;
 
   multiItemsSelected: any[];
   setMultiItemsSelected: Dispatch<SetStateAction<any[]>>;
