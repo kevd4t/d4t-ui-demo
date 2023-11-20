@@ -12,6 +12,7 @@ interface CustomTableProps<DataSchema> {
     limitOfMultiSelect?: number;
     setMultiItemsSelected?: Dispatch<SetStateAction<any[]>>;
     multiItemsSelected?: any[];
+    isFormatedUpperQueries?: boolean;
 }
 export declare function D4TTable<DataSchema>(props: CustomTableProps<DataSchema>): JSX.Element;
 export {};

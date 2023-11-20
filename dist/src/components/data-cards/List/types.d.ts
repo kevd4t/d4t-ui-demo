@@ -1,62 +1,69 @@
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { UseFormReturn } from "react-hook-form";
-export interface ITableFilterOption {
+export interface IListFilterOption {
     id: string;
     label: string;
     value: string | boolean;
     icon?: ReactNode;
     selected?: boolean;
 }
-export interface ITableFilter {
+export interface IListFilter {
     id: string;
     label: string;
     icon?: ReactNode;
-    options: ITableFilterOption[];
+    options: IListFilterOption[];
 }
 declare type IDataProperty<Type> = {
     [Property in keyof Type as Exclude<Property, "__typename">]: Type[Property];
 };
-export interface ITableColumn<TDataSchema> {
-    id: keyof IDataProperty<TDataSchema> | "actions" | "select" | "multi-select";
+export interface ICardData {
+    id: string;
     label: string;
-    filters?: ITableFilterOption[];
+    description: string;
+    content: ReactNode;
+}
+export interface IListColumn<TListSchema> {
+    id: "label" | "description" | "content" | "actions";
+    value: string;
+    filters?: IListFilterOption[];
+    label: string;
     isQuery?: boolean;
-    render?: (item: IDataProperty<TDataSchema>) => ReactNode;
+    render?: (item: IDataProperty<TListSchema>) => ReactNode;
 }
-export interface ITableDynamicFilter<TDataSchema> {
+export interface IListDynamicFilter<TDataSchema> {
     id: keyof IDataProperty<TDataSchema>;
-    filters?: ITableFilterOption[];
+    filters?: IListFilterOption[];
 }
-export interface ITableQuery {
+export interface IListQuery {
     id: string;
     label: string;
 }
-interface ITablePaginationLabel {
+interface IListPaginationLabel {
     plural?: string;
     single?: string;
 }
-export interface ITablePagination {
-    labels?: ITablePaginationLabel;
+export interface IListPagination {
+    labels?: IListPaginationLabel;
     limit: number;
     page: number;
     hasPrevPage: boolean;
     hasNextPage: boolean;
 }
-export interface ITableSubmitParams {
-    queries: ITableQuery[];
-    filters: ITableFilter[];
+export interface IListSubmitParams {
+    queries: IListQuery[];
+    filters: IListFilter[];
     limit: number;
     page: number;
 }
-export declare type ITableSubmit = ({ page, limit, queries, filters, }: ITableSubmitParams) => Promise<void>;
-export interface IInitialTable<TData = any> {
+export declare type IListSubmit = ({ page, limit, queries, filters, }: IListSubmitParams) => Promise<void>;
+export interface IInitialList<TData = any> {
     data: TData[] | [];
-    filters: ITableFilter[];
-    queries: ITableQuery[];
+    filters: IListFilter[];
+    queries: IListQuery[];
     showFilters: boolean;
-    columns: ITableColumn<TData>[];
-    pagination: ITablePagination;
-    onSubmitTable: ITableSubmit;
+    columns: IListColumn<TData>[];
+    pagination: IListPagination;
+    onSubmitTable: IListSubmit;
     searchForm: UseFormReturn<any, any, any>;
     setShowFilters: (value: boolean) => void;
     setSearchForm: (searchForm: any) => void;
@@ -70,14 +77,14 @@ export interface IInitialTable<TData = any> {
     prevPage: () => void;
     updateLimit: (limit: number) => void;
 }
-export interface ITableStore<TData> {
+export interface IListStore<TData> {
     data: TData[] | [];
     showFilters: boolean;
-    columns: ITableColumn<TData>[];
-    pagination: ITablePagination;
-    filters?: ITableFilter[];
-    queries?: ITableQuery[];
-    onSubmitTable: ITableSubmit;
+    columns: IListColumn<TData>[];
+    pagination: IListPagination;
+    filters?: IListFilter[];
+    queries?: IListQuery[];
+    onSubmitTable: IListSubmit;
     selectOptionFilter: (filterId: string, optionId: string, optionValue: boolean) => void;
     getFiltersWithOptionsSelected: () => any[];
     getFilterOptionsSelectedById: (filterId: string) => any[];
@@ -85,28 +92,27 @@ export interface ITableStore<TData> {
     nextPage: () => void;
     prevPage: () => void;
     setShowFilters: (value: boolean) => void;
-    setInitialTable: (initialState: IInitialTable<TData>) => void;
+    setInitialTable: (initialState: IInitialList<TData>) => void;
     updateLimit: (limit: number) => void;
     updatePage: (page: number) => void;
-    setPagination: (pagination: ITablePagination) => void;
-    setColumns: (columns: ITableColumn<TData>[]) => void;
-    setFilters: (filters: ITableFilter[]) => void;
-    setQueries: (queries: ITableQuery[]) => void;
+    setPagination: (pagination: IListPagination) => void;
+    setColumns: (columns: IListColumn<TData>[]) => void;
+    setFilters: (filters: IListFilter[]) => void;
+    setQueries: (queries: IListQuery[]) => void;
     setData: (data: TData[] | []) => void;
 }
-export interface ITableContextStore<TData = any> {
+export interface IListContextStore<TData = any> {
     data: TData[] | [];
     showFilters: boolean;
-    columns: ITableColumn<TData>[];
-    pagination: ITablePagination;
+    columns: IListColumn<TData>[];
+    pagination: IListPagination;
     searchForm?: UseFormReturn<any, any, any>;
-    isFormatedUpperQueries?: boolean;
     multiItemsSelected: any[];
     setMultiItemsSelected: Dispatch<SetStateAction<any[]>>;
     limitOfMultiSelect: number;
-    filters?: ITableFilter[];
-    queries?: ITableQuery[];
-    onSubmitTable: ITableSubmit;
+    filters?: IListFilter[];
+    queries?: IListQuery[];
+    onSubmitTable: IListSubmit;
     setSelectItem: Dispatch<SetStateAction<any>>;
     setSearchForm: (searchForm: any) => void;
     getGlobalFilters: () => any[];
