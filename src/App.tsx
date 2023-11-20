@@ -16,7 +16,10 @@ import {
   IUploadImage,
   MultipleImages,
   Card,
-  CardContent
+  CardContent,
+  CardHeader,
+  D4TCardsList,
+  IListColumn
 } from "./components";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -24,6 +27,11 @@ import { Badge, BarChart, Building, DivideCircle, HelpCircle, LucideTruck, Route
 import { ThemeProvider, useTheme } from "next-themes";
 import FileResizer from "react-image-file-resizer";
 
+interface ITank {
+  id: string;
+  name: string;
+  fuelLevel: number
+}
 
 function App() {
   const profile = { role: "Administrador", name: "Kevin", lastname: "blanco" };
@@ -85,26 +93,57 @@ function App() {
     },
   ];
 
-  const dataColumns: ITableColumn<any>[] = [
+  const dataFromBack: ITank[] = [
     {
-      id: "multi-select",
-      label: "seleccion",
+      id: '3434',
+      fuelLevel: 334,
+      name: 'Tank 10999'
     },
     {
-      id: "id",
-      label: "ID",
+      id: '3434',
+      fuelLevel: 34,
+      name: 'Tan99'
+    }, {
+      id: '3434',
+      fuelLevel: 4,
+      name: 'PDV 10999'
+    }, {
+      id: '3434',
+      fuelLevel: 3,
+      name: 'Tank 10999',
+    },
+
+  ]
+
+  const dataCardsColumns: IListColumn<ITank>[] = [
+    {
+      id: "label",
+      value: 'Mi Card',
+      label: 'hello'
     },
     {
-      id: "firstName",
-      label: "Nombre",
-      filters: [
-        {
-          id: "name",
-          label: "Nombre",
-          value: "Kevin",
-        },
-      ],
+      id: "description",
+      value: 'the description',
+      label: 'Nombre',
+      filters: [{
+        id: "name",
+        label: "name",
+        value: "Kevin",
+      }],
       isQuery: true
+    },
+    {
+      id: "content",
+      value: 'Mi Card',
+      label: 'hello',
+      render: (tank) => (
+        <CardContent>
+          <CardHeader>Tank name: {tank.name}</CardHeader>
+          <CardContent>
+            <p>Fuel level: {tank.fuelLevel} L</p>
+          </CardContent>
+        </CardContent>
+      )
     },
   ];
 
@@ -134,12 +173,6 @@ function App() {
     } else {
       setTheme('light')
     }
-  }
-
-  const helloPromise = () => {
-    return new Promise<void>((resolve, reject) => {
-      console.log("hello")
-    })
   }
 
   return (
@@ -314,11 +347,11 @@ function App() {
             />
           </SidebarContent>
         </Sidebar>
-
-        <div className="grid grid-cols-2">
-          {/* Table */}
-          <div className="m-10 max-w-4xl">
-            <D4TTable
+        <div className="grid">
+          <div className="grid grid-cols-2">
+            {/* Table */}
+            <div className="m-10 max-w-4xl">
+              {/* <D4TTable
               data={data}
               onSubmitTable={onSubmitTable}
               pagination={dataPagination}
@@ -328,62 +361,75 @@ function App() {
               limitOfMultiSelect={4}
               multiItemsSelected={itemsOfMultiSel}
               setMultiItemsSelected={setItemsOfMultisel}
-              isFormatedUpperQueries={false}
-            />
-          </div>
+            /> */}
+            </div>
 
-          {/* Forms */}
-          <div className="m-10">
-            <Form {...probeForm}>
-              <GenericSelect
-                form={probeForm}
-                id="input"
-                placeholder="Selecciona"
-                classNameGroup=""
-                items={[
-                  { label: "item 1", value: "hello1" },
-                  { label: "item 2", value: "hello2" },
-                  { label: "item 3", value: "hello3" },
-                ]}
-              />
-
-              <Input
-                form={probeForm}
-                placeholder="Generic input"
-                id="inputText"
-                type="text"
-              />
-
-              <Button className="m-5 bg-brand-primary hover:bg-brand-primary-opaque">This is a primary button</Button>
-            </Form>
-          </div>
-
-          {/* Images */}
-          <div className="m-10">
-            <Card>
-              <CardContent>
-                <MultipleImages
-                  label="Multi upload images"
-                  uploadLabel="upload"
-                  setUploadImages={setUploadImages}
-                  limit={1}
-                  compress={{
-                    openComparisons: () => { },
-                    resizer: FileResizer,
-                  }}
-                // initialPreview={[
-                //   {
-                //     data_url:
-                //       "https://www.drupal.org/files/project-images/nextjs-icon-dark-background.png",
-                //   },
-                // ]}
+            {/* Forms */}
+            <div className="m-10">
+              <Form {...probeForm}>
+                <GenericSelect
+                  form={probeForm}
+                  id="input"
+                  placeholder="Selecciona"
+                  classNameGroup=""
+                  items={[
+                    { label: "item 1", value: "hello1" },
+                    { label: "item 2", value: "hello2" },
+                    { label: "item 3", value: "hello3" },
+                  ]}
                 />
 
-              </CardContent>
-            </Card>
+                <Input
+                  form={probeForm}
+                  placeholder="Generic input"
+                  id="inputText"
+                  type="text"
+                />
+
+                <Button className="m-5 bg-brand-primary hover:bg-brand-primary-opaque">This is a primary button</Button>
+              </Form>
+            </div>
+
+            {/* Images */}
+            <div className="m-10">
+              <Card>
+                <CardContent>
+                  <MultipleImages
+                    label="Multi upload images"
+                    uploadLabel="upload"
+                    setUploadImages={setUploadImages}
+                    limit={1}
+                    compress={{
+                      openComparisons: () => { },
+                      resizer: FileResizer,
+                    }}
+                  // initialPreview={[
+                  //   {
+                  //     data_url:
+                  //       "https://www.drupal.org/files/project-images/nextjs-icon-dark-background.png",
+                  //   },
+                  // ]}
+                  />
+
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 mb-10">
+            <D4TCardsList
+              data={dataFromBack}
+              onSubmitTable={onSubmitTable}
+              pagination={dataPagination}
+              columns={dataCardsColumns}
+              error={false}
+              loading={false}
+              limitOfMultiSelect={4}
+              multiItemsSelected={itemsOfMultiSel}
+              setMultiItemsSelected={setItemsOfMultisel}
+            />
           </div>
         </div>
-
 
 
         {/* Bottom navigation */}
