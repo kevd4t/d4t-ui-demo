@@ -1,10 +1,10 @@
 import type {
-  ITablePagination,
-  ITableColumn,
-  ITableFilter,
-  ITableSubmit,
-  ITableSubmitParams,
-  ITableDynamicFilter,
+  IListPagination,
+  IListColumn,
+  IListFilter,
+  IListSubmit,
+  IListSubmitParams,
+  IListDynamicFilter,
 } from "./types";
 import {
   Dispatch,
@@ -14,32 +14,31 @@ import {
   useState,
 } from "react";
 import { UseFormReturn } from "react-hook-form";
-import { TableContext } from "./store";
+import { ListContext } from "./store";
 
-import { TablePagination } from "./Pagination";
-import { TableContent } from "./Content";
-import { TableLoading } from "./Loading";
+import { ListPagination } from "./Pagination";
+import { ListContent } from "./Content";
+import { ListLoading } from "./Loading";
 import { TableSearch } from "./Search";
-import { TableError } from "./Error";
-import { TableEmpty } from "./Empty";
-import { camelToSnake } from "./utils";
+import { ListError } from "./Error";
+import { ListEmpty } from "./Empty";
+import { listCamelToSnake } from "./utils";
 
 interface CustomTableProps<DataSchema> {
   data: DataSchema[];
-  pagination: ITablePagination;
-  columns: ITableColumn<DataSchema>[];
+  pagination: IListPagination;
+  columns: IListColumn<DataSchema>[];
   loading: boolean;
   error: boolean;
-  onSubmitTable: ITableSubmit;
+  onSubmitTable: IListSubmit;
   setSelectItem?: Dispatch<SetStateAction<any>>;
-  filters?: ITableDynamicFilter<DataSchema>[];
+  filters?: IListDynamicFilter<DataSchema>[];
   limitOfMultiSelect?: number;
   setMultiItemsSelected?: Dispatch<SetStateAction<any[]>>;
   multiItemsSelected?: any[];
-  isFormatedUpperQueries?: boolean;
 }
 
-const initialPagination: ITablePagination = {
+const initialPagination: IListPagination = {
   limit: 5,
   page: 1,
   labels: { plural: "Items", single: "Item" },
@@ -47,7 +46,7 @@ const initialPagination: ITablePagination = {
   hasNextPage: false,
 };
 
-export function D4TTable<DataSchema>(props: CustomTableProps<DataSchema>) {
+export function D4TCardsList<DataSchema>(props: CustomTableProps<DataSchema>) {
   const [localData, setLocalData] = useState([]);
   const [localFilters, setLocalFilters] = useState([]);
   const [localQueries, setLocalQueries] = useState([]);
@@ -58,12 +57,12 @@ export function D4TTable<DataSchema>(props: CustomTableProps<DataSchema>) {
   const [pagination, setPagination] = useState(
     props?.pagination ?? initialPagination
   );
-  const [localColumns, setLocalColumns] = useState<ITableColumn<DataSchema>[]>(
+  const [localColumns, setLocalColumns] = useState<IListColumn<DataSchema>[]>(
     props?.columns || []
   );
 
   const handleSubmit = useCallback(
-    (params: ITableSubmitParams) => props.onSubmitTable({ ...params }),
+    (params: IListSubmitParams) => props.onSubmitTable({ ...params }),
     [props]
   );
 
@@ -79,12 +78,12 @@ export function D4TTable<DataSchema>(props: CustomTableProps<DataSchema>) {
         if (!query[1]) return;
 
         queries.push({
-          field: props.isFormatedUpperQueries ? camelToSnake(query[0]) : query[0],
+          field: listCamelToSnake(query[0]),
           text: query[1],
         });
       });
 
-      const filtersSelected: ITableFilter[] = localFilters
+      const filtersSelected: IListFilter[] = localFilters
         .map((filter) => ({
           id: filter.id,
           label: filter.label,
@@ -212,14 +211,14 @@ export function D4TTable<DataSchema>(props: CustomTableProps<DataSchema>) {
     const filterFiltersExist = (columnToFilter) =>
       columnToFilter?.filters && columnToFilter?.filters.length;
 
-    const filters: ITableFilter[] = localColumns
+    const filters: IListFilter[] = localColumns
       .filter(filterFiltersExist)
       .map((filter) => {
         const filterOptions = filter.filters.map((filterOption) => ({
           ...filterOption,
           selected: false,
         }));
-        const toReturn: ITableFilter = {
+        const toReturn: IListFilter = {
           ...filter,
           id: filter.id as string,
           options: filterOptions,
@@ -272,7 +271,7 @@ export function D4TTable<DataSchema>(props: CustomTableProps<DataSchema>) {
   }, [props.pagination.hasNextPage, props.pagination.hasPrevPage]);
 
   return (
-    <TableContext.Provider
+    <ListContext.Provider
       value={{
         data: localData,
         columns: localColumns,
@@ -280,7 +279,6 @@ export function D4TTable<DataSchema>(props: CustomTableProps<DataSchema>) {
         nextPage,
         prevPage,
         searchForm,
-        isFormatedUpperQueries: props.isFormatedUpperQueries,
         updateLimit,
         showFilters,
         resetFilters,
@@ -303,15 +301,15 @@ export function D4TTable<DataSchema>(props: CustomTableProps<DataSchema>) {
       <div className="w-full h-fit space-y-4">
         {<TableSearch onSubmitTable={handleSubmit} loading={localLoading} />}
 
-        <div className="rounded-md border overflow-clip">
-          {localLoading && <TableLoading />}
-          {!localLoading && localError && <TableError />}
-          {!localLoading && !localError && !localData && <TableEmpty />}
-          {!localLoading && !localError && localData && <TableContent />}
+        <div className="overflow-clip grid grid-cols-3 gap-6">
+          {localLoading && <ListLoading />}
+          {!localLoading && localError && <ListError />}
+          {!localLoading && !localError && !localData && <ListEmpty />}
+          {!localLoading && !localError && localData && <ListContent />}
         </div>
 
-        {!localLoading && !localError && localData && <TablePagination />}
+        {!localLoading && !localError && localData && <ListPagination />}
       </div>
-    </TableContext.Provider>
+    </ListContext.Provider>
   );
 }

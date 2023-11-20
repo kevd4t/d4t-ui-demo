@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Button, camelToSnake } from "../../";
 import { X } from "lucide-react";
 
-import { TableContext } from "./store";
+import { ListContext } from "./store";
 
 import { VisibilityFilters } from "./VisibilityFilters";
 import { FacetedFilter } from "./FacetedFilter";
@@ -22,8 +22,7 @@ export const TableToolbar = ({ form, onSubmit }: IToolbarProps) => {
     resetFilters,
     onSubmitTable,
     pagination: { page, limit },
-    isFormatedUpperQueries
-  } = useContext(TableContext);
+  } = useContext(ListContext);
   const watchFields = form.watch(queries.map((item) => item.id));
 
   const clearAllFilters = () => {
@@ -36,7 +35,7 @@ export const TableToolbar = ({ form, onSubmit }: IToolbarProps) => {
       if (!query[1]) return;
 
       queries.push({
-        field: isFormatedUpperQueries ? camelToSnake(query[0]) : query[0],
+        field: camelToSnake(query[0]),
         text: query[1],
       });
     });

@@ -3,12 +3,11 @@ import { createContext } from "react";
 
 import { ITableContextStore } from "./types";
 
-export const TableContext = createContext<ITableContextStore>({
+export const ListContext = createContext<ITableContextStore>({
   data: [],
   filters: [],
   queries: [],
   columns: [],
-  isFormatedUpperQueries: true,
   showFilters: true,
   searchForm: null,
   multiSelectedItems: [],

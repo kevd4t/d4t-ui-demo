@@ -6,11 +6,11 @@ import { z } from "zod";
 
 import { Button, camelToSnake, Form, Spinner } from "../../";
 import { TableToolbar } from "./Toolbar";
-import { TableContext } from "./store";
-import { ITableSubmit } from "./types";
+import { ListContext } from "./store";
+import { IListSubmit } from "./types";
 
 interface TableSearchProps {
-  onSubmitTable: ITableSubmit;
+  onSubmitTable: IListSubmit;
   loading: boolean;
 }
 
@@ -21,8 +21,7 @@ export const TableSearch = ({ onSubmitTable, loading }: TableSearchProps) => {
     filters,
     pagination: { page, limit },
     setSearchForm,
-    isFormatedUpperQueries
-  } = useContext(TableContext);
+  } = useContext(ListContext);
 
   const form = useForm<any>({
     defaultValues: queries.reduce((obj, item) => {
@@ -50,7 +49,7 @@ export const TableSearch = ({ onSubmitTable, loading }: TableSearchProps) => {
       if (!query[1]) return;
 
       queries.push({
-        field: isFormatedUpperQueries ? camelToSnake(query[0]) : query[0],
+        field: camelToSnake(query[0]),
         text: query[1],
       });
     });
