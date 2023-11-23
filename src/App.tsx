@@ -418,7 +418,7 @@ function App() {
 
           <div className="grid grid-cols-1 mb-10">
             <D4TCardsList
-							cardsColsNumber={2}
+              cardsColsNumber={2}
               data={dataFromBack}
               onSubmitTable={onSubmitTable}
               pagination={dataPagination}

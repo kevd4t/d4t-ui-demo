@@ -22,11 +22,9 @@ interface TableBodyRowProps {
 
 const ListBodyEmpty = ({ colSpan }: { colSpan: number }) => {
   return (
-    <TableRow>
-      <TableCell colSpan={colSpan} className="h-24 text-center">
-        Sin Resultados
-      </TableCell>
-    </TableRow>
+    <span className='mt-10 ml-5'>
+      Sin Resultados
+    </span>
   );
 };
 

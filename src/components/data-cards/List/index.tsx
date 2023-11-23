@@ -303,11 +303,10 @@ export function D4TCardsList<DataSchema>(props: CustomTableProps<DataSchema>) {
         {<TableSearch onSubmitTable={handleSubmit} loading={localLoading} />}
 
         <div
-          className={`overflow-clip grid ${
-            props.cardsColsNumber
-              ? `grid-cols-${props.cardsColsNumber}`
-              : "grid-cols-3"
-          } gap-6`}
+          className={`overflow-clip grid ${props.cardsColsNumber
+            ? `grid-cols-${props.cardsColsNumber}`
+            : "grid-cols-3"
+            } gap-6`}
         >
           {localLoading && <ListLoading />}
           {!localLoading && localError && <ListError />}
