@@ -12,6 +12,7 @@ interface CustomTableProps<DataSchema> {
     limitOfMultiSelect?: number;
     setMultiItemsSelected?: Dispatch<SetStateAction<any[]>>;
     multiItemsSelected?: any[];
+    cardsColsNumber?: number;
 }
 export declare function D4TCardsList<DataSchema>(props: CustomTableProps<DataSchema>): JSX.Element;
 export {};
