@@ -36,6 +36,7 @@ interface CustomTableProps<DataSchema> {
   limitOfMultiSelect?: number;
   setMultiItemsSelected?: Dispatch<SetStateAction<any[]>>;
   multiItemsSelected?: any[];
+  cardsColsNumber?: number;
 }
 
 const initialPagination: IListPagination = {
@@ -55,15 +56,15 @@ export function D4TCardsList<DataSchema>(props: CustomTableProps<DataSchema>) {
   const [localLoading, setLocalLoading] = useState(props?.loading);
   const [searchForm, setSearchForm] = useState<UseFormReturn<any, any, any>>();
   const [pagination, setPagination] = useState(
-    props?.pagination ?? initialPagination
+    props?.pagination ?? initialPagination,
   );
   const [localColumns, setLocalColumns] = useState<IListColumn<DataSchema>[]>(
-    props?.columns || []
+    props?.columns || [],
   );
 
   const handleSubmit = useCallback(
     (params: IListSubmitParams) => props.onSubmitTable({ ...params }),
-    [props]
+    [props],
   );
 
   const updatePagination = useCallback(
@@ -100,7 +101,7 @@ export function D4TCardsList<DataSchema>(props: CustomTableProps<DataSchema>) {
         page: newPagination.page,
       });
     },
-    [localFilters, handleSubmit, searchForm]
+    [localFilters, handleSubmit, searchForm],
   );
 
   const nextPage = useCallback(() => {
@@ -301,7 +302,12 @@ export function D4TCardsList<DataSchema>(props: CustomTableProps<DataSchema>) {
       <div className="w-full h-fit space-y-4">
         {<TableSearch onSubmitTable={handleSubmit} loading={localLoading} />}
 
-        <div className="overflow-clip grid grid-cols-3 gap-6">
+        <div
+          className={`overflow-clip grid ${props.cardsColsNumber
+            ? `grid-cols-${props.cardsColsNumber}`
+            : "grid-cols-3"
+            } gap-6`}
+        >
           {localLoading && <ListLoading />}
           {!localLoading && localError && <ListError />}
           {!localLoading && !localError && !localData && <ListEmpty />}

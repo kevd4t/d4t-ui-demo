@@ -1,10 +1,5 @@
-import { Dispatch, SetStateAction, useContext, useState } from "react";
-import {
-  Card,
-  CardHeader,
-  TableCell,
-  TableRow,
-} from "../..";
+import { Dispatch, Fragment, SetStateAction, useContext, useState } from "react";
+import { Card } from "../..";
 import { generateUUIDToList } from "./utils";
 import { ListContext } from "./store";
 import { IListColumn } from "./types";
@@ -20,13 +15,11 @@ interface TableBodyRowProps {
   itemsSelectedCount: number;
 }
 
-const ListBodyEmpty = ({ colSpan }: { colSpan: number }) => {
+const ListBodyEmpty = () => {
   return (
-    <TableRow>
-      <TableCell colSpan={colSpan} className="h-24 text-center">
-        Sin Resultados
-      </TableCell>
-    </TableRow>
+    <span className='mt-10 ml-5'>
+      Sin Resultados
+    </span>
   );
 };
 
@@ -39,15 +32,15 @@ const ListBodyItems = ({
     item: Record<string, string>
   ) => {
     if (column?.render) {
-      return <div>{column.render(item)}</div>;
+      return <div key={generateUUIDToList()}>{column.render(item)}</div>;
     }
 
-    return <>{item[column.id]}</>;
+    return <Fragment key={generateUUIDToList()}>{item[column.id]}</Fragment>;
   };
 
   return (
     <>
-      {data.map((item, idx) => (
+      {data.map((item) => (
         <Card key={generateUUIDToList()}>
           {
             columns.map((column) => (
@@ -87,7 +80,7 @@ export const ListBody = () => {
           limitOfMultiSelect={limitOfMultiSelect}
         />
       ) : (
-        <ListBodyEmpty colSpan={columns.length} />
+        <ListBodyEmpty />
       )}
     </>
   );
