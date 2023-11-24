@@ -61,6 +61,7 @@ export function D4TCardsList<DataSchema>(props: CustomTableProps<DataSchema>) {
   const [localColumns, setLocalColumns] = useState<IListColumn<DataSchema>[]>(
     props?.columns || [],
   );
+  const { cardsColsNumber } = props
 
   const handleSubmit = useCallback(
     (params: IListSubmitParams) => props.onSubmitTable({ ...params }),
@@ -303,10 +304,11 @@ export function D4TCardsList<DataSchema>(props: CustomTableProps<DataSchema>) {
         {<TableSearch onSubmitTable={handleSubmit} loading={localLoading} />}
 
         <div
-          className={`overflow-clip grid ${props.cardsColsNumber
-            ? `grid-cols-${props.cardsColsNumber}`
-            : "grid-cols-3"
-            } gap-6`}
+          className={`overflow-clip grid grid-cols-1 ${cardsColsNumber
+            // ? `lg:grid-cols-${cardsColsNumber}`
+            ? `${cardsColsNumber === 2 ? 'sm' : 'lg'}:grid-cols-${cardsColsNumber}`
+            : 'grid-cols-3'
+            }  gap-6`}
         >
           {localLoading && <ListLoading />}
           {!localLoading && localError && <ListError />}
