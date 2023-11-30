@@ -1,7 +1,7 @@
 {
   "name": "d4t-ui-demo",
   "private": false,
-  "version": "0.0.154",
+  "version": "0.0.156",
   "type": "module",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
@@ -58,7 +58,6 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
-    "d4t-ui-demo": "link:",
     "lucide-react": "^0.263.1",
     "next-themes": "^0.2.1",
     "react": "^18.2.0",
