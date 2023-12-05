@@ -34,7 +34,7 @@ interface ITank {
 }
 
 function App() {
-  const profile = { role: "Administrador", name: "Kevin", lastname: "blanco" };
+  const profile = { role: "Administrador", name: "Kevin", lastname: "blanco", photo: "https://www.hmiscfl.org/wp-content/uploads/2018/06/generic-person-icon-14.png" };
   const sections = [
     {
       titleDescription: "Users",
