@@ -19541,7 +19541,7 @@ const Pb = () => {
   } = He(or), [s, i] = Y(
     o ? o.length : 0
   );
-  return /* @__PURE__ */ f.exports.jsx(Nv, { children: e.length ? /* @__PURE__ */ f.exports.jsx(
+  return /* @__PURE__ */ f.exports.jsx(Nv, { className: "bg-card", children: e.length ? /* @__PURE__ */ f.exports.jsx(
     C4,
     {
       setMultiItemsSelected: r,
@@ -22343,7 +22343,7 @@ const P7 = () => {
     c(d);
   };
   return /* @__PURE__ */ f.exports.jsxs(En, { children: [
-    /* @__PURE__ */ f.exports.jsx(Nn, { asChild: !0, children: /* @__PURE__ */ f.exports.jsxs(Ve, { type: "button", variant: "outline", size: "sm", className: "py-5 border-dashed", children: [
+    /* @__PURE__ */ f.exports.jsx(Nn, { asChild: !0, children: /* @__PURE__ */ f.exports.jsxs(Ve, { type: "button", variant: "outline", size: "sm", className: "py-5 border-dashed border-muted-foreground", children: [
       n || /* @__PURE__ */ f.exports.jsx($b, { size: 16, className: "mr-2" }),
       r,
       i(e).length > 0 && /* @__PURE__ */ f.exports.jsxs(f.exports.Fragment, { children: [
@@ -22419,7 +22419,7 @@ const P7 = () => {
     ] }) })
   ] });
 }, k7 = ({ id: e, form: t, label: n, icon: r, queryText: o }) => /* @__PURE__ */ f.exports.jsxs(En, { children: [
-  /* @__PURE__ */ f.exports.jsx(Nn, { asChild: !0, children: /* @__PURE__ */ f.exports.jsxs(Ve, { variant: "outline", size: "sm", className: "py-5 border-dashed", type: "button", children: [
+  /* @__PURE__ */ f.exports.jsx(Nn, { asChild: !0, children: /* @__PURE__ */ f.exports.jsxs(Ve, { variant: "outline", size: "sm", className: "py-5 border-dashed border-muted-foreground", type: "button", children: [
     /* @__PURE__ */ f.exports.jsx(gl, { size: 16, className: "mr-2 text-gray-500" }),
     n,
     o && /* @__PURE__ */ f.exports.jsxs(f.exports.Fragment, { children: [
@@ -24372,7 +24372,7 @@ const Dk = ({ src: e, imageContainerClassName: t }) => /* @__PURE__ */ f.exports
     ...e,
     className: L(
       `${t ? "border-indigo-600" : "border-gray-300"}`,
-      "h-[250px] mt-1 flex flex-col justify-center items-center px-6 pt-5 pb-6 border-2 border-dashed rounded-md text-center",
+      "h-[250px] mt-1 flex flex-col justify-center items-center px-6 pt-5 pb-6 border-2 border-dashed border-muted-foreground rounded-md text-center",
       n
     ),
     children: [
@@ -24537,8 +24537,8 @@ const Dk = ({ src: e, imageContainerClassName: t }) => /* @__PURE__ */ f.exports
   {
     ...e,
     className: L(
-      `${t ? "border-indigo-600" : "border-gray-300"}`,
-      "h-[250px] mt-1 flex flex-col justify-center items-center px-6 pt-5 pb-6 border-2 border-dashed rounded-md text-center",
+      `${t ? "border-indigo-600" : "border-muted-foreground"}`,
+      "h-[250px] mt-1 flex flex-col justify-center items-center px-6 pt-5 pb-6 border-2 border-dashed border-muted-foreground rounded-md text-center",
       n
     ),
     children: [
@@ -24669,7 +24669,7 @@ const Dk = ({ src: e, imageContainerClassName: t }) => /* @__PURE__ */ f.exports
                 {
                   ...$,
                   className: L(
-                    `w-full h-[237px] ${y ? "border-indigo-600" : "border-slate-50"} flex flex-col justify-center items-center border-dashed border-2 bg-slate-50 bg-opacity-5 rounded-md p-2`,
+                    `w-full h-[237px] ${y ? "border-indigo-600" : "border-muted-foreground"} flex flex-col justify-center items-center border-dashed border-muted-foreground border-2 bg-slate-50 bg-opacity-5 rounded-md p-2`,
                     s
                   ),
                   children: /* @__PURE__ */ f.exports.jsx(
@@ -25543,7 +25543,7 @@ const U8 = (e) => {
     c(d);
   };
   return /* @__PURE__ */ f.exports.jsxs(En, { children: [
-    /* @__PURE__ */ f.exports.jsx(Nn, { asChild: !0, children: /* @__PURE__ */ f.exports.jsxs(Ve, { type: "button", variant: "outline", size: "sm", className: "py-5 border-dashed", children: [
+    /* @__PURE__ */ f.exports.jsx(Nn, { asChild: !0, children: /* @__PURE__ */ f.exports.jsxs(Ve, { type: "button", variant: "outline", size: "sm", className: "py-5 border-dashed border-muted-foreground", children: [
       n || /* @__PURE__ */ f.exports.jsx($b, { size: 16, className: "mr-2" }),
       r,
       i(e).length > 0 && /* @__PURE__ */ f.exports.jsxs(f.exports.Fragment, { children: [
@@ -25619,7 +25619,7 @@ const U8 = (e) => {
     ] }) })
   ] });
 }, rO = ({ id: e, form: t, label: n, icon: r, queryText: o }) => /* @__PURE__ */ f.exports.jsxs(En, { children: [
-  /* @__PURE__ */ f.exports.jsx(Nn, { asChild: !0, children: /* @__PURE__ */ f.exports.jsxs(Ve, { variant: "outline", size: "sm", className: "py-5 border-dashed", type: "button", children: [
+  /* @__PURE__ */ f.exports.jsx(Nn, { asChild: !0, children: /* @__PURE__ */ f.exports.jsxs(Ve, { variant: "outline", size: "sm", className: "py-5 border-dashed border-muted-foreground", type: "button", children: [
     /* @__PURE__ */ f.exports.jsx(gl, { size: 16, className: "mr-2 text-gray-500" }),
     n,
     o && /* @__PURE__ */ f.exports.jsxs(f.exports.Fragment, { children: [
