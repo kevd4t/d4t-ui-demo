@@ -29,13 +29,16 @@ export default function BottomNavigationSidebar({
         ))}
 
         {subLinksItems && (
-          <NavLinkNested
-            pathname={subLinksItems.pathname}
-            label={subLinksItems.label}
-            icon={subLinksItems.icon}
-            sublinks={subLinksItems.subLinks}
-            Link={Link}
-          />
+          subLinksItems.map((item) => (
+            <NavLinkNested
+              pathname={item.pathname}
+              label={item.label}
+              icon={item.icon}
+              sublinks={item.subLinks}
+              Link={Link}
+            />
+          ))
+
         )}
 
         <BottomNavigationSidebarFooter
