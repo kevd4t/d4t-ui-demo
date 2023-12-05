@@ -80,7 +80,7 @@ export const TableSearch = ({ onSubmitTable, loading }: TableSearchProps) => {
             type="submit"
             onClick={form.handleSubmit(onSubmit)}
             disabled={loading}
-            className="bg-brand-primary hover:bg-brand-primary-opaque ml-auto py-5 whitespace-nowrap"
+            className="bg-brand-primary hover:bg-brand-primary-opaque ml-auto py-5 whitespace-nowrap text-white"
           >
             {loading ? (
               <Spinner />
