@@ -1,6 +1,8 @@
 /// <reference types="react" />
 import { ISidebarConfigProps } from "../schemas/IComponent-props";
-export default function BottomNavigationSidebarFooter({ sidebar, onCloseSideBar, }: {
+interface ISidebarFooterProps {
     sidebar: ISidebarConfigProps;
     onCloseSideBar: () => void;
-}): JSX.Element;
+}
+export default function BottomNavigationSidebarFooter({ sidebar, onCloseSideBar, }: ISidebarFooterProps): JSX.Element;
+export {};
