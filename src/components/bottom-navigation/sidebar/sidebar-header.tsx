@@ -1,4 +1,3 @@
-import { User } from "lucide-react";
 import { AvatarImage, SidebarProfile } from "../../";
 import { Avatar, AvatarFallback, Badge } from "../../";
 
