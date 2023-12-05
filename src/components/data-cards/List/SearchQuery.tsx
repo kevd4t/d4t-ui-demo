@@ -25,7 +25,7 @@ export const SearchQuery = ({ id, form, label, icon, queryText }: SearchQueryPro
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant='outline' size='sm' className='py-5 border-dashed' type='button'>
+        <Button variant='outline' size='sm' className='py-5 border-dashed border-muted-foreground' type='button'>
           <Search size={16} className='mr-2 text-gray-500' />
 
           {label}

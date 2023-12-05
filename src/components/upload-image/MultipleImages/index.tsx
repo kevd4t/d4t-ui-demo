@@ -152,8 +152,8 @@ export const MultipleImages = ({
                         {...dragProps}
                         className={cn(
                           `w-full h-[237px] ${
-                            isDragging ? "border-indigo-600" : "border-slate-50"
-                          } flex flex-col justify-center items-center border-dashed border-2 bg-slate-50 bg-opacity-5 rounded-md p-2`,
+                            isDragging ? "border-indigo-600" : "border-muted-foreground"
+                          } flex flex-col justify-center items-center border-dashed border-muted-foreground border-2 bg-slate-50 bg-opacity-5 rounded-md p-2`,
                           imageContainerClassName
                         )}
                       >

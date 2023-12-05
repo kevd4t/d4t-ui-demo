@@ -143,7 +143,7 @@ export const TableBody = () => {
   );
 
   return (
-    <TableBodyUI>
+    <TableBodyUI className='bg-card'>
       {data.length ? (
         <TableBodyRow
           setMultiItemsSelected={setMultiItemsSelected}

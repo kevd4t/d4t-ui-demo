@@ -10,8 +10,8 @@ export const LoadMultiImages = ({ dragProps, isDragging, emptyClassName, tabInde
     <div
       {...dragProps}
       className={cn(
-        `${isDragging ? 'border-indigo-600' : 'border-gray-300'}`,
-        'h-[250px] mt-1 flex flex-col justify-center items-center px-6 pt-5 pb-6 border-2 border-dashed rounded-md text-center',
+        `${isDragging ? 'border-indigo-600' : 'border-muted-foreground'}`,
+        'h-[250px] mt-1 flex flex-col justify-center items-center px-6 pt-5 pb-6 border-2 border-dashed border-muted-foreground rounded-md text-center',
         emptyClassName
       )}
     >

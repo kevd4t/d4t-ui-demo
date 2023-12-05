@@ -29,7 +29,7 @@ export const FacetedFilter = ({ id, form, icon, label, options, onSubmit }: Face
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button type='button' variant='outline' size='sm' className='py-5 border-dashed'>
+        <Button type='button' variant='outline' size='sm' className='py-5 border-dashed border-muted-foreground'>
           {icon || <IconAdjustments size={16} className='mr-2' />}
 
           {label}
