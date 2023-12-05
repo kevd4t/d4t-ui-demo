@@ -11229,7 +11229,7 @@ function kO({
   };
   return /* @__PURE__ */ f.exports.jsxs("div", { className: "w-full flex justify-start items-end gap-x-2", children: [
     /* @__PURE__ */ f.exports.jsx(
-      Vk,
+      V7,
       {
         id: "pidType",
         form: e,
@@ -22199,7 +22199,7 @@ var Ee;
 })(Ee || (Ee = {}));
 const H4 = (e, t = {
   message: `Input not instance of ${e.name}`
-}) => Ab((n) => n instanceof e, t), Ib = zt.create, Lb = Zn.create, K4 = Ds.create, G4 = qn.create, Fb = Ho.create, Z4 = br.create, q4 = Ts.create, X4 = Ko.create, Q4 = Go.create, J4 = to.create, e7 = dr.create, t7 = Tn.create, n7 = ks.create, r7 = Ht.create, o7 = Je.create, a7 = Je.strictCreate, s7 = Zo.create, i7 = _i.create, c7 = qo.create, l7 = ln.create, d7 = Xo.create, u7 = Os.create, f7 = xr.create, p7 = Kr.create, m7 = Qo.create, h7 = Jo.create, v7 = Xn.create, g7 = ea.create, b7 = no.create, Ff = Xt.create, x7 = $n.create, y7 = yr.create, $7 = Xt.createWithPreprocess, w7 = Oa.create, _7 = () => Ib().optional(), C7 = () => Lb().optional(), S7 = () => Fb().optional(), E7 = {
+}) => Ab((n) => n instanceof e, t), Ib = zt.create, Lb = Zn.create, K4 = Ds.create, G4 = qn.create, Fb = Ho.create, Z4 = br.create, q4 = Ts.create, X4 = Ko.create, Q4 = Go.create, J4 = to.create, ek = dr.create, tk = Tn.create, nk = ks.create, rk = Ht.create, ok = Je.create, ak = Je.strictCreate, sk = Zo.create, ik = _i.create, ck = qo.create, lk = ln.create, dk = Xo.create, uk = Os.create, fk = xr.create, pk = Kr.create, mk = Qo.create, hk = Jo.create, vk = Xn.create, gk = ea.create, bk = no.create, Ff = Xt.create, xk = $n.create, yk = yr.create, $k = Xt.createWithPreprocess, wk = Oa.create, _k = () => Ib().optional(), Ck = () => Lb().optional(), Sk = () => Fb().optional(), Ek = {
   string: (e) => zt.create({ ...e, coerce: !0 }),
   number: (e) => Zn.create({ ...e, coerce: !0 }),
   boolean: (e) => Ho.create({
@@ -22208,7 +22208,7 @@ const H4 = (e, t = {
   }),
   bigint: (e) => qn.create({ ...e, coerce: !0 }),
   date: (e) => br.create({ ...e, coerce: !0 })
-}, N7 = Pe;
+}, Nk = Pe;
 var Rs = /* @__PURE__ */ Object.freeze({
   __proto__: null,
   defaultErrorMap: Yo,
@@ -22278,52 +22278,52 @@ var Rs = /* @__PURE__ */ Object.freeze({
   get ZodFirstPartyTypeKind() {
     return Ee;
   },
-  coerce: E7,
+  coerce: Ek,
   any: J4,
-  array: r7,
+  array: rk,
   bigint: G4,
   boolean: Fb,
   date: Z4,
-  discriminatedUnion: i7,
+  discriminatedUnion: ik,
   effect: Ff,
-  enum: v7,
-  function: p7,
+  enum: vk,
+  function: pk,
   instanceof: H4,
-  intersection: c7,
-  lazy: m7,
-  literal: h7,
-  map: u7,
+  intersection: ck,
+  lazy: mk,
+  literal: hk,
+  map: uk,
   nan: K4,
-  nativeEnum: g7,
-  never: t7,
+  nativeEnum: gk,
+  never: tk,
   null: Q4,
-  nullable: y7,
+  nullable: yk,
   number: Lb,
-  object: o7,
-  oboolean: S7,
-  onumber: C7,
-  optional: x7,
-  ostring: _7,
-  pipeline: w7,
-  preprocess: $7,
-  promise: b7,
-  record: d7,
-  set: f7,
-  strictObject: a7,
+  object: ok,
+  oboolean: Sk,
+  onumber: Ck,
+  optional: xk,
+  ostring: _k,
+  pipeline: wk,
+  preprocess: $k,
+  promise: bk,
+  record: dk,
+  set: fk,
+  strictObject: ak,
   string: Ib,
   symbol: q4,
   transformer: Ff,
-  tuple: l7,
+  tuple: lk,
   undefined: X4,
-  union: s7,
-  unknown: e7,
-  void: n7,
-  NEVER: N7,
+  union: sk,
+  unknown: ek,
+  void: nk,
+  NEVER: Nk,
   ZodIssueCode: ae,
   quotelessJson: k4,
   ZodError: Yt
 });
-const P7 = () => {
+const Pk = () => {
   const { showFilters: e, setShowFilters: t } = He(or);
   return /* @__PURE__ */ f.exports.jsxs(
     Ve,
@@ -22338,7 +22338,7 @@ const P7 = () => {
       ]
     }
   );
-}, T7 = ({ id: e, form: t, icon: n, label: r, options: o, onSubmit: a }) => {
+}, Tk = ({ id: e, form: t, icon: n, label: r, options: o, onSubmit: a }) => {
   const { selectOptionFilter: s, getFilterOptionsSelectedById: i, resetOptionsByFilter: c } = He(or), l = (d) => {
     c(d);
   };
@@ -22418,7 +22418,7 @@ const P7 = () => {
       ] })
     ] }) })
   ] });
-}, k7 = ({ id: e, form: t, label: n, icon: r, queryText: o }) => /* @__PURE__ */ f.exports.jsxs(En, { children: [
+}, kk = ({ id: e, form: t, label: n, icon: r, queryText: o }) => /* @__PURE__ */ f.exports.jsxs(En, { children: [
   /* @__PURE__ */ f.exports.jsx(Nn, { asChild: !0, children: /* @__PURE__ */ f.exports.jsxs(Ve, { variant: "outline", size: "sm", className: "py-5 border-dashed border-muted-foreground", type: "button", children: [
     /* @__PURE__ */ f.exports.jsx(gl, { size: 16, className: "mr-2 text-gray-500" }),
     n,
@@ -22449,7 +22449,7 @@ const P7 = () => {
       }
     )
   ] })
-] }), O7 = ({ form: e, onSubmit: t }) => {
+] }), Ok = ({ form: e, onSubmit: t }) => {
   const {
     queries: n,
     filters: r,
@@ -22476,7 +22476,7 @@ const P7 = () => {
         onSubmit: e.handleSubmit(t),
         className: "w-full flex justify-start items-center sm:mr-4",
         children: /* @__PURE__ */ f.exports.jsx("section", { className: "mr-3 flex justify-start items-center gap-x-3", children: n.map((p, m) => /* @__PURE__ */ f.exports.jsx(
-          k7,
+          kk,
           {
             queryText: d[m],
             label: p.label,
@@ -22488,9 +22488,9 @@ const P7 = () => {
       }
     ),
     r != null && r.length ? /* @__PURE__ */ f.exports.jsxs("div", { className: "w-auto h-full flex flex-wrap gap-x-3 gap-y-2 justify-start items-center", children: [
-      /* @__PURE__ */ f.exports.jsx(P7, {}),
+      /* @__PURE__ */ f.exports.jsx(Pk, {}),
       o && r && r.map((p) => /* @__PURE__ */ f.exports.jsx(
-        T7,
+        Tk,
         {
           onSubmit: t,
           form: e,
@@ -22518,7 +22518,7 @@ const P7 = () => {
       ) : null
     ] }) : null
   ] }) });
-}, M7 = ({ onSubmitTable: e, loading: t }) => {
+}, Mk = ({ onSubmitTable: e, loading: t }) => {
   const {
     queries: n,
     getFiltersWithOptionsSelected: r,
@@ -22545,7 +22545,7 @@ const P7 = () => {
     }), console.log("queries formatted ", m), e({ queries: m, filters: p, limit: s, page: a });
   };
   return G(() => i(l), [l]), !(n != null && n.length) && !(o != null && o.length) ? /* @__PURE__ */ f.exports.jsx("div", {}) : /* @__PURE__ */ f.exports.jsx(Gm, { ...l, children: /* @__PURE__ */ f.exports.jsxs("div", { className: "w-full flex flex-wrap justify-between items-end gap-y-2", children: [
-    n != null && n.length || o != null && o.length ? /* @__PURE__ */ f.exports.jsx(O7, { form: l, onSubmit: d }) : /* @__PURE__ */ f.exports.jsx("div", {}),
+    n != null && n.length || o != null && o.length ? /* @__PURE__ */ f.exports.jsx(Ok, { form: l, onSubmit: d }) : /* @__PURE__ */ f.exports.jsx("div", {}),
     /* @__PURE__ */ f.exports.jsx("div", { className: "w-fit flex flex-col gap-y-2", children: /* @__PURE__ */ f.exports.jsx(
       Ve,
       {
@@ -22560,10 +22560,10 @@ const P7 = () => {
       }
     ) })
   ] }) });
-}, D7 = () => /* @__PURE__ */ f.exports.jsx("div", { className: "w-full h-full flex flex-col justify-center items-center py-24", children: /* @__PURE__ */ f.exports.jsx("h6", { className: "font-semibold", children: "Hubo un error" }) }), R7 = () => /* @__PURE__ */ f.exports.jsxs(yd, { children: [
+}, Dk = () => /* @__PURE__ */ f.exports.jsx("div", { className: "w-full h-full flex flex-col justify-center items-center py-24", children: /* @__PURE__ */ f.exports.jsx("h6", { className: "font-semibold", children: "Hubo un error" }) }), Rk = () => /* @__PURE__ */ f.exports.jsxs(yd, { children: [
   /* @__PURE__ */ f.exports.jsx(Pb, {}),
   /* @__PURE__ */ f.exports.jsx(Tb, {})
-] }), j7 = {
+] }), jk = {
   limit: 5,
   page: 1,
   labels: { plural: "Items", single: "Item" },
@@ -22572,7 +22572,7 @@ const P7 = () => {
 };
 function M8(e) {
   const [t, n] = Y([]), [r, o] = Y([]), [a, s] = Y([]), [i, c] = Y(!1), [l, d] = Y(e == null ? void 0 : e.error), [u, p] = Y(e == null ? void 0 : e.loading), [m, h] = Y(), [v, g] = Y(
-    (e == null ? void 0 : e.pagination) ?? j7
+    (e == null ? void 0 : e.pagination) ?? jk
   ), [b, y] = Y(
     (e == null ? void 0 : e.columns) || []
   ), $ = ue(
@@ -22706,11 +22706,11 @@ function M8(e) {
         setSearchForm: (V) => h(V)
       },
       children: /* @__PURE__ */ f.exports.jsxs("div", { className: "w-full h-fit space-y-4", children: [
-        /* @__PURE__ */ f.exports.jsx(M7, { onSubmitTable: $, loading: u }),
+        /* @__PURE__ */ f.exports.jsx(Mk, { onSubmitTable: $, loading: u }),
         /* @__PURE__ */ f.exports.jsxs("div", { className: "rounded-md border overflow-clip", children: [
           u && /* @__PURE__ */ f.exports.jsx(N4, {}),
-          !u && l && /* @__PURE__ */ f.exports.jsx(D7, {}),
-          !u && !l && !t && /* @__PURE__ */ f.exports.jsx(R7, {}),
+          !u && l && /* @__PURE__ */ f.exports.jsx(Dk, {}),
+          !u && !l && !t && /* @__PURE__ */ f.exports.jsx(Rk, {}),
           !u && !l && t && /* @__PURE__ */ f.exports.jsx(S4, {})
         ] }),
         !u && !l && t && /* @__PURE__ */ f.exports.jsx(w4, {})
@@ -22844,19 +22844,19 @@ var na = function(e, t, n) {
   return N.createElement("div", { className: a, style: { top: 100 * o + "%", left: 100 * n + "%" } }, N.createElement("div", { className: "react-colorful__pointer-fill", style: { backgroundColor: t } }));
 }, ft = function(e, t, n) {
   return t === void 0 && (t = 0), n === void 0 && (n = Math.pow(10, t)), Math.round(n * e) / n;
-}, A7 = function(e) {
-  return U7(sl(e));
+}, Ak = function(e) {
+  return Uk(sl(e));
 }, sl = function(e) {
   return e[0] === "#" && (e = e.substring(1)), e.length < 6 ? { r: parseInt(e[0] + e[0], 16), g: parseInt(e[1] + e[1], 16), b: parseInt(e[2] + e[2], 16), a: e.length === 4 ? ft(parseInt(e[3] + e[3], 16) / 255, 2) : 1 } : { r: parseInt(e.substring(0, 2), 16), g: parseInt(e.substring(2, 4), 16), b: parseInt(e.substring(4, 6), 16), a: e.length === 8 ? ft(parseInt(e.substring(6, 8), 16) / 255, 2) : 1 };
-}, I7 = function(e) {
-  return V7(F7(e));
-}, L7 = function(e) {
+}, Ik = function(e) {
+  return Vk(Fk(e));
+}, Lk = function(e) {
   var t = e.s, n = e.v, r = e.a, o = (200 - t) * n / 100;
   return { h: ft(e.h), s: ft(o > 0 && o < 200 ? t * n / 100 / (o <= 100 ? o : 200 - o) * 100 : 0), l: ft(o / 2), a: ft(r, 2) };
 }, il = function(e) {
-  var t = L7(e);
+  var t = Lk(e);
   return "hsl(" + t.h + ", " + t.s + "%, " + t.l + "%)";
-}, F7 = function(e) {
+}, Fk = function(e) {
   var t = e.h, n = e.s, r = e.v, o = e.a;
   t = t / 360 * 6, n /= 100, r /= 100;
   var a = Math.floor(t), s = r * (1 - n), i = r * (1 - (t - a) * n), c = r * (1 - (1 - t + a) * n), l = a % 6;
@@ -22864,20 +22864,20 @@ var na = function(e, t, n) {
 }, qa = function(e) {
   var t = e.toString(16);
   return t.length < 2 ? "0" + t : t;
-}, V7 = function(e) {
+}, Vk = function(e) {
   var t = e.r, n = e.g, r = e.b, o = e.a, a = o < 1 ? qa(ft(255 * o)) : "";
   return "#" + qa(t) + qa(n) + qa(r) + a;
-}, U7 = function(e) {
+}, Uk = function(e) {
   var t = e.r, n = e.g, r = e.b, o = e.a, a = Math.max(t, n, r), s = a - Math.min(t, n, r), i = s ? a === t ? (n - r) / s : a === n ? 2 + (r - t) / s : 4 + (t - n) / s : 0;
   return { h: ft(60 * (i < 0 ? i + 6 : i)), s: ft(a ? s / a * 100 : 0), v: ft(a / 255 * 100), a: o };
-}, W7 = N.memo(function(e) {
+}, Wk = N.memo(function(e) {
   var t = e.hue, n = e.onChange, r = Ud(["react-colorful__hue", e.className]);
   return N.createElement("div", { className: r }, N.createElement(Ub, { onMove: function(o) {
     n({ h: 360 * o.left });
   }, onKey: function(o) {
     n({ h: na(t + 360 * o.left, 0, 360) });
   }, "aria-label": "Hue", "aria-valuenow": ft(t), "aria-valuemax": "360", "aria-valuemin": "0" }, N.createElement(Wb, { className: "react-colorful__hue-pointer", left: t / 360, color: il({ h: t, s: 100, v: 100, a: 1 }) })));
-}), z7 = N.memo(function(e) {
+}), zk = N.memo(function(e) {
   var t = e.hsva, n = e.onChange, r = { backgroundColor: il({ h: t.h, s: 100, v: 100, a: 1 }) };
   return N.createElement("div", { className: "react-colorful__saturation", style: r }, N.createElement(Ub, { onMove: function(o) {
     n({ s: 100 * o.left, v: 100 - 100 * o.top });
@@ -22891,10 +22891,10 @@ var na = function(e, t, n) {
     if (e[n] !== t[n])
       return !1;
   return !0;
-}, B7 = function(e, t) {
+}, Bk = function(e, t) {
   return e.toLowerCase() === t.toLowerCase() || zb(sl(e), sl(t));
 };
-function Y7(e, t, n) {
+function Yk(e, t, n) {
   var r = ol(n), o = Y(function() {
     return e.toHsva(t);
   }), a = o[0], s = o[1], i = U({ color: t, hsva: a });
@@ -22914,30 +22914,30 @@ function Y7(e, t, n) {
   }, []);
   return [a, c];
 }
-var H7 = typeof window < "u" ? Is : G, K7 = function() {
+var Hk = typeof window < "u" ? Is : G, Kk = function() {
   return typeof __webpack_nonce__ < "u" ? __webpack_nonce__ : void 0;
-}, Wf = /* @__PURE__ */ new Map(), G7 = function(e) {
-  H7(function() {
+}, Wf = /* @__PURE__ */ new Map(), Gk = function(e) {
+  Hk(function() {
     var t = e.current ? e.current.ownerDocument : document;
     if (t !== void 0 && !Wf.has(t)) {
       var n = t.createElement("style");
       n.innerHTML = `.react-colorful{position:relative;display:flex;flex-direction:column;width:200px;height:200px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.react-colorful__saturation{position:relative;flex-grow:1;border-color:transparent;border-bottom:12px solid #000;border-radius:8px 8px 0 0;background-image:linear-gradient(0deg,#000,transparent),linear-gradient(90deg,#fff,hsla(0,0%,100%,0))}.react-colorful__alpha-gradient,.react-colorful__pointer-fill{content:"";position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none;border-radius:inherit}.react-colorful__alpha-gradient,.react-colorful__saturation{box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}.react-colorful__alpha,.react-colorful__hue{position:relative;height:24px}.react-colorful__hue{background:linear-gradient(90deg,red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red)}.react-colorful__last-control{border-radius:0 0 8px 8px}.react-colorful__interactive{position:absolute;left:0;top:0;right:0;bottom:0;border-radius:inherit;outline:none;touch-action:none}.react-colorful__pointer{position:absolute;z-index:1;box-sizing:border-box;width:28px;height:28px;transform:translate(-50%,-50%);background-color:#fff;border:2px solid #fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2)}.react-colorful__interactive:focus .react-colorful__pointer{transform:translate(-50%,-50%) scale(1.1)}.react-colorful__alpha,.react-colorful__alpha-pointer{background-color:#fff;background-image:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill-opacity=".05"><path d="M8 0h8v8H8zM0 8h8v8H0z"/></svg>')}.react-colorful__saturation-pointer{z-index:3}.react-colorful__hue-pointer{z-index:2}`, Wf.set(t, n);
-      var r = K7();
+      var r = Kk();
       r && n.setAttribute("nonce", r), t.head.appendChild(n);
     }
   }, []);
-}, Z7 = function(e) {
+}, Zk = function(e) {
   var t = e.className, n = e.colorModel, r = e.color, o = r === void 0 ? n.defaultColor : r, a = e.onChange, s = Vb(e, ["className", "colorModel", "color", "onChange"]), i = U(null);
-  G7(i);
-  var c = Y7(n, o, a), l = c[0], d = c[1], u = Ud(["react-colorful", t]);
-  return N.createElement("div", Ci({}, s, { ref: i, className: u }), N.createElement(z7, { hsva: l, onChange: d }), N.createElement(W7, { hue: l.h, onChange: d, className: "react-colorful__last-control" }));
-}, q7 = { defaultColor: "000", toHsva: A7, fromHsva: function(e) {
-  return I7({ h: e.h, s: e.s, v: e.v, a: 1 });
-}, equal: B7 }, X7 = function(e) {
-  return N.createElement(Z7, Ci({}, e, { colorModel: q7 }));
+  Gk(i);
+  var c = Yk(n, o, a), l = c[0], d = c[1], u = Ud(["react-colorful", t]);
+  return N.createElement("div", Ci({}, s, { ref: i, className: u }), N.createElement(zk, { hsva: l, onChange: d }), N.createElement(Wk, { hue: l.h, onChange: d, className: "react-colorful__last-control" }));
+}, qk = { defaultColor: "000", toHsva: Ak, fromHsva: function(e) {
+  return Ik({ h: e.h, s: e.s, v: e.v, a: 1 });
+}, equal: Bk }, Xk = function(e) {
+  return N.createElement(Zk, Ci({}, e, { colorModel: qk }));
 };
 const R8 = ({ color: e, onChange: t, presetColors: n }) => /* @__PURE__ */ f.exports.jsxs("div", { className: "picker", children: [
-  /* @__PURE__ */ f.exports.jsx(X7, { color: e, onChange: t }),
+  /* @__PURE__ */ f.exports.jsx(Xk, { color: e, onChange: t }),
   /* @__PURE__ */ f.exports.jsx("div", { className: "picker__swatches", children: n.map((r) => /* @__PURE__ */ f.exports.jsx(
     "button",
     {
@@ -22948,7 +22948,7 @@ const R8 = ({ color: e, onChange: t, presetColors: n }) => /* @__PURE__ */ f.exp
     r
   )) })
 ] });
-function Q7(e, t, n) {
+function Qk(e, t, n) {
   var r = Y([]), o = r[0], a = r[1], s = U([]), i = ue(function(u, p) {
     var m = e(u, p), h = m[0], v = m[1];
     return a(function(g) {
@@ -22979,7 +22979,7 @@ function Ut() {
     return e;
   }, Ut.apply(this, arguments);
 }
-function J7(e, t) {
+function Jk(e, t) {
   if (e == null)
     return {};
   var n = {}, r = Object.keys(e), o, a;
@@ -23069,14 +23069,14 @@ for (xt = 65; xt < 91; xt += 1) {
 }
 for (xt = 96; xt < 106; xt += 1)
   Si[xt] = /* @__PURE__ */ String.fromCharCode(xt - 48);
-function ek(e) {
+function e7(e) {
   if (e.key && e.key !== "Unidentified")
     return e.key;
   var t = Si[e.which || e.keyCode] || "Unidentified";
   return Array.isArray(t) ? t[+(e.shiftKey || 0)] : t;
 }
-var tk = {
-  getKey: ek
+var t7 = {
+  getKey: e7
 };
 function Xa() {
 }
@@ -23087,7 +23087,7 @@ function Bb(e, t) {
     return r + e;
   });
 }
-function nk(e, t) {
+function n7(e, t) {
   var n = /* @__PURE__ */ Object.create({});
   for (var r in t)
     if (!e.includes(r)) {
@@ -23096,7 +23096,7 @@ function nk(e, t) {
     }
   return n;
 }
-var rk = ["refs"], hc = [], ok = ["autoFocus", "length", "validate", "format", "debug"], ak = ["onResolveKey", "onRejectKey", "onChange", "onComplete"], sk = ["Alt", "Control", "Enter", "Meta", "Shift", "Tab"], ik = {
+var r7 = ["refs"], hc = [], o7 = ["autoFocus", "length", "validate", "format", "debug"], a7 = ["onResolveKey", "onRejectKey", "onChange", "onComplete"], s7 = ["Alt", "Control", "Enter", "Meta", "Shift", "Tab"], i7 = {
   ref: {
     current: []
   },
@@ -23111,11 +23111,11 @@ var rk = ["refs"], hc = [], ok = ["autoFocus", "length", "validate", "format", "
   onComplete: Xa,
   debug: !1
 };
-function ck(e) {
+function c7(e) {
   return {
     focusIdx: 0,
     codeLength: e.length,
-    isKeyAllowed: lk(e.validate),
+    isKeyAllowed: l7(e.validate),
     fallback: null
   };
 }
@@ -23125,7 +23125,7 @@ function Yb(e) {
 function cl(e, t) {
   return t === 0 ? 0 : Math.min(e + 1, t - 1);
 }
-function lk(e) {
+function l7(e) {
   return function(t) {
     return !t || t.length > 1 ? !1 : typeof e == "string" ? e.split("").includes(t) : e instanceof Array ? e.includes(t) : e instanceof RegExp ? e.test(t) : e(t);
   };
@@ -23164,7 +23164,7 @@ function Bf(e, t, n) {
     focusIdx: a
   }), s];
 }
-var dk = function(t, n) {
+var d7 = function(t, n) {
   switch (n.type) {
     case "handle-key-down":
       switch (n.key) {
@@ -23269,8 +23269,8 @@ var dk = function(t, n) {
       return [t, hc];
   }
 };
-function uk(e) {
-  var t = e.refs, n = J7(e, rk);
+function u7(e) {
+  var t = e.refs, n = Jk(e, r7);
   return ue(function(r) {
     switch (r.type) {
       case "focus-input": {
@@ -23308,10 +23308,10 @@ function uk(e) {
     }
   }, [n, t]);
 }
-var fk = /* @__PURE__ */ D(function(e, t) {
-  var n = Ut({}, ik, e), r = n.autoFocus, o = n.length, a = nk([].concat(ok, ak), n), s = U([]), i = uk(Ut({
+var f7 = /* @__PURE__ */ D(function(e, t) {
+  var n = Ut({}, i7, e), r = n.autoFocus, o = n.length, a = n7([].concat(o7, a7), n), s = U([]), i = u7(Ut({
     refs: s
-  }, n)), c = Q7(dk, i, ck(n))[1];
+  }, n)), c = Qk(d7, i, c7(n))[1];
   hx(t, function() {
     return s.current;
   }, [s]);
@@ -23325,8 +23325,8 @@ var fk = /* @__PURE__ */ D(function(e, t) {
   }
   function d(v) {
     return function(g) {
-      var b = tk.getKey(g.nativeEvent);
-      !sk.includes(b) && !g.ctrlKey && !g.altKey && !g.metaKey && g.nativeEvent.target instanceof HTMLInputElement && (g.preventDefault(), c({
+      var b = t7.getKey(g.nativeEvent);
+      !s7.includes(b) && !g.ctrlKey && !g.altKey && !g.metaKey && g.nativeEvent.target instanceof HTMLInputElement && (g.preventDefault(), c({
         type: "handle-key-down",
         idx: v,
         key: b,
@@ -23383,7 +23383,7 @@ var fk = /* @__PURE__ */ D(function(e, t) {
 const j8 = ({ onComplete: e, mode: t, length: n, disabled: r, tabIndex: o, autoFocus: a, containerClassName: s, className: i, ...c }) => {
   const [l] = N.useState(!1);
   return /* @__PURE__ */ f.exports.jsx("div", { className: L("pin-field-container", s), children: /* @__PURE__ */ f.exports.jsx(
-    fk,
+    f7,
     {
       className: L("pin-field", { complete: l }, i),
       onComplete: e,
@@ -23611,24 +23611,24 @@ var ll = it && it.__assign || function() {
     }
     return e;
   }, ll.apply(this, arguments);
-}, pk = it && it.__createBinding || (Object.create ? function(e, t, n, r) {
+}, p7 = it && it.__createBinding || (Object.create ? function(e, t, n, r) {
   r === void 0 && (r = n), Object.defineProperty(e, r, { enumerable: !0, get: function() {
     return t[n];
   } });
 } : function(e, t, n, r) {
   r === void 0 && (r = n), e[r] = t[n];
-}), mk = it && it.__setModuleDefault || (Object.create ? function(e, t) {
+}), m7 = it && it.__setModuleDefault || (Object.create ? function(e, t) {
   Object.defineProperty(e, "default", { enumerable: !0, value: t });
 } : function(e, t) {
   e.default = t;
-}), hk = it && it.__importStar || function(e) {
+}), h7 = it && it.__importStar || function(e) {
   if (e && e.__esModule)
     return e;
   var t = {};
   if (e != null)
     for (var n in e)
-      n !== "default" && Object.prototype.hasOwnProperty.call(e, n) && pk(t, e, n);
-  return mk(t, e), t;
+      n !== "default" && Object.prototype.hasOwnProperty.call(e, n) && p7(t, e, n);
+  return m7(t, e), t;
 }, vc = it && it.__awaiter || function(e, t, n, r) {
   function o(a) {
     return a instanceof n ? a : new n(function(s) {
@@ -23728,7 +23728,7 @@ var ll = it && it.__assign || function() {
   return r;
 };
 Object.defineProperty(Hb, "__esModule", { value: !0 });
-var Vt = hk(N), xc = Wd, vk = Kb, An = wn, gk = function(e) {
+var Vt = h7(N), xc = Wd, v7 = Kb, An = wn, g7 = function(e) {
   var t = e.value, n = t === void 0 ? [] : t, r = e.onChange, o = e.onError, a = e.children, s = e.dataURLKey, i = s === void 0 ? An.DEFAULT_DATA_URL_KEY : s, c = e.multiple, l = c === void 0 ? !1 : c, d = e.maxNumber, u = d === void 0 ? An.INIT_MAX_NUMBER : d, p = e.acceptType, m = e.maxFileSize, h = e.resolutionWidth, v = e.resolutionHeight, g = e.resolutionType, b = e.inputProps, y = b === void 0 ? {} : b, $ = e.allowNonImageType, _ = $ === void 0 ? !1 : $, w = n || [], P = Vt.useRef(null), O = Vt.useState(An.DEFAULT_NULL_INDEX), I = O[0], j = O[1], ee = Vt.useState(null), te = ee[0], K = ee[1], Z = Vt.useState(!1), V = Z[0], R = Z[1], A = Vt.useCallback(function() {
     return xc.openFileDialog(P);
   }, [
@@ -23750,7 +23750,7 @@ var Vt = hk(N), xc = Wd, vk = Kb, An = wn, gk = function(e) {
       return gc(this, function(Q) {
         switch (Q.label) {
           case 0:
-            return [4, vk.getErrorValidation({
+            return [4, v7.getErrorValidation({
               fileList: J,
               maxFileSize: m,
               maxNumber: u,
@@ -23850,8 +23850,8 @@ var Vt = hk(N), xc = Wd, vk = Kb, An = wn, gk = function(e) {
       isDragging: V
     })
   );
-}, Gb = Hb.default = gk;
-const bk = (e, t) => {
+}, Gb = Hb.default = g7;
+const b7 = (e, t) => {
   const n = e.split(","), r = n[0].match(/:(.*?);/);
   if (!r)
     throw new Error("Invalid data URI");
@@ -23882,23 +23882,23 @@ const bk = (e, t) => {
     a,
     s,
     async (l) => {
-      const d = bk(l == null ? void 0 : l.toString(), t.name);
+      const d = b7(l == null ? void 0 : l.toString(), t.name);
       c({ data_url: l, file: d });
     },
     i
   );
-}), xk = ({ previewUrl: e, imageContainerClassName: t }) => /* @__PURE__ */ f.exports.jsxs(_r, { className: L("w-full h-[237px] rounded-md", t), children: [
+}), x7 = ({ previewUrl: e, imageContainerClassName: t }) => /* @__PURE__ */ f.exports.jsxs(_r, { className: L("w-full h-[237px] rounded-md", t), children: [
   /* @__PURE__ */ f.exports.jsx(Wn, { src: e, className: "rounded-md object-contain m-auto h-full", style: { width: "-webkit-fill-available" } }),
   /* @__PURE__ */ f.exports.jsx(Cr, { className: "w-full h-full rounded-md", children: /* @__PURE__ */ f.exports.jsx(Us, {}) })
 ] });
-function yk() {
+function y7() {
   return N.createElement(
     "svg",
     { "aria-hidden": "true", "data-rmiz-btn-unzoom-icon": !0, fill: "currentColor", focusable: "false", viewBox: "0 0 16 16", xmlns: "http://www.w3.org/2000/svg" },
     N.createElement("path", { d: "M 14.144531 1.148438 L 9 6.292969 L 9 3 L 8 3 L 8 8 L 13 8 L 13 7 L 9.707031 7 L 14.855469 1.851563 Z M 8 8 L 3 8 L 3 9 L 6.292969 9 L 1.148438 14.144531 L 1.851563 14.855469 L 7 9.707031 L 7 13 L 8 13 Z" })
   );
 }
-function $k() {
+function $7() {
   return N.createElement(
     "svg",
     { "aria-hidden": "true", "data-rmiz-btn-zoom-icon": !0, fill: "currentColor", focusable: "false", viewBox: "0 0 16 16", xmlns: "http://www.w3.org/2000/svg" },
@@ -23908,14 +23908,14 @@ function $k() {
 const js = (e, t) => {
   var n, r;
   return e === ((r = (n = t == null ? void 0 : t.tagName) == null ? void 0 : n.toUpperCase) == null ? void 0 : r.call(n));
-}, zd = (e) => js("DIV", e) || js("SPAN", e), As = (e) => js("IMG", e), Yf = (e) => e.complete && e.naturalHeight !== 0, dl = (e) => js("SVG", e), qb = ({ height: e, offset: t, width: n }) => Math.min((window.innerWidth - t * 2) / n, (window.innerHeight - t * 2) / e), wk = ({ containerHeight: e, containerWidth: t, offset: n, targetHeight: r, targetWidth: o }) => {
+}, zd = (e) => js("DIV", e) || js("SPAN", e), As = (e) => js("IMG", e), Yf = (e) => e.complete && e.naturalHeight !== 0, dl = (e) => js("SVG", e), qb = ({ height: e, offset: t, width: n }) => Math.min((window.innerWidth - t * 2) / n, (window.innerHeight - t * 2) / e), w7 = ({ containerHeight: e, containerWidth: t, offset: n, targetHeight: r, targetWidth: o }) => {
   const a = qb({
     height: r,
     offset: n,
     width: o
   }), s = o > r ? o / t : r / e;
   return a > 1 ? s : a * s;
-}, ur = ({ containerHeight: e, containerWidth: t, hasScalableSrc: n, offset: r, targetHeight: o, targetWidth: a }) => !e || !t ? 1 : !n && o && a ? wk({
+}, ur = ({ containerHeight: e, containerWidth: t, hasScalableSrc: n, offset: r, targetHeight: o, targetWidth: a }) => !e || !t ? 1 : !n && o && a ? w7({
   containerHeight: e,
   containerWidth: t,
   offset: r,
@@ -23925,7 +23925,7 @@ const js = (e, t) => {
   height: e,
   offset: r,
   width: t
-}), _k = /url(?:\(['"]?)(.*?)(?:['"]?\))/, Hf = (e) => {
+}), _7 = /url(?:\(['"]?)(.*?)(?:['"]?\))/, Hf = (e) => {
   var t;
   if (e) {
     if (As(e))
@@ -23933,13 +23933,13 @@ const js = (e, t) => {
     if (zd(e)) {
       const n = window.getComputedStyle(e).backgroundImage;
       if (n)
-        return (t = _k.exec(n)) == null ? void 0 : t[1];
+        return (t = _7.exec(n)) == null ? void 0 : t[1];
     }
   }
-}, Ck = (e) => {
+}, C7 = (e) => {
   if (e)
     return As(e) ? e.alt ?? void 0 : e.getAttribute("aria-label") ?? void 0;
-}, Sk = ({ containerHeight: e, containerLeft: t, containerTop: n, containerWidth: r, hasScalableSrc: o, offset: a, targetHeight: s, targetWidth: i }) => {
+}, S7 = ({ containerHeight: e, containerLeft: t, containerTop: n, containerWidth: r, hasScalableSrc: o, offset: a, targetHeight: s, targetWidth: i }) => {
   const c = ur({
     containerHeight: e,
     containerWidth: r,
@@ -23958,7 +23958,7 @@ const js = (e, t) => {
 }, Rt = ({ position: e, relativeNum: t }) => {
   const n = parseFloat(e);
   return e.endsWith("%") ? t * n / 100 : n;
-}, Ek = ({ containerHeight: e, containerLeft: t, containerTop: n, containerWidth: r, hasScalableSrc: o, objectFit: a, objectPosition: s, offset: i, targetHeight: c, targetWidth: l }) => {
+}, E7 = ({ containerHeight: e, containerLeft: t, containerTop: n, containerWidth: r, hasScalableSrc: o, objectFit: a, objectPosition: s, offset: i, targetHeight: c, targetWidth: l }) => {
   if (a === "scale-down" && (l <= r && c <= e ? a = "none" : a = "contain"), a === "cover" || a === "contain") {
     const d = r / l, u = e / c, p = a === "cover" ? Math.max(d, u) : Math.min(d, u), [m = "50%", h = "50%"] = s.split(" "), v = Rt({ position: m, relativeNum: r - l * p }), g = Rt({ position: h, relativeNum: e - c * p }), b = ur({
       containerHeight: c * p,
@@ -24007,7 +24007,7 @@ const js = (e, t) => {
     };
   } else
     return {};
-}, Nk = ({ backgroundPosition: e, backgroundSize: t, containerHeight: n, containerLeft: r, containerTop: o, containerWidth: a, hasScalableSrc: s, offset: i, targetHeight: c, targetWidth: l }) => {
+}, N7 = ({ backgroundPosition: e, backgroundSize: t, containerHeight: n, containerLeft: r, containerTop: o, containerWidth: a, hasScalableSrc: s, offset: i, targetHeight: c, targetWidth: l }) => {
   if (t === "cover" || t === "contain") {
     const d = a / l, u = n / c, p = t === "cover" ? Math.max(d, u) : Math.min(d, u), [m = "50%", h = "50%"] = e.split(" "), v = Rt({ position: m, relativeNum: a - l * p }), g = Rt({ position: h, relativeNum: n - c * p }), b = ur({
       containerHeight: c * p,
@@ -24057,9 +24057,9 @@ const js = (e, t) => {
       transform: `translate(0,0) scale(${1 / w})`
     };
   }
-}, Pk = /\.svg$/i, Tk = ({ hasZoomImg: e, imgSrc: t, isSvg: n, isZoomed: r, loadedImgEl: o, offset: a, shouldRefresh: s, targetEl: i }) => {
+}, P7 = /\.svg$/i, T7 = ({ hasZoomImg: e, imgSrc: t, isSvg: n, isZoomed: r, loadedImgEl: o, offset: a, shouldRefresh: s, targetEl: i }) => {
   var b;
-  const c = n || ((b = t == null ? void 0 : t.slice) == null ? void 0 : b.call(t, 0, 18)) === "data:image/svg+xml" || e || !!(t && Pk.test(t)), l = i.getBoundingClientRect(), d = window.getComputedStyle(i), u = o != null && zd(i), p = o != null && !u, m = Sk({
+  const c = n || ((b = t == null ? void 0 : t.slice) == null ? void 0 : b.call(t, 0, 18)) === "data:image/svg+xml" || e || !!(t && P7.test(t)), l = i.getBoundingClientRect(), d = window.getComputedStyle(i), u = o != null && zd(i), p = o != null && !u, m = S7({
     containerHeight: l.height,
     containerLeft: l.left,
     containerTop: l.top,
@@ -24068,7 +24068,7 @@ const js = (e, t) => {
     offset: a,
     targetHeight: (o == null ? void 0 : o.naturalHeight) ?? l.height,
     targetWidth: (o == null ? void 0 : o.naturalWidth) ?? l.width
-  }), h = p ? Ek({
+  }), h = p ? E7({
     containerHeight: l.height,
     containerLeft: l.left,
     containerTop: l.top,
@@ -24079,7 +24079,7 @@ const js = (e, t) => {
     offset: a,
     targetHeight: o.naturalHeight,
     targetWidth: o.naturalWidth
-  }) : void 0, v = u ? Nk({
+  }) : void 0, v = u ? N7({
     backgroundPosition: d.backgroundPosition,
     backgroundSize: d.backgroundSize,
     containerHeight: l.height,
@@ -24096,7 +24096,7 @@ const js = (e, t) => {
     s && (g.transitionDuration = "0.01ms"), g.transform = `translate(${P}px,${O}px) scale(1)`;
   }
   return g;
-}, kk = (e) => {
+}, k7 = (e) => {
   if (!e)
     return {};
   if (dl(e)) {
@@ -24126,11 +24126,11 @@ const js = (e, t) => {
 };
 let Oo;
 typeof document < "u" && (Oo = document.createElement("div"), Oo.setAttribute("data-rmiz-portal", ""), document.body.appendChild(Oo));
-const Ok = ["img", "svg", '[role="img"]', "[data-zoom]"].map((e) => `${e}:not([aria-hidden="true"])`).join(","), Kf = {
+const O7 = ["img", "svg", '[role="img"]', "[data-zoom]"].map((e) => `${e}:not([aria-hidden="true"])`).join(","), Kf = {
   overflow: "",
   width: ""
 };
-function Mk(e) {
+function M7(e) {
   return N.createElement(Xb, { ...e });
 }
 class Xb extends vx {
@@ -24147,7 +24147,7 @@ class Xb extends vx {
     }, this.setAndTrackImg = () => {
       var n, r, o, a, s, i;
       const t = this.refContent.current;
-      t && (this.imgEl = t.querySelector(Ok), this.imgEl ? ((r = (n = this.changeObserver) == null ? void 0 : n.disconnect) == null || r.call(n), (a = (o = this.imgEl) == null ? void 0 : o.addEventListener) == null || a.call(o, "load", this.handleImgLoad), (i = (s = this.imgEl) == null ? void 0 : s.addEventListener) == null || i.call(s, "click", this.handleZoom), this.state.loadedImgEl || this.handleImgLoad(), this.imgElObserver = new ResizeObserver((c) => {
+      t && (this.imgEl = t.querySelector(O7), this.imgEl ? ((r = (n = this.changeObserver) == null ? void 0 : n.disconnect) == null || r.call(n), (a = (o = this.imgEl) == null ? void 0 : o.addEventListener) == null || a.call(o, "load", this.handleImgLoad), (i = (s = this.imgEl) == null ? void 0 : s.addEventListener) == null || i.call(s, "click", this.handleZoom), this.state.loadedImgEl || this.handleImgLoad(), this.imgElObserver = new ResizeObserver((c) => {
         const l = c[0];
         l != null && l.target && (this.imgEl = l.target, this.setState({}));
       }), this.imgElObserver.observe(this.imgEl)) : this.changeObserver || (this.changeObserver = new MutationObserver(this.setAndTrackImg), this.changeObserver.observe(t, { childList: !0, subtree: !0 })));
@@ -24253,10 +24253,10 @@ class Xb extends vx {
     };
   }
   render() {
-    const { handleDialogCancel: t, handleDialogClick: n, handleUnzoom: r, handleZoom: o, imgEl: a, props: { a11yNameButtonUnzoom: s, a11yNameButtonZoom: i, children: c, classDialog: l, IconUnzoom: d, IconZoom: u, isZoomed: p, wrapElement: m, ZoomContent: h, zoomImg: v, zoomMargin: g }, refContent: b, refDialog: y, refModalContent: $, refModalImg: _, refWrap: w, state: { id: P, isZoomImgLoaded: O, loadedImgEl: I, modalState: j, shouldRefresh: ee } } = this, te = `rmiz-modal-${P}`, K = `rmiz-modal-img-${P}`, Z = zd(a), V = As(a), R = dl(a), A = Ck(a), F = Hf(a), B = V ? a.sizes : void 0, M = V ? a.srcset : void 0, k = !!(v != null && v.src), W = a && (I || R) && window.getComputedStyle(a).display !== "none", q = A ? `${i}: ${A}` : i, oe = j === "LOADING" || j === "LOADED", ce = W ? "found" : "not-found", ye = j === "UNLOADED" || j === "UNLOADING" ? "hidden" : "visible", be = {
+    const { handleDialogCancel: t, handleDialogClick: n, handleUnzoom: r, handleZoom: o, imgEl: a, props: { a11yNameButtonUnzoom: s, a11yNameButtonZoom: i, children: c, classDialog: l, IconUnzoom: d, IconZoom: u, isZoomed: p, wrapElement: m, ZoomContent: h, zoomImg: v, zoomMargin: g }, refContent: b, refDialog: y, refModalContent: $, refModalImg: _, refWrap: w, state: { id: P, isZoomImgLoaded: O, loadedImgEl: I, modalState: j, shouldRefresh: ee } } = this, te = `rmiz-modal-${P}`, K = `rmiz-modal-img-${P}`, Z = zd(a), V = As(a), R = dl(a), A = C7(a), F = Hf(a), B = V ? a.sizes : void 0, M = V ? a.srcset : void 0, k = !!(v != null && v.src), W = a && (I || R) && window.getComputedStyle(a).display !== "none", q = A ? `${i}: ${A}` : i, oe = j === "LOADING" || j === "LOADED", ce = W ? "found" : "not-found", ye = j === "UNLOADED" || j === "UNLOADING" ? "hidden" : "visible", be = {
       visibility: j === "UNLOADED" ? "visible" : "hidden"
-    }, ne = kk(a);
-    this.styleModalImg = W ? Tk({
+    }, ne = k7(a);
+    this.styleModalImg = W ? T7({
       hasZoomImg: k,
       imgSrc: F,
       isSvg: R,
@@ -24315,19 +24315,19 @@ class Xb extends vx {
 Xb.defaultProps = {
   a11yNameButtonUnzoom: "Minimize image",
   a11yNameButtonZoom: "Expand image",
-  IconUnzoom: yk,
-  IconZoom: $k,
+  IconUnzoom: y7,
+  IconZoom: $7,
   wrapElement: "div",
   zoomMargin: 0
 };
 function Qb(e) {
   const [t, n] = Y(!1);
-  return N.createElement(Mk, { ...e, isZoomed: t, onZoomChange: n });
+  return N.createElement(M7, { ...e, isZoomed: t, onZoomChange: n });
 }
-const Dk = ({ src: e, imageContainerClassName: t }) => /* @__PURE__ */ f.exports.jsx(Qb, { children: /* @__PURE__ */ f.exports.jsxs(_r, { className: L("w-full h-[237px] rounded-md", t), children: [
+const D7 = ({ src: e, imageContainerClassName: t }) => /* @__PURE__ */ f.exports.jsx(Qb, { children: /* @__PURE__ */ f.exports.jsxs(_r, { className: L("w-full h-[237px] rounded-md", t), children: [
   /* @__PURE__ */ f.exports.jsx(Wn, { src: e, className: "rounded-md object-contain m-auto h-full", style: { width: "-webkit-fill-available" } }),
   /* @__PURE__ */ f.exports.jsx(Cr, { className: "w-full h-full rounded-md", children: /* @__PURE__ */ f.exports.jsx(Us, {}) })
-] }) }), Rk = ({ imageIndex: e, compress: t, disabled: n, tabIndexs: r, onImageUpdate: o, setUploadImage: a, onImageRemove: s, setLocalImage: i }) => n ? null : /* @__PURE__ */ f.exports.jsxs("div", { className: "mt-2 gap-x-2 w-full flex flex-col justify-center items-end gap-y-2 absolute top-2 right-2", children: [
+] }) }), R7 = ({ imageIndex: e, compress: t, disabled: n, tabIndexs: r, onImageUpdate: o, setUploadImage: a, onImageRemove: s, setLocalImage: i }) => n ? null : /* @__PURE__ */ f.exports.jsxs("div", { className: "mt-2 gap-x-2 w-full flex flex-col justify-center items-end gap-y-2 absolute top-2 right-2", children: [
   (t == null ? void 0 : t.openComparisons) && /* @__PURE__ */ f.exports.jsx(
     Ve,
     {
@@ -24366,7 +24366,7 @@ const Dk = ({ src: e, imageContainerClassName: t }) => /* @__PURE__ */ f.exports
       children: /* @__PURE__ */ f.exports.jsx(sp, { size: 14 })
     }
   )
-] }), jk = ({ dragProps: e, isDragging: t, emptyClassName: n, tabIndexs: r, uploadLabel: o, onImageUpload: a }) => /* @__PURE__ */ f.exports.jsxs(
+] }), j7 = ({ dragProps: e, isDragging: t, emptyClassName: n, tabIndexs: r, uploadLabel: o, onImageUpload: a }) => /* @__PURE__ */ f.exports.jsxs(
   "div",
   {
     ...e,
@@ -24461,9 +24461,9 @@ const Dk = ({ src: e, imageContainerClassName: t }) => /* @__PURE__ */ f.exports
         dataURLKey: "data_url",
         acceptType: ["webp", "png", "jpg", "jpeg"],
         children: ({ imageList: h, onImageUpload: v, onImageUpdate: g, onImageRemove: b, isDragging: y, dragProps: $ }) => /* @__PURE__ */ f.exports.jsx(f.exports.Fragment, { children: h.length >= 1 ? /* @__PURE__ */ f.exports.jsx("div", { children: h.map((_, w) => /* @__PURE__ */ f.exports.jsxs("div", { className: "imagen-container w-full flex flex-col justify-center items-center relative", children: [
-          l ? /* @__PURE__ */ f.exports.jsx(Dk, { imageContainerClassName: c, src: _ == null ? void 0 : _.data_url }) : /* @__PURE__ */ f.exports.jsx(xk, { imageContainerClassName: c, previewUrl: _ == null ? void 0 : _.data_url }),
+          l ? /* @__PURE__ */ f.exports.jsx(D7, { imageContainerClassName: c, src: _ == null ? void 0 : _.data_url }) : /* @__PURE__ */ f.exports.jsx(x7, { imageContainerClassName: c, previewUrl: _ == null ? void 0 : _.data_url }),
           /* @__PURE__ */ f.exports.jsx(
-            Rk,
+            R7,
             {
               disabled: s,
               imageIndex: w,
@@ -24476,7 +24476,7 @@ const Dk = ({ src: e, imageContainerClassName: t }) => /* @__PURE__ */ f.exports
             }
           )
         ] }, w)) }) : /* @__PURE__ */ f.exports.jsx(f.exports.Fragment, { children: /* @__PURE__ */ f.exports.jsx(
-          jk,
+          j7,
           {
             dragProps: $,
             emptyClassName: i,
@@ -24489,10 +24489,10 @@ const Dk = ({ src: e, imageContainerClassName: t }) => /* @__PURE__ */ f.exports
       }
     )
   ] });
-}, Ak = ({ previewUrl: e, imageContainerClassName: t }) => /* @__PURE__ */ f.exports.jsxs(_r, { className: L("w-full h-[237px] rounded-md", t), children: [
+}, A7 = ({ previewUrl: e, imageContainerClassName: t }) => /* @__PURE__ */ f.exports.jsxs(_r, { className: L("w-full h-[237px] rounded-md", t), children: [
   /* @__PURE__ */ f.exports.jsx(Wn, { src: e, className: "rounded-md object-contain m-auto h-full", style: { width: "-webkit-fill-available" } }),
   /* @__PURE__ */ f.exports.jsx(Cr, { className: "w-full h-full rounded-md", children: /* @__PURE__ */ f.exports.jsx(Us, {}) })
-] }), Ik = ({ imageIndex: e, compress: t, tabIndexs: n, onImageUpdate: r, onImageRemove: o }) => /* @__PURE__ */ f.exports.jsxs("div", { className: "mt-2 gap-x-2 w-full flex flex-col justify-center items-end gap-y-2 absolute top-2 right-2", children: [
+] }), I7 = ({ imageIndex: e, compress: t, tabIndexs: n, onImageUpdate: r, onImageRemove: o }) => /* @__PURE__ */ f.exports.jsxs("div", { className: "mt-2 gap-x-2 w-full flex flex-col justify-center items-end gap-y-2 absolute top-2 right-2", children: [
   (t == null ? void 0 : t.openComparisons) && /* @__PURE__ */ f.exports.jsx(
     Ve,
     {
@@ -24529,10 +24529,10 @@ const Dk = ({ src: e, imageContainerClassName: t }) => /* @__PURE__ */ f.exports
       children: /* @__PURE__ */ f.exports.jsx(sp, { size: 14 })
     }
   )
-] }), Lk = ({ previewUrl: e, imageContainerClassName: t }) => /* @__PURE__ */ f.exports.jsx(Qb, { children: /* @__PURE__ */ f.exports.jsxs(_r, { className: L("w-full h-[237px] rounded-md", t), children: [
+] }), L7 = ({ previewUrl: e, imageContainerClassName: t }) => /* @__PURE__ */ f.exports.jsx(Qb, { children: /* @__PURE__ */ f.exports.jsxs(_r, { className: L("w-full h-[237px] rounded-md", t), children: [
   /* @__PURE__ */ f.exports.jsx(Wn, { src: e, className: "rounded-md object-contain m-auto h-full", style: { width: "-webkit-fill-available" } }),
   /* @__PURE__ */ f.exports.jsx(Cr, { className: "w-full h-full rounded-md", children: /* @__PURE__ */ f.exports.jsx(Us, {}) })
-] }) }), Fk = ({ dragProps: e, isDragging: t, emptyClassName: n, tabIndexs: r, uploadLabel: o, onImageUpload: a }) => /* @__PURE__ */ f.exports.jsxs(
+] }) }), F7 = ({ dragProps: e, isDragging: t, emptyClassName: n, tabIndexs: r, uploadLabel: o, onImageUpload: a }) => /* @__PURE__ */ f.exports.jsxs(
   "div",
   {
     ...e,
@@ -24638,20 +24638,20 @@ const Dk = ({ src: e, imageContainerClassName: t }) => /* @__PURE__ */ f.exports
                   className: "imagen-container w-full flex flex-col justify-center items-center relative",
                   children: [
                     i ? /* @__PURE__ */ f.exports.jsx(
-                      Lk,
+                      L7,
                       {
                         imageContainerClassName: s,
                         previewUrl: _ == null ? void 0 : _.data_url
                       }
                     ) : /* @__PURE__ */ f.exports.jsx(
-                      Ak,
+                      A7,
                       {
                         imageContainerClassName: s,
                         previewUrl: _ == null ? void 0 : _.data_url
                       }
                     ),
                     /* @__PURE__ */ f.exports.jsx(
-                      Ik,
+                      I7,
                       {
                         imageIndex: w,
                         onImageRemove: b,
@@ -24687,7 +24687,7 @@ const Dk = ({ src: e, imageContainerClassName: t }) => /* @__PURE__ */ f.exports
             ]
           }
         ) : /* @__PURE__ */ f.exports.jsx(
-          Fk,
+          F7,
           {
             dragProps: $,
             emptyClassName: a,
@@ -24780,7 +24780,7 @@ function L8({
     }
   );
 }
-function Vk({
+function V7({
   id: e,
   form: t,
   label: n,
@@ -24907,7 +24907,7 @@ function Vk({
     ] }) })
   ] });
 }
-const Uk = ({ form: e, id: t, description: n, icon: r, placeholder: o, label: a, tabIndex: s, options: i, classNameContainer: c, classNamePopover: l }) => {
+const U7 = ({ form: e, id: t, description: n, icon: r, placeholder: o, label: a, tabIndex: s, options: i, classNameContainer: c, classNamePopover: l }) => {
   var _;
   const d = U(null), [u, p] = Y(null);
   G(() => {
@@ -25043,7 +25043,7 @@ const Uk = ({ form: e, id: t, description: n, icon: r, placeholder: o, label: a,
       }
     }
   );
-}, Wk = ({ description: e, icon: t, placeholder: n, label: r, tabIndex: o, options: a, classNameContainer: s, classNamePopover: i }) => {
+}, W7 = ({ description: e, icon: t, placeholder: n, label: r, tabIndex: o, options: a, classNameContainer: s, classNamePopover: i }) => {
   const c = U(null), [l, d] = Y(null);
   return G(() => {
     const u = c.current;
@@ -25142,7 +25142,7 @@ const Uk = ({ form: e, id: t, description: n, icon: r, placeholder: o, label: a,
     ] })
   ] });
 }, F8 = ({ id: e, description: t, icon: n, placeholder: r, label: o, tabIndex: a, classNameContainer: s, readOnly: i, classNamePopover: c, ...l }) => i ? /* @__PURE__ */ f.exports.jsx(
-  Wk,
+  W7,
   {
     label: o,
     classNameContainer: s,
@@ -25155,7 +25155,7 @@ const Uk = ({ form: e, id: t, description: n, icon: r, placeholder: o, label: a,
     options: (l == null ? void 0 : l.options) || []
   }
 ) : /* @__PURE__ */ f.exports.jsx(
-  Uk,
+  U7,
   {
     id: e,
     label: o,
@@ -25169,7 +25169,7 @@ const Uk = ({ form: e, id: t, description: n, icon: r, placeholder: o, label: a,
     options: (l == null ? void 0 : l.options) || []
   }
 );
-function zk({
+function z7({
   isOpen: e,
   onClose: t,
   children: n
@@ -25223,7 +25223,7 @@ function Gf({
     /* @__PURE__ */ f.exports.jsx(Gn, { children: t })
   ] }) });
 }
-function Bk({
+function B7({
   profile: e
 }) {
   return /* @__PURE__ */ f.exports.jsxs("header", { className: "justify-center w-full h-14 flex items-start gap-x-3 my-10 px-10", children: [
@@ -25241,7 +25241,7 @@ function Bk({
     ] })
   ] });
 }
-const Yk = ({ isExpanded: e }) => {
+const Y7 = ({ isExpanded: e }) => {
   const [t, n] = Y(!1), { theme: r, setTheme: o } = Eb();
   if (G(() => {
     n(!0);
@@ -25265,14 +25265,14 @@ const Yk = ({ isExpanded: e }) => {
     }
   );
 };
-function Hk({
+function H7({
   sidebar: e,
   onCloseSideBar: t
 }) {
   return /* @__PURE__ */ f.exports.jsxs("section", { className: "pl-2 pr-3 my-2", children: [
     /* @__PURE__ */ f.exports.jsx("div", { className: "border border-slate-200 w-full" }),
     /* @__PURE__ */ f.exports.jsxs("ul", { className: "mt-2 space-y-2", children: [
-      e.theme && /* @__PURE__ */ f.exports.jsx("li", { children: /* @__PURE__ */ f.exports.jsx(Yk, { isExpanded: !1, theme: e.theme }) }),
+      e.theme && /* @__PURE__ */ f.exports.jsx("li", { children: /* @__PURE__ */ f.exports.jsx(Y7, { isExpanded: !1, theme: e.theme }) }),
       /* @__PURE__ */ f.exports.jsx("li", { children: /* @__PURE__ */ f.exports.jsxs(
         "button",
         {
@@ -25300,7 +25300,7 @@ function Hk({
     ] })
   ] });
 }
-function Kk({
+function K7({
   navLinksItems: e,
   subLinksItems: t,
   sidebar: n,
@@ -25309,7 +25309,7 @@ function Kk({
 }) {
   const { profile: a } = n;
   return /* @__PURE__ */ f.exports.jsxs(f.exports.Fragment, { children: [
-    /* @__PURE__ */ f.exports.jsx(Bk, { profile: a }),
+    /* @__PURE__ */ f.exports.jsx(B7, { profile: a }),
     /* @__PURE__ */ f.exports.jsxs("aside", { className: "px-6", children: [
       e == null ? void 0 : e.map((s, i) => /* @__PURE__ */ f.exports.jsx(
         Nb,
@@ -25322,18 +25322,18 @@ function Kk({
         },
         i
       )),
-      t && /* @__PURE__ */ f.exports.jsx(
+      t && t.map((s) => /* @__PURE__ */ f.exports.jsx(
         $4,
         {
-          pathname: t.pathname,
-          label: t.label,
-          icon: t.icon,
-          sublinks: t.subLinks,
+          pathname: s.pathname,
+          label: s.label,
+          icon: s.icon,
+          sublinks: s.subLinks,
           Link: o
         }
-      ),
+      )),
       /* @__PURE__ */ f.exports.jsx(
-        Hk,
+        H7,
         {
           onCloseSideBar: r,
           sidebar: n
@@ -25374,12 +25374,12 @@ function V8({
       )
     ] }),
     /* @__PURE__ */ f.exports.jsx(
-      zk,
+      z7,
       {
         isOpen: a,
         onClose: () => s(!1),
         children: /* @__PURE__ */ f.exports.jsx(
-          Kk,
+          K7,
           {
             Link: o,
             sidebar: r,
@@ -25420,7 +25420,7 @@ const Or = ct({
     hasNextPage: !1
   }
 });
-function Gk() {
+function G7() {
   var o;
   const { pagination: e, updateLimit: t, nextPage: n, prevPage: r } = He(Or);
   return /* @__PURE__ */ f.exports.jsx("div", { className: "flex flex-wrap items-center justify-end", children: /* @__PURE__ */ f.exports.jsxs("div", { className: "flex items-end sm:items-center space-x-6 lg:space-x-8 mt-2 sm:mt-0", children: [
@@ -25480,7 +25480,7 @@ function Gk() {
 const U8 = (e) => {
   const t = (e == null ? void 0 : e.hasNextPage) ?? !1, n = (e == null ? void 0 : e.hasPrevPage) ?? !1, r = (e == null ? void 0 : e.limit) ?? 10, o = (e == null ? void 0 : e.page) ?? 1;
   return { hasNextPage: t, hasPrevPage: n, limit: r, page: o, labels: { plural: "Items", single: "Item" } };
-}, Zk = (e) => e.replace(/[A-Z]/g, (t) => `_${t.toLowerCase()}`).toUpperCase(), W8 = {
+}, Z7 = (e) => e.replace(/[A-Z]/g, (t) => `_${t.toLowerCase()}`).toUpperCase(), W8 = {
   limit: 10,
   page: 1
 }, yc = () => ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(
@@ -25490,7 +25490,7 @@ const U8 = (e) => {
   ...t.slice(0, t.length - 1),
   e,
   ...t.slice(t.length - 1)
-], qk = () => /* @__PURE__ */ f.exports.jsx("span", { className: "mt-10 ml-5", children: "Sin Resultados" }), Xk = ({
+], q7 = () => /* @__PURE__ */ f.exports.jsx("span", { className: "mt-10 ml-5", children: "Sin Resultados" }), X7 = ({
   data: e,
   columns: t
 }) => {
@@ -25508,7 +25508,7 @@ const U8 = (e) => {
     o ? o.length : 0
   );
   return /* @__PURE__ */ f.exports.jsx(f.exports.Fragment, { children: e.length ? /* @__PURE__ */ f.exports.jsx(
-    Xk,
+    X7,
     {
       setMultiItemsSelected: r,
       setSelectItem: n,
@@ -25519,9 +25519,9 @@ const U8 = (e) => {
       columns: t,
       limitOfMultiSelect: a
     }
-  ) : /* @__PURE__ */ f.exports.jsx(qk, {}) });
-}, Qk = () => /* @__PURE__ */ f.exports.jsx(Jb, {}), Jk = () => /* @__PURE__ */ f.exports.jsx("span", { className: "loader-fade-dot" }), eO = () => /* @__PURE__ */ f.exports.jsxs("div", { className: "w-full h-full flex flex-col justify-center items-center py-24", children: [
-  /* @__PURE__ */ f.exports.jsx(Jk, {}),
+  ) : /* @__PURE__ */ f.exports.jsx(q7, {}) });
+}, Q7 = () => /* @__PURE__ */ f.exports.jsx(Jb, {}), J7 = () => /* @__PURE__ */ f.exports.jsx("span", { className: "loader-fade-dot" }), eO = () => /* @__PURE__ */ f.exports.jsxs("div", { className: "w-full h-full flex flex-col justify-center items-center py-24", children: [
+  /* @__PURE__ */ f.exports.jsx(J7, {}),
   /* @__PURE__ */ f.exports.jsx("h6", { className: "font-semibold", children: "Cargando..." })
 ] }), tO = () => {
   const { showFilters: e, setShowFilters: t } = He(Or);
@@ -25780,7 +25780,7 @@ function B8(e) {
       const A = m.getValues(), F = [];
       (M = Object.entries(A)) == null || M.forEach((k) => {
         k[1] && F.push({
-          field: Zk(k[0]),
+          field: Z7(k[0]),
           text: k[1]
         });
       });
@@ -25909,11 +25909,11 @@ function B8(e) {
               u && /* @__PURE__ */ f.exports.jsx(eO, {}),
               !u && l && /* @__PURE__ */ f.exports.jsx(sO, {}),
               !u && !l && !t && /* @__PURE__ */ f.exports.jsx(iO, {}),
-              !u && !l && t && /* @__PURE__ */ f.exports.jsx(Qk, {})
+              !u && !l && t && /* @__PURE__ */ f.exports.jsx(Q7, {})
             ]
           }
         ),
-        !u && !l && t && /* @__PURE__ */ f.exports.jsx(Gk, {})
+        !u && !l && t && /* @__PURE__ */ f.exports.jsx(G7, {})
       ] })
     }
   );
@@ -25982,7 +25982,7 @@ export {
   t8 as Collapsible,
   r8 as CollapsibleContent,
   n8 as CollapsibleTrigger,
-  Vk as ComboBox,
+  V7 as ComboBox,
   F8 as ComboxCheckbox,
   Pn as Command,
   zO as CommandDialog,
@@ -26044,7 +26044,7 @@ export {
   s8 as HoverCard,
   F6 as HoverCardContent,
   i8 as HoverCardTrigger,
-  Dk as ImageWithZoom,
+  D7 as ImageWithZoom,
   ud as Input,
   kO as InputPID,
   Fo as InputUI,
@@ -26155,7 +26155,7 @@ export {
   k8 as initialPagination,
   O8 as insertColumn,
   z8 as insertColumnList,
-  Zk as listCamelToSnake,
+  Z7 as listCamelToSnake,
   qP as navigationMenuTriggerStyle,
   fO as simulateFetch,
   f3 as toggleVariants,
