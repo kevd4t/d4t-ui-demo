@@ -168,6 +168,7 @@ function App() {
   const { theme, setTheme } = useTheme()
   const probeForm = useForm<any, any, any>()
   const toggleThemeFunc = () => {
+    console.log(theme)
     if (theme === 'light') {
       setTheme('dark')
     } else {
@@ -441,7 +442,7 @@ function App() {
             sidebar={{
               logout: () => { },
               profile,
-              theme: { toggleTheme: () => { toggleThemeFunc }, value: theme },
+              theme: { toggleTheme: () => { toggleThemeFunc() }, value: theme },
             }}
             bottomItems={sections}
             navLinksItems={[

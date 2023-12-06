@@ -17,7 +17,7 @@ export function BottomNavigation({
   return (
     <div className="lg:hidden md:block md:min-w-640 md:max-w-767 fixed bottom-0 left-0 z-50 w-full h-16 bg-brand-sidebar-background border-t border-gray-200 dark:border-[#151313] rounded-t-xl">
       {/* Buttons */}
-      <div className={`grid h-full max-w-lg grid-cols-5 mx-auto font-medium`}>
+      <div className={`flex justify-between h-full max-w-lg  mx-auto font-medium`}>
         {bottomItems.map((item, idx) => (
           <BottomNavigationButton
             key={idx}
