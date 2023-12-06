@@ -1,4 +1,5 @@
-import { SidebarProfile, SidebarTheme } from "../../";
+import { SidebarProfile } from "../../";
+import { SidebarTheme } from "../sidebar/toggle-theme";
 
 //--- Bottom
 export interface IBottomNavItem {
@@ -32,7 +33,6 @@ export interface INavLinkNested extends INavLink {
 
 export interface IBottomNavigationSidebarProps {
   navLinksItems?: INavLink[];
-  // subLinksItems?: INavLinkNested;
   subLinksItems?: INavLinkNested[];
   sidebar: ISidebarConfigProps;
   Link: any;
