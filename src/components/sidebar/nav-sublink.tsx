@@ -41,7 +41,7 @@ export const NavSubLink = ({ isExpanded, pathname, to, icon, label, Link }: NavS
         <div
           ref={containerRef}
           className={
-            `cursor-pointer border-2 border-transparent flex ${isExpanded ? 'pl-4 justify-start h-[42px]' : 'justify-center'} items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-brand-primary/20 hover:dark:bg-main-hover 
+            `cursor-pointer border-2 border-transparent flex ${isExpanded ? 'pl-4 justify-start h-[42px]' : 'justify-center'} items-center p-2 group group-hover:text-black text-base font-normal text-brand-sidebar-text rounded-lg hover:bg-brand-sidebar-iconsHover/20 hover:dark:bg-brand-sidebar-iconsHover/10 
           ${pathname.startsWith(to) && 'border-2 border-brand-primary/30 bg-brand-primary/20 dark:border-dark dark:bg-brand-primary/20 text-brand-primary'} select-none`
           }
         >
@@ -87,7 +87,7 @@ export const NavSubLink = ({ isExpanded, pathname, to, icon, label, Link }: NavS
         href={to}
         ref={containerRef}
         className={
-          `cursor-pointer border-2 border-transparent flex ${isExpanded ? 'pl-4 justify-start h-[42px]' : 'justify-center'} items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg bg-brand-primary/20 hover:dark:bg-main-hover 
+          `cursor-pointer border-2 border-transparent flex ${isExpanded ? 'pl-4 justify-start h-[42px]' : 'justify-center'} items-center p-2 group group-hover:text-black text-base font-normal text-brand-sidebar-text rounded-lg  hover:bg-brand-sidebar-iconsHover/20 hover:dark:bg-brand-sidebar-iconsHover/10 
         ${pathname.startsWith(to) && 'border-2 border-brand-primary/30 bg-brand-primary/20 dark:border-dark dark:bg-brand-primary/20 text-brand-primary'} select-none`
         }
       >

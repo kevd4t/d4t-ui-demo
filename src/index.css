@@ -17,7 +17,12 @@
     --primary-brand-lighter: 356deg 77% 63%;
 
     --secondary-brand: 226.2deg 50% 39.22%;
-    --secondary-brand-opaque: 226deg 50% 35%
+    --secondary-brand-opaque: 226deg 50% 35%;
+
+    --sidebar-background: 210deg 37.18% 13.04%;
+    --sidebar-text: 204.84deg 36.7% 88.28%;
+    --sidebar-text-accent: 205deg 73.8% 64.09%;
+    --sidebar-icons-hover: 210deg 37% 23%;
     /*----*/
 
     --foreground: 240 10% 3.9%;

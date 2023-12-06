@@ -441,7 +441,7 @@ function App() {
             sidebar={{
               logout: () => { },
               profile,
-              theme: { toggleTheme: () => { }, value: "dark" },
+              theme: { toggleTheme: () => { toggleThemeFunc }, value: theme },
             }}
             bottomItems={sections}
             navLinksItems={[
