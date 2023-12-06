@@ -47,7 +47,7 @@ export const NavLinkNested = ({ label, icon, sublinks, pathname, Link }: LinkNav
         <div
           ref={containerRef}
           onClick={toggleShow}
-          className={`cursor-pointer border-2 border-transparent grid grid-rows-1 ${isExpanded ? 'grid-cols-8 justify-center h-[42px]' : 'grid-cols-2 justify-center'} items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-brand-primary/20 hover:dark:bg-brand-primary/10 select-none`}
+          className={`cursor-pointer border-2 border-transparent grid grid-rows-1 ${isExpanded ? 'grid-cols-8 justify-center h-[42px]' : 'grid-cols-2 justify-center'} items-center p-2 group group-hover:text-black text-base font-normal text-brand-sidebar-text rounded-lg hover:bg-brand-sidebar-iconsHover/20 hover:dark:bg-brand-sidebar-iconsHover/10 select-none`}
         >
           <div className={`flex w-full justify-start items-center ${isExpanded ? 'col-span-7' : 'col-span-1'}`}>
             <div>{icon}</div>
@@ -117,7 +117,7 @@ export const NavLinkNested = ({ label, icon, sublinks, pathname, Link }: LinkNav
       <div
         ref={containerRef}
         onClick={toggleShow}
-        className={`cursor-pointer border-2 border-transparent grid grid-rows-1 ${isExpanded ? 'grid-cols-8 justify-center h-[42px]' : 'grid-cols-2 justify-center'} items-center p-2 group group-hover:text-black text-base font-normal text-gray-900 rounded-lg hover:bg-brand-primary/20 hover:dark:bg-main-hover select-none`}
+        className={`cursor-pointer border-2 border-transparent grid grid-rows-1 ${isExpanded ? 'grid-cols-8 justify-center h-[42px]' : 'grid-cols-2 justify-center'} items-center p-2 group group-hover:text-black text-base font-normal text-brand-sidebar-text rounded-lg hover:bg-brand-sidebar-iconsHover/20 hover:dark:bg-brand-sidebar-iconsHover/10 select-none`}
       >
         <div className={`flex w-full justify-start items-center ${isExpanded ? 'col-span-7' : 'col-span-1'}`}>
           <div>{icon}</div>

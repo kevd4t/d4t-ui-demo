@@ -13,15 +13,14 @@ export default function DrawerBottomNavigation({
 }: IDrawerProps) {
   return (
     <div
-      className={`fixed z-30 inset-0 bg-opacity-50  transition-opacity ${
-        isOpen
-          ? "opacity-100 pointer-events-auto"
-          : "opacity-0 pointer-events-none"
-      }`}
+      className={`fixed z-30 inset-0 bg-opacity-50  transition-opacity ${isOpen
+        ? "opacity-100 pointer-events-auto"
+        : "opacity-0 pointer-events-none"
+        }`}
     >
       <div className="fixed z-50 inset-y-0  right-0  flex">
         <div
-          className={`max-w-[250px] h-full bg-main overflow-y-scroll rounded-l-xl border-l-[1.5px] border-l-slate-30`}
+          className={`max-w-[250px] h-full overflow-y-scroll rounded-l-xl border-l-[1.5px] bg-brand-sidebar-background text-brand-sidebar-text`}
         >
           {children}
         </div>

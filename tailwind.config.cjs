@@ -49,6 +49,12 @@ module.exports = {
           secondary: {
             DEFAULT: 'hsl(var(--secondary-brand))',
             opaque: 'hsl(var(--secondary-brand-opaque))'
+          },
+          sidebar: {
+            background: 'hsl(var(--sidebar-background))',
+            text: 'hsl(var(--sidebar-text))',
+            textAccent: 'hsl(var(--sidebar-text-accent))',
+            iconsHover: 'hsl(var(--sidebar-icons-hover))'
           }
         },
 
