@@ -7,5 +7,5 @@ interface ToggleThemeProps {
     isExpanded: boolean;
     theme: SidebarTheme;
 }
-export declare const ToggleTheme: ({ isExpanded }: ToggleThemeProps) => JSX.Element;
+export declare const ToggleTheme: ({ isExpanded, theme }: ToggleThemeProps) => JSX.Element;
 export {};
