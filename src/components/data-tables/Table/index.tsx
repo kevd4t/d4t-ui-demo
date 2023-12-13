@@ -79,7 +79,7 @@ export function D4TTable<DataSchema>(props: CustomTableProps<DataSchema>) {
         if (!query[1]) return;
 
         queries.push({
-          field: props.isFormatedUpperQueries ? camelToSnake(query[0]) : query[0],
+          field: props.!isFormatedUpperQueries ? camelToSnake(query[0]) : query[0],
           text: query[1],
         });
       });

@@ -36,7 +36,7 @@ export const TableToolbar = ({ form, onSubmit }: IToolbarProps) => {
       if (!query[1]) return;
 
       queries.push({
-        field: isFormatedUpperQueries ? camelToSnake(query[0]) : query[0],
+        field: !isFormatedUpperQueries ? camelToSnake(query[0]) : query[0],
         text: query[1],
       });
     });
