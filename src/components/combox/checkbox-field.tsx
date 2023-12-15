@@ -1,11 +1,25 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, type ReactNode } from 'react'
 import { Check } from 'lucide-react'
 
 import { FormDescription, FormField, FormItem, FormLabel, Badge, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, Popover, PopoverContent, PopoverTrigger, Label } from '../'
 import { cn } from '../../lib/utils'
 import { LocalOption } from './types'
+import { UseFormReturn } from 'react-hook-form'
 
-export const CheckboxField = ({ form, id, description, icon, placeholder, label, tabIndex, options, classNameContainer, classNamePopover }) => {
+interface CheckBoxFieldProps {
+  form: UseFormReturn<any, any, any>
+  id: string
+  description: string
+  icon: ReactNode
+  placeholder: string
+  label: string
+  tabIndex: number
+  options: any[]
+  classNameContainer: string
+  classNamePopover: string
+}
+
+export const CheckboxField = ({ form, id, description, icon, placeholder, label, tabIndex, options, classNameContainer, classNamePopover }: CheckBoxFieldProps) => {
   const elementRef = useRef(null)
   const [comboxWidth, setComboxWidth] = useState(null)
 
@@ -32,7 +46,6 @@ export const CheckboxField = ({ form, id, description, icon, placeholder, label,
     }
   }, [])
 
-
   const defaultOptions = form?.formState?.defaultValues[id]
   const optionsFormatted: LocalOption[] = options.map(option => ({
     ...option,
@@ -57,7 +70,7 @@ export const CheckboxField = ({ form, id, description, icon, placeholder, label,
     })
 
     setLocalOptions(options)
-    form.setValue(id, options.filter((option) => option.selected).map((option) => option.value))
+    form.setValue(id, options.filter((option) => option.selected).map((option) => option.value), { shouldDirty: true })
   }
 
   return (

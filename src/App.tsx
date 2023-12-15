@@ -19,19 +19,33 @@ import {
   CardContent,
   CardHeader,
   D4TCardsList,
-  IListColumn
+  IListColumn,
+  ComboxCheckbox
 } from "./components";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { UseFormReturn, useForm } from "react-hook-form";
 import { Badge, BarChart, Building, DivideCircle, HelpCircle, LucideTruck, Router, Settings, StopCircle, Truck, User } from "lucide-react";
 import { ThemeProvider, useTheme } from "next-themes";
 import FileResizer from "react-image-file-resizer";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
 interface ITank {
   id: string;
   name: string;
   fuelLevel: number
 }
+export enum Hydrocarbon {
+  Diesel = 'DIESEL',
+  Gas = 'GAS',
+  Gasoline = 'GASOLINE'
+}
+export const HydrocarbonSchema = z.nativeEnum(Hydrocarbon)
+
+export const isFormEdited = (form: UseFormReturn<any, any, any>) => Boolean(!Object.entries(form.formState.dirtyFields).length)
+const fuelSchema = z.object({
+  fuel: z.array(HydrocarbonSchema),
+})
 
 function App() {
   const profile = { role: "Administrador", name: "Kevin", lastname: "blanco", photo: "https://www.hmiscfl.org/wp-content/uploads/2018/06/generic-person-icon-14.png" };
@@ -154,19 +168,20 @@ function App() {
     hasPrevPage: false,
     hasNextPage: false,
   };
-  const onSubmitTable: ITableSubmit = async ({
-    queries,
-    filters,
-    page,
-    limit,
-  }) => {
-    console.log({ queries, filters, page, limit });
+  const onSubmitTable: ITableSubmit = async ({ queries, filters, page, limit }) => {
+    console.log({ queries, filters, page, limit })
   };
 
   const [itemsOfMultiSel, setItemsOfMultisel] = useState([]);
   const [uploadImages, setUploadImages] = useState<IUploadImage[]>([]);
   const { theme, setTheme } = useTheme()
   const probeForm = useForm<any, any, any>()
+
+  const comboxForm = useForm<{ fuel: Hydrocarbon[] }>({
+    defaultValues: { fuel: [HydrocarbonSchema.enum.Gasoline] },
+    resolver: zodResolver(fuelSchema)
+  })
+
   const toggleThemeFunc = () => {
     console.log(theme)
     if (theme === 'light') {
@@ -175,6 +190,12 @@ function App() {
       setTheme('light')
     }
   }
+
+  const FUELS = [
+    { id: 'Gasolina', label: 'Gasolina', value: Hydrocarbon.Gasoline },
+    { id: 'Diesel', label: 'Diesel', value: Hydrocarbon.Diesel },
+    { id: 'Gas', label: 'Gas', value: Hydrocarbon.Gas }
+  ]
 
   return (
     <ThemeProvider attribute='class' defaultTheme="light">
@@ -366,18 +387,14 @@ function App() {
             </div>
 
             {/* Forms */}
-            <div className="m-10">
+            {/* <div className="m-10">
               <Form {...probeForm}>
                 <GenericSelect
                   form={probeForm}
                   id="input"
                   placeholder="Selecciona"
                   classNameGroup=""
-                  items={[
-                    { label: "item 1", value: "hello1" },
-                    { label: "item 2", value: "hello2" },
-                    { label: "item 3", value: "hello3" },
-                  ]}
+                  items={[]}
                 />
 
                 <Input
@@ -388,6 +405,33 @@ function App() {
                 />
 
                 <Button className="m-5 bg-brand-primary hover:bg-brand-primary-opaque">This is a primary button</Button>
+              </Form>
+            </div> */}
+
+            <div>
+              Watch: { JSON.stringify(comboxForm.watch(), null, 2) } <br />
+              DirtyFields { JSON.stringify(comboxForm.formState.dirtyFields) } <br />
+              isDirty { JSON.stringify(comboxForm.formState.isDirty) } <br />
+              <Form {...comboxForm}>
+                <form>
+                  <ComboxCheckbox
+                    form={comboxForm}
+                    id='fuel'
+                    tabIndex={2}
+                    label='Combustible'
+                    options={FUELS}
+                  />
+
+                  <Button
+                    type='submit'
+                    tabIndex={16}
+                    className='w-full py-2 text-sm'
+                    disabled={isFormEdited(comboxForm)}
+                    onClick={comboxForm.handleSubmit((data) => console.log({ data }))}
+                  >
+                    Editar Camión
+                  </Button>
+                </form>
               </Form>
             </div>
 

@@ -66,6 +66,8 @@ export const GenericSelect = ({
 
             <SelectContent>
               <SelectGroup className={cn('overflow-auto', classNameGroup)}>
+                { !items.length ? <div className='px-2 py-1 text-sm'>Sin Resultados</div> : null }
+
                 {
                   items.map(item => (
                     <SelectItem key={item.value?.toString()} value={item.value?.toString()} >
@@ -83,6 +85,8 @@ export const GenericSelect = ({
                     </SelectItem>
                   ))
                 }
+
+                
               </SelectGroup>
 
             </SelectContent>
