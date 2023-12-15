@@ -22464,7 +22464,7 @@ const P7 = () => {
     const p = [];
     (m = Object.entries(e == null ? void 0 : e.getValues())) == null || m.forEach((h) => {
       h[1] && p.push({
-        field: l ? ka(h[0]) : h[0],
+        field: l ? h[0] : ka(h[0]),
         text: h[1]
       });
     }), s({ queries: p, filters: [], limit: c, page: i });
@@ -22539,7 +22539,7 @@ const P7 = () => {
     const p = r(), m = [];
     (h = Object.entries(u)) == null || h.forEach((v) => {
       v[1] && m.push({
-        field: c ? ka(v[0]) : v[0],
+        field: c ? v[0] : ka(v[0]),
         text: v[1]
       });
     }), console.log("queries formatted ", m), e({ queries: m, filters: p, limit: s, page: a });
@@ -22585,7 +22585,7 @@ function M8(e) {
       const R = m.getValues(), A = [];
       (B = Object.entries(R)) == null || B.forEach((M) => {
         M[1] && A.push({
-          field: e.isFormatedUpperQueries ? ka(M[0]) : M[0],
+          field: e.isFormatedUpperQueries ? M[0] : ka(M[0]),
           text: M[1]
         });
       });
@@ -22754,13 +22754,16 @@ const D8 = ({
         /* @__PURE__ */ f.exports.jsx("div", { className: "my-2" }),
         /* @__PURE__ */ f.exports.jsxs(hd, { onValueChange: p.onChange, defaultValue: p.value, disabled: u, children: [
           /* @__PURE__ */ f.exports.jsx(va, { children: /* @__PURE__ */ f.exports.jsx(si, { disabled: u, tabIndex: i, className: L("w-full", l), children: /* @__PURE__ */ f.exports.jsx(vd, { placeholder: r }) }) }),
-          /* @__PURE__ */ f.exports.jsx(ii, { children: /* @__PURE__ */ f.exports.jsx(MS, { className: L("overflow-auto", d), children: a.map((v) => {
-            var g, b;
-            return /* @__PURE__ */ f.exports.jsx(ci, { value: (g = v.value) == null ? void 0 : g.toString(), children: /* @__PURE__ */ f.exports.jsxs("div", { className: "flex justify-center items-center", children: [
-              (v == null ? void 0 : v.icon) && /* @__PURE__ */ f.exports.jsx("div", { className: "dark:text-white mr-2 h-5", children: v.icon }),
-              v.label
-            ] }) }, (b = v.value) == null ? void 0 : b.toString());
-          }) }) })
+          /* @__PURE__ */ f.exports.jsx(ii, { children: /* @__PURE__ */ f.exports.jsxs(MS, { className: L("overflow-auto", d), children: [
+            a.length ? null : /* @__PURE__ */ f.exports.jsx("div", { className: "px-2 py-1 text-sm", children: "Sin Resultados" }),
+            a.map((v) => {
+              var g, b;
+              return /* @__PURE__ */ f.exports.jsx(ci, { value: (g = v.value) == null ? void 0 : g.toString(), children: /* @__PURE__ */ f.exports.jsxs("div", { className: "flex justify-center items-center", children: [
+                (v == null ? void 0 : v.icon) && /* @__PURE__ */ f.exports.jsx("div", { className: "dark:text-white mr-2 h-5", children: v.icon }),
+                v.label
+              ] }) }, (b = v.value) == null ? void 0 : b.toString());
+            })
+          ] }) })
         ] })
       ] });
     }
@@ -24927,7 +24930,7 @@ const Uk = ({ form: e, id: t, description: n, icon: r, placeholder: o, label: a,
     selected: m ? m.includes(w.value) : !1
   })), [v, g] = H(h), b = (w) => v.filter((O) => O.selected).map((O) => O.value), y = () => g((w) => w.map((P) => ({ ...P, selected: !1 }))), $ = (w, P) => {
     const O = v.map((I) => I.id === w ? { ...I, selected: P } : I);
-    g(O), e.setValue(t, O.filter((I) => I.selected).map((I) => I.value));
+    g(O), e.setValue(t, O.filter((I) => I.selected).map((I) => I.value), { shouldDirty: !0 });
   };
   return /* @__PURE__ */ f.exports.jsx(
     Nr,
