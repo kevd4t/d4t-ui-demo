@@ -50,10 +50,10 @@ export const MultipleImages = ({
     setLocalImage(imageList);
 
     const imageListFormated = imageList.map(async (image) => {
-      const { data_url: compressedUrl, file: compressedFile } =
-        await compressImage({
-          resizer: compress.resizer,
-          imageFile: image.file,
+      if (compress?.resizer && image?.file) {
+        const { data_url: compressedUrl, file: compressedFile } = await compressImage({
+          resizer: compress?.resizer,
+          imageFile: image?.file,
           quality: format?.quality || 10,
           maxWidth: format?.width || 500,
           maxHeight: format?.width || 500,
@@ -82,6 +82,9 @@ export const MultipleImages = ({
           },
         },
       };
+      }
+
+      return null
     });
 
     Promise.all(imageListFormated).then(setUploadImages);
