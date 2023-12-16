@@ -172,8 +172,8 @@ function App() {
     console.log({ queries, filters, page, limit })
   };
 
-  const [itemsOfMultiSel, setItemsOfMultisel] = useState([]);
   const [uploadImages, setUploadImages] = useState<IUploadImage[]>([]);
+  const [itemsOfMultiSel, setItemsOfMultisel] = useState([]);
   const { theme, setTheme } = useTheme()
   const probeForm = useForm<any, any, any>()
 
@@ -459,6 +459,20 @@ function App() {
                 </CardContent>
               </Card>
             </div>
+          </div>
+
+          <div>
+          <MultipleImages
+              limit={10}
+              zoom
+              compress={{ resizer: FileResizer }}
+              setUploadImages={setUploadImages}
+              initialPreview={[
+                {
+                  data_url: 'http://localhost:3000/document/image/truck%2F0fc5b023-f184-40d4-b12b-c52752e814fa.jpg'
+                }
+              ]}
+            />
           </div>
 
           {/* Cards list */}
