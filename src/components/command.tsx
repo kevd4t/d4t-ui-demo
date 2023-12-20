@@ -112,7 +112,7 @@ CommandSeparator.displayName = CommandPrimitive.Separator.displayName
 
 const CommandItem = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Item>
+  Omit<React.ComponentPropsWithoutRef<typeof CommandPrimitive.Item>, 'placeholder'>
 >(({ className, onClick, ...props }, ref) => (
   <CommandPrimitive.Item
     ref={ref}
