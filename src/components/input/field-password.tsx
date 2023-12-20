@@ -34,6 +34,7 @@ export const FieldPassword = ({ id, form, label, description, iconDirection, cla
                   type='button'
                   onClick={() => setShowPassword(prevState => !prevState)}
                   className='absolute inset-y-0 left-0 flex items-center pl-3 z-50'
+                  tabIndex={-1}
                 >
                   {
                     showPassword
@@ -97,6 +98,7 @@ export const FieldPassword = ({ id, form, label, description, iconDirection, cla
                       type='button'
                       onClick={() => setShowPassword(prevState => !prevState)}
                       className='absolute inset-y-0 left-0 flex items-center pl-3 z-50'
+                      tabIndex={-1}
                     >
                       {
                         showPassword
