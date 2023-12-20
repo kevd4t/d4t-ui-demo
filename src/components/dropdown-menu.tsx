@@ -58,7 +58,7 @@ DropdownMenuSubContent.displayName =
 
 const DropdownMenuContent = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
+  Omit<React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>, 'placeholder'>
 >(({ className, sideOffset = 4, ...props }, ref) => (
   <DropdownMenuPrimitive.Portal>
     <DropdownMenuPrimitive.Content
@@ -76,7 +76,7 @@ DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName
 
 const DropdownMenuItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> & {
+  Omit<React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item>, 'placeholder'> & {
     inset?: boolean
   }
 >(({ className, inset, ...props }, ref) => (
@@ -140,7 +140,7 @@ DropdownMenuRadioItem.displayName = DropdownMenuPrimitive.RadioItem.displayName
 
 const DropdownMenuLabel = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Label>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> & {
+  Omit<React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label>, 'placeholder'> & {
     inset?: boolean
   }
 >(({ className, inset, ...props }, ref) => (
@@ -158,7 +158,7 @@ DropdownMenuLabel.displayName = DropdownMenuPrimitive.Label.displayName
 
 const DropdownMenuSeparator = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Separator>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>
+  Omit<React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>, 'placeholder'>
 >(({ className, ...props }, ref) => (
   <DropdownMenuPrimitive.Separator
     ref={ref}
