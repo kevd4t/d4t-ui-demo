@@ -11009,6 +11009,7 @@ const TC = ({ id: e, form: t, label: n, description: r, iconDirection: o, classN
           type: "button",
           onClick: () => l((d) => !d),
           className: "absolute inset-y-0 left-0 flex items-center pl-3 z-50",
+          tabIndex: -1,
           children: c ? /* @__PURE__ */ f.exports.jsx(Ia, { size: 18 }) : /* @__PURE__ */ f.exports.jsx(Aa, { size: 18 })
         }
       ) }),
@@ -11057,6 +11058,7 @@ const TC = ({ id: e, form: t, label: n, description: r, iconDirection: o, classN
                 type: "button",
                 onClick: () => l((m) => !m),
                 className: "absolute inset-y-0 left-0 flex items-center pl-3 z-50",
+                tabIndex: -1,
                 children: c ? /* @__PURE__ */ f.exports.jsx(Ia, { size: 18 }) : /* @__PURE__ */ f.exports.jsx(Aa, { size: 18 })
               }
             ) }),
