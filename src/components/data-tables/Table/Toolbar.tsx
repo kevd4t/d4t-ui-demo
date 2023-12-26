@@ -47,7 +47,7 @@ export const TableToolbar = ({ form, onSubmit }: IToolbarProps) => {
 
   return (
     <div className="w-10/12 flex items-center justify-between">
-      <div className="w-full flex flex-col items-start gap-x-2 gap-y-2">
+      <div className="w-full flex flex-col-reverse items-start gap-x-2 gap-y-2">
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-full flex justify-start items-center sm:mr-4"
