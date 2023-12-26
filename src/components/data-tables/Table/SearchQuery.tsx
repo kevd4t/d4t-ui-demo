@@ -1,6 +1,6 @@
 import { UseFormReturn } from 'react-hook-form'
+import { ReactNode, useContext } from 'react'
 import { Search } from 'lucide-react'
-import { ReactNode } from 'react'
 
 import {
   Badge,
@@ -10,8 +10,10 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
+  camelToSnake,
   Label
 } from '../..'
+import { TableContext } from './store'
 
 interface SearchQueryProps {
   id: string
@@ -22,6 +24,23 @@ interface SearchQueryProps {
 }
 
 export const SearchQuery = ({ id, form, label, icon, queryText }: SearchQueryProps) => {
+  const { onSubmitTable, pagination: { page, limit }, isFormatedUpperQueries } = useContext(TableContext)
+
+  const onSubmit = () => {
+    const queries = []
+
+    Object.entries(form?.getValues())?.forEach((query) => {
+      if (!query[1]) return
+
+      queries.push({
+        field: !isFormatedUpperQueries ? camelToSnake(query[0]) : query[0],
+        text: query[1],
+      })
+    })
+
+    onSubmitTable({ queries, filters: [], limit, page })
+  }
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -52,12 +71,22 @@ export const SearchQuery = ({ id, form, label, icon, queryText }: SearchQueryPro
           Buscar {label}
         </Label>
 
-        <Input
-          id={id}
-          form={form}
-          type='text'
-          placeholder={`Ingrese ${label}`}
-        />
+        <div className='w-full flex justify-between items-end gap-x-3'>
+          <Input
+            id={id}
+            form={form}
+            type='text'
+            placeholder={`Ingrese ${label}`}
+          />
+
+          <Button
+            type='button'
+            onClick={onSubmit}
+            className='h-10 w-fit'
+          >
+            <Search size={18} />
+          </Button>
+        </div>
       </PopoverContent>
     </Popover>
   )
