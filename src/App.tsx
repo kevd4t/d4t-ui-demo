@@ -486,7 +486,7 @@ function App() {
               setUploadImages={setUploadImages}
               initialPreview={[
                 {
-                  data_url: 'http://localhost:3000/document/image/truck%2F0fc5b023-f184-40d4-b12b-c52752e814fa.jpg'
+                  data_url: 'https://unavatar.io/github/ipacs13'
                 }
               ]}
             />

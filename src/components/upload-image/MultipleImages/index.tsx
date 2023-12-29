@@ -61,15 +61,14 @@ export const MultipleImages = ({
           rotation: format?.rotation || 0,
         });
 
-      const originalSize = convertBytes(imageList[0]?.file.size);
-      const compreesedSize = convertBytes(compressedFile.size);
+      const compreesedSize = convertBytes(compressedFile?.size)
 
       return {
         original: {
           preview: imageList[0]?.data_url as string,
           file: imageList[0]?.file,
           size: {
-            formated: originalSize,
+            formated: image?.file?.size ? convertBytes(imageList[0]?.file?.size) : null,
             bytes: imageList[0]?.file.size,
           },
         },
