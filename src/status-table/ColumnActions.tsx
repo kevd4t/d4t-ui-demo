@@ -4,7 +4,6 @@ import { toast } from 'sonner'
 
 import { TColumnActions } from '../lib/types/tables'
 import { IStatus } from '../lib/types/status'
-import { useFetch } from '../lib/hooks/useFetch'
 
 import { AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '../components'
 import { Spinner } from '../components/loaders/Spinner'
@@ -22,7 +21,6 @@ export const StatusColumnActions = ({ status, actions, itemIdx }: ISubCategoryCo
   const [isOpenDetail, setOpenDetail] = useState(false)
   const [isOpenAlert, setOpenAlert] = useState(false)
   const [isOpenEdit, setOpenEdit] = useState(false)
-  const { loading, error, fetcher } = useFetch()
 
   const openConfirmBlock = () => setOpenAlert(true)
   const openEdit = () => setOpenEdit(true)
@@ -36,14 +34,7 @@ export const StatusColumnActions = ({ status, actions, itemIdx }: ISubCategoryCo
 
   const blockItem = async () => {
     const blockStatus = async () => fetch(`/api/status/${status.id}/block`, { method: 'PUT' })
-    const data: any = await fetcher(blockStatus)
 
-    if (error) {
-      toast.error('Hubo un error')
-      return
-    }
-
-    console.log({ data })
     toast.success(`${status.title} ha sido bloqueado`)
     setOpenAlert(false)
   }
@@ -60,12 +51,12 @@ export const StatusColumnActions = ({ status, actions, itemIdx }: ISubCategoryCo
           </AlertDialogHeader>
 
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={loading} onClick={() => setOpenAlert(false)}>
+            <AlertDialogCancel onClick={() => setOpenAlert(false)}>
               Cancelar
             </AlertDialogCancel>
 
-            <AlertDialogAction disabled={loading} onClick={blockItem} className='w-[89px]'>
-              { loading ? <Spinner /> : 'Bloquear' }
+            <AlertDialogAction onClick={blockItem} className='w-[89px]'>
+              Bloquear
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

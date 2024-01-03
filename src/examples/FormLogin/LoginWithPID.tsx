@@ -4,13 +4,10 @@ import { z } from "zod"
 
 import { ILoginWithDNI, LOGIN_WITH_DNI, loginSchema } from '../../lib/schemas/login.schema'
 import { UserAuthenticated } from '../../lib/types'
-import { useFetch } from '../../lib/hooks'
-
 import { Button, Form, GenericSelect, Input, InputPID, PIDValue, formatCITypes } from '../../components'
 
 export const LoginWithPID = () => {
   const form = useForm<ILoginWithDNI>({ resolver: zodResolver(LOGIN_WITH_DNI) })
-  const { data, loading, error, fetcher } = useFetch<UserAuthenticated>()
 
   const onSubmit = async ({ pidNumber: pidNumber, pidType: pidType, password }: ILoginWithDNI) => {
     const loginData: z.infer<typeof loginSchema> = {
@@ -68,12 +65,10 @@ export const LoginWithPID = () => {
           tabIndex={3}
           label='Contraseña'
           placeholder='*******'
-          disabled={loading}
           form={form}
         />
 
         <Button 
-          disabled={loading}
           tabIndex={4}
           type='submit'
           className='w-full'
