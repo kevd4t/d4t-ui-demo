@@ -43,5 +43,5 @@ export interface PIDProps {
     form: UseFormReturn<any, any, any>;
     pid?: PID;
 }
-export declare function InputPID({ form, pid: dni, }: PIDProps): JSX.Element;
+export declare function InputPID({ form, pid: dni }: PIDProps): JSX.Element;
 export {};

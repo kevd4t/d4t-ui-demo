@@ -105,20 +105,18 @@ const dniDefaultValues: PID = {
   }
 }
 
-export function InputPID ({
-  form,
-  pid: dni = dniDefaultValues,
-}: PIDProps) {
+export function InputPID ({ form, pid: dni = dniDefaultValues }: PIDProps) {
   const handleOnKeyUpIdentifierNumber = (event) => {
     const { value } = event.target
     const identifierNumberFormmated = formatCI(value)
-    form.setValue('pidNumber', identifierNumberFormmated)
+    const formId = dni?.number?.id || dniDefaultValues.number.id
+    form.setValue(formId, identifierNumberFormmated)
   }
 
   return (
     <div className='w-full flex justify-start items-end gap-x-2'>
       <ComboBox
-        id='pidType'
+        id={dni?.type?.id || dniDefaultValues.type.id}
         form={form}
         label={dni?.type?.label || dniDefaultValues.type.label}
         items={dni?.type?.items || dniDefaultValues.type.items}
@@ -133,7 +131,7 @@ export function InputPID ({
       />
 
       <Input
-        id='pidNumber'
+        id={dni?.number?.id || dniDefaultValues.number.id}
         form={form}
         type='text'
         defaultValue={dni?.number?.defaultValue}
