@@ -50,3 +50,4 @@ export * from "./combox/checkbox";
 export * from "./bottom-navigation";
 export * from "./data-cards";
 export * from "./carousel";
+export * from "./drawer";

@@ -20,7 +20,9 @@ import {
   CardHeader,
   D4TCardsList,
   IListColumn,
-  ComboxCheckbox
+  ComboxCheckbox,
+  UploadImage,
+  ImageWithZoom
 } from './components';
 import { useState } from 'react';
 import { UseFormReturn, useForm } from 'react-hook-form';
@@ -190,6 +192,7 @@ function App() {
   };
 
   const [uploadImages, setUploadImages] = useState<IUploadImage[]>([]);
+  const [uploadSingleImage, setUploadSingleImage] = useState<IUploadImage>(null);
   const [itemsOfMultiSel, setItemsOfMultisel] = useState([]);
   const { theme, setTheme } = useTheme()
   const probeForm = useForm<any, any, any>()
@@ -459,26 +462,26 @@ function App() {
                   <MultipleImages
                     label='Multi upload images'
                     uploadLabel='upload'
+                    zoom
                     setUploadImages={setUploadImages}
                     limit={1}
                     compress={{
                       openComparisons: () => { },
                       resizer: FileResizer,
                     }}
-                  // initialPreview={[
-                  //   {
-                  //     data_url:
-                  //       'https://www.drupal.org/files/project-images/nextjs-icon-dark-background.png',
-                  //   },
-                  // ]}
                   />
 
+                <UploadImage
+                  zoom
+                  label='Single Images'
+                  setUploadImage={setUploadSingleImage}
+                />
                 </CardContent>
               </Card>
             </div>
           </div>
-
           <div>
+
           <MultipleImages
               limit={10}
               zoom
@@ -486,7 +489,7 @@ function App() {
               setUploadImages={setUploadImages}
               initialPreview={[
                 {
-                  data_url: 'http://localhost:3000/document/image/truck%2F0fc5b023-f184-40d4-b12b-c52752e814fa.jpg'
+                  data_url: 'https://unavatar.io/github/ipacs13'
                 }
               ]}
             />

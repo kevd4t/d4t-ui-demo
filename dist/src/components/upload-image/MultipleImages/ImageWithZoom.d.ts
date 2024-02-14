@@ -1,7 +1,9 @@
 /// <reference types="react" />
-interface ImageWithZoomProps {
+import { UncontrolledProps } from 'react-medium-image-zoom';
+interface ImageWithZoomProps extends Omit<UncontrolledProps, 'children'> {
     previewUrl: string;
-    imageContainerClassName: string;
+    alt?: string;
+    imageContainerClassName?: string;
 }
-export declare const ImageWithZoom: ({ previewUrl, imageContainerClassName }: ImageWithZoomProps) => JSX.Element;
+export declare const ImageWithZoom: ({ previewUrl, alt, imageContainerClassName, ...rest }: ImageWithZoomProps) => JSX.Element;
 export {};

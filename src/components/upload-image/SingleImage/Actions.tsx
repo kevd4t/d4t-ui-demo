@@ -20,7 +20,7 @@ export const UploadImageActions = ({ imageIndex, compress, disabled, tabIndexs, 
   if (disabled) return null
 
   return (
-    <div className='mt-2 gap-x-2 w-full flex flex-col justify-center items-end gap-y-2 absolute top-2 right-2'>
+    <div className='mt-2 gap-x-2 w-fit flex flex-col justify-center items-end gap-y-2 absolute top-2 right-2 bg-transparent'>
       {
         compress?.openComparisons && (
           <Button
