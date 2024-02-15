@@ -22,7 +22,9 @@ import {
   IListColumn,
   ComboxCheckbox,
   UploadImage,
-  ImageWithZoom
+  ImageWithZoom,
+  InputPID,
+  formatCITypes
 } from './components';
 import { useState } from 'react';
 import { UseFormReturn, useForm } from 'react-hook-form';
@@ -49,7 +51,35 @@ const fuelSchema = z.object({
   fuel: z.array(HydrocarbonSchema),
 })
 
+const DNI_TYPES = z.enum(['v', 'e', 'p', 'j', 'g'])
+
+export const IDENTIFIER_TYPE_SCHEMA = z.enum(['EMAIL', 'PID'])
+
+export const pidLoginSchema = z.object({
+  identifier: z.string(),
+  password: z.string(),
+  type: z.enum([IDENTIFIER_TYPE_SCHEMA.Enum.PID])
+})
+
+export const pidLoginSchemaForm = pidLoginSchema.extend({
+  pidType: DNI_TYPES,
+  pidNumber: z.string()
+})
+
+export interface ILoginWithPID extends z.infer<typeof pidLoginSchemaForm> {}
+
+
+export const defaultLoginPID: ILoginWithPID = {
+  identifier: '',
+  password: '',
+  type: 'PID',
+  pidNumber: '',
+  pidType: 'v'
+}
+
 function App() {
+  const formPid = useForm<ILoginWithPID>({ defaultValues: defaultLoginPID, resolver: zodResolver(pidLoginSchemaForm) })
+
   const profile = { role: 'Administrador', name: 'Kevin', lastname: 'blanco', photo: 'https://www.hmiscfl.org/wp-content/uploads/2018/06/generic-person-icon-14.png' };
   const sections = [
     {
@@ -71,41 +101,6 @@ function App() {
       titleDescription: 'Analytics',
       path: '/anaytics',
       icon: <Truck />,
-    },
-  ];
-
-  const data = [
-    {
-      id: '234',
-      name: 'Kevin',
-    },
-    {
-      id: '235',
-      name: 'Cristian',
-    },
-    {
-      id: '236',
-      name: 'Shamael',
-    },
-    {
-      id: '237',
-      name: 'Jose',
-    },
-    {
-      id: '238',
-      name: 'Ronald',
-    },
-    {
-      id: '239',
-      name: 'Jorge',
-    },
-    {
-      id: '240',
-      name: 'Jesus',
-    },
-    {
-      id: '241',
-      name: 'Nancy',
     },
   ];
 
@@ -131,38 +126,6 @@ function App() {
 
   ]
 
-  const dataCardsColumns: IListColumn<ITank>[] = [
-    {
-      id: 'label',
-      value: 'Mi Card',
-      label: 'hello'
-    },
-    {
-      id: 'description',
-      value: 'the description',
-      label: 'Nombre',
-      filters: [{
-        id: 'name',
-        label: 'name',
-        value: 'Kevin',
-      }],
-      isQuery: true
-    },
-    {
-      id: 'content',
-      value: 'Mi Card',
-      label: 'hello',
-      render: (tank) => (
-        <CardContent>
-          <CardHeader>Tank name: {tank.name}</CardHeader>
-          <CardContent>
-            <p>Fuel level: {tank.fuelLevel} L</p>
-          </CardContent>
-        </CardContent>
-      )
-    },
-  ];
-
   const dataTableColumns: ITableColumn<ITank>[] = [
     {
       id: 'id',
@@ -187,6 +150,7 @@ function App() {
     hasPrevPage: false,
     hasNextPage: false,
   };
+  
   const onSubmitTable: ITableSubmit = async ({ queries, filters, page, limit }) => {
     console.log({ queries, filters, page, limit })
   };
@@ -407,26 +371,16 @@ function App() {
             </div>
 
             {/* Forms */}
-            {/* <div className='m-10'>
+            <div className='m-10'>
               <Form {...probeForm}>
-                <GenericSelect
-                  form={probeForm}
-                  id='input'
-                  placeholder='Selecciona'
-                  classNameGroup=''
-                  items={[]}
-                />
-
-                <Input
-                  form={probeForm}
-                  placeholder='Generic input'
-                  id='inputText'
-                  type='text'
+                <InputPID
+                  form={formPid}
+                  label='Cedula'
                 />
 
                 <Button className='m-5 bg-brand-primary hover:bg-brand-primary-opaque'>This is a primary button</Button>
               </Form>
-            </div> */}
+            </div>
 
             <div>
               Watch: { JSON.stringify(comboxForm.watch(), null, 2) } <br />
@@ -456,6 +410,23 @@ function App() {
             </div>
 
             {/* Images */}
+            <div className='mt-10'>
+            {/* <InputPID
+                form={formPid}
+                label='Cedula'
+                pid={{
+                  type: {
+                    items: formatCITypes(['VENEZUELAN', 'FOREIGN']),
+                    defaultValue: formatCITypes(['VENEZUELAN'])[0].value,
+                    disabled: true
+                  },
+                  number: {
+                    disabled: true
+                  }
+                }}
+              /> */}
+            </div>
+
             <div className='m-10'>
               <Card>
                 <CardContent>
@@ -463,8 +434,9 @@ function App() {
                     label='Multi upload images'
                     uploadLabel='upload'
                     zoom
+                    disabled
                     setUploadImages={setUploadImages}
-                    limit={1}
+                    limit={10}
                     compress={{
                       openComparisons: () => { },
                       resizer: FileResizer,
