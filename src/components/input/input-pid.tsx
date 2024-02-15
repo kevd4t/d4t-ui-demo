@@ -127,7 +127,7 @@ export function InputPID ({ form, pid: dni = dniDefaultValues }: PIDProps) {
         ctaPlaceholder={dni?.type?.ctaPlaceholder || dniDefaultValues.type.ctaPlaceholder}
         buttonClassName={dni?.type?.buttonClassName || dniDefaultValues.type.buttonClassName}
         popoverClassName={dni?.type?.popoverClassName || dniDefaultValues.type.popoverClassName}
-        disabled={dni?.type?.disabled || dniDefaultValues.type.disabled}
+        disabled={dni?.type?.disabled}
       />
 
       <Input
@@ -140,6 +140,7 @@ export function InputPID ({ form, pid: dni = dniDefaultValues }: PIDProps) {
         tabIndex={dni?.number?.tabIndex || dniDefaultValues.number.tabIndex}
         maxLength={dni?.number?.maxLength || dniDefaultValues.number.maxLength}
         placeholder={dni?.number?.placeholder || dniDefaultValues.number.placeholder}
+        disabled={dni?.number?.disabled}
       />
     </div>
   )

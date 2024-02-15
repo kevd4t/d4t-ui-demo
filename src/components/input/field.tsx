@@ -77,6 +77,7 @@ export const Field = ({ id, form, icon, label, description, iconDirection, class
               <InputUI
                 {...field}
                 {...rest}
+                disabled={rest?.disabled}
                 className={validateInputIconClassNames()}
               />
             </FormControl>

@@ -77,7 +77,7 @@ export function ComboBox({
             }
 
             <Popover open={open} onOpenChange={setOpen}>
-              <PopoverTrigger asChild>
+              <PopoverTrigger asChild disabled={disabled}>
                 <Button
                   disabled={disabled}
                   tabIndex={tabIndex}

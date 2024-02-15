@@ -99,6 +99,7 @@ export const FieldPassword = ({ id, form, label, description, iconDirection, cla
                       onClick={() => setShowPassword(prevState => !prevState)}
                       className='absolute inset-y-0 left-0 flex items-center pl-3 z-50'
                       tabIndex={-1}
+                      disabled={rest?.disabled}
                     >
                       {
                         showPassword
@@ -113,6 +114,7 @@ export const FieldPassword = ({ id, form, label, description, iconDirection, cla
               <InputUI
                 {...field}
                 {...rest}
+                disabled={rest?.disabled}
                 className={cn(validateInputIconClassNames(), rest.className)}
                 type={showPassword ? 'text' : 'password'}
               />
