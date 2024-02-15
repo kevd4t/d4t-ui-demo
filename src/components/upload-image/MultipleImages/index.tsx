@@ -37,6 +37,7 @@ export const MultipleImages = ({
   compress,
   limit,
   initialPreview,
+  disabled
 }: IMultipleUploadImageProps) => {
   const [localImage, setLocalImage] = useState<ImageListType>([]);
 
@@ -137,13 +138,14 @@ export const MultipleImages = ({
                           />
                         )}
 
-                        <MultiUploadImageActions
-                          imageIndex={index}
-                          onImageRemove={onImageRemove}
-                          onImageUpdate={onImageUpdate}
-                          compress={compress}
-                          tabIndexs={tabIndexs}
-                        />
+                            <MultiUploadImageActions
+                              disabled={disabled}
+                              imageIndex={index}
+                              onImageRemove={onImageRemove}
+                              onImageUpdate={onImageUpdate}
+                              compress={compress}
+                              tabIndexs={tabIndexs}
+                            />
                       </div>
                     );
                   })}

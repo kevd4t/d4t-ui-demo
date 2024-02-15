@@ -9,9 +9,12 @@ interface UploadImageActionsProps {
   tabIndexs?: UploadImageTabIndexs
   onImageUpdate: (index: number) => void
   onImageRemove: (index: number) => void
+  disabled?: boolean
 }
 
-export const MultiUploadImageActions = ({ imageIndex, compress, tabIndexs, onImageUpdate, onImageRemove }: UploadImageActionsProps) => {
+export const MultiUploadImageActions = ({ imageIndex, compress, tabIndexs, onImageUpdate, onImageRemove, disabled }: UploadImageActionsProps) => {
+  if (disabled) return null
+
   return (
     <div className='mt-2 gap-x-2 w-fit flex flex-col justify-center items-end gap-y-2 absolute top-2 right-2 bg-transparent'>
       {
