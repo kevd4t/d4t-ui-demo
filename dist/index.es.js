@@ -22781,7 +22781,7 @@ const X8 = ({
         ] }),
         o && /* @__PURE__ */ f.exports.jsx(Oo, { className: "text-xs", children: o }),
         /* @__PURE__ */ f.exports.jsx("div", { className: "my-2" }),
-        /* @__PURE__ */ f.exports.jsxs(Gu, { onValueChange: p.onChange, defaultValue: p.value, disabled: d, children: [
+        /* @__PURE__ */ f.exports.jsxs(Gu, { onValueChange: p.onChange, defaultValue: p.value, disabled: d, value: p == null ? void 0 : p.value, children: [
           /* @__PURE__ */ f.exports.jsx(Ga, { children: /* @__PURE__ */ f.exports.jsx(Fi, { disabled: d, tabIndex: i, className: F("w-full", l), children: /* @__PURE__ */ f.exports.jsx(Zu, { placeholder: r }) }) }),
           /* @__PURE__ */ f.exports.jsx(Vi, { children: /* @__PURE__ */ f.exports.jsxs(FE, { className: F("overflow-auto", u), children: [
             a.length ? null : /* @__PURE__ */ f.exports.jsx("div", { className: "px-2 py-1 text-sm", children: "Sin Resultados" }),
