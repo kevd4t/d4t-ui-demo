@@ -5,7 +5,7 @@ import { ReactNode, useState } from 'react'
 
 import { cn } from '../../lib/utils'
 
-import { FormField, FormItem, Label, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Popover, PopoverContent, PopoverTrigger } from '..'
+import { FormField, FormItem, Label, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Popover, PopoverContent, PopoverTrigger, Skeleton } from '..'
 
 type TGenericComboxItem = {
   value: string
@@ -27,6 +27,7 @@ interface IGenericComboxProps {
   tabIndex?: number
   buttonClassName?: string
   popoverClassName?: string
+  isLoading?: boolean
 }
 
 export function GenericCombobox({
@@ -36,6 +37,7 @@ export function GenericCombobox({
   items,
   disabled,
   tabIndex,
+  isLoading,
   placeholder,
   defaultValue,
   notFoundLabel,
@@ -44,6 +46,22 @@ export function GenericCombobox({
   popoverClassName
 }: IGenericComboxProps) {
   const [open, setOpen] = useState(false)
+
+  if (isLoading) {
+    return (
+      <div className={cn('w-full')}>
+        <div className='flex justify-start items-end'>
+          {label && <Skeleton className='h-5 w-full max-w-[90px]' />}
+        </div>
+
+        <div className='relative'>
+          <Skeleton
+            className={cn('w-full h-9 mt-2')}
+          />
+        </div>
+      </div>
+    )
+  }
 
   return (
     <FormField
