@@ -11,14 +11,14 @@ export const Field = ({ id, form, icon, label, description, iconDirection, class
     return (
       <div className={cn('w-full', classNameContainer)}>
         <div className='flex justify-start items-end'>
-          {label && <Skeleton className='h-5 w-full max-w-[80px]' />}
+          {label && <Skeleton className='h-5 w-full max-w-[90px]' />}
         </div>
 
-        {description && <Skeleton className='h-5 w-full max-w-[90px] my-2' />}
+        {description && <Skeleton className='h-5 w-full max-w-[150px] my-2' />}
 
         <div className='relative'>
           <Skeleton
-            className={cn(validateInputIconClassNames(), 'w-full h-9')}
+            className={cn(validateInputIconClassNames(), 'w-full h-9 mt-2')}
           />
         </div>
       </div>

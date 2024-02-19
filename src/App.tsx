@@ -382,8 +382,6 @@ function App() {
                   <Input
                     form={probeForm}
                     id='name'
-                    label='Label'
-                    description='Descripcion'
                     placeholder='This is the placeholder'
                     isLoading={true}
                     icon={<Settings className='dark:text-white' size={20} />}
