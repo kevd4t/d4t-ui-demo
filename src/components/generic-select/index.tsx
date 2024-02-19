@@ -3,7 +3,7 @@
 import { UseFormReturn } from 'react-hook-form'
 import type { ReactNode, HTMLAttributes } from 'react'
 
-import { FormControl, FormDescription, FormField, FormItem, FormLabel, Label, Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '..'
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, Label, Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue, Skeleton } from '..'
 import { cn } from '../../lib/utils'
 
 export interface IGenericSelectItems {
@@ -25,6 +25,7 @@ export interface IGenericSelectProps extends HTMLAttributes<HTMLDivElement> {
   classNameGroup?: string
   description?: string
   disabled?: boolean
+  isLoading?: boolean
 }
 
 export const GenericSelect = ({
@@ -39,8 +40,25 @@ export const GenericSelect = ({
   classNameContainer,
   classNameSelect,
   classNameGroup,
-  disabled
+  disabled,
+  isLoading
 }: IGenericSelectProps) => {
+  if (isLoading) {
+    return (
+      <div className={cn('w-full', classNameContainer)}>
+        <div className='flex justify-start items-end'>
+          {label && <Skeleton className='h-5 w-full max-w-[90px]' />}
+        </div>
+
+        {description && <Skeleton className='h-5 w-full max-w-[150px] my-2' />}
+
+        <div className='relative'>
+          <Skeleton className='w-full h-9 mt-2' />
+        </div>
+      </div>
+    )
+  }
+
   return (
     <FormField
       control={form.control}
@@ -66,7 +84,7 @@ export const GenericSelect = ({
 
             <SelectContent>
               <SelectGroup className={cn('overflow-auto', classNameGroup)}>
-                { !items.length ? <div className='px-2 py-1 text-sm'>Sin Resultados</div> : null }
+                {!items.length ? <div className='px-2 py-1 text-sm'>Sin Resultados</div> : null}
 
                 {
                   items.map(item => (
@@ -85,10 +103,7 @@ export const GenericSelect = ({
                     </SelectItem>
                   ))
                 }
-
-                
               </SelectGroup>
-
             </SelectContent>
           </Select>
         </FormItem>

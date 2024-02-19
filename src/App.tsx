@@ -24,7 +24,9 @@ import {
   UploadImage,
   ImageWithZoom,
   InputPID,
-  formatCITypes
+  formatCITypes,
+  TextArea,
+  GenericCombobox
 } from './components';
 import { useState } from 'react';
 import { UseFormReturn, useForm } from 'react-hook-form';
@@ -378,18 +380,44 @@ function App() {
                   label='Cedula'
                 />
 
-                <div className='mt-5'>
+                <div className='grid grid-cols-1 md:grid-cols-2 mt-5 gap-x-2 gap-y-2'>
                   <Input
+                    form={probeForm}
+                    description='This is a description'
+                    id='name'
+                    placeholder='This is the placeholder'
+                    icon={<Settings className='dark:text-white' size={20} />}
+                    isLoading={false}
+                  />
+
+                  <GenericSelect
+                    description='This is a description'
                     form={probeForm}
                     id='name'
                     placeholder='This is the placeholder'
-                    isLoading={true}
-                    icon={<Settings className='dark:text-white' size={20} />}
+                    items={[]}
+                    isLoading={false}
+                  />
+
+                  <TextArea
+                    form={probeForm}
+                    id='description'
+                    isLoading={false}
+                    placeholder='This is the placeholder'
+                  />
+
+                  <GenericCombobox
+                    buttonClassName='w-full'
+                    form={probeForm}
+                    id='fuel'
+                    items={[{ label: 'hello', value: 'hello' }]}
+                    ctaPlaceholder='Add'
+                    notFoundLabel='Not found'
+                    label='label'
+                    isLoading={false}
                   />
                 </div>
-
-
-                <Button className='m-5 bg-brand-primary hover:bg-brand-primary-opaque'>This is a primary button</Button>
+                <Button className='m-5 bg-brand-primary hover:bg-brand-primary-opaque'>Primary button</Button>
               </Form>
             </div>
 
