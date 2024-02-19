@@ -7,7 +7,7 @@ import { FormField, FormItem, FormLabel, FormControl, FormDescription, Label, In
 import { InputFieldProps } from './types'
 
 export const Field = ({ id, form, icon, label, description, iconDirection, classNameContainer, validateInputIconClassNames, isLoading, rest }: InputFieldProps) => {
-  if (isLoading) {
+  if (isLoading || (isLoading && rest.readOnly)) {
     return (
       <div className={cn('w-full', classNameContainer)}>
         <div className='flex justify-start items-end'>

@@ -37,7 +37,7 @@ export interface ITextareaProps extends Omit<TextareaProps, 'form'> {
 }
 
 const TextArea = ({ id, form, label, className, description, placeholder, containerClassName, isLoading, ...rest }: ITextareaProps) => {
-  if (isLoading) {
+  if (isLoading || (isLoading && rest.readOnly)) {
     return (
       <div className={cn('w-full')}>
         <div className='flex justify-start items-end'>
