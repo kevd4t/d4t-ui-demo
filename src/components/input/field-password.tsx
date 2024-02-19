@@ -4,10 +4,43 @@ import { Eye, EyeOff } from 'lucide-react'
 import * as React from 'react'
 
 import { cn } from '../../lib/utils'
-import { FormField, FormItem, FormLabel, FormControl, FormDescription, Label, InputUI } from '..'
+import { FormField, FormItem, FormLabel, FormControl, FormDescription, Label, InputUI, Skeleton } from '..'
+import { InputFieldProps } from './types'
 
-export const FieldPassword = ({ id, form, label, description, iconDirection, classNameContainer, validateInputIconClassNames, rest }) => {
+export const FieldPassword = ({ id, form, label, description, iconDirection, classNameContainer, isLoading, validateInputIconClassNames, rest }: InputFieldProps) => {
   const [showPassword, setShowPassword] = React.useState(false)
+
+  if (isLoading) {
+    return (
+      <div className={cn('w-full', classNameContainer)}>
+        <div className='flex justify-start items-end'>
+          {label && <Skeleton className='h-5 w-full' />}
+        </div>
+
+        {description && <Skeleton className='h-5 w-full' />}
+
+        <div className='my-2'></div>
+
+        <div className='relative'>
+          {
+            (iconDirection === 'left') && (
+              <Skeleton className='h-4 w-4 absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none' />
+            )
+          }
+
+          <Skeleton
+            className={validateInputIconClassNames()}
+          />
+
+          {
+            (iconDirection === 'right') && (
+              <Skeleton className='h-4 w-4 absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none' />
+            )
+          }
+        </div>
+      </div>
+    )
+  }
 
   if (rest.readOnly) {
     return (

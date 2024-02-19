@@ -66,7 +66,7 @@ export const pidLoginSchemaForm = pidLoginSchema.extend({
   pidNumber: z.string()
 })
 
-export interface ILoginWithPID extends z.infer<typeof pidLoginSchemaForm> {}
+export interface ILoginWithPID extends z.infer<typeof pidLoginSchemaForm> { }
 
 
 export const defaultLoginPID: ILoginWithPID = {
@@ -150,7 +150,7 @@ function App() {
     hasPrevPage: false,
     hasNextPage: false,
   };
-  
+
   const onSubmitTable: ITableSubmit = async ({ queries, filters, page, limit }) => {
     console.log({ queries, filters, page, limit })
   };
@@ -378,14 +378,27 @@ function App() {
                   label='Cedula'
                 />
 
+                <div className='mt-5'>
+                  <Input
+                    form={probeForm}
+                    id='name'
+                    label='Label'
+                    description='Descripcion'
+                    placeholder='This is the placeholder'
+                    isLoading={true}
+                    icon={<Settings className='dark:text-white' size={20} />}
+                  />
+                </div>
+
+
                 <Button className='m-5 bg-brand-primary hover:bg-brand-primary-opaque'>This is a primary button</Button>
               </Form>
             </div>
 
             <div>
-              Watch: { JSON.stringify(comboxForm.watch(), null, 2) } <br />
-              DirtyFields { JSON.stringify(comboxForm.formState.dirtyFields) } <br />
-              isDirty { JSON.stringify(comboxForm.formState.isDirty) } <br />
+              Watch: {JSON.stringify(comboxForm.watch(), null, 2)} <br />
+              DirtyFields {JSON.stringify(comboxForm.formState.dirtyFields)} <br />
+              isDirty {JSON.stringify(comboxForm.formState.isDirty)} <br />
               <Form {...comboxForm}>
                 <form>
                   <ComboxCheckbox
@@ -411,7 +424,7 @@ function App() {
 
             {/* Images */}
             <div className='mt-10'>
-            {/* <InputPID
+              {/* <InputPID
                 form={formPid}
                 label='Cedula'
                 pid={{
@@ -443,18 +456,18 @@ function App() {
                     }}
                   />
 
-                <UploadImage
-                  zoom
-                  label='Single Images'
-                  setUploadImage={setUploadSingleImage}
-                />
+                  <UploadImage
+                    zoom
+                    label='Single Images'
+                    setUploadImage={setUploadSingleImage}
+                  />
                 </CardContent>
               </Card>
             </div>
           </div>
           <div>
 
-          <MultipleImages
+            <MultipleImages
               limit={10}
               zoom
               compress={{ resizer: FileResizer }}
