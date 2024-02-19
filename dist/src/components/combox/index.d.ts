@@ -19,6 +19,7 @@ interface IGenericComboxProps {
     tabIndex?: number;
     buttonClassName?: string;
     popoverClassName?: string;
+    isLoading?: boolean;
 }
-export declare function GenericCombobox({ id, form, label, items, disabled, tabIndex, placeholder, defaultValue, notFoundLabel, ctaPlaceholder, buttonClassName, popoverClassName }: IGenericComboxProps): JSX.Element;
+export declare function GenericCombobox({ id, form, label, items, disabled, tabIndex, isLoading, placeholder, defaultValue, notFoundLabel, ctaPlaceholder, buttonClassName, popoverClassName }: IGenericComboxProps): JSX.Element;
 export {};

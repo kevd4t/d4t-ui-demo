@@ -11,6 +11,7 @@ export interface ITextareaProps extends Omit<TextareaProps, 'form'> {
     description?: string;
     placeholder?: string;
     containerClassName?: string;
+    isLoading?: boolean;
 }
-declare const TextArea: ({ id, form, label, className, description, placeholder, containerClassName, ...rest }: ITextareaProps) => JSX.Element;
+declare const TextArea: ({ id, form, label, className, description, placeholder, containerClassName, isLoading, ...rest }: ITextareaProps) => JSX.Element;
 export { TextareaUI, TextArea };
