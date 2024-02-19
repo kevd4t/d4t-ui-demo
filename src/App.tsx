@@ -388,6 +388,7 @@ function App() {
                     placeholder='This is the placeholder'
                     icon={<Settings className='dark:text-white' size={20} />}
                     isLoading={false}
+                  // readOnly
                   />
 
                   <GenericSelect
@@ -400,6 +401,7 @@ function App() {
                   />
 
                   <TextArea
+                    readOnly
                     form={probeForm}
                     id='description'
                     isLoading={false}
