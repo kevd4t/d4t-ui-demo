@@ -3,9 +3,28 @@
 import * as React from 'react'
 
 import { cn } from '../../lib/utils'
-import { FormField, FormItem, FormLabel, FormControl, FormDescription, Label, InputUI } from '..'
+import { FormField, FormItem, FormLabel, FormControl, FormDescription, Label, InputUI, Skeleton } from '..'
+import { InputFieldProps } from './types'
 
-export const Field = ({ id, form, icon, label, description, iconDirection, classNameContainer, validateInputIconClassNames, rest }) => {
+export const Field = ({ id, form, icon, label, description, iconDirection, classNameContainer, validateInputIconClassNames, isLoading, rest }: InputFieldProps) => {
+  if (isLoading) {
+    return (
+      <div className={cn('w-full', classNameContainer)}>
+        <div className='flex justify-start items-end'>
+          {label && <Skeleton className='h-5 w-full max-w-[90px]' />}
+        </div>
+
+        {description && <Skeleton className='h-5 w-full max-w-[150px] my-2' />}
+
+        <div className='relative'>
+          <Skeleton
+            className={cn(validateInputIconClassNames(), 'w-full h-9 mt-2')}
+          />
+        </div>
+      </div>
+    )
+  }
+
   if (rest.readOnly) {
     return (
       <div className={cn('w-full', classNameContainer)}>

@@ -4,7 +4,7 @@ import * as React from 'react'
 
 import { cn } from '../lib/utils'
 import { UseFormReturn } from 'react-hook-form'
-import { FormControl, FormDescription, FormField, FormItem, FormLabel } from './'
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, Skeleton } from './'
 
 export interface TextareaProps
   extends React.TextareaHTMLAttributes<HTMLTextAreaElement> { }
@@ -33,9 +33,28 @@ export interface ITextareaProps extends Omit<TextareaProps, 'form'> {
   description?: string
   placeholder?: string
   containerClassName?: string
+  isLoading?: boolean
 }
 
-const TextArea = ({ id, form, label, className, description, placeholder, containerClassName, ...rest }: ITextareaProps) => {
+const TextArea = ({ id, form, label, className, description, placeholder, containerClassName, isLoading, ...rest }: ITextareaProps) => {
+  if (isLoading) {
+    return (
+      <div className={cn('w-full')}>
+        <div className='flex justify-start items-end'>
+          {label && <Skeleton className='h-5 w-full max-w-[90px]' />}
+        </div>
+
+        {description && <Skeleton className='h-5 w-full max-w-[150px] my-2' />}
+
+        <div className='relative'>
+          <Skeleton
+            className={cn('w-full h-9 mt-2')}
+          />
+        </div>
+      </div>
+    )
+  }
+
   return (
     <FormField
       control={form.control}
