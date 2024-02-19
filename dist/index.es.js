@@ -11107,7 +11107,7 @@ const IS = ({ id: e, form: t, label: n, description: r, iconDirection: o, classN
       }
     }
   );
-}, LS = ({ id: e, form: t, icon: n, label: r, description: o, iconDirection: a, classNameContainer: s, validateInputIconClassNames: i, isLoading: c, rest: l }) => c ? /* @__PURE__ */ f.exports.jsxs("div", { className: L("w-full", s), children: [
+}, LS = ({ id: e, form: t, icon: n, label: r, description: o, iconDirection: a, classNameContainer: s, validateInputIconClassNames: i, isLoading: c, rest: l }) => c || c && l.readOnly ? /* @__PURE__ */ f.exports.jsxs("div", { className: L("w-full", s), children: [
   /* @__PURE__ */ f.exports.jsx("div", { className: "flex justify-start items-end", children: r && /* @__PURE__ */ f.exports.jsx(St, { className: "h-5 w-full max-w-[90px]" }) }),
   o && /* @__PURE__ */ f.exports.jsx(St, { className: "h-5 w-full max-w-[150px] my-2" }),
   /* @__PURE__ */ f.exports.jsx("div", { className: "relative", children: /* @__PURE__ */ f.exports.jsx(
@@ -11480,7 +11480,7 @@ const lv = C.forwardRef(
   )
 );
 lv.displayName = "TextareaUI";
-const XD = ({ id: e, form: t, label: n, className: r, description: o, placeholder: a, containerClassName: s, isLoading: i, ...c }) => i ? /* @__PURE__ */ f.exports.jsxs("div", { className: L("w-full"), children: [
+const XD = ({ id: e, form: t, label: n, className: r, description: o, placeholder: a, containerClassName: s, isLoading: i, ...c }) => i || i && c.readOnly ? /* @__PURE__ */ f.exports.jsxs("div", { className: L("w-full"), children: [
   /* @__PURE__ */ f.exports.jsx("div", { className: "flex justify-start items-end", children: n && /* @__PURE__ */ f.exports.jsx(St, { className: "h-5 w-full max-w-[90px]" }) }),
   o && /* @__PURE__ */ f.exports.jsx(St, { className: "h-5 w-full max-w-[150px] my-2" }),
   /* @__PURE__ */ f.exports.jsx("div", { className: "relative", children: /* @__PURE__ */ f.exports.jsx(
