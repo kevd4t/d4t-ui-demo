@@ -17,6 +17,7 @@ export interface ComboxCheckBoxPropsBase {
     icon?: ReactNode;
     classNameContainer?: string;
     tabIndex?: number;
+    disabled?: boolean;
     classNamePopover?: string;
 }
 export interface ComboxCheckBoxReadOnly extends ComboxCheckBoxPropsBase {

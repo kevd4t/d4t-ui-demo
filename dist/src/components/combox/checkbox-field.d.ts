@@ -11,6 +11,7 @@ interface CheckBoxFieldProps {
     options: any[];
     classNameContainer: string;
     classNamePopover: string;
+    disabled?: boolean;
 }
-export declare const CheckboxField: ({ form, id, description, icon, placeholder, label, tabIndex, options, classNameContainer, classNamePopover }: CheckBoxFieldProps) => JSX.Element;
+export declare const CheckboxField: ({ form, id, description, icon, placeholder, label, tabIndex, options, classNameContainer, classNamePopover, disabled }: CheckBoxFieldProps) => JSX.Element;
 export {};
