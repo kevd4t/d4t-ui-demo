@@ -17,34 +17,12 @@ interface CheckBoxFieldProps {
   options: any[]
   classNameContainer: string
   classNamePopover: string
+  disabled?: boolean
 }
 
-export const CheckboxField = ({ form, id, description, icon, placeholder, label, tabIndex, options, classNameContainer, classNamePopover }: CheckBoxFieldProps) => {
-  const elementRef = useRef(null)
+export const CheckboxField = ({ form, id, description, icon, placeholder, label, tabIndex, options, classNameContainer, classNamePopover, disabled }: CheckBoxFieldProps) => {
   const [comboxWidth, setComboxWidth] = useState(null)
-
-  useEffect(() => {
-    const element = elementRef.current
-
-    if (!element) {
-      return
-    }
-
-    // Crea una instancia de ResizeObserver
-    const resizeObserver = new ResizeObserver((entries) => {
-      const width = entries[0].contentRect.width
-      setComboxWidth(width)
-    })
-
-    // Observa el elemento
-    resizeObserver.observe(element)
-
-    // Limpia la instancia de ResizeObserver cuando el componente se desmonta
-    return () => {
-      resizeObserver.unobserve(element)
-      resizeObserver.disconnect()
-    }
-  }, [])
+  const elementRef = useRef(null)
 
   const defaultOptions = form?.formState?.defaultValues[id]
   const optionsFormatted: LocalOption[] = options.map(option => ({
@@ -73,6 +51,33 @@ export const CheckboxField = ({ form, id, description, icon, placeholder, label,
     form.setValue(id, options.filter((option) => option.selected).map((option) => option.value), { shouldDirty: true })
   }
 
+  useEffect(() => {
+    const element = elementRef.current
+
+    if (!element) {
+      return
+    }
+
+    // Crea una instancia de ResizeObserver
+    const resizeObserver = new ResizeObserver((entries) => {
+      const width = entries[0].contentRect.width
+      setComboxWidth(width)
+    })
+
+    // Observa el elemento
+    resizeObserver.observe(element)
+
+    // Limpia la instancia de ResizeObserver cuando el componente se desmonta
+    return () => {
+      resizeObserver.unobserve(element)
+      resizeObserver.disconnect()
+    }
+  }, [])
+
+  useEffect(() => {
+    console.log({comboxWidth})
+  }, [comboxWidth])
+
   return (
     <FormField
       control={form.control}
@@ -88,12 +93,13 @@ export const CheckboxField = ({ form, id, description, icon, placeholder, label,
             {description && (<FormDescription className='text-xs'>{description}</FormDescription>)}
 
             <Popover>
-              <PopoverTrigger asChild>
+              <PopoverTrigger asChild disabled={disabled}>
                 <Button
                   ref={elementRef}
                   type='button'
                   variant='outline'
                   size='sm'
+                  disabled={disabled}
                   className='py-5 border w-full justify-start'
                   tabIndex={tabIndex}
                 >
@@ -150,8 +156,17 @@ export const CheckboxField = ({ form, id, description, icon, placeholder, label,
                 </Button>
               </PopoverTrigger>
 
-              <PopoverContent style={{ width: comboxWidth + 24 }} className={cn('w-full p-0', classNamePopover)} align='start'>
-                <Command>
+              <style>
+                  {`.combox-checkbox-content {
+                    width: ${comboxWidth + 24}px !important;
+                  }`}
+              </style>
+
+              <PopoverContent
+                className={cn('w-full p-0 combox-checkbox-content', classNamePopover)}
+                align='start'
+              >
+                <Command style={{ width: '50px !important' }}>
                   <CommandInput placeholder={label} />
 
                   <CommandList>

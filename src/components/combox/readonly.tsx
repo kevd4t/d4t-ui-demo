@@ -5,7 +5,7 @@ import { cn } from '../../lib/utils'
 
 import { Label, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Popover, PopoverContent, PopoverTrigger, Badge, CommandList } from '..'
 
-export const ComboboxCheckboxReadOnly = ({ description, icon, placeholder, label, tabIndex, options, classNameContainer, classNamePopover }) => {
+export const ComboboxCheckboxReadOnly = ({ description, icon, placeholder, label, tabIndex, options, classNameContainer, classNamePopover, disabled }) => {
   const elementRef = useRef(null)
   const [comboxWidth, setComboxWidth] = useState(null)
 
@@ -41,11 +41,12 @@ export const ComboboxCheckboxReadOnly = ({ description, icon, placeholder, label
       {description && (<p className='text-xs'>{description}</p>)}
 
       <Popover>
-        <PopoverTrigger asChild>
+        <PopoverTrigger asChild disabled={disabled}>
           <Button
             ref={elementRef}
             type='button'
             variant='outline'
+            disabled={disabled}
             size='sm'
             className='py-5 border w-full justify-start'
             tabIndex={tabIndex}

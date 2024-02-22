@@ -21,6 +21,7 @@ export interface ComboxCheckBoxPropsBase {
   icon?: ReactNode
   classNameContainer?: string
   tabIndex?: number
+  disabled?: boolean
   classNamePopover?: string
 }
 

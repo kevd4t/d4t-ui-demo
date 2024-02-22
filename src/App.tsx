@@ -437,7 +437,7 @@ function App() {
                     options={FUELS}
                   />
 
-                  <Button
+                  {/* <Button
                     type='submit'
                     tabIndex={16}
                     className='w-full py-2 text-sm'
@@ -445,7 +445,7 @@ function App() {
                     onClick={comboxForm.handleSubmit((data) => console.log({ data }))}
                   >
                     Editar Camión
-                  </Button>
+                  </Button> */}
                 </form>
               </Form>
             </div>
