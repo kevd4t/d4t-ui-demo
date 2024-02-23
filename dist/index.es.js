@@ -22426,14 +22426,16 @@ const j3 = () => {
     ) }),
     /* @__PURE__ */ f.exports.jsx("style", { children: `
           .combox-checkbox-content {
+            min-width: 150px !important;
             width: ${l + 24}px !important;
           }
 
           .checkbox-tooltip-content {
+            min-width: 150px !important;
             width: ${l + 10}px !important;
           }
         ` }),
-    /* @__PURE__ */ f.exports.jsx(_n, { className: "w-[200px] p-0 combox-checkbox-content", align: "start", children: /* @__PURE__ */ f.exports.jsxs(Bn, { children: [
+    /* @__PURE__ */ f.exports.jsx(_n, { className: "p-0 combox-checkbox-content", align: "start", children: /* @__PURE__ */ f.exports.jsxs(Bn, { children: [
       /* @__PURE__ */ f.exports.jsx(pr, { placeholder: r }),
       /* @__PURE__ */ f.exports.jsxs(es, { children: [
         /* @__PURE__ */ f.exports.jsx(mr, { children: "Sin Resultados" }),
@@ -25148,10 +25150,12 @@ const G7 = ({ form: e, id: t, description: n, icon: r, placeholder: o, label: a,
             ) }),
             /* @__PURE__ */ f.exports.jsx("style", { children: `
                 .combox-checkbox-content {
+                    min-width: 150px !important;
                     width: ${d + 24}px !important;
                   }
 
                   .checkbox-tooltip-content {
+                    min-width: 150px !important;
                     width: ${d + 10}px !important;
                   }
                 ` }),
