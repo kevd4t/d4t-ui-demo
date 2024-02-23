@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, type ReactNode } from 'react'
 import { Check } from 'lucide-react'
 
-import { FormDescription, FormField, FormItem, FormLabel, Badge, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, Popover, PopoverContent, PopoverTrigger, Label } from '../'
+import { FormDescription, FormField, FormItem, FormLabel, Badge, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, Popover, PopoverContent, PopoverTrigger, Label, TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '../'
 import { cn } from '../../lib/utils'
 import { LocalOption } from './types'
 import { UseFormReturn } from 'react-hook-form'
@@ -157,9 +157,15 @@ export const CheckboxField = ({ form, id, description, icon, placeholder, label,
               </PopoverTrigger>
 
               <style>
-                  {`.combox-checkbox-content {
+                {`
+                .combox-checkbox-content {
                     width: ${comboxWidth + 24}px !important;
-                  }`}
+                  }
+
+                  .checkbox-tooltip-content {
+                    width: ${comboxWidth + 10}px !important;
+                  }
+                `}
               </style>
 
               <PopoverContent
@@ -176,31 +182,43 @@ export const CheckboxField = ({ form, id, description, icon, placeholder, label,
                       {
                         localOptions.map((option) => {
                           return (
-                            <CommandItem
-                              key={option.value.toString()}
-                              onSelect={() => {
-                                if (option.selected) {
-                                  selectOptionFilter(option.id, false)
-                                } else {
-                                  selectOptionFilter(option.id, true)
-                                }
-                              }}
-                            >
-                              <div
-                                className={cn(
-                                  'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary',
-                                  option.selected
-                                    ? 'bg-primary text-primary-foreground'
-                                    : 'opacity-50 [&_svg]:invisible'
-                                )}
-                              >
-                                <Check className={cn('h-4 w-4')} />
-                              </div>
+                            <TooltipProvider>
+                              <Tooltip delayDuration={150}>
+                                <TooltipTrigger className='w-full'>
+                                  <CommandItem
+                                    key={option.value.toString()}
+                                    onSelect={() => {
+                                      if (option.selected) {
+                                        selectOptionFilter(option.id, false)
+                                      } else {
+                                        selectOptionFilter(option.id, true)
+                                      }
+                                    }}
+                                  >
+                                    <div
+                                      className={cn(
+                                        'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary',
+                                        option.selected
+                                          ? 'bg-primary text-primary-foreground'
+                                          : 'opacity-50 [&_svg]:invisible'
+                                      )}
+                                    >
+                                      <Check className={cn('h-4 w-4')} />
+                                    </div>
 
-                              {option.icon}
+                                    {option.icon}
 
-                              <span>{option.label}</span>
-                            </CommandItem>
+                                    <span className='truncate'>{option.label}</span>
+                                  </CommandItem>
+                                </TooltipTrigger>
+
+                                <TooltipContent className='whitespace-normal checkbox-tooltip-content' sideOffset={20}>
+                                  <p>{option.label}</p>
+                                </TooltipContent>
+                              </Tooltip>
+                            </TooltipProvider>
+
+                          
                           )
                         })
                       }
