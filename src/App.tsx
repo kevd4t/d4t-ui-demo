@@ -136,11 +136,23 @@ function App() {
     {
       id: 'name',
       label: 'Nombre',
-      filters: [{
-        id: 'name',
-        label: 'name',
-        value: 'Kevin',
-      }],
+      filters: [
+        {
+          id: 'name',
+          label: 'ALGO SUPER INCREIBLE ASDO KASDOASK DASD:K ASLD',
+          value: 'Kevin',
+        },
+        {
+          id: 'lastname',
+          label: 'Un super apellido increible 100%',
+          value: 'Blanco',
+        },
+        {
+          id: 'pid',
+          label: 'VE',
+          value: 'PID',
+        },
+      ],
       isQuery: true
     },
   ];

@@ -74,10 +74,6 @@ export const CheckboxField = ({ form, id, description, icon, placeholder, label,
     }
   }, [])
 
-  useEffect(() => {
-    console.log({comboxWidth})
-  }, [comboxWidth])
-
   return (
     <FormField
       control={form.control}
@@ -217,8 +213,6 @@ export const CheckboxField = ({ form, id, description, icon, placeholder, label,
                                 </TooltipContent>
                               </Tooltip>
                             </TooltipProvider>
-
-                          
                           )
                         })
                       }
