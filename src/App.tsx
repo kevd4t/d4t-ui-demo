@@ -178,8 +178,8 @@ function App() {
   }
 
   const FUELS = [
-    { id: 'Gasolina', label: 'Gasolina', value: Hydrocarbon.Gasoline },
-    { id: 'Diesel', label: 'Diesel', value: Hydrocarbon.Diesel },
+    { id: 'Gasolina', label: 'Gasolina SUPER SPER ASDKAS ODASK DOASD ASD', value: Hydrocarbon.Gasoline },
+    { id: 'Diesel', label: 'Diesel SUPER DIESEL loREM IPSU', value: Hydrocarbon.Diesel },
     { id: 'Gas', label: 'Gas', value: Hydrocarbon.Gas }
   ]
 
@@ -437,7 +437,7 @@ function App() {
                     options={FUELS}
                   />
 
-                  <Button
+                  {/* <Button
                     type='submit'
                     tabIndex={16}
                     className='w-full py-2 text-sm'
@@ -445,7 +445,7 @@ function App() {
                     onClick={comboxForm.handleSubmit((data) => console.log({ data }))}
                   >
                     Editar Camión
-                  </Button>
+                  </Button> */}
                 </form>
               </Form>
             </div>
@@ -475,11 +475,9 @@ function App() {
                     label='Multi upload images'
                     uploadLabel='upload'
                     zoom
-                    disabled
                     setUploadImages={setUploadImages}
                     limit={10}
                     compress={{
-                      openComparisons: () => { },
                       resizer: FileResizer,
                     }}
                   />

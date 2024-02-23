@@ -18,6 +18,7 @@ import { Button, Label } from "../../../components";
 import { MultiUploadImageActions } from "./Actions";
 import { ImageWithZoom } from "./ImageWithZoom";
 import { LoadMultiImages } from "./LoadImage";
+import { ImagePlus } from "lucide-react";
 
 interface IMultipleUploadImageProps
   extends Omit<IUploadImageProps, "setUploadImage" | "initialPreview"> {
@@ -138,14 +139,14 @@ export const MultipleImages = ({
                           />
                         )}
 
-                            <MultiUploadImageActions
-                              disabled={disabled}
-                              imageIndex={index}
-                              onImageRemove={onImageRemove}
-                              onImageUpdate={onImageUpdate}
-                              compress={compress}
-                              tabIndexs={tabIndexs}
-                            />
+                        <MultiUploadImageActions
+                          disabled={disabled}
+                          imageIndex={index}
+                          onImageRemove={onImageRemove}
+                          onImageUpdate={onImageUpdate}
+                          compress={compress}
+                          tabIndexs={tabIndexs}
+                        />
                       </div>
                     );
                   })}
@@ -161,13 +162,16 @@ export const MultipleImages = ({
                           imageContainerClassName
                         )}
                       >
+
                         <Button
-                          type="button"
-                          variant="outline"
-                          className="p-2 h-min"
-                          onClick={onImageUpload}
+                          size='icon'
+                          type='button'
+                          variant='outline'
+                          tabIndex={tabIndexs?.upload}
+                          disabled={disabled}
+                          className={`mt-2 ${isDragging && 'text-indigo-600'}`} onClick={onImageUpload}
                         >
-                          <IconPhotoPlus className="w-8 h-8" />
+                          <ImagePlus size={24} />
                         </Button>
                       </div>
                     </div>
@@ -181,6 +185,7 @@ export const MultipleImages = ({
                   onImageUpload={onImageUpload}
                   tabIndexs={tabIndexs}
                   uploadLabel={uploadLabel}
+                  disabled={disabled}
                 />
               )}
             </>

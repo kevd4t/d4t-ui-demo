@@ -141,6 +141,7 @@ export const UploadImage = ({
                         onImageUpload={onImageUpload}
                         tabIndexs={tabIndexs}
                         uploadLabel={uploadLabel}
+                        disabled={disabled}
                       />
                     </>
                 }

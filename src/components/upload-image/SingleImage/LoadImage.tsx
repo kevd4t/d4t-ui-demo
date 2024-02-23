@@ -4,7 +4,7 @@ import { cn } from '../../../lib/utils'
 import { Button } from '../../button'
 import { ImagePlus } from 'lucide-react'
 
-export const LoadImage = ({ dragProps, isDragging, emptyClassName, tabIndexs, uploadLabel, onImageUpload }) => {
+export const LoadImage = ({ dragProps, isDragging, emptyClassName, tabIndexs, uploadLabel, disabled, onImageUpload }) => {
   return (
     <div
       {...dragProps}
@@ -20,11 +20,13 @@ export const LoadImage = ({ dragProps, isDragging, emptyClassName, tabIndexs, up
         type='button'
         variant='outline'
         tabIndex={tabIndexs?.upload}
-        className={`mt-2 ${isDragging && 'text-indigo-600'}`} onClick={onImageUpload}
+        disabled={disabled}
+        className={cn('mt-2', isDragging && 'text-indigo-600', disabled && 'cursor-not-allowed')} onClick={onImageUpload}
       >
-        <ImagePlus size={22} />
+        <ImagePlus size={24} />
       </Button>
-      <span className='font-normal text-sm text-zinc-500'>o arrastra y suelta una imagen</span>
+
+      { !disabled && <span className='font-normal text-sm text-zinc-500'>o arrastra y suelta una imagen</span> }
     </div>
   )
 }
