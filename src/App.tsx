@@ -138,20 +138,25 @@ function App() {
       label: 'Nombre',
       filters: [
         {
-          id: 'name',
-          label: 'ALGO SUPER INCREIBLE ASDO KASDOASK DASD:K ASLD',
-          value: 'Kevin',
+          id: 'COMPLETED',
+          label: 'Completado',
+          value: 'COMPLETED'
         },
         {
-          id: 'lastname',
-          label: 'Un super apellido increible 100%',
-          value: 'Blanco',
+          id: 'IN_PROGRESS',
+          label: 'En Progreso',
+          value: 'IN_PROGRESS'
         },
         {
-          id: 'pid',
-          label: 'VE',
-          value: 'PID',
+          id: 'PENDING',
+          label: 'Pendiente',
+          value: 'PENDING'
         },
+        {
+          id: 'CONFIRM',
+          label: 'Confirmado',
+          value: 'CONFIRM'
+        }
       ],
       isQuery: true
     },

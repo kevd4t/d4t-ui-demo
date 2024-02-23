@@ -155,10 +155,12 @@ export const CheckboxField = ({ form, id, description, icon, placeholder, label,
               <style>
                 {`
                 .combox-checkbox-content {
+                    min-width: 150px !important;
                     width: ${comboxWidth + 24}px !important;
                   }
 
                   .checkbox-tooltip-content {
+                    min-width: 150px !important;
                     width: ${comboxWidth + 10}px !important;
                   }
                 `}

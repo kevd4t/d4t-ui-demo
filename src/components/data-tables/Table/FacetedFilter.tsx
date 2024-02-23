@@ -123,16 +123,18 @@ export const FacetedFilter = ({ id, form, icon, label, options, onSubmit }: Face
       <style>
         {`
           .combox-checkbox-content {
+            min-width: 150px !important;
             width: ${comboxWidth + 24}px !important;
           }
 
           .checkbox-tooltip-content {
+            min-width: 150px !important;
             width: ${comboxWidth + 10}px !important;
           }
         `}
       </style>
 
-      <PopoverContent className='w-[200px] p-0 combox-checkbox-content' align='start'>
+      <PopoverContent className='p-0 combox-checkbox-content' align='start'>
         <Command>
           <CommandInput placeholder={label} />
 
