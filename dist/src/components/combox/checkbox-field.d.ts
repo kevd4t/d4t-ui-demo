@@ -1,5 +1,6 @@
 import { type ReactNode } from 'react';
 import { UseFormReturn } from 'react-hook-form';
+import { ComboxItem } from './types';
 interface CheckBoxFieldProps {
     form: UseFormReturn<any, any, any>;
     id: string;
@@ -8,10 +9,10 @@ interface CheckBoxFieldProps {
     placeholder: string;
     label: string;
     tabIndex: number;
-    options: any[];
-    classNameContainer: string;
-    classNamePopover: string;
+    items: ComboxItem[];
+    classNameContainer?: string;
+    classNamePopover?: string;
     disabled?: boolean;
 }
-export declare const CheckboxField: ({ form, id, description, icon, placeholder, label, tabIndex, options, classNameContainer, classNamePopover, disabled }: CheckBoxFieldProps) => JSX.Element;
+export declare const CheckboxField: (props: CheckBoxFieldProps) => JSX.Element;
 export {};

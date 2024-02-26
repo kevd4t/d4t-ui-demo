@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
 import { UseFormReturn } from "react-hook-form";
-export interface Option {
+export interface ComboxItem {
     id: string;
     label: string;
     value: string;
     icon?: ReactNode;
 }
-export interface LocalOption extends Option {
+export interface ComboxItemExtended extends ComboxItem {
     selected: boolean;
 }
 export interface ComboxCheckBoxPropsBase {
@@ -22,11 +22,11 @@ export interface ComboxCheckBoxPropsBase {
 }
 export interface ComboxCheckBoxReadOnly extends ComboxCheckBoxPropsBase {
     readOnly: true;
-    options: Option[];
+    items: ComboxItem[];
 }
 export interface ComboxCheckBoxWithForm extends ComboxCheckBoxPropsBase {
     form: UseFormReturn<any, any, any>;
-    options: Option[];
+    items: ComboxItem[];
     readOnly?: false;
 }
 export declare type ComboxCheckBoxProps = ComboxCheckBoxReadOnly | ComboxCheckBoxWithForm;
