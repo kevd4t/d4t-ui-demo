@@ -1,6 +1,7 @@
-import { CheckboxField } from './checkbox-field'
-import { ComboxCheckBoxProps } from './types'
 import { ComboboxCheckboxReadOnly } from './readonly'
+import { ComboxCheckBoxProps } from './types'
+
+import { CheckboxField } from './checkbox-field'
 
 
 export const ComboxCheckbox = ({ id, description, icon, placeholder, label, tabIndex, classNameContainer, readOnly, classNamePopover, disabled, ...rest }: ComboxCheckBoxProps) => {
@@ -18,7 +19,7 @@ export const ComboxCheckbox = ({ id, description, icon, placeholder, label, tabI
         // @ts-ignore
         form={rest?.form || null}
         // @ts-ignore
-        options={rest?.options || []}
+        items={rest?.items || []}
       />
     )
   }
@@ -37,7 +38,7 @@ export const ComboxCheckbox = ({ id, description, icon, placeholder, label, tabI
         // @ts-ignore
       form={rest?.form || null}
       // @ts-ignore
-      options={rest?.options || []}
+      items={rest?.items || []}
     />
   )
 }

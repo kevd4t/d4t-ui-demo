@@ -1,4 +1,13 @@
+import { Badge, BarChart, Building, DivideCircle, HelpCircle, LucideTruck, Router, Settings, StopCircle, Truck, User } from 'lucide-react';
+import { UseFormReturn, useForm } from 'react-hook-form';
+import { ThemeProvider, useTheme } from 'next-themes';
+import { zodResolver } from '@hookform/resolvers/zod';
+import FileResizer from 'react-image-file-resizer';
+import { useEffect, useState } from 'react';
+import { z } from 'zod';
+
 import { AppLayout } from './layouts/Application';
+import type { ComboxItem } from './components/combox/types';
 import {
   D4TTable,
   GenericSelect,
@@ -28,13 +37,6 @@ import {
   TextArea,
   GenericCombobox
 } from './components';
-import { useState } from 'react';
-import { UseFormReturn, useForm } from 'react-hook-form';
-import { Badge, BarChart, Building, DivideCircle, HelpCircle, LucideTruck, Router, Settings, StopCircle, Truck, User } from 'lucide-react';
-import { ThemeProvider, useTheme } from 'next-themes';
-import FileResizer from 'react-image-file-resizer';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 
 interface ITank {
   id: string;
@@ -80,7 +82,14 @@ export const defaultLoginPID: ILoginWithPID = {
 }
 
 function App() {
+  const [uploadImages, setUploadImages] = useState<IUploadImage[]>([]);
+  const [uploadSingleImage, setUploadSingleImage] = useState<IUploadImage>(null);
+  const [itemsOfMultiSel, setItemsOfMultisel] = useState([]);
+  const [checkboxItems, setCheckboxItems] = useState<ComboxItem[]>([]);
+  
   const formPid = useForm<ILoginWithPID>({ defaultValues: defaultLoginPID, resolver: zodResolver(pidLoginSchemaForm) })
+  const probeForm = useForm<any, any, any>()
+  const { theme, setTheme } = useTheme()
 
   const profile = { role: 'Administrador', name: 'Kevin', lastname: 'blanco', photo: 'https://www.hmiscfl.org/wp-content/uploads/2018/06/generic-person-icon-14.png' };
   const sections = [
@@ -174,14 +183,8 @@ function App() {
     console.log({ queries, filters, page, limit })
   };
 
-  const [uploadImages, setUploadImages] = useState<IUploadImage[]>([]);
-  const [uploadSingleImage, setUploadSingleImage] = useState<IUploadImage>(null);
-  const [itemsOfMultiSel, setItemsOfMultisel] = useState([]);
-  const { theme, setTheme } = useTheme()
-  const probeForm = useForm<any, any, any>()
-
   const comboxForm = useForm<{ fuel: Hydrocarbon[] }>({
-    defaultValues: { fuel: [HydrocarbonSchema.enum.Gasoline] },
+    defaultValues: { fuel: [] },
     resolver: zodResolver(fuelSchema)
   })
 
@@ -194,11 +197,21 @@ function App() {
     }
   }
 
-  const FUELS = [
+  const FUELS: ComboxItem[] = [
     { id: 'Gasolina', label: 'Gasolina SUPER SPER ASDKAS ODASK DOASD ASD', value: Hydrocarbon.Gasoline },
     { id: 'Diesel', label: 'Diesel SUPER DIESEL loREM IPSU', value: Hydrocarbon.Diesel },
     { id: 'Gas', label: 'Gas', value: Hydrocarbon.Gas }
   ]
+
+
+  useEffect(() => {
+    setTimeout(() => {
+      comboxForm.reset((prevForm) => ({
+        ...prevForm,
+        fuel: [FUELS[0].value as Hydrocarbon]
+      }))
+    }, 2000)
+  }, [])
 
   return (
     <ThemeProvider attribute='class' defaultTheme='light'>
@@ -372,6 +385,7 @@ function App() {
             />
           </SidebarContent>
         </Sidebar>
+
         <div className='grid'>
           <div className='grid grid-cols-2'>
             {/* Table */}
@@ -447,11 +461,11 @@ function App() {
               <Form {...comboxForm}>
                 <form>
                   <ComboxCheckbox
-                    form={comboxForm}
                     id='fuel'
                     tabIndex={2}
+                    items={FUELS}
+                    form={comboxForm}
                     label='Combustible'
-                    options={FUELS}
                   />
 
                   {/* <Button

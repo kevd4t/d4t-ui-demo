@@ -1,10 +1,11 @@
-import { useState, useRef, useEffect, type ReactNode } from 'react'
+import { useState, useRef, useEffect, type ReactNode, useMemo } from 'react'
+import { UseFormReturn } from 'react-hook-form'
 import { Check } from 'lucide-react'
 
-import { FormDescription, FormField, FormItem, FormLabel, Badge, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, Popover, PopoverContent, PopoverTrigger, Label, TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '../'
+import { ComboxItem, ComboxItemExtended } from './types'
 import { cn } from '../../lib/utils'
-import { LocalOption } from './types'
-import { UseFormReturn } from 'react-hook-form'
+
+import { FormDescription, FormField, FormItem, FormLabel, Badge, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, Popover, PopoverContent, PopoverTrigger, TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '../'
 
 interface CheckBoxFieldProps {
   form: UseFormReturn<any, any, any>
@@ -14,41 +15,54 @@ interface CheckBoxFieldProps {
   placeholder: string
   label: string
   tabIndex: number
-  options: any[]
-  classNameContainer: string
-  classNamePopover: string
+  items: ComboxItem[]
+  classNameContainer?: string
+  classNamePopover?: string
   disabled?: boolean
 }
 
-export const CheckboxField = ({ form, id, description, icon, placeholder, label, tabIndex, options, classNameContainer, classNamePopover, disabled }: CheckBoxFieldProps) => {
+export const CheckboxField = (props: CheckBoxFieldProps) => {
+  const { form, id, description, icon, placeholder, label, tabIndex, items, classNameContainer, classNamePopover, disabled } = props
+
+  const [itemsExtended, setItemsExtended] = useState<ComboxItemExtended[]>([])
   const [comboxWidth, setComboxWidth] = useState(null)
   const elementRef = useRef(null)
+  
+  const defaultItems = form?.formState?.defaultValues[id]
 
-  const defaultOptions = form?.formState?.defaultValues[id]
-  const optionsFormatted: LocalOption[] = options.map(option => ({
-    ...option,
-    selected: defaultOptions ? defaultOptions.includes(option.value) : false
-  }))
+  const formatItems = (item: ComboxItem): ComboxItemExtended => ({
+    ...item,
+    selected: defaultItems ? defaultItems.includes(item.value) : false
+  })
 
-  const [localOptions, setLocalOptions] = useState<LocalOption[]>(optionsFormatted)
+  const itemsFormatted: ComboxItemExtended[] = useMemo(() => items.map(formatItems), [defaultItems])
 
-  const getSelectedOptions = (filterId) => {
-    const selectedOptions = localOptions.filter((option) => option.selected).map((option) => option.value)
-    return selectedOptions
-  }
+  const getSelectedItems = useMemo(() => {
+    const selectedItems = itemsExtended.filter((item) => item.selected).map((item) => item.value)
+    return selectedItems
+  }, [itemsExtended])
 
-  const resetFilters = () => setLocalOptions(prevState => prevState.map(option => ({ ...option, selected: false })))
+  const resetFilters = () =>
+    setItemsExtended((prevState) =>
+      prevState.map((item) => ({...item, selected: false}))
+    )
 
-  const selectOptionFilter = (optionId, optionValue) => {
-    const options = localOptions.map((option) => {
-      if (option.id === optionId) {
-        return { ...option, selected: optionValue }
+  const selectItemFilter = (itemId: string, selected: boolean) => {
+    const items = itemsExtended.map((item) => {
+      if (item.id === itemId) {
+        return { ...item, selected }
       }
-      return option
+
+      return item
     })
 
-    setLocalOptions(options)
-    form.setValue(id, options.filter((option) => option.selected).map((option) => option.value), { shouldDirty: true })
+    setItemsExtended(items)
+
+    form.setValue(
+      id,
+      items.filter((item) => item.selected).map((item) => item.value),
+      {shouldDirty: true}
+    )
   }
 
   useEffect(() => {
@@ -73,6 +87,10 @@ export const CheckboxField = ({ form, id, description, icon, placeholder, label,
       resizeObserver.disconnect()
     }
   }, [])
+
+  useEffect(() => {
+    setItemsExtended(itemsFormatted)
+  }, [itemsFormatted])
 
   return (
     <FormField
@@ -102,7 +120,7 @@ export const CheckboxField = ({ form, id, description, icon, placeholder, label,
                   {icon && icon}
 
                   {
-                    !getSelectedOptions(id).length && (
+                    !getSelectedItems.length && (
                       <span className='text-muted-foreground font-normal'>
                         {placeholder || 'Seleccione alguna opción'}
                       </span>
@@ -110,37 +128,37 @@ export const CheckboxField = ({ form, id, description, icon, placeholder, label,
                   }
 
                   {
-                    getSelectedOptions(id).length > 0 && (
+                    getSelectedItems.length > 0 && (
                       <>
                         <Badge
                           variant='secondary'
                           className='rounded-sm px-1 font-normal lg:hidden'
                         >
-                          {getSelectedOptions(id).length} seleccionados
+                          {getSelectedItems.length} seleccionados
                         </Badge>
 
                         <div className='hidden space-x-1 lg:flex'>
                           {
-                            getSelectedOptions(id).length > 2
+                            getSelectedItems.length > 2
                               ? (
                                 <Badge
                                   variant='secondary'
                                   className='rounded-sm px-1 font-normal'
                                 >
-                                  {getSelectedOptions(id).length} seleccionados
+                                  {getSelectedItems.length} seleccionados
                                 </Badge>
                               )
                               : (
-                                localOptions
-                                  .filter((option) => option.selected)
-                                  .map((option) => {
+                                itemsExtended
+                                  .filter((item) => item.selected)
+                                  .map((item) => {
                                     return (
                                       <Badge
                                         variant='secondary'
-                                        key={option.value.toString()}
+                                        key={item.value.toString()}
                                         className='rounded-sm px-1 font-normal'
                                       >
-                                        {option.label}
+                                        {item.label}
                                       </Badge>
                                     )
                                   })
@@ -178,25 +196,25 @@ export const CheckboxField = ({ form, id, description, icon, placeholder, label,
 
                     <CommandGroup>
                       {
-                        localOptions.map((option) => {
+                        itemsExtended.map((item) => {
                           return (
                             <TooltipProvider>
                               <Tooltip delayDuration={150}>
                                 <TooltipTrigger className='w-full'>
                                   <CommandItem
-                                    key={option.value.toString()}
+                                    key={item.value.toString()}
                                     onSelect={() => {
-                                      if (option.selected) {
-                                        selectOptionFilter(option.id, false)
+                                      if (item.selected) {
+                                        selectItemFilter(item.id, false)
                                       } else {
-                                        selectOptionFilter(option.id, true)
+                                        selectItemFilter(item.id, true)
                                       }
                                     }}
                                   >
                                     <div
                                       className={cn(
                                         'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary',
-                                        option.selected
+                                        item.selected
                                           ? 'bg-primary text-primary-foreground'
                                           : 'opacity-50 [&_svg]:invisible'
                                       )}
@@ -204,14 +222,14 @@ export const CheckboxField = ({ form, id, description, icon, placeholder, label,
                                       <Check className={cn('h-4 w-4')} />
                                     </div>
 
-                                    {option.icon}
+                                    {item.icon}
 
-                                    <span className='truncate'>{option.label}</span>
+                                    <span className='truncate'>{item.label}</span>
                                   </CommandItem>
                                 </TooltipTrigger>
 
                                 <TooltipContent className='whitespace-normal checkbox-tooltip-content' sideOffset={20}>
-                                  <p>{option.label}</p>
+                                  <p>{item.label}</p>
                                 </TooltipContent>
                               </Tooltip>
                             </TooltipProvider>
@@ -221,7 +239,7 @@ export const CheckboxField = ({ form, id, description, icon, placeholder, label,
                     </CommandGroup>
 
                     {
-                      getSelectedOptions(id).length > 0 && (
+                      getSelectedItems.length > 0 && (
                         <>
                           <CommandSeparator />
 
