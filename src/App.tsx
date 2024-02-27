@@ -516,8 +516,10 @@ function App() {
                   <UploadImage
                     zoom
                     download
+                    disabled
                     label='Single Images'
                     setUploadImage={setUploadSingleImage}
+                    initialPreview='https://unavatar.io/github/ipacs13'
                   />
                 </CardContent>
               </Card>
@@ -529,6 +531,7 @@ function App() {
               limit={10}
               zoom
               download
+              disabled
               compress={{ resizer: FileResizer, openComparisons: () => {} }}
               setUploadImages={setUploadImages}
               initialPreview={[

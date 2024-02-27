@@ -4,96 +4,121 @@
  
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: #ebf0f2;
+    --background-stepper: #deedf6;
     --background-scroll: 240deg 3.05% 16.21%;
     --background-hover: 240deg 3.05% 16.21%;
-    --background-sidebar: var(--background);
+    --background-sidebar: var(--secondary);
 
-    /*Branding vars*/
-    --primary-brand-text: 0deg 3% 97%;
-
-    --primary-brand: 356deg 77% 47%;
-    --primary-brand-opaque: 356deg 77% 42%;
-    --primary-brand-lighter: 356deg 77% 63%;
-
-    --secondary-brand: 226.2deg 50% 39.22%;
-    --secondary-brand-opaque: 226deg 50% 35%;
-
-    --sidebar-background: 210deg 37.18% 13.04%;
-    --sidebar-text: 204.84deg 36.7% 88.28%;
-    --sidebar-text-accent: 205deg 73.8% 64.09%;
-    --sidebar-icons-hover: 210deg 37% 23%;
-    /*----*/
+    --text-color: 240 10% 3.9%;
 
     --foreground: 240 10% 3.9%;
- 
+
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
- 
+
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
- 
+
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
- 
+
     --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
- 
-    --primary: 240 5.9% 10%;
+    --input: 215, 16%, 47%;
+
+    --primary: #38789b;
     --primary-foreground: 0 0% 98%;
- 
-    --secondary: 240 4.8% 95.9%;
+
+    --secondary: #568aaf;
     --secondary-foreground: 240 5.9% 10%;
- 
+
+    /* brand */
+    --primary-brand-text: 0deg 3% 97%;
+    --primary-brand: #38789b;
+    --primary-brand-lighter: #38789b;
+    --primary-brand-opaque: 205deg 51% 40%;
+    --text-primary-foreground: white;
+
+    --secondary-brand: #568aaf;
+    --secondary-brand-opaque: 226deg 50% 35%;
+
+    --sidebar-background: #38789be6;
+    --sidebar-text: white;
+    --sidebar-text-accent: var(--primary);
+    --sidebar-icons-hover: var(--primary);
+
+    /**/
     --accent: 240 4.8% 95.9%;
     --accent-foreground: 240 5.9% 10%;
- 
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
- 
-    --ring: 240 5% 64.9%;
- 
-    --radius: 0.5rem;
-  }
- 
-  .dark {
-    --background: 240 10% 3.9%;
 
+    --ring: 215, 16%, 47%;
+
+    --radius: 0.5rem;
+
+    --background-gradient: linear-gradient(155deg, rgba(56, 120, 155, 1) 0%, rgba(104, 147, 178, 1) 35%);
+  }
+
+  .dark {
+    --background: hsla(240, 4%, 14%, 0.833);
+
+    --background-stepper: #84bbddf5;
     --background-hover: 240deg 3.05% 16.21%;
     --background-scroll: 240deg 3.05% 16.21%;
     --background-sidebar: var(--background);
 
-    --third-color: 30, 91%, 41%;
+    --text-color: 200, 33%, 96%;
 
     --foreground: 0 0% 98%;
- 
+
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
- 
+
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
- 
+
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
- 
+
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
- 
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
- 
-    --secondary: 240 3.7% 15.9%;
+
+    --primary: #2e7da8;
+    --primary-foreground: white;
+
+    --secondary: #346b93;
     --secondary-foreground: 0 0% 98%;
- 
+
+    /* brand */
+    --primary-brand-text: 0deg 3% 97%;
+    --primary-brand: #2a7299;
+    --primary-brand-lighter: #2a7299;
+    --primary-brand-opaque: 205deg 51% 40%;
+    --text-primary-foreground: white;
+    --secondary-brand: #346b93;
+    --secondary-brand-opaque: 226deg 50% 35%;
+
+    --sidebar-background: #346b93f5;
+    --sidebar-text: white;
+    --sidebar-text-accent: var(--primary);
+    --sidebar-icons-hover: var(--primary);
+
+    /**/
+
     --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
- 
+
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 85.7% 97.3%;
- 
+
     --ring: 240 3.7% 15.9%;
+
+    --background-gradient: linear-gradient(155deg, rgba(56, 120, 155, 1) 0%, rgba(104, 147, 178, 1) 35%);
   }
 }
+
 
 @layer base {
   * {

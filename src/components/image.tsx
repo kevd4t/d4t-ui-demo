@@ -31,8 +31,9 @@ export const D4TImage = ({ src, containerClassName, imageClassName, zoom, fallba
         {
           download && (
             <Button
+              type='button'
               onClick={() => downloadImage(src, filename)}
-            className='absolute top-2 right-2 w-fit h-fit p-2 z-10 border-border border hover:bg-zinc-700 dark:hover:bg-zinc-200 focus-visible:ring-offset-0 focus-visible:ring-1'
+              className='absolute top-2 right-2 w-fit h-fit p-2 z-10 hover:brightness-[0.85] focus-visible:ring-offset-0 focus-visible:ring-1'
             >
               <Download size={18} />
             </Button>
@@ -40,7 +41,6 @@ export const D4TImage = ({ src, containerClassName, imageClassName, zoom, fallba
         }
 
         <Dialog open={open} onOpenChange={setOpen}>
-          {/* <Avatar className={cn('h-[237px] rounded-md', containerClassName, src ? 'w-auto' : 'min-w-[300px]')} > */}
           <Avatar className={cn('relative w-auto h-[236px] rounded-md bg-muted p-4 hover:bg-zinc-900/10 dark:hover:bg-zinc-50/20 transition-colors ease-in-out duration-200', containerClassName)}>
             <AvatarImage
               src={src}
@@ -73,8 +73,9 @@ export const D4TImage = ({ src, containerClassName, imageClassName, zoom, fallba
         {
           download && (
             <Button
+              type='button'
               onClick={() => downloadImage(src, filename)}
-              className='absolute top-2 right-2 w-fit h-fit p-2 z-10 border-border border hover:bg-zinc-700 dark:hover:bg-zinc-200 focus-visible:ring-offset-0 focus-visible:ring-1'
+              className='absolute top-2 right-2 w-fit h-fit p-2 z-10 hover:brightness-[0.85] focus-visible:ring-offset-0 focus-visible:ring-1'
             >
               <Download size={18} />
             </Button>
