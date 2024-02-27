@@ -546,10 +546,12 @@ function App() {
                   Abrir Modal con Imagen
                 </Button>
               </DialogTrigger>
-            <DialogContent className='flex justify-center items-cente'>
-                <D4TImage containerClassName='h-72' zoom download src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/347px-Documento_Espa%C3%B1ol.jpg' />
-
-                <D4TImage download src='https://happy-families.s3.ap-southeast-2.amazonaws.com/s3fs-public/styles/max_1300x1300/public/2021-09/Settle-down-about-selfies.jpg?VersionId=s9.37sTnWP4lwLl5TdYkISDea8UM6V4s&itok=pQEgg--h' />
+            <DialogContent className='flex justify-center items-center flex-col'>
+              <div className='flex justify-center items-center gap-x-6'>
+                <D4TImage zoom download src='https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Documento_Espa%C3%B1ol.jpg/347px-Documento_Espa%C3%B1ol.jpg' />
+                <D4TImage zoom src='https://happy-families.s3.ap-southeast-2.amazonaws.com/s3fs-public/styles/max_1300x1300/public/2021-09/Settle-down-about-selfies.jpg?VersionId=s9.37sTnWP4lwLl5TdYkISDea8UM6V4s&itok=pQEgg--h' />
+              </div>
+                <D4TImage src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8x_ff5v-OhvOAigzgO3n_laRg-KrejjGd7w&usqp=CAU' />
             </DialogContent>
             </Dialog>
           </div>

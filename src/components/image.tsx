@@ -44,7 +44,7 @@ export const D4TImage = ({ src, containerClassName, imageClassName, zoom, fallba
           <Avatar className={cn('relative w-auto h-[236px] rounded-md bg-muted p-4 hover:bg-zinc-900/10 dark:hover:bg-zinc-50/20 transition-colors ease-in-out duration-200', containerClassName)}>
             <AvatarImage
               src={src}
-              className={cn('w-auto rounded-md object-contain m-auto h-full cursor-zoom-in', imageClassName)} style={{ width: '-webkit-fill-available' }}
+              className={cn('aspect-video w-auto rounded-md object-contain m-auto h-full cursor-zoom-in', imageClassName)}
               onClick={() => setOpen(true)}
             />
 
@@ -55,7 +55,7 @@ export const D4TImage = ({ src, containerClassName, imageClassName, zoom, fallba
 
           <DialogContent className='p-10 bg-transparent border-none shadow-none w-[90vw] h-screen mx-auto sm:max-w-none sm:border-none' style={{ background: 'transparent !important' }} onClick={() => setOpen(false)}>
             <Avatar className={cn('w-full h-full rounded-md')}>
-              <AvatarImage src={src} className={cn('rounded-md object-contain m-auto h-full')} style={{ width: '-webkit-fill-available' }} />
+              <AvatarImage src={src} className={cn('aspect-video rounded-md object-contain m-auto h-full')} style={{ width: '-webkit-fill-available' }} />
 
               <AvatarFallback className={cn('w-full h-full rounded-md', fallback?.className)}>
                 { fallback?.children || <ImageOff /> }
@@ -68,23 +68,25 @@ export const D4TImage = ({ src, containerClassName, imageClassName, zoom, fallba
   }
 
   return (
-    <Avatar className={cn('relative w-auto h-[236px] rounded-md bg-muted p-4 hover:bg-zinc-900/10 dark:hover:bg-zinc-50/20 transition-colors ease-in-out duration-200', containerClassName)}>
-      {
-        download && (
-          <Button
-            onClick={() => downloadImage(src, filename)}
-            className='absolute top-2 right-2 w-fit h-fit p-2 z-10 border-border border hover:bg-zinc-700 dark:hover:bg-zinc-200 focus-visible:ring-offset-0 focus-visible:ring-1'
-          >
-            <Download size={18} />
-          </Button>
-        )
-      }
+    <div className='w-full'>
+      <Avatar className={cn('relative w-full h-[236px] rounded-md bg-muted p-4 hover:bg-zinc-900/10 dark:hover:bg-zinc-50/20 transition-colors ease-in-out duration-200', containerClassName)}>
+        {
+          download && (
+            <Button
+              onClick={() => downloadImage(src, filename)}
+              className='absolute top-2 right-2 w-fit h-fit p-2 z-10 border-border border hover:bg-zinc-700 dark:hover:bg-zinc-200 focus-visible:ring-offset-0 focus-visible:ring-1'
+            >
+              <Download size={18} />
+            </Button>
+          )
+        }
 
-      <AvatarImage src={src} className={cn('rounded-md object-contain m-auto', imageClassName)} style={{ width: '-webkit-fill-available' }} />
+        <AvatarImage src={src} className={cn('aspect-video w-auto rounded-md object-contain m-auto h-full', imageClassName)} style={{ width: '-webkit-fill-available' }} />
 
-      <AvatarFallback className={cn('w-full h-full rounded-md', fallback?.className)}>
-        { fallback?.children || <ImageOff /> }
-      </AvatarFallback>
-    </Avatar>
+        <AvatarFallback className={cn('w-full h-full rounded-md', fallback?.className)}>
+          { fallback?.children || <ImageOff /> }
+        </AvatarFallback>
+      </Avatar>
+    </div>
   )
 }
