@@ -25,16 +25,15 @@ export const UploadImageActions = (props: UploadImageActionsProps) => {
   if (disabled) return null
 
   return (
-    <div className='mt-2 gap-x-2 w-fit flex flex-col justify-center items-end gap-y-2 absolute top-2 right-2 bg-transparent'>
+    <div className='mt-2 gap-x-2 w-fit flex flex-col justify-center items-end gap-y-2 absolute top-2 right-4 bg-transparent'>
       {
         compress?.openComparisons && (
           <Button
             size='icon'
             type='button'
-            variant='outline'
             tabIndex={tabIndexs?.viewCompress}
             onClick={() => compress.openComparisons()}
-            className='text-green-600 backdrop-blur-sm border-green-600 bg-green-600 bg-opacity-10 hover:bg-green-600 hover:bg-opacity-25 hover:text-green-600'
+            className='w-fit h-fit p-2 z-10 hover:bg-zinc-600 dark:hover:bg-zinc-300 focus-visible:ring-offset-0 focus-visible:ring-1'
           >
             <IconPhotoStar size={16} />
           </Button>
@@ -44,27 +43,25 @@ export const UploadImageActions = (props: UploadImageActionsProps) => {
       <Button
         size='icon'
         type='button'
-        variant='outline'
         tabIndex={tabIndexs?.change}
         onClick={() => onImageUpdate(imageIndex)}
-        className='text-yellow-600 backdrop-blur-sm border-yellow-600 bg-yellow-600 bg-opacity-10 hover:bg-yellow-600 hover:bg-opacity-25 hover:text-yellow-600'
+        className='w-fit h-fit p-2 z-10 hover:bg-zinc-600 dark:hover:bg-zinc-300 focus-visible:ring-offset-0 focus-visible:ring-1'
       >
-        <Edit size={14} />
+        <Edit size={16} />
       </Button>
 
       <Button
         tabIndex={tabIndexs?.delete}
         type='button'
         size='icon'
-        variant='outline'
         onClick={() => {
           onImageRemove(imageIndex)
           setLocalImage([])
           setUploadImage({ original: null, compressed: null })
         }}
-        className='text-red-700 backdrop-blur-sm border-red-700 bg-red-700 bg-opacity-10 hover:bg-red-700 hover:bg-opacity-25 hover:text-red-700'
-      >
-        <Trash size={14} />
+        className='w-fit h-fit p-2 z-10 hover:bg-zinc-600 dark:hover:bg-zinc-300 focus-visible:ring-offset-0 focus-visible:ring-1'
+        >
+        <Trash size={16} />
       </Button>
 
 
@@ -73,12 +70,11 @@ export const UploadImageActions = (props: UploadImageActionsProps) => {
           <Button
             size='icon'
             type='button'
-            variant='outline'
             tabIndex={tabIndexs?.viewCompress}
             onClick={() => downloadImage(src, 'imagen.jpg')}
-            className='whitespace-nowrap text-blue-600 backdrop-blur-sm border-blue-600 bg-blue-600 bg-opacity-10 hover:bg-blue-600 hover:bg-opacity-25 hover:text-blue-600'
+            className='w-fit h-fit p-2 z-10 hover:bg-zinc-600 dark:hover:bg-zinc-300 focus-visible:ring-offset-0 focus-visible:ring-1'
           >
-            <Download size={18} />
+            <Download size={16} />
           </Button>
         )
       }
