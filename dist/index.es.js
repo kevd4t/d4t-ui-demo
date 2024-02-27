@@ -24083,19 +24083,18 @@ const m7 = (e) => {
           Or,
           {
             src: e,
-            className: j("w-auto rounded-md object-contain m-auto h-full cursor-zoom-in", n),
-            style: { width: "-webkit-fill-available" },
+            className: j("aspect-video w-auto rounded-md object-contain m-auto h-full cursor-zoom-in", n),
             onClick: () => c(!0)
           }
         ),
         /* @__PURE__ */ f.exports.jsx(lo, { className: j("w-full h-full rounded-md", o == null ? void 0 : o.className), children: (o == null ? void 0 : o.children) || /* @__PURE__ */ f.exports.jsx(ac, {}) })
       ] }),
       /* @__PURE__ */ f.exports.jsx(Vu, { className: "p-10 bg-transparent border-none shadow-none w-[90vw] h-screen mx-auto sm:max-w-none sm:border-none", style: { background: "transparent !important" }, onClick: () => c(!1), children: /* @__PURE__ */ f.exports.jsxs(co, { className: j("w-full h-full rounded-md"), children: [
-        /* @__PURE__ */ f.exports.jsx(Or, { src: e, className: j("rounded-md object-contain m-auto h-full"), style: { width: "-webkit-fill-available" } }),
+        /* @__PURE__ */ f.exports.jsx(Or, { src: e, className: j("aspect-video rounded-md object-contain m-auto h-full"), style: { width: "-webkit-fill-available" } }),
         /* @__PURE__ */ f.exports.jsx(lo, { className: j("w-full h-full rounded-md", o == null ? void 0 : o.className), children: (o == null ? void 0 : o.children) || /* @__PURE__ */ f.exports.jsx(ac, {}) })
       ] }) })
     ] })
-  ] }) : /* @__PURE__ */ f.exports.jsxs(co, { className: j("relative w-auto h-[236px] rounded-md bg-muted p-4 hover:bg-zinc-900/10 dark:hover:bg-zinc-50/20 transition-colors ease-in-out duration-200", t), children: [
+  ] }) : /* @__PURE__ */ f.exports.jsx("div", { className: "w-full", children: /* @__PURE__ */ f.exports.jsxs(co, { className: j("relative w-full h-[236px] rounded-md bg-muted p-4 hover:bg-zinc-900/10 dark:hover:bg-zinc-50/20 transition-colors ease-in-out duration-200", t), children: [
     a && /* @__PURE__ */ f.exports.jsx(
       Le,
       {
@@ -24104,9 +24103,9 @@ const m7 = (e) => {
         children: /* @__PURE__ */ f.exports.jsx(ks, { size: 18 })
       }
     ),
-    /* @__PURE__ */ f.exports.jsx(Or, { src: e, className: j("rounded-md object-contain m-auto", n), style: { width: "-webkit-fill-available" } }),
+    /* @__PURE__ */ f.exports.jsx(Or, { src: e, className: j("aspect-video w-auto rounded-md object-contain m-auto h-full", n), style: { width: "-webkit-fill-available" } }),
     /* @__PURE__ */ f.exports.jsx(lo, { className: j("w-full h-full rounded-md", o == null ? void 0 : o.className), children: (o == null ? void 0 : o.children) || /* @__PURE__ */ f.exports.jsx(ac, {}) })
-  ] });
+  ] }) });
 }, C8 = ({
   initialPreview: e = null,
   setUploadImage: t,
