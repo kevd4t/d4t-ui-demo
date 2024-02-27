@@ -1,7 +1,9 @@
-import { UploadImageCompress, UploadImageTabIndexs } from '../types'
-import { Button } from '../../button'
-import { Edit, Trash } from 'lucide-react'
+import { Download, Edit, Trash } from 'lucide-react'
 import { IconPhotoStar } from '@tabler/icons-react'
+
+import { UploadImageCompress, UploadImageTabIndexs } from '../types'
+import { downloadImage } from '../../../lib/utils/download-image'
+import { Button } from '../../button'
 
 interface UploadImageActionsProps {
   imageIndex: number
@@ -10,9 +12,11 @@ interface UploadImageActionsProps {
   onImageUpdate: (index: number) => void
   onImageRemove: (index: number) => void
   disabled?: boolean
+  src?: string
+  download?: boolean
 }
 
-export const MultiUploadImageActions = ({ imageIndex, compress, tabIndexs, onImageUpdate, onImageRemove, disabled }: UploadImageActionsProps) => {
+export const MultiUploadImageActions = ({ imageIndex, compress, tabIndexs, onImageUpdate, onImageRemove, disabled, download, src }: UploadImageActionsProps) => {
   if (disabled) return null
 
   return (
@@ -53,6 +57,21 @@ export const MultiUploadImageActions = ({ imageIndex, compress, tabIndexs, onIma
       >
         <Trash size={14} />
       </Button>
+
+      {
+        (download && src) && (
+          <Button
+            size='icon'
+            type='button'
+            variant='outline'
+            tabIndex={tabIndexs?.viewCompress}
+            onClick={() => downloadImage(src, 'imagen.jpg')}
+            className='whitespace-nowrap text-blue-600 backdrop-blur-sm border-blue-600 bg-blue-600 bg-opacity-10 hover:bg-blue-600 hover:bg-opacity-25 hover:text-blue-600'
+          >
+            <Download size={18} />
+          </Button>
+        )
+      }
     </div>
   )
 }

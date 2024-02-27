@@ -1,11 +1,14 @@
 import React, { Dispatch, SetStateAction } from 'react'
-
-import { IUploadImage, ImageListType, OnChangeImage, SetUploadImage, UploadImageCompress, UploadImageTabIndexs } from '../types'
-import { Button } from '../../button'
 import { IconPhotoStar } from '@tabler/icons-react'
-import { Edit, Trash } from 'lucide-react'
+import { Download, Edit, Trash } from 'lucide-react'
+
+import { ImageListType, OnChangeImage, SetUploadImage, UploadImageCompress, UploadImageTabIndexs } from '../types'
+import { downloadImage } from '../../../lib/utils/download-image'
+import { Button } from '../../button'
 
 interface UploadImageActionsProps {
+  src?: string
+  download?: boolean
   imageIndex: number
   disabled?: boolean
   compress?: UploadImageCompress
@@ -16,7 +19,9 @@ interface UploadImageActionsProps {
   setLocalImage: Dispatch<SetStateAction<ImageListType>>
 }
 
-export const UploadImageActions = ({ imageIndex, compress, disabled, tabIndexs, onImageUpdate, setUploadImage, onImageRemove, setLocalImage }: UploadImageActionsProps) => {
+export const UploadImageActions = (props: UploadImageActionsProps) => {
+  const { imageIndex, compress, disabled, tabIndexs, onImageUpdate, setUploadImage, onImageRemove, setLocalImage, download, src } = props
+
   if (disabled) return null
 
   return (
@@ -61,6 +66,22 @@ export const UploadImageActions = ({ imageIndex, compress, disabled, tabIndexs, 
       >
         <Trash size={14} />
       </Button>
+
+
+      {
+        (download && src) && (
+          <Button
+            size='icon'
+            type='button'
+            variant='outline'
+            tabIndex={tabIndexs?.viewCompress}
+            onClick={() => downloadImage(src, 'imagen.jpg')}
+            className='whitespace-nowrap text-blue-600 backdrop-blur-sm border-blue-600 bg-blue-600 bg-opacity-10 hover:bg-blue-600 hover:bg-opacity-25 hover:text-blue-600'
+          >
+            <Download size={18} />
+          </Button>
+        )
+      }
     </div>
   )
 }

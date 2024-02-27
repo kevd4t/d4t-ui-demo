@@ -5,10 +5,9 @@ import type { IUploadImageProps, ImageListType, onChangeImage } from '../types'
 import { compressImage } from '../handleCompressionImage'
 import { convertBytes } from '../../../lib/utils'
 
-import { ImageWithoutZoom } from './ImageWithoutZoom'
-import { ImageWithZoom } from './ImageWithZoom'
 import { UploadImageActions } from './Actions'
 import { LoadImage } from './LoadImage'
+import { D4TImage } from '../../image'
 import { Label } from '../../label'
 
 export const UploadImage = ({
@@ -22,7 +21,8 @@ export const UploadImage = ({
   emptyClassName,
   imageContainerClassName,
   zoom,
-  compress
+  compress,
+  download
 }: IUploadImageProps) => {
   const [localImage, setLocalImage] = useState<ImageListType>(initialPreview ? [{ data_url: initialPreview as string, file: null }] : [])
 
@@ -112,14 +112,16 @@ export const UploadImage = ({
                         imageList.map((image, index) => {
                           return (
                             <div key={index} className='imagen-container w-full flex flex-col justify-center items-center relative'>
-                              {
-                                zoom
-                                  ? <ImageWithZoom imageContainerClassName={imageContainerClassName} src={image?.data_url} />
-                                  : <ImageWithoutZoom imageContainerClassName={imageContainerClassName} previewUrl={image?.data_url} />
-                              }
+                                <D4TImage
+                                  zoom={zoom}
+                                  src={image?.data_url}
+                                  containerClassName={imageContainerClassName}
+                                />
 
                               <UploadImageActions
                                 disabled={disabled}
+                                download={download}
+                                src={image?.data_url}
                                 imageIndex={index}
                                 setUploadImage={setUploadImage}
                                 onImageRemove={onImageRemove}

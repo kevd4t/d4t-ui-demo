@@ -1,7 +1,6 @@
 import { type SetStateAction, type Dispatch, useState, useEffect } from "react";
 import ImageUploading from "react-images-uploading";
-import { IconPhotoPlus } from "@tabler/icons-react";
-import Zoom from "react-medium-image-zoom";
+import { ImagePlus } from "lucide-react";
 
 import type {
   ImageListType,
@@ -13,12 +12,10 @@ import { compressImage } from "../handleCompressionImage";
 import { convertBytes } from "../../../lib/utils";
 import { cn } from "../../../lib/utils";
 
-import { ImageWithoutZoom } from "./ImageWithoutZoom";
 import { Button, Label } from "../../../components";
 import { MultiUploadImageActions } from "./Actions";
-import { ImageWithZoom } from "./ImageWithZoom";
 import { LoadMultiImages } from "./LoadImage";
-import { ImagePlus } from "lucide-react";
+import { D4TImage } from "../../image";
 
 interface IMultipleUploadImageProps
   extends Omit<IUploadImageProps, "setUploadImage" | "initialPreview"> {
@@ -38,7 +35,8 @@ export const MultipleImages = ({
   compress,
   limit,
   initialPreview,
-  disabled
+  disabled,
+  download
 }: IMultipleUploadImageProps) => {
   const [localImage, setLocalImage] = useState<ImageListType>([]);
 
@@ -127,21 +125,17 @@ export const MultipleImages = ({
                         key={index}
                         className="imagen-container w-full flex flex-col justify-center items-center relative"
                       >
-                        {zoom ? (
-                          <ImageWithZoom
-                            imageContainerClassName={imageContainerClassName}
-                            previewUrl={image?.data_url}
-                          />
-                        ) : (
-                          <ImageWithoutZoom
-                            imageContainerClassName={imageContainerClassName}
-                            previewUrl={image?.data_url}
-                          />
-                        )}
+                        <D4TImage
+                          zoom={zoom}
+                          src={image?.data_url}
+                          containerClassName={imageContainerClassName}
+                        />
 
                         <MultiUploadImageActions
                           disabled={disabled}
+                          src={image?.data_url}
                           imageIndex={index}
+                          download={download}
                           onImageRemove={onImageRemove}
                           onImageUpdate={onImageUpdate}
                           compress={compress}

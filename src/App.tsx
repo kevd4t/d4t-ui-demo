@@ -26,16 +26,15 @@ import {
   MultipleImages,
   Card,
   CardContent,
-  CardHeader,
-  D4TCardsList,
-  IListColumn,
   ComboxCheckbox,
   UploadImage,
-  ImageWithZoom,
   InputPID,
-  formatCITypes,
   TextArea,
-  GenericCombobox
+  GenericCombobox,
+  D4TImage,
+  Dialog,
+  DialogTrigger,
+  DialogContent
 } from './components';
 
 interface ITank {
@@ -505,6 +504,7 @@ function App() {
                   <MultipleImages
                     label='Multi upload images'
                     uploadLabel='upload'
+                    download
                     zoom
                     setUploadImages={setUploadImages}
                     limit={10}
@@ -515,6 +515,7 @@ function App() {
 
                   <UploadImage
                     zoom
+                    download
                     label='Single Images'
                     setUploadImage={setUploadSingleImage}
                   />
@@ -527,6 +528,7 @@ function App() {
             <MultipleImages
               limit={10}
               zoom
+              download
               compress={{ resizer: FileResizer }}
               setUploadImages={setUploadImages}
               initialPreview={[
@@ -537,13 +539,26 @@ function App() {
             />
           </div>
 
+          <div className='my-20'>
+            <Dialog>
+              <DialogTrigger>
+                <Button>
+                  Abrir Modal con Imagen
+                </Button>
+              </DialogTrigger>
+            <DialogContent>
+                <D4TImage download zoom src='https://unavatar.io/github/ipacs13' />
+            </DialogContent>
+            </Dialog>
+          </div>
+
           {/* Cards list */}
           <div className='grid grid-cols-1 mb-10'>
             <D4TTable
-              data={dataFromBack}
+              data={[]}
               onSubmitTable={onSubmitTable}
               pagination={dataPagination}
-              columns={dataTableColumns}
+              columns={[]}
               error={false}
               loading={false}
               limitOfMultiSelect={4}
