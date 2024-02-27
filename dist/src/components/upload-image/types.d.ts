@@ -59,6 +59,7 @@ export interface IUploadImageProps {
     setUploadImage: SetUploadImage | OnChangeImage;
     format?: FormatImage;
     label?: string;
+    download?: boolean;
     disabled?: boolean;
     emptyClassName?: string;
     imageContainerClassName?: string;
