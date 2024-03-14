@@ -11,6 +11,7 @@ interface UploadImageActionsProps {
     onImageRemove: (index: number) => void;
     setUploadImage: SetUploadImage | OnChangeImage;
     setLocalImage: Dispatch<SetStateAction<ImageListType>>;
+    handleOnRemove: (index: number) => void;
 }
 export declare const UploadImageActions: (props: UploadImageActionsProps) => JSX.Element;
 export {};

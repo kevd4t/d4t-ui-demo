@@ -9,6 +9,7 @@ interface UploadImageActionsProps {
     disabled?: boolean;
     src?: string;
     download?: boolean;
+    handleOnRemoveImage: (idxImageRemoved: number) => void;
 }
-export declare const MultiUploadImageActions: ({ imageIndex, compress, tabIndexs, onImageUpdate, onImageRemove, disabled, download, src }: UploadImageActionsProps) => JSX.Element;
+export declare const MultiUploadImageActions: ({ imageIndex, compress, tabIndexs, onImageUpdate, onImageRemove, disabled, download, handleOnRemoveImage, src }: UploadImageActionsProps) => JSX.Element;
 export {};

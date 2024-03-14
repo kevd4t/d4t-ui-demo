@@ -8,5 +8,5 @@ interface IMultipleUploadImageProps extends Omit<IUploadImageProps, "setUploadIm
         [key: string]: any;
     }];
 }
-export declare const MultipleImages: ({ label, setUploadImages, format, uploadLabel, tabIndexs, emptyClassName, imageContainerClassName, zoom, compress, limit, initialPreview, disabled, download }: IMultipleUploadImageProps) => JSX.Element;
+export declare const MultipleImages: ({ label, setUploadImages, format, uploadLabel, tabIndexs, emptyClassName, imageContainerClassName, zoom, compress, limit, initialPreview, disabled, download, onRemove, onEdit }: IMultipleUploadImageProps) => JSX.Element;
 export {};
