@@ -101,6 +101,9 @@ dependencies:
   embla-carousel-react:
     specifier: 8.0.0-rc17
     version: 8.0.0-rc17(react@18.2.0)
+  input-otp:
+    specifier: ^1.1.0
+    version: 1.1.0(react-dom@18.2.0)(react@18.2.0)
   lucide-react:
     specifier: ^0.263.1
     version: 0.263.1(react@18.2.0)
@@ -2562,6 +2565,16 @@ packages:
     resolution: {integrity: sha512-rKtvo6a868b5Hu3heneU+L4yEQ4jYKLtjpnPeUdK7h0yzXGmyBTypknlkCvHFBqfX9YlorEiMM6Dnq/5atfHkw==}
     engines: {node: '>=8'}
     dev: true
+
+  /input-otp@1.1.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-bHM7u1nIbhtupHrCO7hxBksbAp5SNuYYLG9pmMeL9ghJPDDmyJRgJ8dcAylHT9JHyB9tLB+U8tjM8xa+DTpacA==}
+    peerDependencies:
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
 
   /invariant@2.2.4:
     resolution: {integrity: sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==}
