@@ -14,9 +14,10 @@ interface UploadImageActionsProps {
   disabled?: boolean
   src?: string
   download?: boolean
+  handleOnRemoveImage: (idxImageRemoved: number) => void
 }
 
-export const MultiUploadImageActions = ({ imageIndex, compress, tabIndexs, onImageUpdate, onImageRemove, disabled, download, src }: UploadImageActionsProps) => {
+export const MultiUploadImageActions = ({ imageIndex, compress, tabIndexs, onImageUpdate, onImageRemove, disabled, download, handleOnRemoveImage, src }: UploadImageActionsProps) => {
   return (
     <div className='mt-2 gap-x-2 w-fit flex flex-col justify-center items-end gap-y-2 absolute top-2 right-4 bg-transparent'>
       {
@@ -53,7 +54,10 @@ export const MultiUploadImageActions = ({ imageIndex, compress, tabIndexs, onIma
             tabIndex={tabIndexs?.delete}
             type='button'
             size='icon'
-            onClick={() => onImageRemove(imageIndex)}
+            onClick={() => {
+              handleOnRemoveImage(imageIndex)
+              onImageRemove(imageIndex)
+            }}
             className='w-fit h-fit p-2 z-10 hover:brightness-[0.85] focus-visible:ring-offset-0 focus-visible:ring-1'
           >
             <Trash size={16} />

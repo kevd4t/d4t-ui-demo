@@ -1,6 +1,6 @@
 import { type SetStateAction, type Dispatch, useState, useEffect } from "react";
 import ImageUploading from "react-images-uploading";
-import { ImagePlus } from "lucide-react";
+import { CloudLightning, ImagePlus } from "lucide-react";
 
 import type {
   ImageListType,
@@ -36,7 +36,9 @@ export const MultipleImages = ({
   limit,
   initialPreview,
   disabled,
-  download
+  download,
+  onRemove,
+  onEdit
 }: IMultipleUploadImageProps) => {
   const [localImage, setLocalImage] = useState<ImageListType>([]);
 
@@ -48,6 +50,7 @@ export const MultipleImages = ({
 
   const onChangeImage: onChangeImage = async (imageList, addUpdateIndex) => {
     setLocalImage(imageList);
+    const currentImageUpdated = imageList[addUpdateIndex[0]]
 
     const imageListFormated = imageList.map(async (image) => {
       if (compress?.resizer && image?.file) {
@@ -86,8 +89,23 @@ export const MultipleImages = ({
       return null
     });
 
+    if (currentImageUpdated?.data_url && onEdit) {
+      onEdit({
+        data_url: currentImageUpdated?.data_url as string || null,
+        file: currentImageUpdated?.file || null,
+      })
+    }
+
     Promise.all(imageListFormated).then(setUploadImages);
   };
+
+  const handleOnRemoveImage = (idxImageRemoved: number) => {
+    if (idxImageRemoved === undefined || idxImageRemoved === null || !localImage || !localImage.length) {
+      return
+    }
+
+    onRemove && onRemove(localImage[idxImageRemoved])
+  }
 
   return (
     <div>
@@ -103,14 +121,7 @@ export const MultipleImages = ({
         acceptType={["webp", "png", "jpeg", "jpg"]}
         maxNumber={limit}
       >
-        {({
-          imageList,
-          onImageUpload,
-          onImageUpdate,
-          onImageRemove,
-          isDragging,
-          dragProps,
-        }) => {
+        {({ imageList, onImageUpload, onImageUpdate, onImageRemove, isDragging, dragProps }) => {
           return (
             <>
               {imageList.length >= 1 ? (
@@ -136,10 +147,11 @@ export const MultipleImages = ({
                           src={image?.data_url}
                           imageIndex={index}
                           download={download}
-                          onImageRemove={onImageRemove}
-                          onImageUpdate={onImageUpdate}
                           compress={compress}
                           tabIndexs={tabIndexs}
+                          onImageRemove={onImageRemove}
+                          onImageUpdate={onImageUpdate}
+                          handleOnRemoveImage={handleOnRemoveImage}
                         />
                       </div>
                     );

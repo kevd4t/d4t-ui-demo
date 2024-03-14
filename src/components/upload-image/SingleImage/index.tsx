@@ -22,7 +22,9 @@ export const UploadImage = ({
   imageContainerClassName,
   zoom,
   compress,
-  download
+  download,
+  onRemove,
+  onEdit
 }: IUploadImageProps) => {
   const [localImage, setLocalImage] = useState<ImageListType>(initialPreview ? [{ data_url: initialPreview as string, file: null }] : [])
 
@@ -73,6 +75,13 @@ export const UploadImage = ({
       return
     }
 
+    if (imageList[0]?.data_url) {
+      onEdit && onEdit({
+        data_url: imageList[0]?.data_url as string || null,
+        file: imageList[0]?.file || null,
+      })
+    }
+
     setUploadImage({
       original: {
         preview: imageList[0]?.data_url as string,
@@ -81,6 +90,14 @@ export const UploadImage = ({
       },
       compressed: null
     })
+  }
+
+  const handleOnRemoveImage = (idxImageRemoved: number) => {
+    if (idxImageRemoved === undefined || idxImageRemoved === null || !localImage || !localImage.length) {
+      return
+    }
+
+    onRemove && onRemove(localImage[idxImageRemoved])
   }
 
   useEffect(() => {
@@ -119,16 +136,17 @@ export const UploadImage = ({
                                 />
 
                               <UploadImageActions
+                                imageIndex={index}
+                                compress={compress}
                                 disabled={disabled}
                                 download={download}
+                                tabIndexs={tabIndexs}
                                 src={image?.data_url}
-                                imageIndex={index}
-                                setUploadImage={setUploadImage}
                                 onImageRemove={onImageRemove}
                                 onImageUpdate={onImageUpdate}
-                                compress={compress}
-                                tabIndexs={tabIndexs}
                                 setLocalImage={setLocalImage}
+                                setUploadImage={setUploadImage}
+                                handleOnRemove={handleOnRemoveImage}
                               />
                             </div>
                           )

@@ -506,8 +506,16 @@ function App() {
                     uploadLabel='upload'
                     download
                     zoom
+                    onRemove={(data) => console.log('MultiImage', data)}
+                    onEdit={(data) => console.log('MultiImage Edit', data)}
                     setUploadImages={setUploadImages}
                     limit={10}
+                    initialPreview={[
+                      {
+                        data_url: 'https://unavatar.io/github/ipacs13',
+                        imageId: '23453465346-6346345634-6346436346-3463'
+                      }
+                    ]}
                     compress={{
                       resizer: FileResizer,
                     }}
@@ -515,8 +523,8 @@ function App() {
 
                   <UploadImage
                     zoom
-                    download
-                    disabled
+                    onRemove={(data) => console.log('ON REMOVE', data)}
+                    onEdit={(data) => console.log('ON EDIT', data)}
                     label='Single Images'
                     setUploadImage={setUploadSingleImage}
                     initialPreview='https://unavatar.io/github/ipacs13'

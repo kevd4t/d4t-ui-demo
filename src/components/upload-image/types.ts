@@ -3,7 +3,7 @@ import FileResizer from 'react-image-file-resizer'
 
 export interface ImageType {
   data_url?: string
-  file?: File
+  file?: File | null
   [key: string]: any
 }
 
@@ -64,6 +64,8 @@ export interface FormatImage {
 
 export type SetUploadImage = Dispatch<SetStateAction<IUploadImage>>
 export type OnChangeImage = (image: IUploadImage) => void
+export type OnRemoveImage = (image: ImageType) => void
+export type OnEditImage = (image: ImageType) => void
 
 export interface IUploadImageProps {
   initialPreview?: string
@@ -79,4 +81,6 @@ export interface IUploadImageProps {
   compress?: UploadImageCompress
   tabIndexs?: UploadImageTabIndexs
   limit?: number
+  onRemove?: OnRemoveImage
+  onEdit?: OnRemoveImage
 }
