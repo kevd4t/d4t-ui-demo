@@ -24296,8 +24296,8 @@ const $7 = (e) => {
 ), oR = (e) => {
   const { edit: t = !0, label: n, setUploadImages: r, format: o, uploadLabel: a, tabIndexs: s, emptyClassName: i, imageContainerClassName: c, zoom: l, compress: u, limit: d, initialPreview: p, disabled: m, download: h, onRemove: v, onEdit: g } = e, [x, b] = J([]);
   ee(() => {
-    p && p.length && b([...x, ...p]);
-  }, []);
+    p && p.length && b([...p]);
+  }, [p]);
   const y = async ($, E) => {
     b($);
     const k = $.map(async (N) => {
@@ -24340,7 +24340,9 @@ const $7 = (e) => {
         file: (N == null ? void 0 : N.file) || null
       });
     }
-    Promise.all(k).then(r);
+    Promise.all(k).then((N) => {
+      console.log({ imageResolved: N }), N[0] !== null && r(N);
+    });
   }, _ = ($) => {
     $ == null || !x || !x.length || v && v(x[$]);
   };

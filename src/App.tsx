@@ -530,7 +530,7 @@ function App() {
                     download
                     zoom
                     onRemove={(data) => console.log('ON REMOVE', data)}
-                    setUploadImages={setImages}
+                    setUploadImages={setImages as any}
                     compress={{ resizer: FileResizer }}
                     initialPreview={images}
                   />

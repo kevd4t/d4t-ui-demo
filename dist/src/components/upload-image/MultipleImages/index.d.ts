@@ -1,12 +1,8 @@
 import { type SetStateAction, type Dispatch } from "react";
-import type { IUploadImage, IUploadImageProps } from "../..";
+import type { IUploadImage, IUploadImageProps, IImage } from "../..";
 interface IMultipleUploadImageProps extends Omit<IUploadImageProps, "setUploadImage" | "initialPreview"> {
     setUploadImages: Dispatch<SetStateAction<IUploadImage[]>>;
-    initialPreview?: [{
-        data_url?: string;
-        file?: File;
-        [key: string]: any;
-    }];
+    initialPreview?: IImage[];
 }
 export declare const MultipleImages: (props: IMultipleUploadImageProps) => JSX.Element;
 export {};
