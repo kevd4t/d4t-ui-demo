@@ -84,8 +84,11 @@ export const MultipleImages = (props: IMultipleUploadImageProps) => {
     }
 
     Promise.all(imageListFormated).then(imageResolved => {
-      console.log({ imageResolved })
-      imageResolved[0] !== null && setUploadImages(imageResolved)
+        if (imageResolved[0] === null) {
+          return
+        }
+
+       setUploadImages(imageResolved)
     });
   };
 
