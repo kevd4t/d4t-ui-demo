@@ -24341,7 +24341,7 @@ const $7 = (e) => {
       });
     }
     Promise.all(k).then((N) => {
-      console.log({ imageResolved: N }), N[0] !== null && r(N);
+      N[0] !== null && r(N);
     });
   }, _ = ($) => {
     $ == null || !x || !x.length || v && v(x[$]);
