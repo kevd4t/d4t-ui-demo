@@ -8,6 +8,7 @@ import { Button } from '../../button'
 
 interface UploadImageActionsProps {
   src?: string
+  edit?: boolean
   download?: boolean
   imageIndex: number
   disabled?: boolean
@@ -21,7 +22,7 @@ interface UploadImageActionsProps {
 }
 
 export const UploadImageActions = (props: UploadImageActionsProps) => {
-  const { imageIndex, compress, disabled, tabIndexs, onImageUpdate, setUploadImage, onImageRemove, setLocalImage, download, handleOnRemove, src } = props
+  const { imageIndex, compress, disabled, tabIndexs, onImageUpdate, setUploadImage, onImageRemove, setLocalImage, download, handleOnRemove, edit, src } = props
 
   return (
     <div className='mt-2 gap-x-2 w-fit flex flex-col justify-center items-end gap-y-2 absolute top-2 right-4 bg-transparent'>
@@ -40,7 +41,7 @@ export const UploadImageActions = (props: UploadImageActionsProps) => {
       }
 
       {
-        !disabled && (
+        (!disabled && edit) && (
           <Button
             size='icon'
             type='button'

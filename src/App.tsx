@@ -502,6 +502,7 @@ function App() {
               <Card>
                 <CardContent>
                   <MultipleImages
+                    limit={10}
                     label='Multi upload images'
                     uploadLabel='upload'
                     download
@@ -509,16 +510,13 @@ function App() {
                     onRemove={(data) => console.log('MultiImage', data)}
                     onEdit={(data) => console.log('MultiImage Edit', data)}
                     setUploadImages={setUploadImages}
-                    limit={10}
+                    compress={{ resizer: FileResizer }}
                     initialPreview={[
                       {
                         data_url: 'https://unavatar.io/github/ipacs13',
                         imageId: '23453465346-6346345634-6346436346-3463'
                       }
                     ]}
-                    compress={{
-                      resizer: FileResizer,
-                    }}
                   />
 
                   <UploadImage

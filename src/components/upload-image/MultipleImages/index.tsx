@@ -23,23 +23,8 @@ interface IMultipleUploadImageProps
   initialPreview?: [{ data_url?: string; file?: File; [key: string]: any }];
 }
 
-export const MultipleImages = ({
-  label,
-  setUploadImages,
-  format,
-  uploadLabel,
-  tabIndexs,
-  emptyClassName,
-  imageContainerClassName,
-  zoom,
-  compress,
-  limit,
-  initialPreview,
-  disabled,
-  download,
-  onRemove,
-  onEdit
-}: IMultipleUploadImageProps) => {
+export const MultipleImages = (props: IMultipleUploadImageProps) => {
+  const { edit = true, label, setUploadImages, format, uploadLabel, tabIndexs, emptyClassName, imageContainerClassName, zoom, compress, limit, initialPreview, disabled, download, onRemove, onEdit } = props
   const [localImage, setLocalImage] = useState<ImageListType>([]);
 
   useEffect(() => {
@@ -50,7 +35,6 @@ export const MultipleImages = ({
 
   const onChangeImage: onChangeImage = async (imageList, addUpdateIndex) => {
     setLocalImage(imageList);
-    const currentImageUpdated = imageList[addUpdateIndex[0]]
 
     const imageListFormated = imageList.map(async (image) => {
       if (compress?.resizer && image?.file) {
@@ -89,8 +73,10 @@ export const MultipleImages = ({
       return null
     });
 
-    if (currentImageUpdated?.data_url && onEdit) {
-      onEdit({
+    if (onEdit && addUpdateIndex) {
+      const currentImageUpdated = imageList[addUpdateIndex[0]]
+
+      currentImageUpdated?.data_url && onEdit({
         data_url: currentImageUpdated?.data_url as string || null,
         file: currentImageUpdated?.file || null,
       })
@@ -143,12 +129,13 @@ export const MultipleImages = ({
                         />
 
                         <MultiUploadImageActions
-                          disabled={disabled}
-                          src={image?.data_url}
+                          edit={edit}
                           imageIndex={index}
                           download={download}
                           compress={compress}
+                          disabled={disabled}
                           tabIndexs={tabIndexs}
+                          src={image?.data_url}
                           onImageRemove={onImageRemove}
                           onImageUpdate={onImageUpdate}
                           handleOnRemoveImage={handleOnRemoveImage}

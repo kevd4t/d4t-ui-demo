@@ -6,18 +6,21 @@ import { downloadImage } from '../../../lib/utils/download-image'
 import { Button } from '../../button'
 
 interface UploadImageActionsProps {
+  src?: string
+  edit?: boolean
+  download?: boolean
   imageIndex: number
+  disabled?: boolean
   compress?: UploadImageCompress
   tabIndexs?: UploadImageTabIndexs
   onImageUpdate: (index: number) => void
   onImageRemove: (index: number) => void
-  disabled?: boolean
-  src?: string
-  download?: boolean
   handleOnRemoveImage: (idxImageRemoved: number) => void
 }
 
-export const MultiUploadImageActions = ({ imageIndex, compress, tabIndexs, onImageUpdate, onImageRemove, disabled, download, handleOnRemoveImage, src }: UploadImageActionsProps) => {
+export const MultiUploadImageActions = (props: UploadImageActionsProps) => {
+  const { imageIndex, compress, tabIndexs, onImageUpdate, onImageRemove, disabled, download, handleOnRemoveImage, src, edit } = props
+
   return (
     <div className='mt-2 gap-x-2 w-fit flex flex-col justify-center items-end gap-y-2 absolute top-2 right-4 bg-transparent'>
       {
@@ -35,7 +38,7 @@ export const MultiUploadImageActions = ({ imageIndex, compress, tabIndexs, onIma
       }
 
       {
-        !disabled && (
+        (!disabled && edit) && (
           <Button
             size='icon'
             type='button'

@@ -10,22 +10,8 @@ import { LoadImage } from './LoadImage'
 import { D4TImage } from '../../image'
 import { Label } from '../../label'
 
-export const UploadImage = ({
-  initialPreview = null,
-  setUploadImage,
-  format,
-  label,
-  uploadLabel,
-  tabIndexs,
-  disabled,
-  emptyClassName,
-  imageContainerClassName,
-  zoom,
-  compress,
-  download,
-  onRemove,
-  onEdit
-}: IUploadImageProps) => {
+export const UploadImage = (props: IUploadImageProps) => {
+  const { edit = true, initialPreview = null, setUploadImage, format, label, uploadLabel, tabIndexs, disabled, emptyClassName, imageContainerClassName, zoom, compress, download, onRemove, onEdit } = props
   const [localImage, setLocalImage] = useState<ImageListType>(initialPreview ? [{ data_url: initialPreview as string, file: null }] : [])
 
   const onChangeImage: onChangeImage = async (imageList, addUpdateIndex) => {
@@ -75,8 +61,8 @@ export const UploadImage = ({
       return
     }
 
-    if (imageList[0]?.data_url) {
-      onEdit && onEdit({
+    if (onEdit) {
+      imageList[0]?.data_url && onEdit({
         data_url: imageList[0]?.data_url as string || null,
         file: imageList[0]?.file || null,
       })
@@ -136,6 +122,7 @@ export const UploadImage = ({
                                 />
 
                               <UploadImageActions
+                                edit={edit}
                                 imageIndex={index}
                                 compress={compress}
                                 disabled={disabled}
