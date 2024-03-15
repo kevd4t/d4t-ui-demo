@@ -7,6 +7,7 @@ import type {
   onChangeImage,
   IUploadImage,
   IUploadImageProps,
+  IImage,
 } from "../..";
 import { compressImage } from "../handleCompressionImage";
 import { convertBytes } from "../../../lib/utils";
@@ -20,7 +21,7 @@ import { D4TImage } from "../../image";
 interface IMultipleUploadImageProps
   extends Omit<IUploadImageProps, "setUploadImage" | "initialPreview"> {
   setUploadImages: Dispatch<SetStateAction<IUploadImage[]>>;
-  initialPreview?: [{ data_url?: string; file?: File; [key: string]: any }];
+  initialPreview?: IImage[];
 }
 
 export const MultipleImages = (props: IMultipleUploadImageProps) => {
@@ -29,12 +30,12 @@ export const MultipleImages = (props: IMultipleUploadImageProps) => {
 
   useEffect(() => {
     if (initialPreview && initialPreview.length) {
-      setLocalImage([...localImage, ...initialPreview]);
+      setLocalImage([...initialPreview]); // Reemplazar las imágenes locales con las imágenes iniciales
     }
-  }, []);
+  }, [initialPreview]);
 
   const onChangeImage: onChangeImage = async (imageList, addUpdateIndex) => {
-    setLocalImage(imageList);
+    setLocalImage(imageList)
 
     const imageListFormated = imageList.map(async (image) => {
       if (compress?.resizer && image?.file) {
@@ -48,26 +49,26 @@ export const MultipleImages = (props: IMultipleUploadImageProps) => {
           rotation: format?.rotation || 0,
         });
 
-      const compreesedSize = convertBytes(compressedFile?.size)
+        const compreesedSize = convertBytes(compressedFile?.size)
 
-      return {
-        original: {
-          preview: image?.data_url as string,
-          file: image?.file,
-          size: {
-            formated: image?.file?.size ? convertBytes(image?.file?.size) : null,
-            bytes: image?.file?.size || null,
+        return {
+          original: {
+            preview: image?.data_url as string,
+            file: image?.file,
+            size: {
+              formated: image?.file?.size ? convertBytes(image?.file?.size) : null,
+              bytes: image?.file?.size || null,
+            },
           },
-        },
-        compressed: {
-          preview: compressedUrl?.toString() as string,
-          file: compressedFile,
-          size: {
-            formated: compreesedSize,
-            bytes: compressedFile?.size,
+          compressed: {
+            preview: compressedUrl?.toString() as string,
+            file: compressedFile,
+            size: {
+              formated: compreesedSize,
+              bytes: compressedFile?.size,
+            },
           },
-        },
-      };
+        };
       }
 
       return null
@@ -82,7 +83,9 @@ export const MultipleImages = (props: IMultipleUploadImageProps) => {
       })
     }
 
-    Promise.all(imageListFormated).then(setUploadImages);
+    Promise.all(imageListFormated).then(imageResolved => {
+      imageResolved[0] !== null && setUploadImages(imageResolved)
+    });
   };
 
   const handleOnRemoveImage = (idxImageRemoved: number) => {

@@ -1,13 +1,13 @@
 import { Dispatch, ReactNode, SetStateAction } from 'react'
 import FileResizer from 'react-image-file-resizer'
 
-export interface ImageType {
+export interface IImage {
   data_url?: string
   file?: File | null
   [key: string]: any
 }
 
-export declare type ImageListType = Array<ImageType>
+export declare type ImageListType = Array<IImage>
 
 export type onChangeImage = (value: ImageListType, addUpdatedIndex?: number[]) => void
 
@@ -64,8 +64,8 @@ export interface FormatImage {
 
 export type SetUploadImage = Dispatch<SetStateAction<IUploadImage>>
 export type OnChangeImage = (image: IUploadImage) => void
-export type OnRemoveImage = (image: ImageType) => void
-export type OnEditImage = (image: ImageType) => void
+export type OnRemoveImage = (image: IImage) => void
+export type OnEditImage = (image: IImage) => void
 
 export interface IUploadImageProps {
   initialPreview?: string

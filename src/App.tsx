@@ -34,7 +34,8 @@ import {
   D4TImage,
   Dialog,
   DialogTrigger,
-  DialogContent
+  DialogContent,
+  IImage
 } from './components';
 
 interface ITank {
@@ -81,7 +82,16 @@ export const defaultLoginPID: ILoginWithPID = {
 }
 
 function App() {
-  const [uploadImages, setUploadImages] = useState<IUploadImage[]>([]);
+  const [images, setImages] = useState<IImage[]>([
+    {
+      data_url: 'https://www.hmiscfl.org/wp-content/uploads/2018/06/generic-person-icon-14.png',
+      imageId: '1234'
+    },
+    {
+      data_url: 'https://unavatar.io/github/ipacs13',
+      imageId: '567890'
+    }
+  ]);
   const [uploadSingleImage, setUploadSingleImage] = useState<IUploadImage>(null);
   const [itemsOfMultiSel, setItemsOfMultisel] = useState([]);
   const [checkboxItems, setCheckboxItems] = useState<ComboxItem[]>([]);
@@ -202,9 +212,17 @@ function App() {
     { id: 'Gas', label: 'Gas', value: Hydrocarbon.Gas }
   ]
 
-
   useEffect(() => {
     setTimeout(() => {
+      // Update Images
+      const newImage = {
+        data_url: 'https://img.freepik.com/fotos-premium/imagen-fotografica-foto-stock-fondo-pantalla-hd-8k-hermosa-naturaleza-gratuita_915071-82095.jpg',
+        imageId: 'LO_QUE_SEA'
+      }
+
+      setImages([...images, newImage])
+
+      // Update ComboxForm
       comboxForm.reset((prevForm) => ({
         ...prevForm,
         fuel: [FUELS[0].value as Hydrocarbon]
@@ -501,22 +519,20 @@ function App() {
             <div className='m-10'>
               <Card>
                 <CardContent>
+                  <pre>
+                    {JSON.stringify(images, null, 2)}
+                  </pre>
+
                   <MultipleImages
                     limit={10}
                     label='Multi upload images'
                     uploadLabel='upload'
                     download
                     zoom
-                    onRemove={(data) => console.log('MultiImage', data)}
-                    onEdit={(data) => console.log('MultiImage Edit', data)}
-                    setUploadImages={setUploadImages}
+                    onRemove={(data) => console.log('ON REMOVE', data)}
+                    setUploadImages={setImages}
                     compress={{ resizer: FileResizer }}
-                    initialPreview={[
-                      {
-                        data_url: 'https://unavatar.io/github/ipacs13',
-                        imageId: '23453465346-6346345634-6346436346-3463'
-                      }
-                    ]}
+                    initialPreview={images}
                   />
 
                   <UploadImage
@@ -533,19 +549,19 @@ function App() {
           </div>
           <div>
 
-            <MultipleImages
+            {/* <MultipleImages
               limit={10}
               zoom
               download
               disabled
               compress={{ resizer: FileResizer, openComparisons: () => {} }}
-              setUploadImages={setUploadImages}
+              setUploadImages={setImages}
               initialPreview={[
                 {
                   data_url: 'https://unavatar.io/github/ipacs13'
                 }
               ]}
-            />
+            /> */}
           </div>
 
           <div className='my-20'>
