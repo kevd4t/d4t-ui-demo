@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction } from 'react';
 import { ImageListType, OnChangeImage, SetUploadImage, UploadImageCompress, UploadImageTabIndexs } from '../types';
 interface UploadImageActionsProps {
     src?: string;
+    edit?: boolean;
     download?: boolean;
     imageIndex: number;
     disabled?: boolean;

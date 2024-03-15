@@ -1,15 +1,16 @@
 /// <reference types="react" />
 import { UploadImageCompress, UploadImageTabIndexs } from '../types';
 interface UploadImageActionsProps {
+    src?: string;
+    edit?: boolean;
+    download?: boolean;
     imageIndex: number;
+    disabled?: boolean;
     compress?: UploadImageCompress;
     tabIndexs?: UploadImageTabIndexs;
     onImageUpdate: (index: number) => void;
     onImageRemove: (index: number) => void;
-    disabled?: boolean;
-    src?: string;
-    download?: boolean;
     handleOnRemoveImage: (idxImageRemoved: number) => void;
 }
-export declare const MultiUploadImageActions: ({ imageIndex, compress, tabIndexs, onImageUpdate, onImageRemove, disabled, download, handleOnRemoveImage, src }: UploadImageActionsProps) => JSX.Element;
+export declare const MultiUploadImageActions: (props: UploadImageActionsProps) => JSX.Element;
 export {};

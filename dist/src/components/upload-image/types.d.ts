@@ -58,6 +58,7 @@ export declare type OnRemoveImage = (image: ImageType) => void;
 export declare type OnEditImage = (image: ImageType) => void;
 export interface IUploadImageProps {
     initialPreview?: string;
+    edit?: boolean;
     setUploadImage: SetUploadImage | OnChangeImage;
     format?: FormatImage;
     label?: string;
