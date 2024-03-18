@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { ImageListType, OnChangeImage, SetUploadImage, UploadImageCompress, UploadImageTabIndexs } from '../types';
+import { ImageListType, OnChangeImage, UploadImageCompress, UploadImageTabIndexs, SetUploadImage } from '../types';
 interface UploadImageActionsProps {
     src?: string;
     edit?: boolean;

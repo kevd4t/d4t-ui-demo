@@ -1,57 +1,57 @@
-import { type SetStateAction, type Dispatch, useState, useEffect } from "react";
-import ImageUploading from "react-images-uploading";
-import { CloudLightning, ImagePlus } from "lucide-react";
+import { type SetStateAction, type Dispatch, useState, useEffect } from "react"
+import ImageUploading from "react-images-uploading"
+import { CloudLightning, ImagePlus } from "lucide-react"
 
 import type {
   ImageListType,
   onChangeImage,
-  IUploadImage,
-  IUploadImageProps,
+  IMultiUploadImage,
+  IMultiUploadImageProps,
   IImage,
-} from "../..";
-import { compressImage } from "../handleCompressionImage";
-import { convertBytes } from "../../../lib/utils";
-import { cn } from "../../../lib/utils";
+} from "../.."
+import { compressImage } from "../handleCompressionImage"
+import { convertBytes } from "../../../lib/utils"
+import { cn } from "../../../lib/utils"
 
-import { Button, Label } from "../../../components";
-import { MultiUploadImageActions } from "./Actions";
-import { LoadMultiImages } from "./LoadImage";
-import { D4TImage } from "../../image";
+import { Button, Label } from "../../../components"
+import { MultiUploadImageActions } from "./Actions"
+import { LoadMultiImages } from "./LoadImage"
+import { D4TImage } from "../../image"
 
 interface IMultipleUploadImageProps
-  extends Omit<IUploadImageProps, "setUploadImage" | "initialPreview"> {
-  setUploadImages: Dispatch<SetStateAction<IUploadImage[]>>;
-  initialPreview?: IImage[];
+  extends Omit<IMultiUploadImageProps, "setUploadImage" | "initialPreview"> {
+  setUploadImages: Dispatch<SetStateAction<IMultiUploadImage[]>>
+  initialPreview?: IImage[]
 }
 
 export const MultipleImages = (props: IMultipleUploadImageProps) => {
   const { edit = true, label, setUploadImages, format, uploadLabel, tabIndexs, emptyClassName, imageContainerClassName, zoom, compress, limit, initialPreview, disabled, download, onRemove, onEdit } = props
-  const [localImage, setLocalImage] = useState<ImageListType>([]);
+  const [localImage, setLocalImage] = useState<ImageListType>([])
 
   useEffect(() => {
     if (initialPreview && initialPreview.length) {
-      setLocalImage([...initialPreview]); // Reemplazar las imágenes locales con las imágenes iniciales
+      setLocalImage([...initialPreview]) // Reemplazar las imágenes locales con las imágenes iniciales
     }
-  }, [initialPreview]);
+  }, [initialPreview])
 
   const onChangeImage: onChangeImage = async (imageList, addUpdateIndex) => {
     setLocalImage(imageList)
 
-    const imageListFormated = imageList.map(async (image) => {
-      if (compress?.resizer && image?.file) {
+    const imageListFormated = imageList.map(async (image: any /* TODO: fix image type */) => {
+      if (compress?.resizer && image?.file && !image?.file?.compressed) {
         const { data_url: compressedUrl, file: compressedFile } = await compressImage({
-          resizer: compress?.resizer,
           imageFile: image?.file,
+          resizer: compress?.resizer,
           quality: format?.quality || 10,
           maxWidth: format?.width || 500,
           maxHeight: format?.width || 500,
-          compressFormat: format?.extension || "png",
           rotation: format?.rotation || 0,
-        });
+          compressFormat: format?.extension || 'png'
+        })
 
         const compreesedSize = convertBytes(compressedFile?.size)
 
-        return {
+        const imageFormated = {
           original: {
             preview: image?.data_url as string,
             file: image?.file,
@@ -68,11 +68,20 @@ export const MultipleImages = (props: IMultipleUploadImageProps) => {
               bytes: compressedFile?.size,
             },
           },
-        };
-      }
+        }
 
-      return null
-    });
+        return {
+          ...image,
+          file: imageFormated,
+          data_url: image?.data_url
+        }
+      } else {
+        return  {
+          ...image,
+          file: image?.file || null
+        }
+      }
+    })
 
     if (onEdit && addUpdateIndex) {
       const currentImageUpdated = imageList[addUpdateIndex[0]]
@@ -83,14 +92,10 @@ export const MultipleImages = (props: IMultipleUploadImageProps) => {
       })
     }
 
-    Promise.all(imageListFormated).then(imageResolved => {
-        if (imageResolved[0] === null) {
-          return
-        }
-
-       setUploadImages(imageResolved)
-    });
-  };
+    Promise.all(imageListFormated).then((images => {
+      setUploadImages(images as any[])
+    }))
+  }
 
   const handleOnRemoveImage = (idxImageRemoved: number) => {
     if (idxImageRemoved === undefined || idxImageRemoved === null || !localImage || !localImage.length) {
@@ -148,7 +153,7 @@ export const MultipleImages = (props: IMultipleUploadImageProps) => {
                           handleOnRemoveImage={handleOnRemoveImage}
                         />
                       </div>
-                    );
+                    )
                   })}
 
                   {localImage.length < limit && (
@@ -189,9 +194,9 @@ export const MultipleImages = (props: IMultipleUploadImageProps) => {
                 />
               )}
             </>
-          );
+          )
         }}
       </ImageUploading>
     </div>
-  );
-};
+  )
+}

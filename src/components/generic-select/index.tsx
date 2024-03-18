@@ -43,6 +43,7 @@ export const GenericSelect = ({
   disabled,
   isLoading
 }: IGenericSelectProps) => {
+
   if (isLoading) {
     return (
       <div className={cn('w-full', classNameContainer)}>
@@ -76,8 +77,8 @@ export const GenericSelect = ({
           <div className='my-2'></div>
 
           <Select onValueChange={field.onChange} defaultValue={field.value} disabled={disabled} value={field?.value}>
-            <FormControl>
-              <SelectTrigger disabled={disabled} tabIndex={tabIndex} className={cn('w-full', classNameSelect)} >
+            <FormControl placeholder={placeholder}>
+              <SelectTrigger disabled={disabled} tabIndex={tabIndex} className={cn('w-full', classNameSelect)} placeholder={placeholder}>
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
             </FormControl>

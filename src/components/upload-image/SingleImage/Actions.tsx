@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction } from 'react'
 import { IconPhotoStar } from '@tabler/icons-react'
 import { Download, Edit, Trash } from 'lucide-react'
 
-import { ImageListType, OnChangeImage, SetUploadImage, UploadImageCompress, UploadImageTabIndexs } from '../types'
+import { ImageListType, OnChangeImage, UploadImageCompress, UploadImageTabIndexs, SetUploadImage } from '../types'
 import { downloadImage } from '../../../lib/utils/download-image'
 import { Button } from '../../button'
 

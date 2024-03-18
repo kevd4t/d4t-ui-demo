@@ -27,23 +27,27 @@ export interface UploadImageTabIndexs {
     change?: number;
     delete?: number;
 }
-export interface IUploadImage {
-    original: {
-        preview: string;
-        file: File;
-        size: {
-            formated: string;
-            bytes: number;
+export interface IMultiUploadImage {
+    data_url: string;
+    file: {
+        original: {
+            preview: string;
+            file: File;
+            size: {
+                formated: string;
+                bytes: number;
+            };
+        };
+        compressed: {
+            preview: string;
+            file: File;
+            size: {
+                formated: string;
+                bytes: number;
+            };
         };
     };
-    compressed: {
-        preview: string;
-        file: File;
-        size: {
-            formated: string;
-            bytes: number;
-        };
-    };
+    [key: string]: any;
 }
 export interface FormatImage {
     width?: number;
@@ -52,10 +56,28 @@ export interface FormatImage {
     quality?: QualityNumber;
     rotation?: number;
 }
-export declare type SetUploadImage = Dispatch<SetStateAction<IUploadImage>>;
-export declare type OnChangeImage = (image: IUploadImage) => void;
+export declare type SetMultiUploadImage = Dispatch<SetStateAction<IMultiUploadImage>>;
+export declare type OnChangeMultipleImage = (image: IMultiUploadImage) => void;
 export declare type OnRemoveImage = (image: IImage) => void;
 export declare type OnEditImage = (image: IImage) => void;
+export interface IMultiUploadImageProps {
+    initialPreview?: string;
+    edit?: boolean;
+    setUploadImage: SetMultiUploadImage | OnChangeMultipleImage;
+    format?: FormatImage;
+    label?: string;
+    download?: boolean;
+    disabled?: boolean;
+    emptyClassName?: string;
+    imageContainerClassName?: string;
+    uploadLabel?: string;
+    zoom?: boolean;
+    compress?: UploadImageCompress;
+    tabIndexs?: UploadImageTabIndexs;
+    limit?: number;
+    onRemove?: OnRemoveImage;
+    onEdit?: OnRemoveImage;
+}
 export interface IUploadImageProps {
     initialPreview?: string;
     edit?: boolean;
@@ -74,3 +96,23 @@ export interface IUploadImageProps {
     onRemove?: OnRemoveImage;
     onEdit?: OnRemoveImage;
 }
+export interface IUploadImage {
+    original: {
+        preview: string;
+        file: File;
+        size: {
+            formated: string;
+            bytes: number;
+        };
+    };
+    compressed: {
+        preview: string;
+        file: File;
+        size: {
+            formated: string;
+            bytes: number;
+        };
+    };
+}
+export declare type SetUploadImage = Dispatch<SetStateAction<IUploadImage>>;
+export declare type OnChangeImage = (image: IUploadImage) => void;

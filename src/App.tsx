@@ -22,7 +22,7 @@ import {
   NavLinkNested,
   Input,
   Button,
-  IUploadImage,
+  IMultiUploadImage,
   MultipleImages,
   Card,
   CardContent,
@@ -35,7 +35,8 @@ import {
   Dialog,
   DialogTrigger,
   DialogContent,
-  IImage
+  IImage,
+  IUploadImage
 } from './components';
 
 interface ITank {
@@ -98,6 +99,15 @@ function App() {
   
   const formPid = useForm<ILoginWithPID>({ defaultValues: defaultLoginPID, resolver: zodResolver(pidLoginSchemaForm) })
   const probeForm = useForm<any, any, any>()
+  const genericSelectForm = useForm<any, any, any>({
+    defaultValues: {
+      selectId: ''
+    },
+    resolver: zodResolver(z.object({
+      selectId: z.string()
+    }))
+  })
+
   const { theme, setTheme } = useTheme()
 
   const profile = { role: 'Administrador', name: 'Kevin', lastname: 'blanco', photo: 'https://www.hmiscfl.org/wp-content/uploads/2018/06/generic-person-icon-14.png' };
@@ -519,6 +529,22 @@ function App() {
             <div className='m-10'>
               <Card>
                 <CardContent>
+                  <Form {...genericSelectForm}>
+                    <form>
+                    <GenericSelect
+                    form={genericSelectForm}
+                    id='selectId'
+                    placeholder={'HGola'}
+                    items={[
+                      {
+                        label: 'xd',
+                        value: 'xd'
+                      }
+                    ]}
+                  />
+                    </form>
+                  </Form>
+
                   <pre>
                     {JSON.stringify(images, null, 2)}
                   </pre>
