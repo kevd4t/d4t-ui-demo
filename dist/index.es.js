@@ -22851,19 +22851,28 @@ const eR = ({
         ] }),
         o && /* @__PURE__ */ f.exports.jsx(ko, { className: "text-xs", children: o }),
         /* @__PURE__ */ f.exports.jsx("div", { className: "my-2" }),
-        /* @__PURE__ */ f.exports.jsxs(Ku, { onValueChange: m.onChange, defaultValue: m.value, disabled: d, value: m == null ? void 0 : m.value, children: [
-          /* @__PURE__ */ f.exports.jsx(Ya, { placeholder: r, children: /* @__PURE__ */ f.exports.jsx(Ii, { disabled: d, tabIndex: i, className: j("w-full", l), placeholder: r, children: /* @__PURE__ */ f.exports.jsx(Gu, { placeholder: r }) }) }),
-          /* @__PURE__ */ f.exports.jsx(Li, { children: /* @__PURE__ */ f.exports.jsxs(AE, { className: j("overflow-auto", u), children: [
-            a.length ? null : /* @__PURE__ */ f.exports.jsx("div", { className: "px-2 py-1 text-sm", children: "Sin Resultados" }),
-            a.map((g) => {
-              var x, b;
-              return /* @__PURE__ */ f.exports.jsx(Fi, { value: (x = g.value) == null ? void 0 : x.toString(), children: /* @__PURE__ */ f.exports.jsxs("div", { className: "flex justify-center items-center", children: [
-                (g == null ? void 0 : g.icon) && /* @__PURE__ */ f.exports.jsx("div", { className: "dark:text-white mr-2 h-5", children: g.icon }),
-                g.label
-              ] }) }, (b = g.value) == null ? void 0 : b.toString());
-            })
-          ] }) })
-        ] })
+        /* @__PURE__ */ f.exports.jsxs(
+          Ku,
+          {
+            onValueChange: (g) => g && m.onChange(g),
+            defaultValue: m.value,
+            disabled: d,
+            value: m == null ? void 0 : m.value,
+            children: [
+              /* @__PURE__ */ f.exports.jsx(Ya, { placeholder: r, children: /* @__PURE__ */ f.exports.jsx(Ii, { disabled: d, tabIndex: i, className: j("w-full", l), placeholder: r, children: /* @__PURE__ */ f.exports.jsx(Gu, { placeholder: r }) }) }),
+              /* @__PURE__ */ f.exports.jsx(Li, { children: /* @__PURE__ */ f.exports.jsxs(AE, { className: j("overflow-auto", u), children: [
+                a.length ? null : /* @__PURE__ */ f.exports.jsx("div", { className: "px-2 py-1 text-sm", children: "Sin Resultados" }),
+                a.map((g) => {
+                  var x, b;
+                  return /* @__PURE__ */ f.exports.jsx(Fi, { value: (x = g.value) == null ? void 0 : x.toString(), children: /* @__PURE__ */ f.exports.jsxs("div", { className: "flex justify-center items-center", children: [
+                    (g == null ? void 0 : g.icon) && /* @__PURE__ */ f.exports.jsx("div", { className: "dark:text-white mr-2 h-5", children: g.icon }),
+                    g.label
+                  ] }) }, (b = g.value) == null ? void 0 : b.toString());
+                })
+              ] }) })
+            ]
+          }
+        )
       ] });
     }
   }
