@@ -1,6 +1,6 @@
 import { ISidebarConfigProps } from "../schemas/IComponent-props";
 import { LogOut, SidebarIcon } from "lucide-react";
-import { ToggleTheme, SidebarTheme } from "./toggle-theme";
+import { ToggleTheme } from "./toggle-theme";
 
 interface ISidebarFooterProps {
   sidebar: ISidebarConfigProps;
@@ -27,6 +27,7 @@ export default function BottomNavigationSidebarFooter({
         <li>
           <button
             onClick={onCloseSideBar}
+            data-testId="toggle-sidebar-bottom-btn"
             className={`w-full border-2 border-transparent flex items-center p-2 group group-hover:text-black text-base font-normal text-brand-sidebar-text rounded-lg hover:bg-brand-sidebar-iconsHover/20 hover:dark:bg-brand-sidebar-iconsHover/10 select-none`}
           >
             <SidebarIcon className="dark:text-white" size={20} />
@@ -38,9 +39,8 @@ export default function BottomNavigationSidebarFooter({
         {sidebar.logout && (
           <li>
             <button
-              onClick={() => {
-                sidebar.logout();
-              }}
+              onClick={() => {sidebar.logout()}}
+              data-testId="logout-sidebar-bottom-btn"
               className={`w-full border-2 border-transparent flex items-center p-2 group group-hover:text-black text-base font-normal text-brand-sidebar-text rounded-lg hover:bg-brand-sidebar-iconsHover/20 hover:dark:bg-brand-sidebar-iconsHover/10 select-none`}
             >
               <LogOut className="dark:text-white" size={20} />
