@@ -26,6 +26,7 @@ export const ToggleTheme = ({ isExpanded, theme }: ToggleThemeProps) => {
   return (
     <button
       onClick={toggleTheme}
+      data-testId="theme-sidebar-bottom-btn"
       className={`w-full border-2 border-transparent flex ${isExpanded ? 'justify-center' : ''} items-center p-2 group group-hover:text-black text-base font-normal text-brand-sidebar-text rounded-lg hover:bg-brand-sidebar-iconsHover/20 hover:dark:bg-brand-sidebar-iconsHover/10 select-none`}
     >
       {
