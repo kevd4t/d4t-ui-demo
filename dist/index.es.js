@@ -24996,6 +24996,7 @@ function Tp({
         onClick: n ? () => {
           n(!0);
         } : null,
+        "data-testId": `bottom-sidebar-${t}`,
         role: "button",
         className: "w-full border-2 border-transparent flex justify-center items-center p-2 group group-hover:text-[#eaeaea] text-base font-normal text-brand-sidebar-text rounded-lg hover:bg-brand-sidebar-iconsHover hover:dark:bg-main-hover select-none",
         children: /* @__PURE__ */ f.exports.jsx(
