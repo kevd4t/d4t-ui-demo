@@ -24969,6 +24969,7 @@ function T7({
     "div",
     {
       className: `fixed z-30 inset-0 bg-opacity-50  transition-opacity ${e ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`,
+      "data-testId": "bottom-drawer",
       children: [
         /* @__PURE__ */ f.exports.jsx("div", { className: "fixed z-50 inset-y-0  right-0  flex", children: /* @__PURE__ */ f.exports.jsx(
           "div",
