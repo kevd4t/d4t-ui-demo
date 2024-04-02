@@ -17,6 +17,7 @@ export default function DrawerBottomNavigation({
         ? "opacity-100 pointer-events-auto"
         : "opacity-0 pointer-events-none"
         }`}
+			data-testId={`bottom-drawer`}
     >
       <div className="fixed z-50 inset-y-0  right-0  flex">
         <div
