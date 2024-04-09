@@ -53,3 +53,4 @@ export * from './drawer';
 export * from './image';
 export * from './input-otp';
 export * from './breadcrumb';
+export * from './pagination';
