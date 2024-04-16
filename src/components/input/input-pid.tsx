@@ -81,6 +81,7 @@ export interface PIDProps  {
   label: string
   form: UseFormReturn<any, any, any>
   pid?: PID
+  format?: boolean
 }
 
 const dniDefaultValues: PID = {
@@ -105,10 +106,10 @@ const dniDefaultValues: PID = {
   }
 }
 
-export function InputPID ({ form, pid: dni = dniDefaultValues }: PIDProps) {
+export function InputPID ({ form, pid: dni = dniDefaultValues, format = true }: PIDProps) {
   const handleOnKeyUpIdentifierNumber = (event) => {
     const { value } = event.target
-    const identifierNumberFormmated = formatCI(value)
+    const identifierNumberFormmated = format ? formatCI(value) : value
     const formId = dni?.number?.id || dniDefaultValues.number.id
     form.setValue(formId, identifierNumberFormmated)
   }
