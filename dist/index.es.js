@@ -11374,44 +11374,44 @@ const rE = (e) => e.replace(/[\.\s]/g, "").replace(/(\d{1,3})(?=(\d{3})+(?:\.\d+
     defaultValue: ""
   }
 };
-function I8({ form: e, pid: t = Nt }) {
-  var r, o, a, s, i, c, l, u, d, p, m, v, h, g, x, b, y;
-  const n = (_) => {
-    var S;
-    const { value: $ } = _.target, N = rE($), O = ((S = t == null ? void 0 : t.number) == null ? void 0 : S.id) || Nt.number.id;
-    e.setValue(O, N);
+function I8({ form: e, pid: t = Nt, format: n = !0 }) {
+  var o, a, s, i, c, l, u, d, p, m, v, h, g, x, b, y, _;
+  const r = ($) => {
+    var P;
+    const { value: N } = $.target, O = n ? rE(N) : N, S = ((P = t == null ? void 0 : t.number) == null ? void 0 : P.id) || Nt.number.id;
+    e.setValue(S, O);
   };
   return /* @__PURE__ */ f.exports.jsxs("div", { className: "w-full flex justify-start items-end gap-x-2", children: [
     /* @__PURE__ */ f.exports.jsx(
       aM,
       {
-        id: ((r = t == null ? void 0 : t.type) == null ? void 0 : r.id) || Nt.type.id,
+        id: ((o = t == null ? void 0 : t.type) == null ? void 0 : o.id) || Nt.type.id,
         form: e,
-        label: ((o = t == null ? void 0 : t.type) == null ? void 0 : o.label) || Nt.type.label,
-        items: ((a = t == null ? void 0 : t.type) == null ? void 0 : a.items) || Nt.type.items,
-        tabIndex: ((s = t == null ? void 0 : t.type) == null ? void 0 : s.tabIndex) || Nt.type.tabIndex,
-        placeholder: ((i = t == null ? void 0 : t.type) == null ? void 0 : i.placeholder) || Nt.type.placeholder,
-        defaultValue: ((c = t == null ? void 0 : t.type) == null ? void 0 : c.defaultValue) || Nt.type.defaultValue,
-        notFoundLabel: ((l = t == null ? void 0 : t.type) == null ? void 0 : l.notFoundLabel) || Nt.type.notFoundLabel,
-        ctaPlaceholder: ((u = t == null ? void 0 : t.type) == null ? void 0 : u.ctaPlaceholder) || Nt.type.ctaPlaceholder,
-        buttonClassName: ((d = t == null ? void 0 : t.type) == null ? void 0 : d.buttonClassName) || Nt.type.buttonClassName,
-        popoverClassName: ((p = t == null ? void 0 : t.type) == null ? void 0 : p.popoverClassName) || Nt.type.popoverClassName,
-        disabled: (m = t == null ? void 0 : t.type) == null ? void 0 : m.disabled
+        label: ((a = t == null ? void 0 : t.type) == null ? void 0 : a.label) || Nt.type.label,
+        items: ((s = t == null ? void 0 : t.type) == null ? void 0 : s.items) || Nt.type.items,
+        tabIndex: ((i = t == null ? void 0 : t.type) == null ? void 0 : i.tabIndex) || Nt.type.tabIndex,
+        placeholder: ((c = t == null ? void 0 : t.type) == null ? void 0 : c.placeholder) || Nt.type.placeholder,
+        defaultValue: ((l = t == null ? void 0 : t.type) == null ? void 0 : l.defaultValue) || Nt.type.defaultValue,
+        notFoundLabel: ((u = t == null ? void 0 : t.type) == null ? void 0 : u.notFoundLabel) || Nt.type.notFoundLabel,
+        ctaPlaceholder: ((d = t == null ? void 0 : t.type) == null ? void 0 : d.ctaPlaceholder) || Nt.type.ctaPlaceholder,
+        buttonClassName: ((p = t == null ? void 0 : t.type) == null ? void 0 : p.buttonClassName) || Nt.type.buttonClassName,
+        popoverClassName: ((m = t == null ? void 0 : t.type) == null ? void 0 : m.popoverClassName) || Nt.type.popoverClassName,
+        disabled: (v = t == null ? void 0 : t.type) == null ? void 0 : v.disabled
       }
     ),
     /* @__PURE__ */ f.exports.jsx(
       Ju,
       {
-        id: ((v = t == null ? void 0 : t.number) == null ? void 0 : v.id) || Nt.number.id,
+        id: ((h = t == null ? void 0 : t.number) == null ? void 0 : h.id) || Nt.number.id,
         form: e,
         type: "text",
-        defaultValue: (h = t == null ? void 0 : t.number) == null ? void 0 : h.defaultValue,
+        defaultValue: (g = t == null ? void 0 : t.number) == null ? void 0 : g.defaultValue,
         onKeyPress: oE,
-        onKeyUp: n,
-        tabIndex: ((g = t == null ? void 0 : t.number) == null ? void 0 : g.tabIndex) || Nt.number.tabIndex,
-        maxLength: ((x = t == null ? void 0 : t.number) == null ? void 0 : x.maxLength) || Nt.number.maxLength,
-        placeholder: ((b = t == null ? void 0 : t.number) == null ? void 0 : b.placeholder) || Nt.number.placeholder,
-        disabled: (y = t == null ? void 0 : t.number) == null ? void 0 : y.disabled
+        onKeyUp: r,
+        tabIndex: ((x = t == null ? void 0 : t.number) == null ? void 0 : x.tabIndex) || Nt.number.tabIndex,
+        maxLength: ((b = t == null ? void 0 : t.number) == null ? void 0 : b.maxLength) || Nt.number.maxLength,
+        placeholder: ((y = t == null ? void 0 : t.number) == null ? void 0 : y.placeholder) || Nt.number.placeholder,
+        disabled: (_ = t == null ? void 0 : t.number) == null ? void 0 : _.disabled
       }
     )
   ] });

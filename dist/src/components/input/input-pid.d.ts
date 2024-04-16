@@ -42,6 +42,7 @@ export interface PIDProps {
     label: string;
     form: UseFormReturn<any, any, any>;
     pid?: PID;
+    format?: boolean;
 }
-export declare function InputPID({ form, pid: dni }: PIDProps): JSX.Element;
+export declare function InputPID({ form, pid: dni, format }: PIDProps): JSX.Element;
 export {};
