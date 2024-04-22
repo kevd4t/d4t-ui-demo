@@ -5,7 +5,7 @@ import { ReactNode, useState } from 'react'
 
 import { cn } from '../../lib/utils'
 
-import { FormField, FormItem, Label, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Popover, PopoverContent, PopoverTrigger, Skeleton } from '..'
+import { FormField, FormItem, Label, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Popover, PopoverContent, PopoverTrigger, Skeleton, CommandList } from '..'
 
 type TGenericComboxItem = {
   value: string
@@ -96,37 +96,40 @@ export function GenericCombobox({
             <PopoverContent className={cn('w-[200px] p-0', popoverClassName)}>
               <Command>
                 <CommandInput placeholder={placeholder} className='h-9' />
-                <CommandEmpty>{notFoundLabel}</CommandEmpty>
 
-                <CommandGroup className={cn('overflow-auto', classNameGroup)}>
-                  {
-                    items.map((item) => (
-                      <CommandItem
-                        value={item.value}
-                        key={item.value}
-                        onSelect={(value) => {
-                          form.setValue(id, value, { shouldDirty: true })
-                          setOpen(false)
-                        }}
-                        className='w-full flex justify-start items-center'
-                      >
-                        {item?.image && <img src={item.image} alt={item.label} width={40} className='mr-2' />}
-                        {item?.icon && item.icon}
+                <CommandList>
+                  <CommandEmpty>{notFoundLabel}</CommandEmpty>
 
-                        {item.label}
+                  <CommandGroup className={cn('overflow-auto', classNameGroup)}>
+                    {
+                      items.map((item) => (
+                        <CommandItem
+                          value={item.value}
+                          key={item.value}
+                          className='w-full flex justify-start items-center'
+                          onSelect={(value) => {
+                            form.setValue(id, value, { shouldDirty: true })
+                            setOpen(false)
+                          }}
+                        >
+                          {item?.image && <img src={item.image} alt={item.label} width={40} className='mr-2' />}
+                          {item?.icon && item.icon}
 
-                        <IconCheck
-                          className={cn(
-                            'ml-auto h-4 w-4',
-                            item.value === field.value
-                              ? 'opacity-100'
-                              : 'opacity-0'
-                          )}
-                        />
-                      </CommandItem>
-                    ))
-                  }
-                </CommandGroup>
+                          {item.label}
+
+                          <IconCheck
+                            className={cn(
+                              'ml-auto h-4 w-4',
+                              item.value === field.value
+                                ? 'opacity-100'
+                                : 'opacity-0'
+                            )}
+                          />
+                        </CommandItem>
+                      ))
+                    }
+                  </CommandGroup>
+                </CommandList>
               </Command>
             </PopoverContent>
           </Popover>

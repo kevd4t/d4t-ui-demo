@@ -38,6 +38,8 @@ import {
   IImage,
   IUploadImage
 } from './components';
+import { FormCreateGPS } from './examples/create-gps';
+import { useDialogStore } from './lib/store/dialog';
 
 interface ITank {
   id: string;
@@ -109,6 +111,7 @@ function App() {
   })
 
   const { theme, setTheme } = useTheme()
+  const { openDialog } = useDialogStore()
 
   const profile = { role: 'Administrador', name: 'Kevin', lastname: 'blanco', photo: 'https://www.hmiscfl.org/wp-content/uploads/2018/06/generic-person-icon-14.png' };
   const sections = [
@@ -413,6 +416,13 @@ function App() {
           </SidebarContent>
         </Sidebar>
 
+        <div className='w-full'>
+          <Button onClick={() => openDialog()}>
+            Agregar Carrier
+          </Button>
+          <FormCreateGPS />
+        </div>
+
         <div className='grid'>
           <div className='grid grid-cols-2'>
             {/* Table */}
@@ -466,7 +476,7 @@ function App() {
                     placeholder='This is the placeholder'
                   />
 
-                  <GenericCombobox
+                  {/* <GenericCombobox
                     buttonClassName='w-full'
                     form={probeForm}
                     id='fuel'
@@ -475,7 +485,7 @@ function App() {
                     notFoundLabel='Not found'
                     label='label'
                     isLoading={false}
-                  />
+                  /> */}
                 </div>
                 <Button className='m-5 bg-brand-primary hover:bg-brand-primary-opaque'>Primary button</Button>
               </Form>

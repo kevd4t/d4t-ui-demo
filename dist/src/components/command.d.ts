@@ -1,5 +1,5 @@
 import { DialogProps } from '@radix-ui/react-dialog';
-import * as React from 'react';
+import * as React from "react";
 declare const Command: React.ForwardRefExoticComponent<Omit<{
     children?: React.ReactNode;
 } & Pick<Pick<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React.HTMLAttributes<HTMLDivElement>> & {
@@ -62,7 +62,7 @@ declare const CommandSeparator: React.ForwardRefExoticComponent<Omit<Pick<Pick<R
 }, "asChild" | "key" | keyof React.HTMLAttributes<HTMLDivElement>> & {
     alwaysRender?: boolean;
 } & React.RefAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<HTMLDivElement>>;
-declare const CommandItem: React.ForwardRefExoticComponent<Omit<Omit<{
+declare const CommandItem: React.ForwardRefExoticComponent<Omit<{
     children?: React.ReactNode;
 } & Omit<Pick<Pick<React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "key" | keyof React.HTMLAttributes<HTMLDivElement>> & {
     ref?: React.Ref<HTMLDivElement>;
@@ -74,9 +74,9 @@ declare const CommandItem: React.ForwardRefExoticComponent<Omit<Omit<{
     value?: string;
     keywords?: string[];
     forceMount?: boolean;
-} & React.RefAttributes<HTMLDivElement>, "ref">, "placeholder"> & React.RefAttributes<HTMLDivElement>>;
+} & React.RefAttributes<HTMLDivElement>, "ref"> & React.RefAttributes<HTMLDivElement>>;
 declare const CommandShortcut: {
     ({ className, ...props }: React.HTMLAttributes<HTMLSpanElement>): React.JSX.Element;
     displayName: string;
 };
-export { Command, CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, CommandShortcut, CommandSeparator };
+export { Command, CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, CommandShortcut, CommandSeparator, };
