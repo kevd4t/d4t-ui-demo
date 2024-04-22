@@ -1,5 +1,6 @@
-import type { Dispatch, ReactNode, SetStateAction } from "react";
-import { UseFormReturn } from "react-hook-form";
+import { UseFormReturn } from 'react-hook-form';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
+
 export interface ITableFilterOption {
     id: string;
     label: string;
@@ -13,7 +14,7 @@ export interface ITableFilter {
     icon?: ReactNode;
     options: ITableFilterOption[];
 }
-declare type IDataProperty<Type> = {
+type IDataProperty<Type> = {
     [Property in keyof Type as Exclude<Property, "__typename">]: Type[Property];
 };
 export interface ITableColumn<TDataSchema> {
@@ -48,7 +49,7 @@ export interface ITableSubmitParams {
     limit: number;
     page: number;
 }
-export declare type ITableSubmit = ({ page, limit, queries, filters, }: ITableSubmitParams) => Promise<void>;
+export type ITableSubmit = ({ page, limit, queries, filters, }: ITableSubmitParams) => Promise<void>;
 export interface IInitialTable<TData = any> {
     data: TData[] | [];
     filters: ITableFilter[];

@@ -1,2 +1,2 @@
 /// <reference types="react" />
-export declare const ListBody: () => JSX.Element;
+export declare const ListBody: () => import("react").JSX.Element;

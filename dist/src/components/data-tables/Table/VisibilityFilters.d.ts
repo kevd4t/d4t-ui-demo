@@ -1,2 +1,2 @@
 /// <reference types="react" />
-export declare const VisibilityFilters: () => JSX.Element;
+export declare const VisibilityFilters: () => import("react").JSX.Element;

@@ -1,2 +1,2 @@
 /// <reference types="react" />
-export declare const TableEmpty: () => JSX.Element;
+export declare const TableEmpty: () => import("react").JSX.Element;

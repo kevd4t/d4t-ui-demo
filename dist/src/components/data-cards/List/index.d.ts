@@ -1,5 +1,6 @@
-import type { IListPagination, IListColumn, IListSubmit, IListDynamicFilter } from "./types";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from 'react';
+import { IListPagination, IListColumn, IListSubmit, IListDynamicFilter } from './types';
+
 interface CustomTableProps<DataSchema> {
     data: DataSchema[];
     pagination: IListPagination;
@@ -14,5 +15,5 @@ interface CustomTableProps<DataSchema> {
     multiItemsSelected?: any[];
     cardsColsNumber?: number;
 }
-export declare function D4TCardsList<DataSchema>(props: CustomTableProps<DataSchema>): JSX.Element;
+export declare function D4TCardsList<DataSchema>(props: CustomTableProps<DataSchema>): import("react").JSX.Element;
 export {};

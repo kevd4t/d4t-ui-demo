@@ -9,4 +9,4 @@ export declare const ComboboxCheckboxReadOnly: ({ description, icon, placeholder
     classNameContainer: any;
     classNamePopover: any;
     disabled: any;
-}) => JSX.Element;
+}) => import("react").JSX.Element;

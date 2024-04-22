@@ -1,6 +1,7 @@
-import { RegisterOptions, UseFormReturn } from 'react-hook-form';
 import { ReactNode } from 'react';
-declare type TComboxItem = {
+import { RegisterOptions, UseFormReturn } from 'react-hook-form';
+
+type TComboxItem = {
     value: string;
     label: string;
     image?: string;
@@ -23,5 +24,5 @@ interface IComboxProps {
     buttonClassName?: string;
     popoverClassName?: string;
 }
-export declare function ComboBox({ id, form, label, items, rules, value, disabled, setValue, tabIndex, placeholder, defaultValue, notFoundLabel, ctaPlaceholder, buttonClassName, popoverClassName }: IComboxProps): JSX.Element;
+export declare function ComboBox({ id, form, label, items, rules, value, disabled, setValue, tabIndex, placeholder, defaultValue, notFoundLabel, ctaPlaceholder, buttonClassName, popoverClassName }: IComboxProps): import("react").JSX.Element;
 export {};

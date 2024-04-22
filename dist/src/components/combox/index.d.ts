@@ -1,6 +1,7 @@
-import { UseFormReturn } from 'react-hook-form';
 import { ReactNode } from 'react';
-declare type TGenericComboxItem = {
+import { UseFormReturn } from 'react-hook-form';
+
+type TGenericComboxItem = {
     value: string;
     label: string;
     image?: string;
@@ -22,5 +23,5 @@ interface IGenericComboxProps {
     classNameGroup?: string;
     isLoading?: boolean;
 }
-export declare function GenericCombobox({ id, form, label, items, disabled, tabIndex, isLoading, placeholder, defaultValue, notFoundLabel, classNameGroup, ctaPlaceholder, buttonClassName, popoverClassName, }: IGenericComboxProps): JSX.Element;
+export declare function GenericCombobox({ id, form, label, items, disabled, tabIndex, isLoading, placeholder, defaultValue, notFoundLabel, classNameGroup, ctaPlaceholder, buttonClassName, popoverClassName, }: IGenericComboxProps): import("react").JSX.Element;
 export {};

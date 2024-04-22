@@ -1,5 +1,6 @@
-import { UseFormReturn } from 'react-hook-form';
 import { ReactNode } from 'react';
+import { UseFormReturn } from 'react-hook-form';
+
 interface SearchQueryProps {
     id: string;
     label: string;
@@ -7,5 +8,5 @@ interface SearchQueryProps {
     icon?: ReactNode;
     queryText: string;
 }
-export declare const SearchQuery: ({ id, form, label, icon, queryText }: SearchQueryProps) => JSX.Element;
+export declare const SearchQuery: ({ id, form, label, icon, queryText }: SearchQueryProps) => import("react").JSX.Element;
 export {};

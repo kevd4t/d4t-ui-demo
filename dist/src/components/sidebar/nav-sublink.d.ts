@@ -1,4 +1,5 @@
-import { ReactNode } from 'react';
+import { default as React, ReactNode } from 'react';
+
 export interface SublinksItem {
     to: string;
     label: string;
@@ -9,5 +10,5 @@ interface NavSubLinkProps extends SublinksItem {
     Link?: any;
     pathname: string;
 }
-export declare const NavSubLink: ({ isExpanded, pathname, to, icon, label, Link }: NavSubLinkProps) => JSX.Element;
+export declare const NavSubLink: ({ isExpanded, pathname, to, icon, label, Link }: NavSubLinkProps) => React.JSX.Element;
 export {};

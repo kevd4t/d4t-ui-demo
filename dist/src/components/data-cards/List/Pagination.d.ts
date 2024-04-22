@@ -1,2 +1,2 @@
 /// <reference types="react" />
-export declare function ListPagination(): JSX.Element;
+export declare function ListPagination(): import("react").JSX.Element;

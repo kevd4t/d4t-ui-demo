@@ -1,5 +1,6 @@
-import { ReactNode } from "react";
-import { UseFormReturn } from "react-hook-form";
+import { UseFormReturn } from 'react-hook-form';
+import { ReactNode } from 'react';
+
 export interface ComboxItem {
     id: string;
     label: string;
@@ -29,4 +30,4 @@ export interface ComboxCheckBoxWithForm extends ComboxCheckBoxPropsBase {
     items: ComboxItem[];
     readOnly?: false;
 }
-export declare type ComboxCheckBoxProps = ComboxCheckBoxReadOnly | ComboxCheckBoxWithForm;
+export type ComboxCheckBoxProps = ComboxCheckBoxReadOnly | ComboxCheckBoxWithForm;

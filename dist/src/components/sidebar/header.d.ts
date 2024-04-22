@@ -9,4 +9,4 @@ export interface SidebarHeaderProps {
     profile?: SidebarProfile;
     isExpanded: boolean;
 }
-export declare const SidebarHeader: ({ profile, isExpanded }: SidebarHeaderProps) => JSX.Element;
+export declare const SidebarHeader: ({ profile, isExpanded }: SidebarHeaderProps) => import("react").JSX.Element;

@@ -1,4 +1,5 @@
-import { IListPagination, IListColumn } from "./types";
+import { IListPagination, IListColumn } from './types';
+
 export interface ListDataToFormat {
     __typename?: string;
     count: number;

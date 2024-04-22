@@ -1,4 +1,5 @@
 import { ITablePagination, ITableColumn } from './types';
+
 export interface DataToFormat {
     __typename?: string;
     count: number;
