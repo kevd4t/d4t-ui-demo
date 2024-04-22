@@ -27,6 +27,7 @@ interface IGenericComboxProps {
   tabIndex?: number
   buttonClassName?: string
   popoverClassName?: string
+  classNameGroup?: string
   isLoading?: boolean
 }
 
@@ -41,9 +42,10 @@ export function GenericCombobox({
   placeholder,
   defaultValue,
   notFoundLabel,
+  classNameGroup,
   ctaPlaceholder,
   buttonClassName,
-  popoverClassName
+  popoverClassName,
 }: IGenericComboxProps) {
   const [open, setOpen] = useState(false)
 
@@ -96,7 +98,7 @@ export function GenericCombobox({
                 <CommandInput placeholder={placeholder} className='h-9' />
                 <CommandEmpty>{notFoundLabel}</CommandEmpty>
 
-                <CommandGroup>
+                <CommandGroup className={cn('overflow-auto', classNameGroup)}>
                   {
                     items.map((item) => (
                       <CommandItem
