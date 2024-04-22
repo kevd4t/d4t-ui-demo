@@ -24720,7 +24720,7 @@ function BR({
             /* @__PURE__ */ f.exports.jsx(Cn, { className: j("w-[200px] p-0", m), children: /* @__PURE__ */ f.exports.jsxs(Hn, { children: [
               /* @__PURE__ */ f.exports.jsx(mr, { placeholder: i, className: "h-9" }),
               /* @__PURE__ */ f.exports.jsx(vr, { children: l }),
-              /* @__PURE__ */ f.exports.jsx(dn, { children: r.map((b) => /* @__PURE__ */ f.exports.jsxs(
+              /* @__PURE__ */ f.exports.jsx(dn, { className: j("overflow-auto", u), children: r.map((b) => /* @__PURE__ */ f.exports.jsxs(
                 fn,
                 {
                   value: b.value,
