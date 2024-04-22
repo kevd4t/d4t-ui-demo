@@ -24674,11 +24674,12 @@ function BR({
   placeholder: i,
   defaultValue: c,
   notFoundLabel: l,
-  ctaPlaceholder: u,
-  buttonClassName: d,
-  popoverClassName: p
+  classNameGroup: u,
+  ctaPlaceholder: d,
+  buttonClassName: p,
+  popoverClassName: m
 }) {
-  const [m, v] = J(!1);
+  const [v, h] = J(!1);
   return s ? /* @__PURE__ */ f.exports.jsxs("div", { className: j("w-full"), children: [
     /* @__PURE__ */ f.exports.jsx("div", { className: "flex justify-start items-end", children: n && /* @__PURE__ */ f.exports.jsx(Pt, { className: "h-5 w-full max-w-[90px]" }) }),
     /* @__PURE__ */ f.exports.jsx("div", { className: "relative", children: /* @__PURE__ */ f.exports.jsx(
@@ -24693,11 +24694,11 @@ function BR({
       control: t.control,
       name: e,
       defaultValue: c,
-      render: ({ field: h }) => {
-        var g;
+      render: ({ field: g }) => {
+        var x;
         return /* @__PURE__ */ f.exports.jsxs(Cr, { className: "flex flex-col", children: [
           /* @__PURE__ */ f.exports.jsx(On, { children: n }),
-          /* @__PURE__ */ f.exports.jsxs(zn, { open: m, onOpenChange: v, children: [
+          /* @__PURE__ */ f.exports.jsxs(zn, { open: v, onOpenChange: h, children: [
             /* @__PURE__ */ f.exports.jsx(Bn, { asChild: !0, children: /* @__PURE__ */ f.exports.jsxs(
               Fe,
               {
@@ -24706,43 +24707,43 @@ function BR({
                 variant: "outline",
                 role: "combobox",
                 style: { marginTop: 12 },
-                className: j("w-min justify-between", !h.value && "text-muted-foreground", `${d}`),
+                className: j("w-min justify-between", !g.value && "text-muted-foreground", `${p}`),
                 children: [
-                  h.value ? (g = r.find((x) => {
-                    var b, y;
-                    return ((b = x == null ? void 0 : x.value) == null ? void 0 : b.toUpperCase()) === ((y = h == null ? void 0 : h.value) == null ? void 0 : y.toUpperCase());
-                  })) == null ? void 0 : g.label : u,
+                  g.value ? (x = r.find((b) => {
+                    var y, _;
+                    return ((y = b == null ? void 0 : b.value) == null ? void 0 : y.toUpperCase()) === ((_ = g == null ? void 0 : g.value) == null ? void 0 : _.toUpperCase());
+                  })) == null ? void 0 : x.label : d,
                   /* @__PURE__ */ f.exports.jsx(hl, { className: "ml-2 h-4 w-4 shrink-0 opacity-50" })
                 ]
               }
             ) }),
-            /* @__PURE__ */ f.exports.jsx(Cn, { className: j("w-[200px] p-0", p), children: /* @__PURE__ */ f.exports.jsxs(Hn, { children: [
+            /* @__PURE__ */ f.exports.jsx(Cn, { className: j("w-[200px] p-0", m), children: /* @__PURE__ */ f.exports.jsxs(Hn, { children: [
               /* @__PURE__ */ f.exports.jsx(mr, { placeholder: i, className: "h-9" }),
               /* @__PURE__ */ f.exports.jsx(vr, { children: l }),
-              /* @__PURE__ */ f.exports.jsx(dn, { children: r.map((x) => /* @__PURE__ */ f.exports.jsxs(
+              /* @__PURE__ */ f.exports.jsx(dn, { children: r.map((b) => /* @__PURE__ */ f.exports.jsxs(
                 fn,
                 {
-                  value: x.value,
-                  onSelect: (b) => {
-                    t.setValue(e, b, { shouldDirty: !0 }), v(!1);
+                  value: b.value,
+                  onSelect: (y) => {
+                    t.setValue(e, y, { shouldDirty: !0 }), h(!1);
                   },
                   className: "w-full flex justify-start items-center",
                   children: [
-                    (x == null ? void 0 : x.image) && /* @__PURE__ */ f.exports.jsx("img", { src: x.image, alt: x.label, width: 40, className: "mr-2" }),
-                    (x == null ? void 0 : x.icon) && x.icon,
-                    x.label,
+                    (b == null ? void 0 : b.image) && /* @__PURE__ */ f.exports.jsx("img", { src: b.image, alt: b.label, width: 40, className: "mr-2" }),
+                    (b == null ? void 0 : b.icon) && b.icon,
+                    b.label,
                     /* @__PURE__ */ f.exports.jsx(
                       Z4,
                       {
                         className: j(
                           "ml-auto h-4 w-4",
-                          x.value === h.value ? "opacity-100" : "opacity-0"
+                          b.value === g.value ? "opacity-100" : "opacity-0"
                         )
                       }
                     )
                   ]
                 },
-                x.value
+                b.value
               )) })
             ] }) })
           ] })
