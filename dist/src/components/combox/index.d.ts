@@ -6,6 +6,7 @@ type TGenericComboxItem = {
     label: string;
     image?: string;
     icon?: ReactNode;
+    disabled?: boolean;
 };
 interface IGenericComboxProps {
     items: TGenericComboxItem[];

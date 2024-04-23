@@ -13380,10 +13380,7 @@ const vn = _.forwardRef(({ className: e, ...t }, n) => /* @__PURE__ */ l.jsx(
   Bt.Item,
   {
     ref: n,
-    className: j(
-      "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-      e
-    ),
+    className: j("cmdk-item relative flex select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground cursor-pointer", e),
     ...t
   }
 ));
@@ -23261,8 +23258,9 @@ function a7({
                 /* @__PURE__ */ l.jsx(hn, { className: j("overflow-auto", u), children: r.map((x) => /* @__PURE__ */ l.jsxs(
                   vn,
                   {
+                    disabled: x == null ? void 0 : x.disabled,
                     value: x.value,
-                    className: "w-full flex justify-start items-center",
+                    className: j("w-full flex justify-start items-center", (x == null ? void 0 : x.disabled) && "pointer-events-none opacity-50 cursor-default"),
                     onSelect: (y) => {
                       t.setValue(e, y, { shouldDirty: !0 }), v(!1);
                     },
