@@ -476,16 +476,16 @@ function App() {
                     placeholder='This is the placeholder'
                   />
 
-                  {/* <GenericCombobox
+                  <GenericCombobox
                     buttonClassName='w-full'
                     form={probeForm}
                     id='fuel'
-                    items={[{ label: 'hello', value: 'hello' }]}
+                    items={[{ label: 'hello', value: 'hello' }, { label: 'Item 2', value: 'ITEM_2', disabled: true }]}
                     ctaPlaceholder='Add'
                     notFoundLabel='Not found'
                     label='label'
                     isLoading={false}
-                  /> */}
+                  />
                 </div>
                 <Button className='m-5 bg-brand-primary hover:bg-brand-primary-opaque'>Primary button</Button>
               </Form>

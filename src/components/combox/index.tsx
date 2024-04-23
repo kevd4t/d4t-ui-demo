@@ -12,6 +12,7 @@ type TGenericComboxItem = {
   label: string
   image?: string
   icon?: ReactNode
+  disabled?: boolean
 }
 
 interface IGenericComboxProps {
@@ -104,9 +105,10 @@ export function GenericCombobox({
                     {
                       items.map((item) => (
                         <CommandItem
+                          disabled={item?.disabled}
                           value={item.value}
                           key={item.value}
-                          className='w-full flex justify-start items-center'
+                          className={cn('w-full flex justify-start items-center', item?.disabled && 'pointer-events-none opacity-50 cursor-default')}
                           onSelect={(value) => {
                             form.setValue(id, value, { shouldDirty: true })
                             setOpen(false)
