@@ -6,6 +6,7 @@ import { Check } from 'lucide-react'
 import { cn } from '../../lib/utils'
 
 import { FormField, FormItem, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Popover, PopoverContent, PopoverTrigger, FormLabel } from '..'
+import { CommandList } from 'cmdk'
 
 type TComboxItem = {
   value: string
@@ -98,37 +99,41 @@ export function ComboBox({
               <PopoverContent className={cn('w-[200px] p-0', popoverClassName)}>
                 <Command>
                   <CommandInput placeholder={placeholder} className='h-9' />
-                  <CommandEmpty>{notFoundLabel}</CommandEmpty>
 
-                  <CommandGroup>
-                    {
-                      items.map((item) => (
-                        <CommandItem
-                          value={item.value}
-                          key={item.value}
-                          onSelect={(value) => {
-                            form.setValue(id, value)
-                            setOpen(false)
-                          }}
-                          className='w-full flex justify-start items-center'
-                        >
-                          {item?.image && <img src={item.image} alt={item.label} width={40} className='mr-2' />}
-                          {item?.icon && item.icon}
+                  <CommandList>
+                    <CommandEmpty>{notFoundLabel}</CommandEmpty>
 
-                          {item.label}
+                    <CommandGroup>
+                      {
+                        items.map((item) => (
+                          <CommandItem
+                            value={item.value}
+                            key={item.value}
+                            onSelect={(value) => {
+                              form.setValue(id, value)
+                              setOpen(false)
+                            }}
+                            className='w-full flex justify-start items-center'
+                          >
+                            {item?.image && <img src={item.image} alt={item.label} width={40} className='mr-2' />}
+                            {item?.icon && item.icon}
 
-                          <Check
-                            className={cn(
-                              'ml-auto h-4 w-4',
-                              item.value === field.value
-                                ? 'opacity-100'
-                                : 'opacity-0'
-                            )}
-                          />
-                        </CommandItem>
-                      ))
-                    }
-                  </CommandGroup>
+                            {item.label}
+
+                            <Check
+                              className={cn(
+                                'ml-auto h-4 w-4',
+                                item.value === field.value
+                                  ? 'opacity-100'
+                                  : 'opacity-0'
+                              )}
+                            />
+                          </CommandItem>
+                        ))
+                      }
+                    </CommandGroup>
+                  </CommandList>
+
                 </Command>
               </PopoverContent>
             </Popover>
