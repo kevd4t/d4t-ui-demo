@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, type ReactNode } from 'react'
 import { Download, ImageOff } from 'lucide-react'
 

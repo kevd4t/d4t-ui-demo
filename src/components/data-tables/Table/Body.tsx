@@ -1,3 +1,5 @@
+'use client'
+
 import { Dispatch, SetStateAction, useContext, useState } from "react";
 import { IconClick } from "@tabler/icons-react";
 

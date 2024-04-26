@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useRef, useEffect, type ReactNode, useMemo } from 'react'
 import { UseFormReturn } from 'react-hook-form'
 import { Check } from 'lucide-react'
@@ -202,6 +204,7 @@ export const CheckboxField = (props: CheckBoxFieldProps) => {
                               <Tooltip delayDuration={150}>
                                 <TooltipTrigger className='w-full'>
                                   <CommandItem
+                                    disabled={item?.disabled}
                                     key={item.value.toString()}
                                     onSelect={() => {
                                       if (item.selected) {

@@ -1,3 +1,5 @@
+'use client'
+
 export * from './primary'
 export * from './content'
 export * from './footer'

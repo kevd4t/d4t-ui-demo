@@ -1,3 +1,5 @@
+'use client'
+
 import React, { Dispatch, SetStateAction } from 'react'
 import { IconPhotoStar } from '@tabler/icons-react'
 import { Download, Edit, Trash } from 'lucide-react'

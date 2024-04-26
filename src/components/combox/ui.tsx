@@ -1,3 +1,5 @@
+'use client'
+
 import { RegisterOptions, UseFormReturn } from 'react-hook-form'
 import { ChevronsUpDown } from 'lucide-react'
 import { ReactNode, useState } from 'react'

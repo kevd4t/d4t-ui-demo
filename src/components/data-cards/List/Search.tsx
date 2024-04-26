@@ -1,3 +1,5 @@
+'use client'
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IconSearch } from "@tabler/icons-react";
 import { useContext, useEffect } from "react";

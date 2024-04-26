@@ -1,3 +1,5 @@
+'use client'
+
 import { HexColorPicker } from 'react-colorful'
 
 export const SwatchesPicker = ({ color, onChange, presetColors }) => {

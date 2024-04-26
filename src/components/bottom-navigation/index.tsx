@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from "react";
 import { SidebarIcon } from "lucide-react";
 import { IBottonNavProps } from "./schemas/IComponent-props";

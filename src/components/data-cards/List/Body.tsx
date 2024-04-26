@@ -1,3 +1,5 @@
+'use client'
+
 import { Dispatch, Fragment, SetStateAction, useContext, useState } from "react";
 import { Card } from "../..";
 import { generateUUIDToList } from "./utils";

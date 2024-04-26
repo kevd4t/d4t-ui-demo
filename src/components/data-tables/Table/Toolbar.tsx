@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useContext } from "react";
 import { Button, camelToSnake } from "../../";
 import { X } from "lucide-react";

@@ -1,3 +1,5 @@
+'use client'
+
 import { Download, Edit, Trash } from 'lucide-react'
 import { IconPhotoStar } from '@tabler/icons-react'
 

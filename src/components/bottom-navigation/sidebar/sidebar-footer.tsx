@@ -1,3 +1,5 @@
+'use client'
+
 import { ISidebarConfigProps } from "../schemas/IComponent-props";
 import { LogOut, SidebarIcon } from "lucide-react";
 import { ToggleTheme } from "./toggle-theme";

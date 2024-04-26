@@ -1,5 +1,8 @@
-import React from 'react'
+'use client'
+
 import { PinField, PinFieldProps } from 'react-pin-field'
+import React from 'react'
+
 import { cn } from '../../lib/utils'
 
 export interface ICodeVerificationProps extends Omit<PinFieldProps, 'validate'> {

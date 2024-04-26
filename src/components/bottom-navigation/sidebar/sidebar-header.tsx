@@ -1,3 +1,5 @@
+'use client'
+
 import { AvatarImage, SidebarProfile } from "../../";
 import { Avatar, AvatarFallback, Badge } from "../../";
 

@@ -1,3 +1,5 @@
+'use client'
+
 import { IconAdjustmentsHorizontal } from '@tabler/icons-react'
 import { useContext } from 'react'
 

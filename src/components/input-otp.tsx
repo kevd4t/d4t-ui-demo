@@ -1,3 +1,5 @@
+'use client'
+
 import * as React from 'react'
 import { OTPInput, SlotProps } from 'input-otp'
 import { Dot } from 'lucide-react'

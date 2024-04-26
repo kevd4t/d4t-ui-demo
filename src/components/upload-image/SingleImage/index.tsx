@@ -1,3 +1,5 @@
+'use client'
+
 import ImageUploading from 'react-images-uploading'
 import { useEffect, useState } from 'react'
 

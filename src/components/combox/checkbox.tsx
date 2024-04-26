@@ -1,3 +1,5 @@
+'use client'
+
 import { ComboboxCheckboxReadOnly } from './readonly'
 import { ComboxCheckBoxProps } from './types'
 

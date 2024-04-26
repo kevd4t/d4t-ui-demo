@@ -1,3 +1,5 @@
+'use client'
+
 import { type SetStateAction, type Dispatch, useState, useEffect } from "react"
 import ImageUploading from "react-images-uploading"
 import { CloudLightning, ImagePlus } from "lucide-react"

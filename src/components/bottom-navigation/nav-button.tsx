@@ -1,3 +1,5 @@
+'use client'
+
 import { IBottomNavItem } from "./schemas/IComponent-props";
 import { ButtonHTMLAttributes } from "react";
 import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "..";

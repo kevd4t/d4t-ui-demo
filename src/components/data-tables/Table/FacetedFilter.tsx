@@ -1,3 +1,5 @@
+'use client'
+
 import { IconAdjustments } from '@tabler/icons-react'
 import { UseFormReturn } from 'react-hook-form'
 import { ReactNode, useContext, useEffect, useRef, useState } from 'react'

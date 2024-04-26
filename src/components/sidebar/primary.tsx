@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { create } from "zustand";
+import { create } from 'zustand';
 
-import { cn } from "../../lib/utils";
-import { SidebarHeader, SidebarProfile } from "./header";
-import { SidebarFooter } from "./footer";
-import { SidebarTheme } from "./toggle-theme";
+import { cn } from '../../lib/utils';
+import { SidebarHeader, SidebarProfile } from './header';
+import { SidebarFooter } from './footer';
+import { SidebarTheme } from './toggle-theme';
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
@@ -43,14 +43,14 @@ export const Sidebar = ({
       tabIndex={-1}
       className={cn(
         `sidebar dark:border-transparent overflow-hidden ${
-          isDrawerSidebar ? "" : "hidden"
+          isDrawerSidebar ? '' : 'hidden'
         } lg:block`,
         className,
-        `${isExpanded ? "max-w-[240px]" : "max-w-[100px]"}`,
-        `${isDrawerSidebar ? "ml-auto" : ""}`
+        `${isExpanded ? 'max-w-[240px]' : 'max-w-[100px]'}`,
+        `${isDrawerSidebar ? 'ml-auto' : ''}`
       )}
     >
-      <div className="w-full py-8 grid grid-rows-[56px_1fr_160px] h-full gap-y-3 px-3">
+      <div className='w-full py-8 grid grid-rows-[56px_1fr_160px] h-full gap-y-3 px-3'>
         <SidebarHeader isExpanded={isExpanded} profile={profile} />
 
         {children}

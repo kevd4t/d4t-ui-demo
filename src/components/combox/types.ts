@@ -6,6 +6,7 @@ export interface ComboxItem {
   label: string
   value: string
   icon?: ReactNode
+  disabled?: boolean
 }
 
 export interface ComboxItemExtended extends ComboxItem {

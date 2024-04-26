@@ -1,3 +1,5 @@
+'use client'
+
 export * from './button';
 export * from './calendar';
 export * from './avatar';

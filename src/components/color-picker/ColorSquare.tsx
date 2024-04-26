@@ -1,3 +1,5 @@
+'use client'
+
 import type { HTMLAttributes } from 'react'
 
 import { convertHexToRGBA } from '../../lib/utils/colors'

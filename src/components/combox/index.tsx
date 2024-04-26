@@ -1,3 +1,5 @@
+'use client'
+
 import { UseFormReturn } from 'react-hook-form'
 import { IconCheck } from '@tabler/icons-react'
 import { ChevronsUpDown } from 'lucide-react'

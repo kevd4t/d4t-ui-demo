@@ -1,3 +1,5 @@
+'use client'
+
 import { UseFormReturn } from 'react-hook-form'
 import { ReactNode, useContext } from 'react'
 import { Search } from 'lucide-react'

@@ -1,3 +1,5 @@
+'use client'
+
 import { TableUI } from '../../table'
 
 import { TableHeader } from './Header'

@@ -1,3 +1,5 @@
+'use client'
+
 import { IBottomNavigationSidebarProps } from "../schemas/IComponent-props";
 import { NavLink, NavLinkNested } from "../../";
 import BottomNavigationSidebarHeader from "./sidebar-header";

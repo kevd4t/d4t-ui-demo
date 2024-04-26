@@ -1,3 +1,5 @@
+'use client'
+
 import { TableHead, TableRow, TableHeader as TablerHeaderUI } from '../../table'
 import { useContext } from 'react'
 
