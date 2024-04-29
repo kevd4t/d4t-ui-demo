@@ -36,7 +36,11 @@ import {
   DialogTrigger,
   DialogContent,
   IImage,
-  IUploadImage
+  IUploadImage,
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+  InputOTPSeparator
 } from './components';
 import { FormCreateGPS } from './examples/create-gps';
 import { useDialogStore } from './lib/store/dialog';
@@ -438,6 +442,22 @@ function App() {
               multiItemsSelected={itemsOfMultiSel}
               setMultiItemsSelected={setItemsOfMultisel}
             /> */}
+
+
+
+              <InputOTP maxLength={6}>
+                <InputOTPGroup>
+                  <InputOTPSlot index={0} />
+                  <InputOTPSlot index={1} />
+                  <InputOTPSlot index={2} />
+                </InputOTPGroup>
+                <InputOTPSeparator />
+                <InputOTPGroup>
+                  <InputOTPSlot index={3} />
+                  <InputOTPSlot index={4} />
+                  <InputOTPSlot index={5} />
+                </InputOTPGroup>
+              </InputOTP>
             </div>
 
             {/* Forms */}
