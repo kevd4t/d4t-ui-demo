@@ -14,6 +14,7 @@ interface CheckBoxFieldProps {
     classNameContainer?: string;
     classNamePopover?: string;
     disabled?: boolean;
+    selectAllLabel?: string;
 }
 export declare const CheckboxField: (props: CheckBoxFieldProps) => import("react").JSX.Element;
 export {};
