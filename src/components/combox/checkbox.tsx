@@ -37,7 +37,8 @@ export const ComboxCheckbox = ({ id, description, icon, placeholder, label, tabI
       placeholder={placeholder}
       tabIndex={tabIndex}
       disabled={disabled}
-        // @ts-ignore
+      selectAllLabel={rest?.selectAllLabel}
+      // @ts-ignore
       form={rest?.form || null}
       // @ts-ignore
       items={rest?.items || []}

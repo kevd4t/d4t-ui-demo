@@ -21,15 +21,17 @@ interface CheckBoxFieldProps {
   classNameContainer?: string
   classNamePopover?: string
   disabled?: boolean
+  selectAllLabel?: string
 }
 
 export const CheckboxField = (props: CheckBoxFieldProps) => {
-  const { form, id, description, icon, placeholder, label, tabIndex, items, classNameContainer, classNamePopover, disabled } = props
+  const { form, id, description, icon, placeholder, label, tabIndex, selectAllLabel, items, classNameContainer, classNamePopover, disabled } = props
 
   const [itemsExtended, setItemsExtended] = useState<ComboxItemExtended[]>([])
+  const [isSelectAll, setIsSelectAll] = useState(false)
   const [comboxWidth, setComboxWidth] = useState(null)
   const elementRef = useRef(null)
-  
+
   const defaultItems = form?.formState?.defaultValues[id]
 
   const formatItems = (item: ComboxItem): ComboxItemExtended => ({
@@ -44,10 +46,16 @@ export const CheckboxField = (props: CheckBoxFieldProps) => {
     return selectedItems
   }, [itemsExtended])
 
-  const resetFilters = () =>
-    setItemsExtended((prevState) =>
-      prevState.map((item) => ({...item, selected: false}))
-    )
+  const resetFilters = () => {
+    setItemsExtended((prevState) => {
+      const prevUpdated = prevState.map((item) => ({ ...item, selected: false }))
+
+      form.setValue(id, [], { shouldDirty: true })
+
+      return prevUpdated
+    })
+
+  }
 
   const selectItemFilter = (itemId: string, selected: boolean) => {
     const items = itemsExtended.map((item) => {
@@ -63,9 +71,29 @@ export const CheckboxField = (props: CheckBoxFieldProps) => {
     form.setValue(
       id,
       items.filter((item) => item.selected).map((item) => item.value),
-      {shouldDirty: true}
+      { shouldDirty: true }
     )
   }
+
+  const toggleSelectAllItems = () => {
+    if (isSelectAll) {
+      resetFilters()
+      return setIsSelectAll(false)
+    }
+
+    setIsSelectAll(true)
+
+    const items = itemsExtended.map((item) => ({ ...item, selected: true }))
+
+    setItemsExtended(items)
+
+    form.setValue(
+      id,
+      items.filter((item) => item.selected).map((item) => item.value),
+      { shouldDirty: true }
+    )
+  }
+
 
   useEffect(() => {
     const element = elementRef.current
@@ -197,45 +225,52 @@ export const CheckboxField = (props: CheckBoxFieldProps) => {
                     <CommandEmpty>Sin Resultados</CommandEmpty>
 
                     <CommandGroup>
+                      <CommandItem onSelect={toggleSelectAllItems}>
+                        <div
+                          className={cn(
+                            'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary',
+                            isSelectAll
+                              ? 'bg-primary text-primary-foreground'
+                              : 'opacity-50 [&_svg]:invisible'
+                          )}
+                        >
+                          <Check className={cn('h-4 w-4')} />
+                        </div>
+
+                        <span className='truncate'>{selectAllLabel || 'Seleccionar todos'}</span>
+                      </CommandItem>
+
+                      <CommandSeparator className='my-2' />
+
                       {
                         itemsExtended.map((item) => {
                           return (
-                            <TooltipProvider>
-                              <Tooltip delayDuration={150}>
-                                <TooltipTrigger className='w-full'>
-                                  <CommandItem
-                                    disabled={item?.disabled}
-                                    key={item.value.toString()}
-                                    onSelect={() => {
-                                      if (item.selected) {
-                                        selectItemFilter(item.id, false)
-                                      } else {
-                                        selectItemFilter(item.id, true)
-                                      }
-                                    }}
-                                  >
-                                    <div
-                                      className={cn(
-                                        'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary',
-                                        item.selected
-                                          ? 'bg-primary text-primary-foreground'
-                                          : 'opacity-50 [&_svg]:invisible'
-                                      )}
-                                    >
-                                      <Check className={cn('h-4 w-4')} />
-                                    </div>
+                            <CommandItem
+                              disabled={item?.disabled}
+                              key={item.value.toString()}
+                              onSelect={() => {
+                                if (item.selected) {
+                                  selectItemFilter(item.id, false)
+                                } else {
+                                  selectItemFilter(item.id, true)
+                                }
+                              }}
+                            >
+                              <div
+                                className={cn(
+                                  'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary',
+                                  item.selected
+                                    ? 'bg-primary text-primary-foreground'
+                                    : 'opacity-50 [&_svg]:invisible'
+                                )}
+                              >
+                                <Check className={cn('h-4 w-4')} />
+                              </div>
 
-                                    {item.icon}
+                              {item.icon}
 
-                                    <span className='truncate'>{item.label}</span>
-                                  </CommandItem>
-                                </TooltipTrigger>
-
-                                <TooltipContent className='whitespace-normal checkbox-tooltip-content' sideOffset={20}>
-                                  <p>{item.label}</p>
-                                </TooltipContent>
-                              </Tooltip>
-                            </TooltipProvider>
+                              <span className='truncate'>{item.label}</span>
+                            </CommandItem>
                           )
                         })
                       }

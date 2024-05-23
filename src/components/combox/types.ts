@@ -24,6 +24,7 @@ export interface ComboxCheckBoxPropsBase {
   tabIndex?: number
   disabled?: boolean
   classNamePopover?: string
+  selectAllLabel?: string
 }
 
 export interface ComboxCheckBoxReadOnly extends ComboxCheckBoxPropsBase {
