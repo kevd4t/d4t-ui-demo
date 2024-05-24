@@ -5,6 +5,7 @@ export interface IGenericSelectItems {
     label: string;
     icon?: ReactNode;
     value: boolean | string | number;
+    disabled?: boolean;
 }
 export interface IGenericSelectProps extends HTMLAttributes<HTMLDivElement> {
     defaultValue?: string;

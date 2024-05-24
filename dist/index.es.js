@@ -21494,7 +21494,7 @@ const n8 = ({
                 a.length ? null : /* @__PURE__ */ l.jsx("div", { className: "px-2 py-1 text-sm", children: "Sin Resultados" }),
                 a.map((g) => {
                   var b, x;
-                  return /* @__PURE__ */ l.jsx(Ei, { value: (b = g.value) == null ? void 0 : b.toString(), children: /* @__PURE__ */ l.jsxs("div", { className: "flex justify-center items-center", children: [
+                  return /* @__PURE__ */ l.jsx(Ei, { value: (b = g.value) == null ? void 0 : b.toString(), disabled: g == null ? void 0 : g.disabled, children: /* @__PURE__ */ l.jsxs("div", { className: "flex justify-center items-center", children: [
                     (g == null ? void 0 : g.icon) && /* @__PURE__ */ l.jsx("div", { className: "dark:text-white mr-2 h-5", children: g.icon }),
                     g.label
                   ] }) }, (x = g.value) == null ? void 0 : x.toString());
