@@ -83,7 +83,7 @@ export const FacetedFilter = ({ id, form, icon, label, options, onSubmit }: Face
 
                 <div className='hidden space-x-1 lg:flex'>
                   {
-                    getFilterOptionsSelectedById(id).length >=1
+                    getFilterOptionsSelectedById(id).length >= 1
                       ? (
                         <Badge
                           variant='secondary'
@@ -91,8 +91,8 @@ export const FacetedFilter = ({ id, form, icon, label, options, onSubmit }: Face
                         >
                           {
                             getFilterOptionsSelectedById(id).length === 1
-                            ? <>{getFilterOptionsSelectedById(id).length} seleccionado</>
-                            : <>{getFilterOptionsSelectedById(id).length} seleccionados</>
+                              ? <>{getFilterOptionsSelectedById(id).length} seleccionado</>
+                              : <>{getFilterOptionsSelectedById(id).length} seleccionados</>
                           }
                         </Badge>
                       )
@@ -108,8 +108,8 @@ export const FacetedFilter = ({ id, form, icon, label, options, onSubmit }: Face
                               >
                                 {
                                   option.label.length >= 20
-                                  ? null
-                                  : option.label
+                                    ? null
+                                    : option.label
                                 }
                               </Badge>
                             )
@@ -147,48 +147,38 @@ export const FacetedFilter = ({ id, form, icon, label, options, onSubmit }: Face
               {
                 options.map((option) => {
                   return (
-                    <TooltipProvider>
-                      <Tooltip delayDuration={150}>
-                        <TooltipTrigger className='w-full'>
-                          <CommandItem
-                            key={option.value.toString()}
-                            onSelect={() => {
-                              if (option.selected) {
-                                selectOptionFilter(id, option.id, false)
-                              } else {
-                                selectOptionFilter(id, option.id, true)
-                              }
-                            }}
-                          >
-                            <div
-                              className={cn(
-                                'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary',
-                                option.selected
-                                  ? 'bg-primary text-primary-foreground'
-                                  : 'opacity-50 [&_svg]:invisible'
-                              )}
-                            >
-                              <Check className={cn('h-4 w-4')} />
-                            </div>
+                    <CommandItem
+                      key={option.value.toString()}
+                      onSelect={() => {
+                        if (option.selected) {
+                          selectOptionFilter(id, option.id, false)
+                        } else {
+                          selectOptionFilter(id, option.id, true)
+                        }
+                      }}
+                    >
+                      <div
+                        className={cn(
+                          'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary',
+                          option.selected
+                            ? 'bg-primary text-primary-foreground'
+                            : 'opacity-50 [&_svg]:invisible'
+                        )}
+                      >
+                        <Check className={cn('h-4 w-4')} />
+                      </div>
 
-                            {option.icon}
+                      {option.icon}
 
-                            <span className='truncate'>{option.label}</span>
-                            {/* {
-                              facets?.get(option.value) && (
-                                <span className='ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs'>
-                                  {facets.get(option.value)}
-                                </span>
-                              )
-                          } */}
-                          </CommandItem>
-                        </TooltipTrigger>
-
-                        <TooltipContent className='whitespace-normal checkbox-tooltip-content' sideOffset={20}>
-                          <p>{option.label}</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
+                      <span className='truncate'>{option.label}</span>
+                      {/* {
+                        facets?.get(option.value) && (
+                          <span className='ml-auto flex h-4 w-4 items-center justify-center font-mono text-xs'>
+                            {facets.get(option.value)}
+                          </span>
+                        )
+                    } */}
+                    </CommandItem>
                   )
                 })
               }
