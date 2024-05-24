@@ -9,7 +9,8 @@ import { cn } from '../../lib/utils'
 export interface IGenericSelectItems {
   label: string
   icon?: ReactNode
-  value: boolean | string | number
+  value: boolean | string | number,
+  disabled?: boolean
 }
 
 export interface IGenericSelectProps extends HTMLAttributes<HTMLDivElement> {
@@ -94,7 +95,7 @@ export const GenericSelect = ({
 
                 {
                   items.map(item => (
-                    <SelectItem key={item.value?.toString()} value={item.value?.toString()} >
+                    <SelectItem key={item.value?.toString()} value={item.value?.toString()} disabled={item?.disabled}>
                       <div className='flex justify-center items-center'>
                         {
                           item?.icon && (
