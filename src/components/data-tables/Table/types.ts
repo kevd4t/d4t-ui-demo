@@ -89,7 +89,7 @@ export interface IInitialTable<TData = any> {
   resetFilters: () => void;
   nextPage: () => void;
   prevPage: () => void;
-  updateLimit: (limit: number) => void;
+  updateLimit: (limit: number, page?: number) => void;
 }
 
 export interface ITableStore<TData> {
@@ -116,7 +116,7 @@ export interface ITableStore<TData> {
 
   setShowFilters: (value: boolean) => void;
   setInitialTable: (initialState: IInitialTable<TData>) => void;
-  updateLimit: (limit: number) => void;
+  updateLimit: (limit: number, page?: number) => void;
   updatePage: (page: number) => void;
   setPagination: (pagination: ITablePagination) => void;
   setColumns: (columns: ITableColumn<TData>[]) => void;
@@ -159,5 +159,5 @@ export interface ITableContextStore<TData = any> {
   nextPage: () => void;
   prevPage: () => void;
   resetPage: () => void;
-  updateLimit: (limit: number) => void;
+  updateLimit: (limit: number, page?: number) => void;
 }

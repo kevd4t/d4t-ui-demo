@@ -7,7 +7,7 @@ import { useContext } from 'react'
 import { TableContext } from './store'
 
 export function TablePagination() {
-  const { pagination, updateLimit, nextPage, prevPage, resetPage } = useContext(TableContext)
+  const { pagination, updateLimit, nextPage, prevPage } = useContext(TableContext)
 
   return (
     <div className='flex flex-wrap items-center justify-end'>
@@ -26,7 +26,7 @@ export function TablePagination() {
 
           <Select
             value={`${pagination.limit}`}
-            onValueChange={(value) => {updateLimit(Number(value)); resetPage()}}
+            onValueChange={(value) => {updateLimit(Number(value), 1)}}
           >
             <SelectTrigger className='h-8 w-[70px]'>
               <SelectValue placeholder={pagination.limit} />

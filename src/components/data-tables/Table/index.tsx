@@ -118,7 +118,7 @@ export function D4TTable<DataSchema>(props: CustomTableProps<DataSchema>) {
 
   const resetPage = useCallback(() => {
     setPagination({ ...pagination, page: 1 });
-  }, [pagination]);
+  }, []);
 
   const getFiltersWithOptionsSelected = () => {
     return localFilters
@@ -184,7 +184,11 @@ export function D4TTable<DataSchema>(props: CustomTableProps<DataSchema>) {
     setLocalFilters(filtersReseted);
   };
 
-  const updateLimit = (limit) => updatePagination({ ...pagination, limit });
+  const updateLimit = (limit, page?: number) => updatePagination({ 
+    ...pagination, 
+    limit ,
+    page: page || pagination?.page
+  });
 
   const resetFilters = () => {
     const filtersReseted = localFilters.map((filter) => ({
