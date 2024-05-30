@@ -28,7 +28,7 @@ export const FormCreateGPS = () => {
       <AddDialogCarrier />
 
       <Form {...formGpsDevice}>
-        <form onSubmit={formGpsDevice.handleSubmit(onSubmitFormGps)} autoFocus className='w-full'>
+        <form onSubmit={formGpsDevice.handleSubmit(onSubmitFormGps)} className='w-full'>
 
           <div className='w-full h-full flex flex-col justify-start items-start gap-x-6 gap-y-6'>
             <Card className='w-full'>
