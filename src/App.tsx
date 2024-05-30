@@ -2,46 +2,14 @@ import { Badge, BarChart, Building, DivideCircle, HelpCircle, LucideTruck, Route
 import { UseFormReturn, useForm } from 'react-hook-form';
 import { ThemeProvider, useTheme } from 'next-themes';
 import { zodResolver } from '@hookform/resolvers/zod';
-import FileResizer from 'react-image-file-resizer';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
 
 import { AppLayout } from './layouts/Application';
 import type { ComboxItem } from './components/combox/types';
-import {
-  D4TTable,
-  GenericSelect,
-  ITableColumn,
-  ITablePagination,
-  ITableSubmit,
-  Form,
-  BottomNavigation,
-  Sidebar,
-  SidebarContent,
-  NavLink,
-  NavLinkNested,
-  Input,
-  Button,
-  IMultiUploadImage,
-  MultipleImages,
-  Card,
-  CardContent,
-  ComboxCheckbox,
-  UploadImage,
-  InputPID,
-  TextArea,
-  GenericCombobox,
-  D4TImage,
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  IImage,
-  IUploadImage,
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-  InputOTPSeparator
-} from './components';
+import { D4TTable, GenericSelect, ITableColumn, ITablePagination, ITableSubmit, Form, Sidebar, SidebarContent, NavLink, NavLinkNested, Input, Button, InputPID, TextArea, GenericCombobox, D4TImage, Dialog, DialogTrigger, DialogContent, IImage } from './components';
+import { characterColumns } from './examples/tables/rick-and-morty/RickAndMorty';
+import { useGetCharacters } from './examples/tables/rick-and-morty/use-get-characters';
 import { FormCreateGPS } from './examples/create-gps';
 import { useDialogStore } from './lib/store/dialog';
 
@@ -89,6 +57,8 @@ export const defaultLoginPID: ILoginWithPID = {
 }
 
 function App() {
+  const { characters, loadingCharacters, onSubmitCharactersTable } = useGetCharacters()
+
   const [images, setImages] = useState<IImage[]>([
     {
       data_url: 'https://www.hmiscfl.org/wp-content/uploads/2018/06/generic-person-icon-14.png',
@@ -99,103 +69,15 @@ function App() {
       imageId: '567890'
     }
   ]);
-  const [uploadSingleImage, setUploadSingleImage] = useState<IUploadImage>(null);
   const [itemsOfMultiSel, setItemsOfMultisel] = useState([]);
-  const [checkboxItems, setCheckboxItems] = useState<ComboxItem[]>([]);
 
   const formPid = useForm<ILoginWithPID>({ defaultValues: defaultLoginPID, resolver: zodResolver(pidLoginSchemaForm) })
   const probeForm = useForm<any, any, any>()
-  const genericSelectForm = useForm<any, any, any>({
-    defaultValues: {
-      selectId: ''
-    },
-    resolver: zodResolver(z.object({
-      selectId: z.string()
-    }))
-  })
 
   const { theme, setTheme } = useTheme()
   const { openDialog } = useDialogStore()
 
   const profile = { role: 'Administrador', name: 'Kevin', lastname: 'blanco', photo: 'https://www.hmiscfl.org/wp-content/uploads/2018/06/generic-person-icon-14.png' };
-  const sections = [
-    {
-      titleDescription: 'Users',
-      path: '/users',
-      icon: <User />,
-    },
-    {
-      titleDescription: 'Router',
-      path: '/routes',
-      icon: <Router />,
-    },
-    {
-      titleDescription: 'Tracking',
-      path: '/tracking',
-      icon: <Truck />,
-    },
-    {
-      titleDescription: 'Analytics',
-      path: '/anaytics',
-      icon: <Truck />,
-    },
-  ];
-
-  const dataFromBack: ITank[] = [
-    {
-      id: '3434',
-      fuelLevel: 334,
-      name: 'Tank 10999'
-    },
-    {
-      id: '3434',
-      fuelLevel: 34,
-      name: 'Tan99'
-    }, {
-      id: '3434',
-      fuelLevel: 4,
-      name: 'PDV 10999'
-    }, {
-      id: '3434',
-      fuelLevel: 3,
-      name: 'Tank 10999',
-    },
-
-  ]
-
-  const dataTableColumns: ITableColumn<ITank>[] = [
-    {
-      id: 'id',
-      label: 'ID'
-    },
-    {
-      id: 'name',
-      label: 'Nombre',
-      filters: [
-        {
-          id: 'COMPLETED',
-          label: 'Completado',
-          value: 'COMPLETED'
-        },
-        {
-          id: 'IN_PROGRESS',
-          label: 'En Progreso',
-          value: 'IN_PROGRESS'
-        },
-        {
-          id: 'PENDING',
-          label: 'Pendiente',
-          value: 'PENDING'
-        },
-        {
-          id: 'CONFIRM',
-          label: 'Confirmado',
-          value: 'CONFIRM'
-        }
-      ],
-      isQuery: true
-    },
-  ];
 
   const dataPagination: ITablePagination = {
     limit: 5,
@@ -203,10 +85,6 @@ function App() {
     labels: { plural: 'Items', single: 'Item' },
     hasPrevPage: false,
     hasNextPage: false,
-  };
-
-  const onSubmitTable: ITableSubmit = async ({ queries, filters, page, limit }) => {
-    console.log({ queries, filters, page, limit })
   };
 
   const comboxForm = useForm<{ fuel: Hydrocarbon[] }>({
@@ -429,37 +307,6 @@ function App() {
 
         <div className='grid'>
           <div className='grid grid-cols-2'>
-            {/* Table */}
-            <div className='m-10 max-w-4xl'>
-              {/* <D4TTable
-              data={data}
-              onSubmitTable={onSubmitTable}
-              pagination={dataPagination}
-              columns={dataColumns}
-              error={false}
-              loading={false}
-              limitOfMultiSelect={4}
-              multiItemsSelected={itemsOfMultiSel}
-              setMultiItemsSelected={setItemsOfMultisel}
-            /> */}
-
-
-
-              <InputOTP maxLength={6}>
-                <InputOTPGroup>
-                  <InputOTPSlot index={0} />
-                  <InputOTPSlot index={1} />
-                  <InputOTPSlot index={2} />
-                </InputOTPGroup>
-                <InputOTPSeparator />
-                <InputOTPGroup>
-                  <InputOTPSlot index={3} />
-                  <InputOTPSlot index={4} />
-                  <InputOTPSlot index={5} />
-                </InputOTPGroup>
-              </InputOTP>
-            </div>
-
             {/* Forms */}
             <div className='m-10'>
               <Form {...probeForm}>
@@ -510,114 +357,24 @@ function App() {
                 <Button className='m-5 bg-brand-primary hover:bg-brand-primary-opaque'>Primary button</Button>
               </Form>
             </div>
+          </div>
 
-            <div>
-              Watch: {JSON.stringify(comboxForm.watch(), null, 2)} <br />
-              DirtyFields {JSON.stringify(comboxForm.formState.dirtyFields)} <br />
-              isDirty {JSON.stringify(comboxForm.formState.isDirty)} <br />
-              <Form {...comboxForm}>
-                <form>
-                  <ComboxCheckbox
-                    id='fuel'
-                    tabIndex={2}
-                    items={FUELS}
-                    form={comboxForm}
-                    label='Combustible'
-                  />
-
-                  {/* <Button
-                    type='submit'
-                    tabIndex={16}
-                    className='w-full py-2 text-sm'
-                    disabled={isFormEdited(comboxForm)}
-                    onClick={comboxForm.handleSubmit((data) => console.log({ data }))}
-                  >
-                    Editar Camión
-                  </Button> */}
-                </form>
-              </Form>
-            </div>
-
-            {/* Images */}
-            <div className='mt-10'>
-              {/* <InputPID
-                form={formPid}
-                label='Cedula'
-                pid={{
-                  type: {
-                    items: formatCITypes(['VENEZUELAN', 'FOREIGN']),
-                    defaultValue: formatCITypes(['VENEZUELAN'])[0].value,
-                    disabled: true
-                  },
-                  number: {
-                    disabled: true
-                  }
-                }}
-              /> */}
-            </div>
-
-            <div className='m-10'>
-              <Card>
-                <CardContent>
-                  <Form {...genericSelectForm}>
-                    <form>
-                      <GenericSelect
-                        form={genericSelectForm}
-                        id='selectId'
-                        placeholder={'HGola'}
-                        items={[
-                          {
-                            label: 'xd',
-                            value: 'xd'
-                          }
-                        ]}
-                      />
-                    </form>
-                  </Form>
-
-                  <pre>
-                    {JSON.stringify(images, null, 2)}
-                  </pre>
-
-                  <MultipleImages
-                    limit={10}
-                    label='Multi upload images'
-                    uploadLabel='upload'
-                    download
-                    zoom
-                    onRemove={(data) => console.log('ON REMOVE', data)}
-                    setUploadImages={setImages as any}
-                    compress={{ resizer: FileResizer }}
-                    initialPreview={images}
-                  />
-
-                  <UploadImage
-                    zoom
-                    onRemove={(data) => console.log('ON REMOVE', data)}
-                    onEdit={(data) => console.log('ON EDIT', data)}
-                    label='Single Images'
-                    setUploadImage={setUploadSingleImage}
-                    initialPreview='https://unavatar.io/github/ipacs13'
-                  />
-                </CardContent>
-              </Card>
-            </div>
+          {/* Table */}
+          <div className='m-10 max-w-4xl'>
+            <D4TTable
+              data={characters?.results}
+              onSubmitTable={onSubmitCharactersTable}
+              pagination={{ limit: 5, page: 1, hasPrevPage: true, hasNextPage: true }}
+              columns={characterColumns}
+              error={false}
+              loading={false}
+              limitOfMultiSelect={4}
+              multiItemsSelected={itemsOfMultiSel}
+              setMultiItemsSelected={setItemsOfMultisel}
+            />
           </div>
           <div>
 
-            {/* <MultipleImages
-              limit={10}
-              zoom
-              download
-              disabled
-              compress={{ resizer: FileResizer, openComparisons: () => {} }}
-              setUploadImages={setImages}
-              initialPreview={[
-                {
-                  data_url: 'https://unavatar.io/github/ipacs13'
-                }
-              ]}
-            /> */}
           </div>
 
           <div className='my-20'>
@@ -637,95 +394,8 @@ function App() {
             </Dialog>
           </div>
 
-          {/* Cards list */}
-          <div className='grid grid-cols-1 mb-10'>
-            <D4TTable
-              data={[]}
-              onSubmitTable={onSubmitTable}
-              pagination={dataPagination}
-              columns={[]}
-              error={false}
-              loading={false}
-              limitOfMultiSelect={4}
-              multiItemsSelected={itemsOfMultiSel}
-              setMultiItemsSelected={setItemsOfMultisel}
-            />
-          </div>
+
         </div>
-
-
-        {/* Bottom navigation */}
-        <>
-          <BottomNavigation
-            Link={null}
-            sidebar={{
-              logout: () => { },
-              profile,
-              theme: { toggleTheme: () => { toggleThemeFunc() }, value: theme },
-            }}
-            bottomItems={sections}
-            navLinksItems={[
-              {
-                label:
-                  'Ajaaaaa aaaaaaa aaaaa aaaaaaaaaaaaa asd asfsdf sdf sdgfds',
-                to: '/fino',
-                icon: <User className='dark:text-white' />,
-                pathname: '/asdfa',
-              },
-              {
-                label: 'ecole x 2',
-                to: '/ecole',
-                pathname: '/asdfa',
-                icon: <User className='dark:text-white' />,
-              },
-            ]}
-            subLinksItems={[
-              {
-                label: 'Ajaaaaa aaaaaaa aaaaa aaaaaaaaaaaaa asd asfsdf sdf sdgfds',
-                to: '/fino',
-                icon: <User className='dark:text-white' />,
-                pathname: '/asdfa',
-                subLinks: [
-                  {
-                    label:
-                      'Ajaaaaa aaaaaaa aaaaa aaaaaaaaaaaaa asd asfsdf sdf sdgfds',
-                    to: '/fino',
-                    icon: <User className='dark:text-white' />,
-                    pathname: '/asdfa',
-                  },
-                  {
-                    label: 'ecole x 2',
-                    to: '/ecole',
-                    pathname: '/asdfa',
-                    icon: <User className='dark:text-white' />,
-                  },
-                ],
-              },
-              {
-                label: 'BUNO',
-                to: '/fino',
-                icon: <User className='dark:text-white' />,
-                pathname: '/asdfa',
-                subLinks: [
-                  {
-                    label:
-                      'Ajaaaaa aaaaaaa aaaaa aaaaaaaaaaaaa asd asfsdf sdf sdgfds',
-                    to: '/fino',
-                    icon: <User className='dark:text-white' />,
-                    pathname: '/asdfa',
-                  },
-                  {
-                    label: 'ecole x 2',
-                    to: '/ecole',
-                    pathname: '/asdfa',
-                    icon: <User className='dark:text-white' />,
-                  },
-                ],
-              }
-            ]}
-          />
-
-        </>
       </AppLayout>
     </ThemeProvider>
   );

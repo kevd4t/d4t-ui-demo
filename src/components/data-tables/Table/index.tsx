@@ -117,8 +117,8 @@ export function D4TTable<DataSchema>(props: CustomTableProps<DataSchema>) {
   }, [pagination, updatePagination]);
 
   const resetPage = useCallback(() => {
-    updatePagination({ ...pagination, page: 1 });
-  }, [pagination, updatePagination]);
+    setPagination({ ...pagination, page: 1 });
+  }, [pagination]);
 
   const getFiltersWithOptionsSelected = () => {
     return localFilters
