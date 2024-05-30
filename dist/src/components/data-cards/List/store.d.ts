@@ -1,2 +1,2 @@
 /// <reference types="react" />
-export declare const ListContext: import('react').Context<ITableContextStore>;
+export declare const ListContext: import("react").Context<ITableContextStore>;

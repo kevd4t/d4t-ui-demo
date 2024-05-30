@@ -1,12 +1,11 @@
-import { SublinksItem } from './nav-sublink';
 import { ReactNode } from 'react';
-
-type LinkNavigationNestedProps = {
+import { SublinksItem } from './nav-sublink';
+declare type LinkNavigationNestedProps = {
     label: string;
     icon?: ReactNode;
     pathname: string;
     Link?: any;
     sublinks: SublinksItem[];
 };
-export declare const NavLinkNested: ({ label, icon, sublinks, pathname, Link }: LinkNavigationNestedProps) => import("react").JSX.Element;
+export declare const NavLinkNested: ({ label, icon, sublinks, pathname, Link }: LinkNavigationNestedProps) => JSX.Element;
 export {};

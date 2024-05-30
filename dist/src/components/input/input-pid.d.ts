@@ -1,13 +1,13 @@
-import { UseFormReturn } from 'react-hook-form';
-
-type TPIDTypesKeys = 'VENEZUELAN' | 'JURIDICAL' | 'FOREIGN' | 'PASSPORT' | 'GOVERNMENTAL';
-export type PIDValue = 'v' | 'e' | 'j' | 'g' | 'p';
+/// <reference types="react" />
+import type { UseFormReturn } from 'react-hook-form';
+declare type TPIDTypesKeys = 'VENEZUELAN' | 'JURIDICAL' | 'FOREIGN' | 'PASSPORT' | 'GOVERNMENTAL';
+export declare type PIDValue = 'v' | 'e' | 'j' | 'g' | 'p';
 interface FormatCITypesResult {
     label: string;
     value: PIDValue;
 }
 export declare const formatCITypes: (selectedTypes?: TPIDTypesKeys[]) => FormatCITypesResult[];
-export type TComboxItem = {
+export declare type TComboxItem = {
     value: string;
     label: string;
     image?: string;
@@ -44,5 +44,5 @@ export interface PIDProps {
     pid?: PID;
     format?: boolean;
 }
-export declare function InputPID({ form, pid: dni, format }: PIDProps): import("react").JSX.Element;
+export declare function InputPID({ form, pid: dni, format }: PIDProps): JSX.Element;
 export {};

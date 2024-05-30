@@ -1,2 +1,2 @@
 /// <reference types="react" />
-export declare const ListError: () => import("react").JSX.Element;
+export declare const ListError: () => JSX.Element;
