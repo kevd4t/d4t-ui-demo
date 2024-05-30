@@ -19637,24 +19637,24 @@ const Q4 = /* @__PURE__ */ bt(void 0), J4 = { setTheme: (e) => {
   }
 });
 function o3() {
-  var a;
-  const { pagination: e, updateLimit: t, nextPage: n, prevPage: r, resetPage: o } = Qe(Jn);
+  var o;
+  const { pagination: e, updateLimit: t, nextPage: n, prevPage: r } = Qe(Jn);
   return /* @__PURE__ */ f.exports.jsx("div", { className: "flex flex-wrap items-center justify-end", children: /* @__PURE__ */ f.exports.jsxs("div", { className: "flex items-end sm:items-center space-x-6 lg:space-x-8 mt-2 sm:mt-0", children: [
     /* @__PURE__ */ f.exports.jsxs("div", { className: "flex flex-wrap items-center gap-2", children: [
       /* @__PURE__ */ f.exports.jsxs("p", { className: "text-sm font-medium", children: [
-        ((a = e == null ? void 0 : e.labels) == null ? void 0 : a.plural) || "Items",
+        ((o = e == null ? void 0 : e.labels) == null ? void 0 : o.plural) || "Items",
         " por Pagina"
       ] }),
       /* @__PURE__ */ f.exports.jsxs(
         rd,
         {
           value: `${e.limit}`,
-          onValueChange: (s) => {
-            t(Number(s)), o();
+          onValueChange: (a) => {
+            t(Number(a), 1);
           },
           children: [
             /* @__PURE__ */ f.exports.jsx(Ki, { className: "h-8 w-[70px]", children: /* @__PURE__ */ f.exports.jsx(od, { placeholder: e.limit }) }),
-            /* @__PURE__ */ f.exports.jsx(Gi, { side: "top", children: [5, 10, 15, 20].map((s) => /* @__PURE__ */ f.exports.jsx(qi, { value: `${s}`, children: s }, s)) })
+            /* @__PURE__ */ f.exports.jsx(Gi, { side: "top", children: [5, 10, 15, 20].map((a) => /* @__PURE__ */ f.exports.jsx(qi, { value: `${a}`, children: a }, a)) })
           ]
         }
       )
@@ -22895,7 +22895,7 @@ function FR(e) {
     h.page > 1 && _({ ...h, page: h.page - 1 });
   }, [h, _]), k = ve(() => {
     g({ ...h, page: 1 });
-  }, [h]), S = () => r.map((j) => ({
+  }, []), S = () => r.map((j) => ({
     id: j.id,
     label: j.label,
     options: j.options.filter((L) => L.selected).map((L) => L.value)
@@ -22917,7 +22917,11 @@ function FR(e) {
       }))
     } : I);
     o(L);
-  }, Z = (j) => _({ ...h, limit: j }), q = () => {
+  }, Z = (j, L) => _({
+    ...h,
+    limit: j,
+    page: L || (h == null ? void 0 : h.page)
+  }), q = () => {
     const j = r.map((L) => ({
       ...L,
       options: L.options.map((I) => ({ ...I, selected: !1 }))
