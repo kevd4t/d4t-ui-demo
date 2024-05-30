@@ -1,4 +1,5 @@
-import { ITableColumn } from '../../components/data-tables/Table/types'
+import { ITableColumn } from '../../../components/data-tables/Table/types'
+import { ICharacter } from './ICharacters';
 
 export interface Character {
   id: number;
@@ -20,7 +21,7 @@ export interface Location {
   url: string;
 }
 
-export const characterColumns: ITableColumn<Character>[] = [
+export const characterColumns: ITableColumn<ICharacter>[] = [
   {
     id: 'id',
     label: 'ID'

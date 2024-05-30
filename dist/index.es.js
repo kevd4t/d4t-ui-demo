@@ -22894,8 +22894,8 @@ function FR(e) {
   }, [h, _]), N = ve(() => {
     h.page > 1 && _({ ...h, page: h.page - 1 });
   }, [h, _]), k = ve(() => {
-    _({ ...h, page: 1 });
-  }, [h, _]), S = () => r.map((j) => ({
+    g({ ...h, page: 1 });
+  }, [h]), S = () => r.map((j) => ({
     id: j.id,
     label: j.label,
     options: j.options.filter((L) => L.selected).map((L) => L.value)
