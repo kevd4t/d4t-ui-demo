@@ -1,6 +1,6 @@
-import { SidebarTheme } from './toggle-theme';
-import { SidebarProfile } from './header';
-
+/// <reference types="react" />
+import { SidebarProfile } from "./header";
+import { SidebarTheme } from "./toggle-theme";
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
     children: React.ReactNode;
     profile?: SidebarProfile;
@@ -13,6 +13,6 @@ interface SidebarStore {
     setIsExpanded: (value: boolean) => void;
     toggleExpandSidebar: () => void;
 }
-export declare const useSidebar: import('zustand').UseBoundStore<import('zustand').StoreApi<SidebarStore>>;
-export declare const Sidebar: ({ children, className, profile, logout, theme, isDrawerSidebar, }: SidebarProps) => import("react").JSX.Element;
+export declare const useSidebar: import("zustand").UseBoundStore<import("zustand").StoreApi<SidebarStore>>;
+export declare const Sidebar: ({ children, className, profile, logout, theme, isDrawerSidebar, }: SidebarProps) => JSX.Element;
 export {};

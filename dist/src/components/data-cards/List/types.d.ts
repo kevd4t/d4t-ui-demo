@@ -1,6 +1,5 @@
-import { UseFormReturn } from 'react-hook-form';
-import { Dispatch, ReactNode, SetStateAction } from 'react';
-
+import type { Dispatch, ReactNode, SetStateAction } from "react";
+import { UseFormReturn } from "react-hook-form";
 export interface IListFilterOption {
     id: string;
     label: string;
@@ -14,7 +13,7 @@ export interface IListFilter {
     icon?: ReactNode;
     options: IListFilterOption[];
 }
-type IDataProperty<Type> = {
+declare type IDataProperty<Type> = {
     [Property in keyof Type as Exclude<Property, "__typename">]: Type[Property];
 };
 export interface ICardData {
@@ -56,7 +55,7 @@ export interface IListSubmitParams {
     limit: number;
     page: number;
 }
-export type IListSubmit = ({ page, limit, queries, filters, }: IListSubmitParams) => Promise<void>;
+export declare type IListSubmit = ({ page, limit, queries, filters, }: IListSubmitParams) => Promise<void>;
 export interface IInitialList<TData = any> {
     data: TData[] | [];
     filters: IListFilter[];

@@ -1,6 +1,5 @@
-import { UseFormReturn } from 'react-hook-form';
-import { Dispatch, ReactNode, SetStateAction } from 'react';
-
+import type { Dispatch, ReactNode, SetStateAction } from "react";
+import { UseFormReturn } from "react-hook-form";
 export interface ITableFilterOption {
     id: string;
     label: string;
@@ -14,7 +13,7 @@ export interface ITableFilter {
     icon?: ReactNode;
     options: ITableFilterOption[];
 }
-type IDataProperty<Type> = {
+declare type IDataProperty<Type> = {
     [Property in keyof Type as Exclude<Property, "__typename">]: Type[Property];
 };
 export interface ITableColumn<TDataSchema> {
@@ -49,7 +48,7 @@ export interface ITableSubmitParams {
     limit: number;
     page: number;
 }
-export type ITableSubmit = ({ page, limit, queries, filters, }: ITableSubmitParams) => Promise<void>;
+export declare type ITableSubmit = ({ page, limit, queries, filters, }: ITableSubmitParams) => Promise<void>;
 export interface IInitialTable<TData = any> {
     data: TData[] | [];
     filters: ITableFilter[];
@@ -119,6 +118,7 @@ export interface ITableContextStore<TData = any> {
     resetOptionsByFilter: (filterId: string) => void;
     nextPage: () => void;
     prevPage: () => void;
+    resetPage: () => void;
     updateLimit: (limit: number) => void;
 }
 export {};

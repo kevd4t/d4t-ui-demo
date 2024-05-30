@@ -1,5 +1,4 @@
-import { default as React } from 'react';
-
+/// <reference types="react" />
 export declare const LoadImage: ({ dragProps, isDragging, emptyClassName, tabIndexs, uploadLabel, disabled, onImageUpload }: {
     dragProps: any;
     isDragging: any;
@@ -8,4 +7,4 @@ export declare const LoadImage: ({ dragProps, isDragging, emptyClassName, tabInd
     uploadLabel: any;
     disabled: any;
     onImageUpload: any;
-}) => React.JSX.Element;
+}) => JSX.Element;

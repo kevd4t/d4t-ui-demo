@@ -158,5 +158,6 @@ export interface ITableContextStore<TData = any> {
   resetOptionsByFilter: (filterId: string) => void;
   nextPage: () => void;
   prevPage: () => void;
+  resetPage: () => void;
   updateLimit: (limit: number) => void;
 }

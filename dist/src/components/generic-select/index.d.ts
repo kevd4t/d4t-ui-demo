@@ -1,6 +1,5 @@
-import { ReactNode, HTMLAttributes } from 'react';
 import { UseFormReturn } from 'react-hook-form';
-
+import type { ReactNode, HTMLAttributes } from 'react';
 export interface IGenericSelectItems {
     label: string;
     icon?: ReactNode;
@@ -21,4 +20,4 @@ export interface IGenericSelectProps extends HTMLAttributes<HTMLDivElement> {
     disabled?: boolean;
     isLoading?: boolean;
 }
-export declare const GenericSelect: ({ id, label, defaultValue, placeholder, description, items, form, tabIndex, classNameContainer, classNameSelect, classNameGroup, disabled, isLoading }: IGenericSelectProps) => import("react").JSX.Element;
+export declare const GenericSelect: ({ id, label, defaultValue, placeholder, description, items, form, tabIndex, classNameContainer, classNameSelect, classNameGroup, disabled, isLoading }: IGenericSelectProps) => JSX.Element;

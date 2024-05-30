@@ -1,5 +1,5 @@
-import { SidebarProfile } from '../../';
-
+/// <reference types="react" />
+import { SidebarProfile } from "../../";
 export default function BottomNavigationSidebarHeader({ profile, }: {
     profile: SidebarProfile;
-}): import("react").JSX.Element;
+}): JSX.Element;
