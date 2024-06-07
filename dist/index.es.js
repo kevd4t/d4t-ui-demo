@@ -22728,8 +22728,8 @@ const x3 = (e) => {
       !a && /* @__PURE__ */ l.jsx("span", { className: "font-normal text-sm text-zinc-500", children: "o arrastra y suelta una imagen" })
     ]
   }
-), Ob = ({ src: e, containerClassName: t, imageClassName: n, zoom: r, fallback: o, download: a, filename: s }) => {
-  const [i, c] = q(!1);
+), Ob = ({ src: e, containerClassName: t, imageClassName: n, zoom: r, fallback: o, download: a, filename: s, ...i }) => {
+  const [c, d] = q(!1);
   return r ? /* @__PURE__ */ l.jsxs("div", { className: "w-full h-fit relative", children: [
     a && /* @__PURE__ */ l.jsx(
       ze,
@@ -22740,19 +22740,20 @@ const x3 = (e) => {
         children: /* @__PURE__ */ l.jsx(Ps, { size: 18 })
       }
     ),
-    /* @__PURE__ */ l.jsxs(ah, { open: i, onOpenChange: c, children: [
+    /* @__PURE__ */ l.jsxs(ah, { open: c, onOpenChange: d, children: [
       /* @__PURE__ */ l.jsxs(co, { className: O("relative w-auto h-[236px] rounded-md bg-muted p-4 hover:bg-zinc-900/10 dark:hover:bg-zinc-50/20 transition-colors ease-in-out duration-200", t), children: [
         /* @__PURE__ */ l.jsx(
           kr,
           {
+            ...i,
             src: e,
-            className: O("aspect-video w-auto rounded-md object-contain m-auto h-full cursor-zoom-in", n),
-            onClick: () => c(!0)
+            onClick: () => d(!0),
+            className: O("aspect-video w-auto rounded-md object-contain m-auto h-full cursor-zoom-in", n)
           }
         ),
         /* @__PURE__ */ l.jsx(lo, { className: O("w-full h-full rounded-md", o == null ? void 0 : o.className), children: (o == null ? void 0 : o.children) || /* @__PURE__ */ l.jsx(Gi, {}) })
       ] }),
-      /* @__PURE__ */ l.jsx(hd, { className: "p-10 bg-transparent border-none shadow-none w-[90vw] h-screen mx-auto sm:max-w-none sm:border-none", style: { background: "transparent !important" }, onClick: () => c(!1), children: /* @__PURE__ */ l.jsxs(co, { className: O("w-full h-full rounded-md"), children: [
+      /* @__PURE__ */ l.jsx(hd, { className: "p-10 bg-transparent border-none shadow-none w-[90vw] h-screen mx-auto sm:max-w-none sm:border-none", style: { background: "transparent !important" }, onClick: () => d(!1), children: /* @__PURE__ */ l.jsxs(co, { className: O("w-full h-full rounded-md"), children: [
         /* @__PURE__ */ l.jsx(kr, { src: e, className: O("aspect-video rounded-md object-contain m-auto h-full"), style: { width: "-webkit-fill-available" } }),
         /* @__PURE__ */ l.jsx(lo, { className: O("w-full h-full rounded-md", o == null ? void 0 : o.className), children: (o == null ? void 0 : o.children) || /* @__PURE__ */ l.jsx(Gi, {}) })
       ] }) })
