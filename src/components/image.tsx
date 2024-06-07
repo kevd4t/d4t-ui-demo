@@ -1,17 +1,18 @@
 'use client'
 
-import { useState, type ReactNode } from 'react'
+import { HTMLAttributes, useState, type ReactNode } from 'react'
 import { Download, ImageOff } from 'lucide-react'
 
 import { downloadImage } from '../lib/utils/download-image'
 import { cn } from '../lib/utils'
 
-import { Dialog, DialogContent,  DialogTrigger } from './dialog'
+import { Dialog, DialogContent, DialogTrigger } from './dialog'
 import { Avatar, AvatarFallback, AvatarImage } from './avatar'
 import { Button } from './button'
+import { PrimitiveImageProps } from '@radix-ui/react-avatar'
 
 
-export interface D4tImageProps {
+export interface D4tImageProps extends PrimitiveImageProps {
   src?: string
   containerClassName?: string
   imageClassName?: string
@@ -24,7 +25,7 @@ export interface D4tImageProps {
   }
 }
 
-export const D4TImage = ({ src, containerClassName, imageClassName, zoom, fallback, download, filename }: D4tImageProps) => {
+export const D4TImage = ({ src, containerClassName, imageClassName, zoom, fallback, download, filename, ...rest }: D4tImageProps) => {
   const [open, setOpen] = useState(false)
 
   if (zoom) {
@@ -45,13 +46,14 @@ export const D4TImage = ({ src, containerClassName, imageClassName, zoom, fallba
         <Dialog open={open} onOpenChange={setOpen}>
           <Avatar className={cn('relative w-auto h-[236px] rounded-md bg-muted p-4 hover:bg-zinc-900/10 dark:hover:bg-zinc-50/20 transition-colors ease-in-out duration-200', containerClassName)}>
             <AvatarImage
+              {...rest}
               src={src}
-              className={cn('aspect-video w-auto rounded-md object-contain m-auto h-full cursor-zoom-in', imageClassName)}
               onClick={() => setOpen(true)}
+              className={cn('aspect-video w-auto rounded-md object-contain m-auto h-full cursor-zoom-in', imageClassName)}
             />
 
             <AvatarFallback className={cn('w-full h-full rounded-md', fallback?.className)}>
-              { fallback?.children || <ImageOff /> }
+              {fallback?.children || <ImageOff />}
             </AvatarFallback>
           </Avatar>
 
@@ -60,7 +62,7 @@ export const D4TImage = ({ src, containerClassName, imageClassName, zoom, fallba
               <AvatarImage src={src} className={cn('aspect-video rounded-md object-contain m-auto h-full')} style={{ width: '-webkit-fill-available' }} />
 
               <AvatarFallback className={cn('w-full h-full rounded-md', fallback?.className)}>
-                { fallback?.children || <ImageOff /> }
+                {fallback?.children || <ImageOff />}
               </AvatarFallback>
             </Avatar>
           </DialogContent>
@@ -87,7 +89,7 @@ export const D4TImage = ({ src, containerClassName, imageClassName, zoom, fallba
         <AvatarImage src={src} className={cn('aspect-video w-auto rounded-md object-contain m-auto h-full', imageClassName)} style={{ width: '-webkit-fill-available' }} />
 
         <AvatarFallback className={cn('w-full h-full rounded-md', fallback?.className)}>
-          { fallback?.children || <ImageOff /> }
+          {fallback?.children || <ImageOff />}
         </AvatarFallback>
       </Avatar>
     </div>
