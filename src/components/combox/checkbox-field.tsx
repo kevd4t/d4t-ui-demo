@@ -39,7 +39,7 @@ export const CheckboxField = (props: CheckBoxFieldProps) => {
     selected: defaultItems ? defaultItems.includes(item.value) : false
   })
 
-  const itemsFormatted: ComboxItemExtended[] = useMemo(() => items.map(formatItems), [defaultItems])
+  const itemsFormatted: ComboxItemExtended[] = useMemo(() => items.map(formatItems), [defaultItems, items])
 
   const getSelectedItems = useMemo(() => {
     const selectedItems = itemsExtended.filter((item) => item.selected).map((item) => item.value)
