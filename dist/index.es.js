@@ -23425,7 +23425,7 @@ const C3 = ({ description: e, icon: t, placeholder: n, label: r, tabIndex: o, op
   const { form: t, id: n, description: r, icon: o, placeholder: a, label: s, tabIndex: i, selectAllLabel: c, items: d, classNameContainer: u, classNamePopover: f, disabled: p } = e, [m, h] = q([]), [v, g] = q(!1), [b, x] = q(null), y = Z(null), $ = (K = t == null ? void 0 : t.formState) == null ? void 0 : K.defaultValues[n], C = (R) => ({
     ...R,
     selected: $ ? $.includes(R.value) : !1
-  }), P = Kt(() => d.map(C), [$]), S = Kt(() => m.filter((B) => B.selected).map((B) => B.value), [m]), N = () => {
+  }), P = Kt(() => d.map(C), [$, d]), S = Kt(() => m.filter((B) => B.selected).map((B) => B.value), [m]), N = () => {
     h((R) => {
       const B = R.map((V) => ({ ...V, selected: !1 }));
       return t.setValue(n, [], { shouldDirty: !0 }), B;
