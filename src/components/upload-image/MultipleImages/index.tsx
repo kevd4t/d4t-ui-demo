@@ -2,7 +2,7 @@
 
 import { type SetStateAction, type Dispatch, useState, useEffect } from "react"
 import ImageUploading from "react-images-uploading"
-import { CloudLightning, ImagePlus } from "lucide-react"
+import { ImagePlus } from "lucide-react"
 
 import type {
   ImageListType,
@@ -20,14 +20,13 @@ import { MultiUploadImageActions } from "./Actions"
 import { LoadMultiImages } from "./LoadImage"
 import { D4TImage } from "../../image"
 
-interface IMultipleUploadImageProps
-  extends Omit<IMultiUploadImageProps, "setUploadImage" | "initialPreview"> {
+interface IMultipleUploadImageProps extends Omit<IMultiUploadImageProps, "setUploadImage" | "initialPreview"> {
   setUploadImages: Dispatch<SetStateAction<IMultiUploadImage[]>>
   initialPreview?: IImage[]
 }
 
 export const MultipleImages = (props: IMultipleUploadImageProps) => {
-  const { edit = true, label, setUploadImages, format, uploadLabel, tabIndexs, emptyClassName, imageContainerClassName, zoom, compress, limit, initialPreview, disabled, download, onRemove, onEdit } = props
+  const { edit = true, label, setUploadImages, format, uploadLabel, tabIndexs, emptyClassName, crossOrigin, imageContainerClassName, zoom, compress, limit, initialPreview, disabled, download, onRemove, onEdit } = props
   const [localImage, setLocalImage] = useState<ImageListType>([])
 
   useEffect(() => {
@@ -78,7 +77,7 @@ export const MultipleImages = (props: IMultipleUploadImageProps) => {
           data_url: image?.data_url
         }
       } else {
-        return  {
+        return {
           ...image,
           file: image?.file || null
         }
@@ -126,9 +125,8 @@ export const MultipleImages = (props: IMultipleUploadImageProps) => {
             <>
               {imageList.length >= 1 ? (
                 <div
-                  className={`grid ${
-                    limit === 1 || !limit ? "grid-cols-1" : "grid-cols-2"
-                  } grid-flow-row gap-4`}
+                  className={`grid ${limit === 1 || !limit ? "grid-cols-1" : "grid-cols-2"
+                    } grid-flow-row gap-4`}
                 >
                   {imageList.map((image, index) => {
                     return (
@@ -139,6 +137,7 @@ export const MultipleImages = (props: IMultipleUploadImageProps) => {
                         <D4TImage
                           zoom={zoom}
                           src={image?.data_url}
+                          crossOrigin={crossOrigin}
                           containerClassName={imageContainerClassName}
                         />
 
@@ -163,8 +162,7 @@ export const MultipleImages = (props: IMultipleUploadImageProps) => {
                       <div
                         {...dragProps}
                         className={cn(
-                          `w-full h-[237px] ${
-                            isDragging ? "border-indigo-600" : "border-muted-foreground"
+                          `w-full h-[237px] ${isDragging ? "border-indigo-600" : "border-muted-foreground"
                           } flex flex-col justify-center items-center border-dashed border-muted-foreground border-2 bg-slate-50 bg-opacity-5 rounded-md p-2`,
                           imageContainerClassName
                         )}

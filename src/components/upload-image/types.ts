@@ -71,6 +71,8 @@ export type OnChangeMultipleImage = (image: IMultiUploadImage) => void
 export type OnRemoveImage = (image: IImage) => void
 export type OnEditImage = (image: IImage) => void
 
+export type CrossOrigin = 'anonymous' | 'use-credentials'
+
 export interface IMultiUploadImageProps {
   initialPreview?: string
   edit?: boolean
@@ -88,6 +90,7 @@ export interface IMultiUploadImageProps {
   limit?: number
   onRemove?: OnRemoveImage
   onEdit?: OnRemoveImage
+  crossOrigin?: CrossOrigin
 }
 
 // UploadImage Props
@@ -108,6 +111,7 @@ export interface IUploadImageProps {
   limit?: number
   onRemove?: OnRemoveImage
   onEdit?: OnRemoveImage
+  crossOrigin?: CrossOrigin
 }
 
 

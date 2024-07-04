@@ -13,7 +13,7 @@ import { D4TImage } from '../../image'
 import { Label } from '../../label'
 
 export const UploadImage = (props: IUploadImageProps) => {
-  const { edit = true, initialPreview = null, setUploadImage, format, label, uploadLabel, tabIndexs, disabled, emptyClassName, imageContainerClassName, zoom, compress, download, onRemove, onEdit } = props
+  const { edit = true, initialPreview = null, setUploadImage, crossOrigin, format, label, uploadLabel, tabIndexs, disabled, emptyClassName, imageContainerClassName, zoom, compress, download, onRemove, onEdit } = props
   const [localImage, setLocalImage] = useState<ImageListType>(initialPreview ? [{ data_url: initialPreview as string, file: null }] : [])
 
   const onChangeImage: onChangeImage = async (imageList, addUpdateIndex) => {
@@ -117,11 +117,12 @@ export const UploadImage = (props: IUploadImageProps) => {
                         imageList.map((image, index) => {
                           return (
                             <div key={index} className='imagen-container w-full flex flex-col justify-center items-center relative'>
-                                <D4TImage
-                                  zoom={zoom}
-                                  src={image?.data_url}
-                                  containerClassName={imageContainerClassName}
-                                />
+                              <D4TImage
+                                zoom={zoom}
+                                src={image?.data_url}
+                                crossOrigin={crossOrigin}
+                                containerClassName={imageContainerClassName}
+                              />
 
                               <UploadImageActions
                                 edit={edit}
