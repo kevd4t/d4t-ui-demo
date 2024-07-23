@@ -1,3 +1,5 @@
+'use client'
+
 import { Dispatch, ReactNode, SetStateAction } from 'react'
 import FileResizer from 'react-image-file-resizer'
 

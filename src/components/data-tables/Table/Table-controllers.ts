@@ -1,3 +1,5 @@
+'use client'
+
 import { TableContext } from "./store";
 import { useContext, useState } from "react";
 

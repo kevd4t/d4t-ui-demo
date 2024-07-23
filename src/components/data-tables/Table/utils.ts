@@ -1,4 +1,6 @@
 // @ts-nocheck
+'use client'
+
 import { ITablePagination, ITableColumn } from './types'
 
 export interface DataToFormat {

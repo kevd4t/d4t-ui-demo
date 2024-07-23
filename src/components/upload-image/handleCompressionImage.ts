@@ -1,3 +1,5 @@
+'use client'
+
 import FileResizer from "react-image-file-resizer"
 
 const dataURItoFile = (dataURI: string, filename: string): File => {

@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect } from 'react'
 
 // Improved version of https://usehooks.com/useOnClickOutside/

@@ -4,6 +4,7 @@ export * from './button';
 export * from './calendar';
 export * from './avatar';
 export * from './badge';
+export * from './charts';
 export * from './context-menu';
 export * from './form';
 export * from './dialog';

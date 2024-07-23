@@ -1,4 +1,4 @@
-import { Badge, BarChart, Building, DivideCircle, HelpCircle, LucideTruck, Router, Settings, StopCircle, Truck, User } from 'lucide-react';
+import { Badge, BarChart, Building, DivideCircle, HelpCircle, Info, LucideTruck, Router, Settings, StopCircle, Truck, User } from 'lucide-react';
 import { UseFormReturn, useForm } from 'react-hook-form';
 import { ThemeProvider, useTheme } from 'next-themes';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -7,7 +7,7 @@ import { z } from 'zod';
 
 import { AppLayout } from './layouts/Application';
 import type { ComboxItem } from './components/combox/types';
-import { D4TTable, GenericSelect, ITableColumn, ITablePagination, ITableSubmit, Form, Sidebar, SidebarContent, NavLink, NavLinkNested, Input, Button, InputPID, TextArea, GenericCombobox, D4TImage, Dialog, DialogTrigger, DialogContent, IImage } from './components';
+import { D4TTable, GenericSelect, ITableColumn, ITablePagination, ITableSubmit, Form, Sidebar, SidebarContent, NavLink, NavLinkNested, Input, Button, InputPID, TextArea, GenericCombobox, D4TImage, Dialog, DialogTrigger, DialogContent, IImage, Tabs, TabsList, TabsTrigger, TabsContent } from './components';
 import { characterColumns } from './examples/tables/rick-and-morty/RickAndMorty';
 import { useGetCharacters } from './examples/tables/rick-and-morty/use-get-characters';
 import { FormCreateGPS } from './examples/create-gps';
@@ -304,6 +304,25 @@ function App() {
           </Button>
           <FormCreateGPS />
         </div>
+
+        <Dialog>
+          <DialogTrigger>
+            <Info size={18} className='mr-2' />
+            Mas Info
+          </DialogTrigger>
+
+          <DialogContent className='pt-8'>
+            formatAndUpdateTruckStatus
+            <Tabs defaultValue="account" className="w-[400px]">
+              <TabsList>
+                <TabsTrigger value="account">Account</TabsTrigger>
+                <TabsTrigger value="password">Password</TabsTrigger>
+              </TabsList>
+              <TabsContent value="account">Make changes to your account here.</TabsContent>
+              <TabsContent value="password">Change your password here.</TabsContent>
+            </Tabs>
+          </DialogContent>
+        </Dialog>
 
         <div className='grid'>
           <div className='grid grid-cols-2'>

@@ -1,3 +1,5 @@
+'use client'
+
 import { ReactNode } from "react"
 import { UseFormReturn } from "react-hook-form"
 

@@ -1,4 +1,6 @@
 // @ts-nocheck
+'use client'
+
 import { IListPagination, IListColumn } from "./types";
 
 export interface ListDataToFormat {

@@ -1,3 +1,5 @@
+'use client'
+
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { UseFormReturn } from "react-hook-form";
 

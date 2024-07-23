@@ -1,3 +1,5 @@
+'use client'
+
 import { UseFormReturn } from "react-hook-form"
 
 export interface InputPropsBase extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'form' | 'type'> {
