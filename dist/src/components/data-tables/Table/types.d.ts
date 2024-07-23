@@ -4,7 +4,7 @@ import { Dispatch, ReactNode, SetStateAction } from 'react';
 export interface ITableFilterOption {
     id: string;
     label: string;
-    value: string | boolean;
+    value: string | boolean | number;
     icon?: ReactNode;
     selected?: boolean;
 }
