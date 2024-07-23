@@ -30,7 +30,6 @@ export const FacetedFilter = ({ id, form, icon, label, options, onSubmit }: Face
     // form.handleSubmit(onSubmit)()
   }
 
-
   useEffect(() => {
     const element = elementRef.current
 
@@ -53,7 +52,6 @@ export const FacetedFilter = ({ id, form, icon, label, options, onSubmit }: Face
       resizeObserver.disconnect()
     }
   }, [])
-
 
   return (
     <Popover>

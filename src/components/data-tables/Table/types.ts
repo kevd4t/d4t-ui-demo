@@ -6,7 +6,7 @@ import { UseFormReturn } from "react-hook-form";
 export interface ITableFilterOption {
   id: string;
   label: string;
-  value: string | boolean;
+  value: string | boolean | number;
   icon?: ReactNode;
   selected?: boolean;
 }
