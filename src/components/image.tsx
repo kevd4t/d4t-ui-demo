@@ -86,7 +86,12 @@ export const D4TImage = ({ src, containerClassName, imageClassName, zoom, fallba
           )
         }
 
-        <AvatarImage src={src} className={cn('aspect-video w-auto rounded-md object-contain m-auto h-full', imageClassName)} style={{ width: '-webkit-fill-available' }} />
+        <AvatarImage
+          {...rest}
+          src={src}
+          className={cn('aspect-video w-auto rounded-md object-contain m-auto h-full', imageClassName)}
+          style={{ width: '-webkit-fill-available' }}
+        />
 
         <AvatarFallback className={cn('w-full h-full rounded-md', fallback?.className)}>
           {fallback?.children || <ImageOff />}
