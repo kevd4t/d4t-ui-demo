@@ -26298,7 +26298,15 @@ const MH = (e) => {
         children: /* @__PURE__ */ d.jsx(bi, { size: 18 })
       }
     ),
-    /* @__PURE__ */ d.jsx(Hr, { src: e, className: M("aspect-video w-auto rounded-md object-contain m-auto h-full", n), style: { width: "-webkit-fill-available" } }),
+    /* @__PURE__ */ d.jsx(
+      Hr,
+      {
+        ...i,
+        src: e,
+        className: M("aspect-video w-auto rounded-md object-contain m-auto h-full", n),
+        style: { width: "-webkit-fill-available" }
+      }
+    ),
     /* @__PURE__ */ d.jsx(Oo, { className: M("w-full h-full rounded-md", o == null ? void 0 : o.className), children: (o == null ? void 0 : o.children) || /* @__PURE__ */ d.jsx(al, {}) })
   ] }) });
 }, wq = (e) => {
