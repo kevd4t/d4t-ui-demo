@@ -84,7 +84,7 @@ export const GenericSelect = ({
             value={field?.value}
           >
             <FormControl>
-              <SelectTrigger disabled={disabled} tabIndex={tabIndex} className={cn('w-full', classNameSelect)}>
+              <SelectTrigger disabled={disabled} tabIndex={tabIndex} className={cn('w-full [&_>_span]:truncate', classNameSelect)}>
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
             </FormControl>
