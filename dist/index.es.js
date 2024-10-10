@@ -27144,7 +27144,7 @@ const FH = ({ description: e, icon: t, placeholder: n, label: r, tabIndex: o, op
                             Gt,
                             {
                               onSelect: () => {
-                                t.setValue(n, []), z();
+                                t.setValue(n, []), z(), y(!1);
                               },
                               className: k(yr({ variant: "ghost" }), "w-full aria-selected:bg-muted/50 h-fit py-1.5"),
                               children: [
