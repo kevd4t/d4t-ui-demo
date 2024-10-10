@@ -27,6 +27,7 @@ interface CheckBoxFieldProps {
 export const CheckboxField = (props: CheckBoxFieldProps) => {
   const { form, id, description, icon, placeholder, label, tabIndex, selectAllLabel, items, classNameContainer, classNamePopover, disabled } = props
 
+  // Obtener los valores predeterminados del formulario
   const defaultItems = form?.formState?.defaultValues[id]
 
   const formatItems = (item: ComboxItem): ComboxItemExtended => ({
@@ -36,25 +37,27 @@ export const CheckboxField = (props: CheckBoxFieldProps) => {
 
   const [itemsExtended, setItemsExtended] = useState<ComboxItemExtended[]>(items.map(formatItems))
   const [isSelectAll, setIsSelectAll] = useState(false)
-  const [open, setOpen] = useState(false)
   const [comboxWidth, setComboxWidth] = useState(null)
+  const [open, setOpen] = useState(false)
   const elementRef = useRef(null)
-
-  // const itemsFormatted: ComboxItemExtended[] = useMemo(() => items.map(formatItems), [defaultItems, items])
 
   const getSelectedItems = useMemo(() => {
     return itemsExtended.filter((item) => item.selected).map((item) => item.value)
   }, [itemsExtended])
 
+  // Actualizar los items seleccionados en el formulario
+  const updateFormValues = (updatedItems: ComboxItemExtended[]) => {
+    const selectedValues = updatedItems.filter(item => item.selected).map(item => item.value)
+    form.setValue(id, selectedValues, { shouldDirty: true })
+  }
+
   const resetFilters = () => {
     const updatedItems = itemsExtended.map(item => ({ ...item, selected: false }))
     setItemsExtended(updatedItems)
-    form.setValue(id, [], { shouldDirty: true })
+    updateFormValues(updatedItems)
   }
 
   const selectItemFilter = (itemId: string, selected: boolean) => {
-    console.log('selectItemFilter', { itemId, selected })
-
     const updatedItems = itemsExtended.map(item => {
       if (item.id === itemId) {
         return { ...item, selected }
@@ -63,9 +66,10 @@ export const CheckboxField = (props: CheckBoxFieldProps) => {
     })
 
     setItemsExtended(updatedItems)
+    updateFormValues(updatedItems)
 
-    const selectedValues = updatedItems.filter(item => item.selected).map(item => item.value)
-    form.setValue(id, selectedValues, { shouldDirty: true })
+    // Verifica si todos los items están seleccionados para actualizar el estado de "select all"
+    setIsSelectAll(updatedItems.every(item => item.selected))
   }
 
   const toggleSelectAllItems = () => {
@@ -77,14 +81,8 @@ export const CheckboxField = (props: CheckBoxFieldProps) => {
     setIsSelectAll(true)
 
     const updatedItems = itemsExtended.map(item => ({ ...item, selected: true }))
-    console.log({ updatedItems })
     setItemsExtended(updatedItems)
-
-    form.setValue(
-      id,
-      updatedItems.filter(item => item.selected).map(item => item.value),
-      { shouldDirty: true }
-    )
+    updateFormValues(updatedItems)
   }
 
   useEffect(() => {
@@ -106,6 +104,19 @@ export const CheckboxField = (props: CheckBoxFieldProps) => {
       resizeObserver.disconnect()
     }
   }, [])
+
+  // Actualizar el estado de los items cuando cambian las props "items" o los valores por defecto
+  useEffect(() => {
+    const updatedItems = items.map(formatItems)
+    setItemsExtended(updatedItems)
+
+    // Actualizar el formulario solo si los valores por defecto cambian
+    form.setValue(id, updatedItems.filter(item => item.selected).map(item => item.value))
+
+    // Verifica si todos los items están seleccionados para actualizar el estado de "select all"
+    setIsSelectAll(updatedItems.every(item => item.selected))
+  }, [items]) // <-- Observa solo el cambio de `items`, no de `defaultItems`
+
 
   return (
     <>
@@ -258,7 +269,7 @@ export const CheckboxField = (props: CheckBoxFieldProps) => {
                         }
                       </CommandGroup>
 
-                      <CommandSeparator />
+                      <CommandSeparator className='my-1' />
 
                       <CommandGroup
                         className='[&_>_div]:flex [&_>_div]:w-full [&_>_div]:flex-row [&_>_div]:justify-between [&_>_div]:items-center [&_>_div]:gap-3'
@@ -280,7 +291,7 @@ export const CheckboxField = (props: CheckBoxFieldProps) => {
 
                         <CommandItem
                           onSelect={() => setOpen(false)}
-                          className={cn(buttonVariants({ variant: 'default' }), 'w-full aria-selected:bg-primary/80 aria-selected:!text-white h-fit py-1.5')}
+                          className={cn(buttonVariants({ variant: 'default' }), 'w-full aria-selected:bg-primary/80 aria-selected:text-white h-fit py-1.5')}
                         >
                           <EyeOff size={14} className='mr-2' />
                           Cerrar
