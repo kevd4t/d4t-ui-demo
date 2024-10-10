@@ -280,6 +280,7 @@ export const CheckboxField = (props: CheckBoxFieldProps) => {
                               onSelect={() => {
                                 form.setValue(id, [])
                                 resetFilters()
+                                setIsSelectAll(false)
                               }}
                               className={cn(buttonVariants({ variant: 'ghost' }), 'w-full aria-selected:bg-muted/50 h-fit py-1.5')}
                             >
