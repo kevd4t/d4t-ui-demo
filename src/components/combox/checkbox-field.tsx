@@ -5,9 +5,9 @@ import { UseFormReturn } from 'react-hook-form'
 import { Check, CircleX, EyeOff } from 'lucide-react'
 
 import { ComboxItem, ComboxItemExtended } from './types'
-import { cn } from '../../lib/utils'
 
-import { FormDescription, FormField, FormItem, FormLabel, Badge, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, Popover, PopoverContent, PopoverTrigger, buttonVariants } from '../'
+import { cn } from '../../lib/utils'
+import { FormDescription, FormField, FormItem, FormLabel, Badge, Button, Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator, Popover, PopoverContent, PopoverTrigger, buttonVariants } from '..'
 
 interface CheckBoxFieldProps {
   form: UseFormReturn<any, any, any>
@@ -27,12 +27,12 @@ interface CheckBoxFieldProps {
 export const CheckboxField = (props: CheckBoxFieldProps) => {
   const { form, id, description, icon, placeholder, label, tabIndex, selectAllLabel, items, classNameContainer, classNamePopover, disabled } = props
 
-  // Obtener los valores predeterminados del formulario
-  const defaultItems = form?.formState?.defaultValues[id]
+  // Obtener los valores del formulario actualizados
+  const selectedFormValues = form.watch(id) || []
 
   const formatItems = (item: ComboxItem): ComboxItemExtended => ({
     ...item,
-    selected: defaultItems ? defaultItems.includes(item.value) : false
+    selected: selectedFormValues.includes(item.value)
   })
 
   const [itemsExtended, setItemsExtended] = useState<ComboxItemExtended[]>(items.map(formatItems))
@@ -105,18 +105,15 @@ export const CheckboxField = (props: CheckBoxFieldProps) => {
     }
   }, [])
 
-  // Actualizar el estado de los items cuando cambian las props "items" o los valores por defecto
+  // Sincronizar itemsExtended con los valores seleccionados en el formulario
   useEffect(() => {
     const updatedItems = items.map(formatItems)
     setItemsExtended(updatedItems)
 
-    // Actualizar el formulario solo si los valores por defecto cambian
-    form.setValue(id, updatedItems.filter(item => item.selected).map(item => item.value))
-
     // Verifica si todos los items están seleccionados para actualizar el estado de "select all"
     setIsSelectAll(updatedItems.every(item => item.selected))
-  }, [items]) // <-- Observa solo el cambio de `items`, no de `defaultItems`
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedFormValues]) // Observa el cambio de los valores seleccionados
 
   return (
     <>
