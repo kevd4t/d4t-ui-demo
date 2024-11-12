@@ -1,9 +1,6 @@
-import * as React from "react";
-import * as MenubarPrimitive from "@radix-ui/react-menubar";
-declare const MenubarMenu: {
-    (props: MenubarPrimitive.ScopedProps<MenubarPrimitive.MenubarMenuProps>): JSX.Element;
-    displayName: string;
-};
+import * as React from 'react';
+import * as MenubarPrimitive from '@radix-ui/react-menubar';
+declare const MenubarMenu: typeof MenubarPrimitive.Menu;
 declare const MenubarGroup: React.ForwardRefExoticComponent<MenubarPrimitive.MenubarGroupProps & React.RefAttributes<HTMLDivElement>>;
 declare const MenubarPortal: React.FC<MenubarPrimitive.MenubarPortalProps>;
 declare const MenubarSub: React.FC<MenubarPrimitive.MenubarSubProps>;

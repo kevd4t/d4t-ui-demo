@@ -1,7 +1,6 @@
-import { PrimitiveImageProps } from '@radix-ui/react-avatar';
 import { ReactNode } from 'react';
-
-export interface D4tImageProps extends PrimitiveImageProps {
+import { AvatarImageProps } from '@radix-ui/react-avatar';
+export interface D4tImageProps extends AvatarImageProps {
     src?: string;
     containerClassName?: string;
     imageClassName?: string;

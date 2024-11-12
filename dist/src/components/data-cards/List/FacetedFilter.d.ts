@@ -1,7 +1,6 @@
-import { IListFilterOption } from './types';
-import { ReactNode } from 'react';
 import { UseFormReturn } from 'react-hook-form';
-
+import { ReactNode } from 'react';
+import { IListFilterOption } from './types';
 interface FacetedFilterProps {
     form: UseFormReturn<any, any, any>;
     id: string;

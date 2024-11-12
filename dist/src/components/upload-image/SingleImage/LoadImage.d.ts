@@ -1,5 +1,4 @@
 import { default as React } from 'react';
-
 export declare const LoadImage: ({ dragProps, isDragging, emptyClassName, tabIndexs, uploadLabel, disabled, onImageUpload }: {
     dragProps: any;
     isDragging: any;

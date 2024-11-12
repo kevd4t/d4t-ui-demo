@@ -1,4 +1,3 @@
-/// <reference types="react" />
 export interface SidebarProfile {
     role?: string;
     name?: string;

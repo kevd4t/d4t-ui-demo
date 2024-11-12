@@ -1,6 +1,5 @@
-import { default as FileResizer } from 'react-image-file-resizer';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
-
+import { default as FileResizer } from 'react-image-file-resizer';
 export interface IImage {
     data_url?: string;
     file?: File | null;

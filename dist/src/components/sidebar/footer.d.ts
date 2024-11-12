@@ -1,5 +1,4 @@
 import { SidebarTheme } from './toggle-theme';
-
 interface SidebarFooterProps {
     logout: () => void;
     isExpanded: boolean;

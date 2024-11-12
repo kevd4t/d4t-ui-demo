@@ -1,6 +1,5 @@
-import { Dispatch, SetStateAction } from 'react';
 import { ITablePagination, ITableColumn, ITableSubmit, ITableDynamicFilter } from './types';
-
+import { Dispatch, SetStateAction } from 'react';
 interface CustomTableProps<DataSchema> {
     data: DataSchema[];
     pagination: ITablePagination;

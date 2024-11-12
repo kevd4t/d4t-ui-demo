@@ -1,5 +1,4 @@
 import { ISidebarConfigProps } from '../schemas/IComponent-props';
-
 interface ISidebarFooterProps {
     sidebar: ISidebarConfigProps;
     onCloseSideBar: () => void;

@@ -1,6 +1,5 @@
-import { IStatus } from '../lib/types/status';
 import { TColumnActions } from '../lib/types/tables';
-
+import { IStatus } from '../lib/types/status';
 interface ISubCategoryColumnActionsProps {
     status: IStatus;
     actions?: TColumnActions;

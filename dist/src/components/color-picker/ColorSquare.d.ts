@@ -1,5 +1,4 @@
 import { HTMLAttributes } from 'react';
-
 interface IColorSquareProps extends HTMLAttributes<HTMLDivElement> {
     color: string;
 }

@@ -1,6 +1,5 @@
-import { SublinksItem } from './nav-sublink';
 import { ReactNode } from 'react';
-
+import { SublinksItem } from './nav-sublink';
 type LinkNavigationNestedProps = {
     label: string;
     icon?: ReactNode;

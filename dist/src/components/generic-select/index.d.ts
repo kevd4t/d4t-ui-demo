@@ -1,6 +1,5 @@
-import { ReactNode, HTMLAttributes } from 'react';
 import { UseFormReturn } from 'react-hook-form';
-
+import { ReactNode, HTMLAttributes } from 'react';
 export interface IGenericSelectItems {
     label: string;
     icon?: ReactNode;

@@ -9,10 +9,10 @@ import { cn } from '../lib/utils'
 import { Dialog, DialogContent, DialogTrigger } from './dialog'
 import { Avatar, AvatarFallback, AvatarImage } from './avatar'
 import { Button } from './button'
-import { PrimitiveImageProps } from '@radix-ui/react-avatar'
+import { AvatarImageProps } from '@radix-ui/react-avatar'
 
 
-export interface D4tImageProps extends PrimitiveImageProps {
+export interface D4tImageProps extends AvatarImageProps {
   src?: string
   containerClassName?: string
   imageClassName?: string
