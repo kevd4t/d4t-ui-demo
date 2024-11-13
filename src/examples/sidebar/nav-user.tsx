@@ -27,8 +27,8 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
-} from "../../components/sidebar"
+  useSidebarUI,
+} from "../../components"
 
 export function NavUser({
   user,
@@ -39,7 +39,7 @@ export function NavUser({
     avatar: string
   }
 }) {
-  const { isMobile } = useSidebar()
+  const { isMobile } = useSidebarUI()
 
   return (
     <SidebarMenu>

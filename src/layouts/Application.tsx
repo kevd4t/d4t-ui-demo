@@ -1,5 +1,5 @@
 import { BreadcrumbPage, Separator, Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator } from '../components'
-import { SidebarInset, SidebarProvider, SidebarTrigger } from '../components/sidebar'
+import { SidebarTrigger, SidebarProvider, SidebarInset } from '../components'
 import { AppSidebar } from '../examples/sidebar'
 
 export const AppLayout = ({ children }) => {

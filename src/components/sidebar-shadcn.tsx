@@ -1,6 +1,6 @@
 import { VariantProps, cva } from 'class-variance-authority'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Slot } from '@radix-ui/react-slot'
-import { ChevronLeft, ChevronRight, PanelLeft } from 'lucide-react'
 import * as React from 'react'
 
 import { useIsMobile } from '../lib/hooks/use-mobile'
@@ -32,7 +32,7 @@ type SidebarContext = {
 
 const SidebarContext = React.createContext<SidebarContext | null>(null)
 
-function useSidebar() {
+function useSidebarUI() {
   const context = React.useContext(SidebarContext)
   if (!context) {
     throw new Error('useSidebar must be used within a SidebarProvider.')
@@ -150,7 +150,7 @@ const SidebarProvider = React.forwardRef<
 )
 SidebarProvider.displayName = 'SidebarProvider'
 
-const Sidebar = React.forwardRef<
+const SidebarUI = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<'div'> & {
     side?: 'left' | 'right'
@@ -169,7 +169,7 @@ const Sidebar = React.forwardRef<
     },
     ref
   ) => {
-    const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
+    const { isMobile, state, openMobile, setOpenMobile } = useSidebarUI()
 
     if (collapsible === 'none') {
       return (
@@ -251,13 +251,13 @@ const Sidebar = React.forwardRef<
     )
   }
 )
-Sidebar.displayName = 'Sidebar'
+SidebarUI.displayName = 'SidebarUI'
 
 const SidebarTrigger = React.forwardRef<
   React.ElementRef<typeof Button>,
   React.ComponentProps<typeof Button>
 >(({ className, onClick, ...props }, ref) => {
-  const { toggleSidebar, open } = useSidebar()
+  const { toggleSidebar, open } = useSidebarUI()
 
   return (
     <Button
@@ -287,7 +287,7 @@ const SidebarRail = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<'button'>
 >(({ className, ...props }, ref) => {
-  const { toggleSidebar } = useSidebar()
+  const { toggleSidebar } = useSidebarUI()
 
   return (
     <button
@@ -348,7 +348,7 @@ const SidebarInput = React.forwardRef<
 })
 SidebarInput.displayName = 'SidebarInput'
 
-const SidebarHeader = React.forwardRef<
+const SidebarUIHeader = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<'div'>
 >(({ className, ...props }, ref) => {
@@ -361,9 +361,9 @@ const SidebarHeader = React.forwardRef<
     />
   )
 })
-SidebarHeader.displayName = 'SidebarHeader'
+SidebarUIHeader.displayName = 'SidebarHeader'
 
-const SidebarFooter = React.forwardRef<
+const SidebarUIFooter = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<'div'>
 >(({ className, ...props }, ref) => {
@@ -376,7 +376,7 @@ const SidebarFooter = React.forwardRef<
     />
   )
 })
-SidebarFooter.displayName = 'SidebarFooter'
+SidebarUIFooter.displayName = 'SidebarFooter'
 
 const SidebarSeparator = React.forwardRef<
   React.ElementRef<typeof Separator>,
@@ -393,7 +393,7 @@ const SidebarSeparator = React.forwardRef<
 })
 SidebarSeparator.displayName = 'SidebarSeparator'
 
-const SidebarContent = React.forwardRef<
+const SidebarUIContent = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<'div'>
 >(({ className, ...props }, ref) => {
@@ -409,7 +409,7 @@ const SidebarContent = React.forwardRef<
     />
   )
 })
-SidebarContent.displayName = 'SidebarContent'
+SidebarUIContent.displayName = 'SidebarContent'
 
 const SidebarGroup = React.forwardRef<
   HTMLDivElement,
@@ -552,7 +552,7 @@ const SidebarMenuButton = React.forwardRef<
     ref
   ) => {
     const Comp = asChild ? Slot : 'button'
-    const { isMobile, state } = useSidebar()
+    const { isMobile, state } = useSidebarUI()
 
     const button = (
       <Comp
@@ -734,14 +734,14 @@ const SidebarMenuSubButton = React.forwardRef<
 SidebarMenuSubButton.displayName = 'SidebarMenuSubButton'
 
 export {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
+  SidebarUI,
+  SidebarUIContent,
+  SidebarUIFooter,
   SidebarGroup,
   SidebarGroupAction,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarHeader,
+  SidebarUIHeader,
   SidebarInput,
   SidebarInset,
   SidebarMenu,
@@ -757,5 +757,5 @@ export {
   SidebarRail,
   SidebarSeparator,
   SidebarTrigger,
-  useSidebar,
+  useSidebarUI
 }

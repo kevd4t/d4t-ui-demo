@@ -55,3 +55,4 @@ export * from './image';
 export * from './input-otp';
 export * from './breadcrumb';
 export * from './pagination';
+export * from './sidebar-shadcn';

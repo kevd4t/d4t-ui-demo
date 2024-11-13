@@ -1,4 +1,4 @@
-import { Badge, BarChart, Building, DivideCircle, HelpCircle, Info, LucideTruck, Router, Settings, StopCircle, Truck, User } from 'lucide-react';
+import { Settings } from 'lucide-react';
 import { UseFormReturn, useForm } from 'react-hook-form';
 import { ThemeProvider, useTheme } from 'next-themes';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -7,7 +7,7 @@ import { z } from 'zod';
 
 import { AppLayout } from './layouts/Application';
 import type { ComboxItem } from './components/combox/types';
-import { D4TTable, GenericSelect, ITableColumn, ITablePagination, ITableSubmit, Form, Sidebar, SidebarContent, NavLink, NavLinkNested, Input, Button, InputPID, TextArea, GenericCombobox, D4TImage, Dialog, DialogTrigger, DialogContent, IImage, Tabs, TabsList, TabsTrigger, TabsContent } from './components';
+import { D4TTable, GenericSelect, ITablePagination, Form, Input, Button, InputPID, TextArea, GenericCombobox, D4TImage, Dialog, DialogTrigger, DialogContent, IImage } from './components';
 import { characterColumns } from './examples/tables/rick-and-morty/RickAndMorty';
 import { useGetCharacters } from './examples/tables/rick-and-morty/use-get-characters';
 import { FormCreateGPS } from './examples/create-gps';

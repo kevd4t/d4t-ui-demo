@@ -22,8 +22,8 @@ import {
   SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
-} from "../../components/sidebar"
+  useSidebarUI,
+} from "../../components"
 
 export function NavProjects({
   projects,
@@ -34,7 +34,7 @@ export function NavProjects({
     icon: LucideIcon
   }[]
 }) {
-  const { isMobile } = useSidebar()
+  const { isMobile } = useSidebarUI()
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
