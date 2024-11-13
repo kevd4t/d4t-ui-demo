@@ -3,8 +3,8 @@
   "style": "default",
   "rsc": false,
   "tailwind": {
-    "config": "tailwind.config.js",
-    "css": "src/styles/globals.css",
+    "config": "tailwind.config.cjs",
+    "css": "src/index.css",
     "baseColor": "zinc",
     "cssVariables": true
   },
