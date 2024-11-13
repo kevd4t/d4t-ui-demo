@@ -1,5 +1,6 @@
-import { PinFieldProps } from 'react-pin-field';
 import { default as React } from 'react';
+import { PinFieldProps } from 'react-pin-field';
+
 export interface ICodeVerificationProps extends Omit<PinFieldProps, 'validate'> {
     onComplete: (code: string) => void;
     mode: 'numeric' | 'alpha-numeric';

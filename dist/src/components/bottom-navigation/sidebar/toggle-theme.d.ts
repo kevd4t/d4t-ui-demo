@@ -1,4 +1,5 @@
 import { default as React } from 'react';
+
 export interface SidebarTheme {
     toggleTheme: () => void;
     value: "dark" | "light" | string;

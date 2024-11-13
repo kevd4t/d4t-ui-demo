@@ -1,7 +1,7 @@
 import { ButtonProps } from './button';
 import * as React from 'react';
 declare const Pagination: {
-    ({ className, ...props }: React.ComponentProps<"nav">): React.JSX.Element;
+    ({ className, ...props }: React.ComponentProps<'nav'>): React.JSX.Element;
     displayName: string;
 };
 declare const PaginationContent: React.ForwardRefExoticComponent<Omit<React.DetailedHTMLProps<React.HTMLAttributes<HTMLUListElement>, HTMLUListElement>, "ref"> & React.RefAttributes<HTMLUListElement>>;
@@ -22,7 +22,7 @@ declare const PaginationNext: {
     displayName: string;
 };
 declare const PaginationEllipsis: {
-    ({ className, ...props }: React.ComponentProps<"span">): React.JSX.Element;
+    ({ className, ...props }: React.ComponentProps<'span'>): React.JSX.Element;
     displayName: string;
 };
 export { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, };

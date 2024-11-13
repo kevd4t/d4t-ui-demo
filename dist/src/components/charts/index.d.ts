@@ -18,7 +18,7 @@ export type ChartConfig = {
 };
 declare const ChartContainer: React.ForwardRefExoticComponent<Omit<React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement> & {
     config: ChartConfig;
-    children: React.ComponentProps<typeof RechartsPrimitive.ResponsiveContainer>["children"];
+    children: React.ComponentProps<typeof RechartsPrimitive.ResponsiveContainer>['children'];
 }, "ref"> & React.RefAttributes<HTMLDivElement>>;
 declare const ChartStyle: ({ id, config }: {
     id: string;
@@ -27,14 +27,14 @@ declare const ChartStyle: ({ id, config }: {
 declare const ChartTooltip: typeof RechartsPrimitive.Tooltip;
 declare const ChartTooltipContent: React.ForwardRefExoticComponent<Omit<RechartsPrimitive.DefaultTooltipContentProps<import('recharts/types/component/DefaultTooltipContent').ValueType, import('recharts/types/component/DefaultTooltipContent').NameType> & {
     accessibilityLayer?: boolean;
-    active?: boolean | undefined;
-    includeHidden?: boolean | undefined;
+    active?: boolean;
+    includeHidden?: boolean;
     allowEscapeViewBox?: import('recharts/types/util/types').AllowInDimension;
-    animationDuration?: import('recharts/types/util/types').AnimationDuration;
+    animationDuration?: number;
     animationEasing?: import('recharts/types/util/types').AnimationTiming;
     content?: import('recharts/types/component/Tooltip').ContentType<import('recharts/types/component/DefaultTooltipContent').ValueType, import('recharts/types/component/DefaultTooltipContent').NameType>;
     coordinate?: Partial<import('recharts/types/util/types').Coordinate>;
-    cursor?: boolean | React.ReactElement | React.SVGProps<SVGElement>;
+    cursor?: boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.SVGProps<SVGElement>;
     filterNull?: boolean;
     defaultIndex?: number;
     isAnimationActive?: boolean;
@@ -50,7 +50,7 @@ declare const ChartTooltipContent: React.ForwardRefExoticComponent<Omit<Recharts
 } & React.ClassAttributes<HTMLDivElement> & React.HTMLAttributes<HTMLDivElement> & {
     hideLabel?: boolean;
     hideIndicator?: boolean;
-    indicator?: "line" | "dot" | "dashed";
+    indicator?: 'line' | 'dot' | 'dashed';
     nameKey?: string;
     labelKey?: string;
 }, "ref"> & React.RefAttributes<HTMLDivElement>>;

@@ -1,5 +1,6 @@
-import { UseFormReturn } from 'react-hook-form';
 import { ReactNode } from 'react';
+import { UseFormReturn } from 'react-hook-form';
+
 interface SearchQueryProps {
     id: string;
     label: string;

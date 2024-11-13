@@ -1,5 +1,6 @@
-import { default as React, Dispatch } from 'react';
 import { IStatus } from '../lib/types/status';
+import { default as React, Dispatch } from 'react';
+
 interface IDialogDetailSubcategoryProps {
     status: IStatus;
     isOpenViewModel: boolean;

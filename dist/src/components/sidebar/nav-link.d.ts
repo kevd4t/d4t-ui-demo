@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+
 type LinkNavigationProps = {
     to: string;
     label: string;

@@ -1,4 +1,5 @@
 import { default as FileResizer } from 'react-image-file-resizer';
+
 interface IHandleCompressionImageParams {
     imageFile: File;
     quality: number;

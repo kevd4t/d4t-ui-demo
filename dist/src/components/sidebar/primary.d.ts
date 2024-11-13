@@ -1,5 +1,6 @@
-import { SidebarProfile } from './header';
 import { SidebarTheme } from './toggle-theme';
+import { SidebarProfile } from './header';
+
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
     children: React.ReactNode;
     profile?: SidebarProfile;

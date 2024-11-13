@@ -1,4 +1,5 @@
 import { UploadImageCompress, UploadImageTabIndexs } from '../types';
+
 interface UploadImageActionsProps {
     src?: string;
     edit?: boolean;

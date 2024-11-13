@@ -1,27 +1,25 @@
 import * as React from 'react';
-declare const InputOTP: React.ForwardRefExoticComponent<(Omit<Omit<React.InputHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "maxLength" | "containerClassName" | "onComplete" | "textAlign" | "pushPasswordManagerStrategy" | "pasteTransformer" | "noScriptCSSFallback"> & {
+declare const InputOTP: React.ForwardRefExoticComponent<(Omit<Omit<React.InputHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "maxLength" | "containerClassName" | "onComplete" | "textAlign" | "pushPasswordManagerStrategy" | "noScriptCSSFallback"> & {
     value?: string;
     onChange?: (newValue: string) => unknown;
     maxLength: number;
-    textAlign?: "left" | "center" | "right";
+    textAlign?: "center" | "right" | "left";
     onComplete?: (...args: any[]) => unknown;
-    pushPasswordManagerStrategy?: "increase-width" | "none";
-    pasteTransformer?: (pasted: string) => string;
+    pushPasswordManagerStrategy?: "none" | "increase-width";
     containerClassName?: string;
-    noScriptCSSFallback?: string | null;
+    noScriptCSSFallback?: string;
 } & {
     render: (props: import('input-otp').RenderProps) => React.ReactNode;
     children?: never;
-} & React.RefAttributes<HTMLInputElement>, "ref"> | Omit<Omit<React.InputHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "maxLength" | "containerClassName" | "onComplete" | "textAlign" | "pushPasswordManagerStrategy" | "pasteTransformer" | "noScriptCSSFallback"> & {
+} & React.RefAttributes<HTMLInputElement>, "ref"> | Omit<Omit<React.InputHTMLAttributes<HTMLInputElement>, "value" | "onChange" | "maxLength" | "containerClassName" | "onComplete" | "textAlign" | "pushPasswordManagerStrategy" | "noScriptCSSFallback"> & {
     value?: string;
     onChange?: (newValue: string) => unknown;
     maxLength: number;
-    textAlign?: "left" | "center" | "right";
+    textAlign?: "center" | "right" | "left";
     onComplete?: (...args: any[]) => unknown;
-    pushPasswordManagerStrategy?: "increase-width" | "none";
-    pasteTransformer?: (pasted: string) => string;
+    pushPasswordManagerStrategy?: "none" | "increase-width";
     containerClassName?: string;
-    noScriptCSSFallback?: string | null;
+    noScriptCSSFallback?: string;
 } & {
     render?: never;
     children: React.ReactNode;

@@ -1,5 +1,6 @@
-import { UseFormReturn } from 'react-hook-form';
 import { HTMLAttributes } from 'react';
+import { UseFormReturn } from 'react-hook-form';
+
 export interface IGenericSelectProps extends HTMLAttributes<HTMLDivElement> {
     defaultValue?: string;
     placeholder?: string;

@@ -1,4 +1,5 @@
 import { UseFormReturn } from 'react-hook-form';
+
 type TPIDTypesKeys = 'VENEZUELAN' | 'JURIDICAL' | 'FOREIGN' | 'PASSPORT' | 'GOVERNMENTAL';
 export type PIDValue = 'v' | 'e' | 'j' | 'g' | 'p';
 interface FormatCITypesResult {

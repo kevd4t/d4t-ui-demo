@@ -1,5 +1,6 @@
-import { IListPagination, IListColumn, IListSubmit, IListDynamicFilter } from './types';
 import { Dispatch, SetStateAction } from 'react';
+import { IListPagination, IListColumn, IListSubmit, IListDynamicFilter } from './types';
+
 interface CustomTableProps<DataSchema> {
     data: DataSchema[];
     pagination: IListPagination;

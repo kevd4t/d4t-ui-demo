@@ -1,6 +1,7 @@
-import { ReactNode } from 'react';
-import { UseFormReturn } from 'react-hook-form';
 import { ComboxItem } from './types';
+import { UseFormReturn } from 'react-hook-form';
+import { ReactNode } from 'react';
+
 interface CheckBoxFieldProps {
     form: UseFormReturn<any, any, any>;
     id: string;

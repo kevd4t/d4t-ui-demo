@@ -1,6 +1,7 @@
-import { ReactNode, Dispatch, SetStateAction } from 'react';
-import { PaginationState, RowSelectionState, Table } from '@tanstack/react-table';
 import { LucideIcon } from 'lucide-react';
+import { PaginationState, RowSelectionState, Table } from '@tanstack/react-table';
+import { ReactNode, Dispatch, SetStateAction } from 'react';
+
 type TOptionItemToFilter = {
     label: string;
     value: string | boolean;

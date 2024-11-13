@@ -1,5 +1,6 @@
-import { ITableColumn } from '../../../components/data-tables/Table/types';
 import { ICharacter } from './ICharacters';
+import { ITableColumn } from '../../../components/data-tables/Table/types';
+
 export interface Character {
     id: number;
     name: string;

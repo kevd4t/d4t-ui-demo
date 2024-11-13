@@ -1,4 +1,5 @@
 import { ITableSubmit } from './types';
+
 interface TableSearchProps {
     onSubmitTable: ITableSubmit;
     loading: boolean;
