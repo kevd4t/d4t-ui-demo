@@ -22,7 +22,7 @@ export function TablePagination() {
 
       <div className='flex items-end sm:items-center space-x-6 lg:space-x-8 mt-2 sm:mt-0'>
         <div className='flex flex-wrap items-center gap-2'>
-          <p className='text-sm font-medium'>{pagination?.labels?.plural || 'Items'} por Pagina</p>
+          <p className='text-sm font-medium'>{pagination?.labels?.plural || 'Items'} por Página</p>
 
           <Select
             value={`${pagination.limit}`}
@@ -56,12 +56,12 @@ export function TablePagination() {
             onClick={() => prevPage()}
             disabled={!pagination.hasPrevPage}
           >
-            <span className='sr-only'>Pagina Anterior</span>
+            <span className='sr-only'>Página Anterior</span>
             <ChevronLeft className='h-4 w-4' />
           </Button>
 
           <div>
-            <p className='text-sm font-medium'>Pagina {pagination.page}</p>
+            <p className='text-sm font-medium'>Página {pagination.page}</p>
           </div>
 
           <Button
@@ -71,7 +71,7 @@ export function TablePagination() {
             onClick={() => nextPage()}
             disabled={!pagination.hasNextPage}
           >
-            <span className='sr-only'>Siguiente Pagina</span>
+            <span className='sr-only'>Siguiente Página</span>
             <ChevronRight className='h-4 w-4' />
           </Button>
         </div>
